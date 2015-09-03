@@ -214,14 +214,43 @@ body {
 }
 
 div.container4 {
-    height: 4em;
+    height: 3em;
     position: relative }
 div.container4 p {
     margin: 0;
     position: absolute;
     top: 30%;
     left: 50%;
-	font-size:16px;
+	font-size:12px;
+	color:blue;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+	
+
+	
+div.container5 {
+    height: 4em;
+    position: relative }
+div.container5 p {
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+	font-size:11px;
+	color:blue;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+	
+	
+div.container6 {
+    height: 6em;
+    position: relative }
+div.container6 p {
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+	font-size:9px;
 	color:blue;
     margin-right: -50%;
     transform: translate(-50%, -50%) }
