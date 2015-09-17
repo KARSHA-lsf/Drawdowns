@@ -13,8 +13,9 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+   
     <link href="css/c3.css" rel="stylesheet">
+
     <!-- MetisMenu CSS -->
     <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 
@@ -24,18 +25,16 @@
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTMediumLow5 Shim and Respond.js IE8 support of HTMediumLow5 elements and media queries -->
+    
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-     
-
 </head>
 
-<body onload="drawSCAT ('data/2010.csv',Ovrl_2010)">
+<body>
 
     <div id="wrapper">
 
@@ -123,24 +122,44 @@
 
 
         <div id="page-wrapper">
+        
+        	<div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Many individual drawdowns and index drawdown on the same day</h2>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-lg-5">
+                    <h4><center>Composition of 50% Drawdowns </center></h4>
+                    <div id="pie_drawdowns"></div>
+                </div>
+            </div>
+            
+        	<div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Many individual drawdowns occur across multiple days</h2>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-lg-5">
+                    <h4><center>Composition of 50% Drawdowns </center></h4>
+                    <div id="pie_drawdowns_1"></div>
+                </div>
+            </div>
+            
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">2010 - 10% (90P) Significant Drawdowns</h1>
+                    <h2 class="page-header">Delayed reaction of the index drawdown</h2>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
             <div class="row">
-                 <div class="col-lg-12">
-                    <div id="scat" ></div>
-                    
+                 <div class="col-lg-5">
+                    <h4><center>Composition of 50% Drawdowns </center></h4>
+                    <div id="pie_drawdowns_2"></div>
                 </div>
             </div>
-             <div class="row">
-             <center><h2 class="page-header">SP500 Index drawdown</h2></center>
-                 <div class="col-lg-12">
-                    <div id="ovrl" ></div>
-                </div>
-            </div>
+          </div>
+            
             <!-- /.row -->
             
            
@@ -152,21 +171,22 @@
     <!-- /#wrapper -->
 
     <!-- jQuery Version 1.11.0 -->
-   <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
-    
-    <!-- Custom Theme JavaScript -->
-    <script src="js/sb-admin-2.js"></script>
+
     <script src="js/c3.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/graphs.js"></script>
     <script src="js/jquery-ui.js"></script>
     
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
 
 </body>
 
