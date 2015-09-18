@@ -27,9 +27,6 @@ var chart1 = c3.generate({
             label: 'Drawdown value'
         }
     },
-    
-    
-    
     bar: {
         width: {
             ratio: 0.16 // this makes bar width 50% of length between ticks
@@ -38,7 +35,6 @@ var chart1 = c3.generate({
         //width: 100 // this makes bar width 100px
     }
 });
-
 var chart2 = c3.generate({
     bindto: '#pie_drawdowns',
     data: {
@@ -53,6 +49,167 @@ var chart2 = c3.generate({
         type : 'pie'
     }
 });
+//Many individual drawdowns and index drawdown on the same day
+var chart1=c3.generate({
+	bindto:'#bar_drawdown1',
+	data:{
+		url:'data/2008_filter2.csv',
+		type : 'bar'
+
+	},
+	axis:{
+		x:{
+			type:'category',
+			categories:['11','21','22','23','31','32','33','42','44','45','48','49','51','52','53','54','55','56','62','71','72','None','S&P 500'],
+			text:'X labal',
+			position:'outer-center'
+		}
+	}
+	/*size: {
+    	height: 240,
+    	width: 480
+},*/
+
+});
+//plot Many individual drawdowns occur across multiple days 2008-11-20 and 2008-12-01
+var chart3 = c3.generate({
+    bindto: '#pie_drawdowns_1',
+    
+    data: {
+        // iris data from R
+        columns: [
+
+            ['NAICS 2008-11-20', 1401218.833,82099458.65,15599858.35,2230823.899,47154704.62,122244144.4,286608567.7,
+             14490203.94,29725340.42,21220437.06,21340288.53,3300980.215,93050606.32,157331822.2,6269357.85,
+             9846085.856,21091786.05,3042569.995,5131844.395,12460651.73,9985580.956,3699050.621,'null'],
+ 
+             ['S&P500 2008-11-20', 'null','null','null','null','null','null','null','null','null','null',
+              'null','null','null','null','null','null','null','null','null','null',
+              'null','null',1507627527],
+              
+             ['NAICS 2008-12-01', 'null','null','null',363827.3472,1461707.449,1200955.289,7097328.321,
+              373936.0252,692766.6118,2231069.411,'null','null','null',91892842.69,2625242.927,
+              1315417.497,3201217.553,362769.4468,'null',566889.1837,658189.5104,'null','null'],
+              
+             ['S&P500 2008-12-01', 'null','null','null','null','null','null','null','null','null','null',
+                'null','null','null','null','null','null','null','null','null','null',
+                'null','null',658150116.3],
+        ],
+        type : 'bar'
+    },
+
+    tooltip: {
+        show: true,
+        position: function (data, width, height, element) {
+            return {top: 0, left: 90}
+        }
+    },
+    axis: {
+        x: {
+            type: 'category',
+            categories: ['11', '21', '22', '23', '31', '32', '33', '42', '44','45',
+                         '48','49','51','52','53','54','55','56','62','71','72','None','S&P500']
+    		,tick: {
+    			rotate: 90,
+    			multiline: false
+    		},
+        }     
+    },
+    
+   /* size: {
+	  width: 1000
+	},*/
+	bar: {
+        width: {
+            ratio: 0.9 // this makes bar width 50% of length between ticks
+        }
+    }
+});
+
+//yasith
+var chart4 = c3.generate({
+    bindto: '#pie_drawdowns_2',
+    
+    data: {
+        // iris data from R
+        columns: [
+
+['NAICS 2009-02-23', 
+ 22298947.55,6978380.371,800101.7104,1998934.172,4868327.759,
+ 16447827.43,329378.2509,8014477.964,1607290.269,1461178.37,
+ 'null',2345572.872,35755893.78,1477766.352,903239.5818,
+ 'null',403051.5499,'null','null',1564146.149,
+ 'null'],
+
+['S&P500 2009-02-23', 
+  'null','null','null','null','null',
+  'null','null','null','null','null',
+  'null','null','null','null','null',
+  'null','null','null','null','null',
+  708918781],
+ 
+['NAICS 2009-02-26', 
+  'null',19555950.67,'null',9647094.3,6437476.8,
+  28803618.75,2489304.75,31775650.94,277634.86,18955712.33,
+  'null',8754256.9,3988328.04,'null','null',
+  'null','null','null','null','null',
+  'null'],
+  
+['S&P500 2009-02-26', 
+   'null','null','null','null','null',
+   'null','null','null','null','null',
+   'null','null','null','null','null',
+   'null','null','null','null','null',
+   869627012],
+   
+['NAICS 2009-02-27', 
+   13929827.1,11664813.27,320548.7512,8744238.351,80235326.99,
+   103560192,5773621.752,'null','null',4015399.824,
+   2041120.718,3446810.633,31437311.76,550142.6843,3421415.493,
+   4758976.676,3515377.257,3071114.193,7035730.3,607106.3551,
+   'null'],
+   
+['S&P500 2009-02-27', 
+    'null','null','null','null','null',
+    'null','null','null','null','null',
+    'null','null','null','null','null',
+    'null','null','null','null','null',
+    699165146],
+        ],
+        type : 'bar'
+    },
+
+    tooltip: {
+        show: true,
+        position: function (data, width, height, element) {
+            return {top: 0, left: 90}
+        }
+    },
+    axis: {
+        x: {
+            type: 'category',
+            categories: ['21', '22', '23', '31', '32', 
+                         '33', '42','44','45','48',
+                         '49','51','52','53','54',
+                         '55','56','62','71','72',
+                         'S&P500']
+    		,tick: {
+    			rotate: 90,
+    			multiline: false
+    		},
+        }     
+    },
+    
+    /*size: {
+	  width: 1000
+	},*/
+	bar: {
+        width: {
+            ratio: 0.9 // this makes bar width 50% of length between ticks
+        }
+    }
+});
+//yasith
 
 //scatter
 function drawSCAT (info,ovrl_pass) {
@@ -99,7 +256,8 @@ function drawSCAT (info,ovrl_pass) {
     },
      subchart: {
         show: true
-    }
+    },
+    
 });
    draw_Ovrl(ovrl_pass);
 }
