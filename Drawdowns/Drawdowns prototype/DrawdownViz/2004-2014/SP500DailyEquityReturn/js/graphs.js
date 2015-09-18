@@ -49,6 +49,28 @@ var chart2 = c3.generate({
         type : 'pie'
     }
 });
+//Many individual drawdowns and index drawdown on the same day
+var chart1=c3.generate({
+	bindto:'#bar_drawdown1',
+	data:{
+		url:'data/2008_filter2.csv',
+		type : 'bar'
+
+	},
+	axis:{
+		x:{
+			type:'category',
+			categories:['11','21','22','23','31','32','33','42','44','45','48','49','51','52','53','54','55','56','62','71','72','None','S&P 500'],
+			text:'X labal',
+			position:'outer-center'
+		}
+	}
+	/*size: {
+    	height: 240,
+    	width: 480
+},*/
+
+});
 //plot Many individual drawdowns occur across multiple days 2008-11-20 and 2008-12-01
 var chart3 = c3.generate({
     bindto: '#pie_drawdowns_1',
@@ -94,9 +116,9 @@ var chart3 = c3.generate({
         }     
     },
     
-    size: {
+   /* size: {
 	  width: 1000
-	},
+	},*/
 	bar: {
         width: {
             ratio: 0.9 // this makes bar width 50% of length between ticks
@@ -178,9 +200,9 @@ var chart4 = c3.generate({
         }     
     },
     
-    size: {
+    /*size: {
 	  width: 1000
-	},
+	},*/
 	bar: {
         width: {
             ratio: 0.9 // this makes bar width 50% of length between ticks
