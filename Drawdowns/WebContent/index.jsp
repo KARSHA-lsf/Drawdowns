@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,7 +48,7 @@
             <div class="row-fluid">
                 <div class="span2" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                        <li>
+                        <li action="TestLintner.java">
                             <a href="yearly_analisis.jsp"style="text-align:center">2004 Year</a>
                         </li>
                         <li>
@@ -64,7 +63,7 @@
                         <li>
                             <a href="yearly_analisis.jsp"style="text-align:center">2008 Year</a>
                         </li>
-                        <li>
+                        <li >
                             <a href="yearly_analisis.jsp"style="text-align:center">2009 Year</a>
                         </li>
                         <li>

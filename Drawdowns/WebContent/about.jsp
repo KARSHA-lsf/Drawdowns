@@ -266,7 +266,7 @@
 							<div class="block" style="border-radius: 10px;color:red">
 								<div class="row-fluid" style="background-color:CadetBlue">
 									<div class="span4">
-										<img src="bootstrap/img/louiqa.jpg">
+										<img src="bootstrap/img/Louiqa.jpg">
 									</div>
 									<h4 style="text-align:center;margin:30px 0px 0px;color:white">Professor, University of Maryland.</h4>
 								</div>
