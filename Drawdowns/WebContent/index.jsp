@@ -48,7 +48,7 @@
             <div class="row-fluid">
                 <div class="span2" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                        <li action="TestLintner.java">
+                        <li>
                             <a href="yearly_analisis.jsp"style="text-align:center">2004 Year</a>
                         </li>
                         <li>
