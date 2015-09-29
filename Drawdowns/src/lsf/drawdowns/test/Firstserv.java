@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/TestListner")
-public class TestListner extends HttpServlet {
+public class Firstserv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public TestListner() {
+    public Firstserv() {
         super();
     }
 

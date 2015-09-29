@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class db_connections {
 
 	
-	String url="jdbc:mysql://localhost:3306/2010.5.20";
+	String url="jdbc:mysql://localhost:3306/drawdown_db_v1";
     String username="root";
     String password="";
     Connection con=null;
@@ -33,7 +33,7 @@ public class db_connections {
 		//Query and it's connections are include under that
 		
 		con= (Connection)DriverManager.getConnection(url,username,password);
-        String query="SELECT * FROM table2";
+        String query="SELECT * FROM capm_drawdown_v1";
         pst= (PreparedStatement) con.prepareStatement(query);
         set=pst.executeQuery(query);
         
