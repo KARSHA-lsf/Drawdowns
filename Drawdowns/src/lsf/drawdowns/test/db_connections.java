@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class database {
+public class db_connections {
+
 	
 	String url="jdbc:mysql://localhost:3306/2010.5.20";
     String username="root";
@@ -17,8 +18,8 @@ public class database {
     Connection con=null;
     PreparedStatement pst=null;
     ResultSet set = null;
-	
-	public void select() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
+	String jobject;
+	public JSONArray select() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
 		try{
 			try{
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -32,14 +33,11 @@ public class database {
 		//Query and it's connections are include under that
 		
 		con= (Connection)DriverManager.getConnection(url,username,password);
-        String query="SELECT * FROM table1";
+        String query="SELECT * FROM table2";
         pst= (PreparedStatement) con.prepareStatement(query);
-        
-        
         set=pst.executeQuery(query);
-        JSONArray jsonarray=new JSONArray();
-       
         
+        JSONArray jsonarray=new JSONArray();
         int lenght=set.getMetaData().getColumnCount();
         while(set.next()){
         	JSONObject jsonobj=new JSONObject();
@@ -50,11 +48,12 @@ public class database {
         			System.out.println(e);
         		}
         	}
-        	//jsonarray.put(jsonobj);
+        	jobject=jsonobj.toString();
+        	System.out.println(jobject);	
         	jsonarray.put(jsonobj);
         }
-        System.out.println(jsonarray.toString());
+        return jsonarray;
 	}
-    
-    
+	
+	
 }
