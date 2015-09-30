@@ -1,8 +1,9 @@
-package lsf.drawdowns.test;
+package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,19 +11,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/TestListner")
-public class Firstserv extends HttpServlet {
+/**
+ * Servlet implementation class IndexSrvlt
+ */
+@WebServlet(description = "this servelet will be the startup servlet and it "
+		+ "may allow to open DB connection", urlPatterns = { "/IndexSrvlt" })
+public class IndexSrvlt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Firstserv() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public IndexSrvlt() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("Drawdown system on live...!!!!!!1");
 	}
 
+	/**
+	 * @see Servlet#getServletInfo()
+	 */
+	public String getServletInfo() {
+		// TODO Auto-generated method stub
+		return null; 
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Doget method running now........");
 		db_connections obj=new db_connections();
@@ -36,6 +58,9 @@ public class Firstserv extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("This is dopost method");
 	}

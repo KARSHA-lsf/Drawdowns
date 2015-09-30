@@ -22,7 +22,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Dhananjaya/Downloads/Compressed/com.mysql.jdbc_5.1.5.jar.zip"/>
-	<classpathentry kind="lib" path="D:/Lanka Software Foundation/Libraries/ezmorph-0.8.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

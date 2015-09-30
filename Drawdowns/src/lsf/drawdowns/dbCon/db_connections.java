@@ -1,4 +1,4 @@
-package lsf.drawdowns.test;
+package lsf.drawdowns.dbCon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class db_connections {
 
 	
-	String url="jdbc:mysql://localhost:3306/drawdown_db_v1";
+	String url="jdbc:mysql://localhost:3306/capm_test";
     String username="root";
     String password="";
     Connection con=null;
