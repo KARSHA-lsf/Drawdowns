@@ -9,7 +9,25 @@
         <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     
+    
     <body>
+    	
+    	
+    	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script>
+        	//load the nodes and links arrays
+        
+        	$.get("IndexSrvlt?Q="+"<%=request.getParameter("Q")%>",
+                null)
+            .error(function () {
+                    //alert("there is error while sending data to server");
+                	});
+        		;
+		</script>
+		
+		
+		 
+                                                     
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -43,37 +61,37 @@
                 <div class="span2" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
                         <li>
-                            <a href="#"style="text-align:center">2004 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2004"style="text-align:center">2004 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2005 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2005"style="text-align:center">2005 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2006 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2006"style="text-align:center">2006 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2007 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2007"style="text-align:center">2007 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2008 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2008"style="text-align:center">2008 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2009 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2009"style="text-align:center">2009 Year</a>
                         </li>
                         <li>
-                            <a href="#" style="text-align:center">2010 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2010" style="text-align:center">2010 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2011 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2011"style="text-align:center">2011 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2012 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2012"style="text-align:center">2012 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2013 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2013"style="text-align:center">2013 Year</a>
                         </li>
                         <li>
-                            <a href="#"style="text-align:center">2014 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2014"style="text-align:center">2014 Year</a>
                         </li>
                         <li>
                             <a href="summary.jsp"style="text-align:center">Summary</a>
@@ -82,11 +100,16 @@
                     </ul>
                 </div>  
 				
+				
 				<div class="span10" style="border:1px solid LightSeaGreen;background-color:white" >
 					<div class "row-fluid" style="margin:30px 30px 30px">
 						<h1>Yearly Analisis</h1>
 					</div>
 				</div>
+				
+				
+				
+
         </div>
     </body>
 </html>
