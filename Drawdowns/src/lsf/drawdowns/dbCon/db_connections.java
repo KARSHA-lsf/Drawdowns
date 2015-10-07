@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class db_connections {
 
 	
-	String url="jdbc:mysql://localhost:3306/capm_test";
+	String url="jdbc:mysql://localhost:3306/drawdown_db_v1";
     String username="root";
     String password="";
     Connection con=null;

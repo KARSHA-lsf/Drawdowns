@@ -46,6 +46,7 @@ public class IndexSrvlt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		System.out.println("Doget method running now........");
 		db_connections obj=new db_connections();
 		try {
@@ -54,9 +55,10 @@ public class IndexSrvlt extends HttpServlet {
 			System.out.println(obj.select());
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+					e.printStackTrace();
 		}
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,5 +66,5 @@ public class IndexSrvlt extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("This is dopost method");
 	}
-
+	
 }
