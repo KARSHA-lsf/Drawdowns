@@ -12,14 +12,15 @@ import org.json.JSONObject;
 public class db_connections {
 
 	
-	String url="jdbc:mysql://localhost:3306/drawdown_db_v1";
+	String url="jdbc:mysql://localhost:3306/capm_db";
     String username="root";
     String password="";
     Connection con=null;
     PreparedStatement pst=null;
     ResultSet set = null;
 	String jobject;
-	public JSONArray select() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
+	
+	public JSONArray select_yeardata(String year) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
 		try{
 			try{
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -33,7 +34,7 @@ public class db_connections {
 		//Query and it's connections are include under that
 		
 		con= (Connection)DriverManager.getConnection(url,username,password);
-        String query="SELECT * FROM capm_drawdown_v1";
+        String query="SELECT PERMNO,CAPM_resid,date FROM capm_v2_table WHERE date="+year;
         pst= (PreparedStatement) con.prepareStatement(query);
         set=pst.executeQuery(query);
         

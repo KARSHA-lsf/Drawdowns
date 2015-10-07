@@ -12,6 +12,18 @@
     </head>
     
     <body onload="myFunction('bootstrap/data/aa.json')">
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script>
+        	//load the nodes and links arrays
+        
+        	$.get("IndexSrvlt?Q="+"<%=request.getParameter("Q")%>",
+                null)
+            .error(function () {
+                    //alert("there is error while sending data to server");
+                	});
+        		;
+		</script>
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -80,10 +92,7 @@
                         
                     </ul>
                 </div>  
-                
-                
-                
-                
+                  
             <div class="span10" style="border:1px solid LightSeaGreen;background-color:white" >
                 <div>
 					<div class "row-fluid" style="margin:30px 30px 30px">
