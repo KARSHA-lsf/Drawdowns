@@ -9,8 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
-import org.omg.PortableInterceptor.RequestInfo;
 
 /**
  * Servlet implementation class IndexSrvlt
@@ -47,14 +45,16 @@ public class IndexSrvlt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Doget method running now........");	
 		
-		System.out.println("This is Dopost method");
-		System.out.println(request.getParameter("Q"));
-		db_connections obj=new db_connections();
+		System.out.println("Doget method running now........");
+
+		db_connections dbconnection=new db_connections();
 		try {
+			
 			PrintWriter pwr=response.getWriter();
-			pwr.print(obj.select_yeardata(request.getParameter("Q")));
+			pwr.print(dbconnection.select_yeardata(request.getParameter("Q")));
+			
+		
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
