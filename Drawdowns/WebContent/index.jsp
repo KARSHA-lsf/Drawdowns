@@ -12,7 +12,6 @@
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
         <link href="assets/styles.css" rel="stylesheet" media="screen">
-        <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     
     <body>
@@ -49,37 +48,37 @@
                 <div class="span2" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2004 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2004"style="text-align:center">2004 Year</a> 
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2005 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2005"style="text-align:center">2005 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2006 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2006"style="text-align:center">2006 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2007 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2007"style="text-align:center">2007 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2008 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2008"style="text-align:center">2008 Year</a>
                         </li>
                         <li >
-                            <a href="yearly_analisis.jsp"style="text-align:center">2009 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2009"style="text-align:center">2009 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp" style="text-align:center">2010 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2010" style="text-align:center">2010 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2011 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2011"style="text-align:center">2011 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2012 Year</a>
+                            <a href="yearly_analisis.jsp?Q=2012"style="text-align:center">2012 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2013 Year</a>
+                            <a href="yearly_analisis.jsp?p=2013"style="text-align:center">2013 Year</a>
                         </li>
                         <li>
-                            <a href="yearly_analisis.jsp"style="text-align:center">2014 Year</a>
+                            <a href="yearly_analisis.jsp?p=2014"style="text-align:center">2014 Year</a>
                         </li>
                         <li>
                             <a href="summary.jsp"style="text-align:center">Summary</a>
@@ -93,6 +92,8 @@
 						<h1>KARSHA-Drawdowns</h1>
 					</div>
 				</div>
+				
+				
 				
             </div>
         </div>
