@@ -62,7 +62,7 @@
 		                 	  return (i>=4*x );
 		                 	  });
 		               	//generate perm no and date according to catogories
-		               	function Perm_Gen(Arr,PermNo,Perm_date)
+		               	function Perm_Gen(Arr,PermNo,Perm_date){
 		        			
 		               		for(p=0;p<Arr.length;p++)
 		               		{
@@ -82,10 +82,10 @@
 		               	
 		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
 		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
-		               	//console.log(JSON.stringify(Json_output));
-		               	var Json_output=JSON.stringify(Ready_output);
-		               	console.log(Json_output);
-		               	myFunction(Json_output);
+		               	
+		               	
+		               	console.log(Ready_output);
+		               	myFunction(Ready_output);
 		               //	myfunction2(Json_output);
 		                },
 		                
