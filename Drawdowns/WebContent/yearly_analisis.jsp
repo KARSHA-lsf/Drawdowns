@@ -16,7 +16,6 @@
 </head>
 
 <body>
-
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
         	//load the nodes and links arrays
@@ -71,22 +70,21 @@
 		               			               			
 		               		}
 		               		              		
-		                  }
-		               
+		                  }		               
 		               	Perm_Gen(High,H_PermNo,H_Perm_date);              
 		               	Perm_Gen(High_Medium,HM_PermNo,HM_Perm_date);
 		               	Perm_Gen(Medium,M_PermNo,M_Perm_date);
 		               	Perm_Gen(Medium_low,ML_PermNo,ML_Perm_date);
 		               	Perm_Gen(low,L_PermNo,L_Perm_date);
-		               	//ready variable to json output
 		               	
+		               	//ready variable to json output
 		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
 		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
+		               		
+		               	//console.log(Ready_output);
 		               	
-		               	
-		               	console.log(Ready_output);
-		               	myFunction(Ready_output);
-		               //	myfunction2(Json_output);
+		               	//call method in graph.js to draw scatter-plot
+		               	drawScatterPlot(Ready_output);
 		                },
 		                
 		                error: function (data,
@@ -159,7 +157,7 @@
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<h4 class="page-header">Scatter plot</h4>
+						<h4 class="page-header">Scatter plot for year <%=request.getParameter("Q")%></h4>
 					</div>
 				</div>
 				<div class="row">
