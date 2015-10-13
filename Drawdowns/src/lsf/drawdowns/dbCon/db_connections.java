@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class db_connections {
@@ -39,18 +40,21 @@ public class db_connections {
         set=pst.executeQuery(query);
         
         JSONArray jsonarray=new JSONArray();
-        //int lenght=set.getMetaData().getColumnCount();
-        //JSONObject jsonobj=new JSONObject();
         while(set.next()){
         	
         	JSONObject jsonobj=new JSONObject();
-        	String permno=set.getString("permno");
+        	int permno=set.getInt("permno");
         	String year_date=set.getString("date_withyear");
-        	jsonobj.put("PERMNO",permno);
-        	jsonobj.put("Yearanddate",year_date);
+        	try {
+				jsonobj.put("permno",permno);
+				jsonobj.put("capm_date",year_date);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	jsonarray.put(jsonobj);
         	
-        }
+        } 
         System.out.println(jsonarray);
         return jsonarray;
 	}

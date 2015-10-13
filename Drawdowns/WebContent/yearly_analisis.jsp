@@ -17,8 +17,7 @@
 		<script>
         	//load the nodes and links arrays
         
-        	$.get("IndexSrvlt?Q="+"<%=request.getParameter("Q")%>",
-                null)
+        	$.get("IndexSrvlt?Q="+"<%=request.getParameter("Q")%>")
             .error(function () {
                     //alert("there is error while sending data to server");
                 	});
@@ -76,10 +75,14 @@
 		               	Perm_Gen(low,L_PermNo,L_Perm_date);
 		               	//ready variable to json output
 		               	
-		               	var Json_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
+		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
 		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
-		               	console.log(JSON.stringify(Json_output));
-		               	myFunction('bootstrap/data/aa.json')
+		               	
+		               	var Json_output = JSON.stringify(Ready_output);
+		               	console.log(Json_output);
+		               	
+		               	myFunction('bootstrap/data/aa.json');
+		               	myFunction(Json_output);
 		                },
 		                
 		                error: function (data,
