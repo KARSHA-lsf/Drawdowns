@@ -34,25 +34,24 @@ public class db_connections {
 		//Query and it's connections are include under that
 		
 		con= (Connection)DriverManager.getConnection(url,username,password);
-        String query="SELECT PERMNO,CAPM_resid,date FROM capm_v2_table WHERE date="+year;
+        String query="SELECT permno,date_withyear FROM capm_v2_table WHERE date="+year;
         pst= (PreparedStatement) con.prepareStatement(query);
         set=pst.executeQuery(query);
         
         JSONArray jsonarray=new JSONArray();
-        int lenght=set.getMetaData().getColumnCount();
+        //int lenght=set.getMetaData().getColumnCount();
+        //JSONObject jsonobj=new JSONObject();
         while(set.next()){
+        	
         	JSONObject jsonobj=new JSONObject();
-        	for(int i=0;i<lenght;i++){
-        		try{
-        			jsonobj.put(set.getMetaData().getColumnLabel(i+1).toLowerCase(),set.getObject(i+1));
-        		}catch(Exception e){
-        			System.out.println(e);
-        		}
-        	}
-        	jobject=jsonobj.toString();
-        	System.out.println(jobject);	
+        	String permno=set.getString("permno");
+        	String year_date=set.getString("date_withyear");
+        	jsonobj.put("PERMNO",permno);
+        	jsonobj.put("Yearanddate",year_date);
         	jsonarray.put(jsonobj);
+        	
         }
+        System.out.println(jsonarray);
         return jsonarray;
 	}
 	
