@@ -12,7 +12,7 @@ var chart = c3.generate({
             MediumLow: 'MediumLow_x',
             Low: 'Low_x', 
         },
-        url:info,
+        json:info,
         mimeType: 'json',
         type: 'scatter',
         colors: {
@@ -47,4 +47,31 @@ var chart = c3.generate({
     },
     
 });
+}
+function myfunction2(info){
+	var chart = c3.generate({
+		bindto: '#plot1',
+	    data: {
+	        json: {
+	            data1: [30, 20, 50, 40, 60, 50],
+	            data2: [200, 130, 90, 240, 130, 220],
+	            data3: [300, 200, 160, 400, 250, 250]
+	        }
+	    }
+	});
+	 var x = [
+	            {name: 'www.site1.com', upload: 800, download: 500, total: 400},
+	            {name: 'www.site2.com', upload: 600, download: 600, total: 400},
+	            {name: 'www.site3.com', upload: 400, download: 800, total: 500},
+	            {name: 'www.site4.com', upload: 400, download: 700, total: 500},
+	        ];
+
+	setTimeout(function () {
+	    chart.load({
+	        json: x,
+	        keys: {
+	            value: ['upload', 'download'],
+	        }
+	    });
+	}, 2000);
 }

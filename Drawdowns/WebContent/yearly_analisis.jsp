@@ -5,13 +5,26 @@
         <title>KARSHA-Drawdowns</title>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+<<<<<<< HEAD
         <link href="assets/styles.css" rel="stylesheet" media="screen"> 
         <link href="bootstrap/css/c3.css" rel="stylesheet">
 		<script src="bootstrap/js/graphs.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>		
+=======
+        <link href="assets/styles.css" rel="stylesheet" media="screen">
+        <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <link href="bootstrap/css/c3.css" rel="stylesheet">		
+		<script src="bootstrap/js/graphs.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		
+>>>>>>> branch 'master' of https://github.com/ruwanopensourse/Drawdowns.git
     </head>
     
+<<<<<<< HEAD
     <body>
+=======
+	<body>
+>>>>>>> branch 'master' of https://github.com/ruwanopensourse/Drawdowns.git
     
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script>
@@ -60,6 +73,7 @@
 		               	//generate perm no and date according to catogories
 		               	function Perm_Gen(Arr,PermNo,Perm_date)
 		               	{
+<<<<<<< HEAD
 	
 		               		for(p=0;p<Arr.length;p++)
 		               		{
@@ -100,6 +114,46 @@
 		
 		</script>
 		
+=======
+		               		  			
+		        			
+		               		for(p=0;p<Arr.length;p++)
+		               		{
+		               			PermNo[p]=Arr[p].permno;
+		               			Perm_date[p]=Arr[p].capm_date;
+		               			               			
+		               		}
+		               		              		
+		                  }
+		               
+		               	Perm_Gen(High,H_PermNo,H_Perm_date);              
+		               	Perm_Gen(High_Medium,HM_PermNo,HM_Perm_date);
+		               	Perm_Gen(Medium,M_PermNo,M_Perm_date);
+		               	Perm_Gen(Medium_low,ML_PermNo,ML_Perm_date);
+		               	Perm_Gen(low,L_PermNo,L_Perm_date);
+		               	//ready variable to json output
+		               	
+		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
+		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
+		               	//console.log(JSON.stringify(Json_output));
+		               	var Json_output=JSON.stringify(Ready_output);
+		               	console.log(Json_output);
+		               	myFunction(Json_output);
+		               //	myfunction2(Json_output);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+				});
+		</script>
+
+
+>>>>>>> branch 'master' of https://github.com/ruwanopensourse/Drawdowns.git
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -192,6 +246,7 @@
            
             <!-- /.row -->
 
+        </div>
         </div>
     <script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
