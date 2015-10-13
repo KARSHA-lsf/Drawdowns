@@ -9,7 +9,6 @@
 	media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
-<script src="bootstrap/js/graphs.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
@@ -177,6 +176,6 @@
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
-	<script src="bootstrap/js/graphs.js"></script>
+	<script src="js/graphs.js"></script>
 </body>
 </html>
