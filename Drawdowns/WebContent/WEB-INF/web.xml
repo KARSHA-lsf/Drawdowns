@@ -9,4 +9,13 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>IndexSrvlt</servlet-name>
+    <servlet-class>lsf.drawdowns.dbCon.IndexSrvlt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+     <servlet-name>IndexSrvlt</servlet-name>
+     <url-pattern>/dataGet</url-pattern>
+     <url-pattern>/summaryData</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -4,12 +4,68 @@
     <head>
         <title>KARSHA-Drawdowns</title>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-        <link href="assets/styles.css" rel="stylesheet" media="screen">
-        <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+		<link href="assets/styles.css" rel="stylesheet" media="screen">
+		<link href="bootstrap/css/c3.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     </head>
     
     <body>
+    
+    
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    	<script>
+    		$(document).ready(function() {
+        		$.get('summaryData', function() {
+            		// Write here some callback function if necessary.
+        			});
+   			 	});
+		</script>
+    	<script>
+		//divide data from url to catogories
+		$(document).ready(
+				function () {
+					var url = "summaryData";
+					var year=[],count = [];
+					$.ajax({
+		                type: 'GET',
+		                url: url,
+		                dataType: 'json',
+		                success: function (data) {
+		                	
+		               	//generate perm no and date according to catogories
+		               	function summaryAry(Arr,year,count){
+		               		for(p=0;p<Arr.length;p++)
+		               		{
+		               			count[p]=Arr[p].count;
+		               			year[p]=Arr[p].year;               			
+		               		}	              		
+		                  }
+		               	
+		               	summaryAry(data,year,count);
+		               	//ready variable to json output
+		               	var Ready_output={"count":count,"year":year};		               		
+		               	console.log(Ready_output);    
+		               	
+		               	//call method in graph.js to draw summary graph
+		               	drawSummaryGraph(Ready_output);
+		            	//drawScatterPlot(Ready_output);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+				});
+		</script>
+    
+  
+    
+    
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -87,6 +143,18 @@
 						<h1>Summary</h1>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="histogram"></div>
+
+					</div>
+				</div>
+				
         </div>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="bootstrap/js/c3.js"></script>
+		<script src="bootstrap/js/d3.min.js"></script>
+		<script src="js/graphs.js"></script>
     </body>
 </html>

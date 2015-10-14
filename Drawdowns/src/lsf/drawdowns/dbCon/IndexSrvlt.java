@@ -47,24 +47,37 @@ public class IndexSrvlt extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("Doget method running now........");
-
-		db_connections dbconnection=new db_connections();
-		try {
-			
-			PrintWriter pwr=response.getWriter();
-			pwr.print(dbconnection.select_yeardata(request.getParameter("Q")));
-			
 		
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		String userPath = request.getServletPath();
+		db_connections dbconnection=new db_connections();
+		
+		if (userPath.equals("/dataGet")) {
+			try {			
+				PrintWriter pwr=response.getWriter();
+				pwr.print(dbconnection.select_yeardata(request.getParameter("Q")));		
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+			
+		} else if(userPath.equals("/summaryData")){
+			System.out.println("summaryData method");
+			try {			
+				PrintWriter pwr=response.getWriter();
+				pwr.print(dbconnection.selectSummaryData("select date,COUNT(*) from capm_v2_table group by date"));		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 	}
 }

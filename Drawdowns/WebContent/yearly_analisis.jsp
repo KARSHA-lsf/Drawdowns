@@ -3,14 +3,11 @@
 
 <head>
 <title>KARSHA-Drawdowns</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
-	media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 </head>
 
@@ -18,18 +15,17 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
         	//load the nodes and links arrays
-        
-        	$.get("IndexSrvlt?Q="+"<%=request.getParameter("Q")%>")
+        	$.get("dataGet?Q="+"<%=request.getParameter("Q")%>")
             .error(function () {
                     //alert("there is error while sending data to server");
                 	});
         		;
-		</script>
+	</script>
 	<script>
 		//divide data from url to catogories
 		$(document).ready(
 				function () {
-					var url = "IndexSrvlt?Q="+"<%=request.getParameter("Q")%>";
+					var url = "dataGet?Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
 					var High,High_Medium,Medium,Medium_low,low = [];
 					var Arr,PermNo=[],Perm_date = [];
