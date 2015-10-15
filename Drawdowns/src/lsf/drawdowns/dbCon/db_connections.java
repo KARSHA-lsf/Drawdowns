@@ -78,7 +78,6 @@ public class db_connections {
 			}
 			jsonarray.put(jsonobj);
 		}
-		System.out.println(jsonarray);
 		return jsonarray;
 	}
 }

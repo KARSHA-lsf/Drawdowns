@@ -76,7 +76,7 @@
 		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
 		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
 		               		
-		               	//console.log(Ready_output);
+		               	console.log(Ready_output);
 		               	
 		               	//call method in graph.js to draw scatter-plot
 		               	drawScatterPlot(Ready_output);

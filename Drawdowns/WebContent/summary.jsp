@@ -46,11 +46,11 @@
 		               	summaryAry(data,year,count);
 		               	//ready variable to json output
 		               	var Ready_output={"count":count,"year":year};		               		
-		               	console.log(Ready_output);    
+		               	console.log(JSON.stringify(Ready_output));    
 		               	
 		               	//call method in graph.js to draw summary graph
 		               	drawSummaryGraph(Ready_output);
-		            	//drawScatterPlot(Ready_output);
+		               	//drawSummaryGraph('bootstrap/data/aa.json');
 		                },
 		                
 		                error: function (data,
@@ -138,20 +138,30 @@
                     </ul>
                 </div>  
 				
-				<div class="span10" style="border:1px solid LightSeaGreen;background-color:white" >
-					<div class "row-fluid" style="margin:30px 30px 30px">
+				
+				<div class="span10"
+				style="border: 1px solid LightSeaGreen; background-color: white">
+				<div>
+					<div class "row-fluid" style="margin: 30px 30px 30px">
 						<h1>Summary</h1>
 					</div>
 				</div>
-				
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">Summary graph for CAPM resid</h4>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 						<div id="histogram"></div>
 
 					</div>
 				</div>
+
+				<!-- /.row -->
+			</div>
 				
-        </div>
+		</div>
         <script src="bootstrap/js/bootstrap.min.js"></script>
 		<script src="bootstrap/js/c3.js"></script>
 		<script src="bootstrap/js/d3.min.js"></script>

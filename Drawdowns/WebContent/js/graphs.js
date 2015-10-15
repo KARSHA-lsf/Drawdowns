@@ -41,7 +41,7 @@ function drawScatterPlot(json_object){
 		},
 		grid: {
 			x: {
-				show: true
+				show: true,
 			},
 		},
 		subchart: {
@@ -51,7 +51,6 @@ function drawScatterPlot(json_object){
 	});
 }
 function drawSummaryGraph(json_ary){
-	//document.write("hi")
 	var chart4=c3.generate({
 	    bindto:'#histogram',
 	    data:{
@@ -60,25 +59,27 @@ function drawSummaryGraph(json_ary){
 	        },
 	        url:json_ary,
 	        mimeType: 'json',
-	        type : 'bar'
+	        type : 'bar',
 	    },
 	    size: {
 	            height: 220
 	    },
 	    axis:{
-	        
+	    	x:{
+	    		label: 'Year',
+	    		tick: {
+	    		      culling: {
+	    		    	  max : 1,
+	    		      },
+	    		      rotate: 90,
+	                  multiline: false,
+	    		},
+	    	},
 	        y:{
 	            padding : 0,
 	            //max : 2300,
 	        },
 	    },
-	    grid: {
-	                y: {
-	                    lines: [
-	                        {value: 410, text: 'Average 410'}
-	                    ]
-	                }
-	            }
-	    
+
 	});
 }
