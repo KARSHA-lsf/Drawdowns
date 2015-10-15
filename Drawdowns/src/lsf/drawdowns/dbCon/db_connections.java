@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,5 +80,17 @@ public class db_connections {
 			jsonarray.put(jsonobj);
 		}
 		return jsonarray;
+	}
+	public ArrayList<String> testselectSummaryData(String sqlQuery) throws SQLException{
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> year = new ArrayList<String>();
+		ArrayList<Integer> count = new ArrayList<Integer>();
+		Statement state = getCon().createStatement();
+		ResultSet set = state.executeQuery(sqlQuery);
+		while(set.next()){
+			count.add(set.getInt("COUNT(*)"));
+			year.add(set.getString("date"));
+		}
+		return list;
 	}
 }
