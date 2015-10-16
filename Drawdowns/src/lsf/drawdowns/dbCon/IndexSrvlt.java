@@ -16,10 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import org.json.JSONObject;
 
 /**
  * Servlet implementation class IndexSrvlt
@@ -36,7 +34,7 @@ public class IndexSrvlt extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-   Gson gson = new Gson();
+   //Gson gson = new Gson();
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -74,21 +72,27 @@ public class IndexSrvlt extends HttpServlet {
 		} else if(userPath.equals("/summaryData")){
 			System.out.println("summaryData method");
 			try {	
-				ResultSet set = dbconnection.selectData("select date,COUNT(*) from capm_v2_table group by date");
-				ArrayList<Integer> year =  new ArrayList<Integer>();
-				ArrayList<Integer> count =  new ArrayList<Integer>();
+				ResultSet set = dbconnection.selectData("select date,COUNT(date) from capm_v2_table group by date");
+				ResultSet setCount = dbconnection.selectData("select COUNT(DISTINCT date) from capm_v2_table");
+				int arySize = 0 ;
+				if (setCount.next()) {
+					arySize = setCount.getInt(1);
+				}
+
+				int[] aryCount = new int[arySize];
+				int[] aryYear = new int[arySize];
+				int x = 0;
 				while(set.next()){
-					year.add(set.getInt("date"));
-					count.add(set.getInt("COUNT(*)"));
+					aryCount[x]=set.getInt("COUNT(date)");
+					aryYear[x]=set.getInt("date");
+					x++;
 				}
 				JSONObject obj = new JSONObject();
-				JsonElement links = gson.toJsonTree(year);
-				JsonElement nodes = gson.toJsonTree(count);
-				obj.put("count", nodes);
-				obj.put("year", links);
-				System.out.println(obj);
+				obj.put("count", aryCount);
+				obj.put("year", aryYear);
 				PrintWriter pwr=response.getWriter();
-				pwr.print(obj);		
+				pwr.print(obj);
+				System.out.println(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
