@@ -14,14 +14,6 @@
 <body>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
-        	//load the nodes and links arrays
-        	$.get("dataGet?Q="+"<%=request.getParameter("Q")%>")
-            .error(function () {
-                    //alert("there is error while sending data to server");
-                	});
-        		;
-	</script>
-	<script>
 		//divide data from url to catogories
 		$(document).ready(
 				function () {

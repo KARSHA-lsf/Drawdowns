@@ -2,13 +2,24 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
+
+
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 /**
  * Servlet implementation class IndexSrvlt
@@ -25,7 +36,7 @@ public class IndexSrvlt extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+   Gson gson = new Gson();
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -62,9 +73,22 @@ public class IndexSrvlt extends HttpServlet {
 			
 		} else if(userPath.equals("/summaryData")){
 			System.out.println("summaryData method");
-			try {			
+			try {	
+				ResultSet set = dbconnection.selectData("select date,COUNT(*) from capm_v2_table group by date");
+				ArrayList<Integer> year =  new ArrayList<Integer>();
+				ArrayList<Integer> count =  new ArrayList<Integer>();
+				while(set.next()){
+					year.add(set.getInt("date"));
+					count.add(set.getInt("COUNT(*)"));
+				}
+				JSONObject obj = new JSONObject();
+				JsonElement links = gson.toJsonTree(year);
+				JsonElement nodes = gson.toJsonTree(count);
+				obj.put("count", nodes);
+				obj.put("year", links);
+				System.out.println(obj);
 				PrintWriter pwr=response.getWriter();
-				pwr.print(dbconnection.selectSummaryData("select date,COUNT(*) from capm_v2_table group by date"));		
+				pwr.print(obj);		
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

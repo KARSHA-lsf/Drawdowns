@@ -16,13 +16,6 @@
     
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
     	<script>
-    		$(document).ready(function() {
-        		$.get('summaryData', function() {
-            		// Write here some callback function if necessary.
-        			});
-   			 	});
-		</script>
-    	<script>
 		//divide data from url to catogories
 		$(document).ready(
 				function () {
@@ -46,11 +39,11 @@
 		               	summaryAry(data,year,count);
 		               	//ready variable to json output
 		               	var Ready_output={"count":count,"year":year};		               		
-		               	console.log(JSON.stringify(Ready_output));    
+		               	//console.log(JSON.stringify(Ready_output));    
 		               	
 		               	//call method in graph.js to draw summary graph
-		               	drawSummaryGraph(Ready_output);
-		               	//drawSummaryGraph('bootstrap/data/aa.json');
+		               	//drawSummaryGraph(Ready_output);
+		               	drawSummaryGraph('bootstrap/data/aa.json');
 		                },
 		                
 		                error: function (data,
