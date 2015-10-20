@@ -66,7 +66,7 @@ function drawSummaryGraph(json_ary){
 	    },
 	    axis:{
 	    	x:{
-	    		label: 'Year',
+	    		label: 'year',
 	    		tick: {
 	    		      culling: {
 	    		    	  max : 1,
@@ -80,6 +80,5 @@ function drawSummaryGraph(json_ary){
 	            //max : 2300,
 	        },
 	    },
-
 	});
 }

@@ -20,30 +20,16 @@
 		$(document).ready(
 				function () {
 					var url = "summaryData";
-					var year=[],count = [];
 					$.ajax({
 		                type: 'GET',
 		                url: url,
 		                dataType: 'json',
 		                success: function (data) {
-		                	
-		               	//generate perm no and date according to catogories
-		               	function summaryAry(Arr,year,count){
-		               		for(p=0;p<Arr.length;p++)
-		               		{
-		               			count[p]=Arr[p].count;
-		               			year[p]=Arr[p].year;               			
-		               		}	              		
-		                  }
-		               	
-		               	summaryAry(data,year,count);
-		               	//ready variable to json output
-		               	var Ready_output={"count":count,"year":year};		               		
-		               	//console.log(JSON.stringify(Ready_output));    
-		               	
+		                		               		
+		               	console.log(data);    
 		               	//call method in graph.js to draw summary graph
-		               	//drawSummaryGraph(Ready_output);
-		               	drawSummaryGraph('bootstrap/data/aa.json');
+		               	//drawSummaryGraph('bootstrap/data/aa.json');
+		               	drawSummaryGraph(data);
 		                },
 		                
 		                error: function (data,
