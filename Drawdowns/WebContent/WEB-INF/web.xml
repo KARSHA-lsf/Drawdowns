@@ -16,6 +16,7 @@
   <servlet-mapping>
      <servlet-name>IndexSrvlt</servlet-name>
      <url-pattern>/dataGet</url-pattern>
-     <url-pattern>/summaryData</url-pattern>
+     <url-pattern>/summaryDataCAPM</url-pattern>
+     <url-pattern>/summaryDataCAFF</url-pattern>
   </servlet-mapping>
 </web-app>

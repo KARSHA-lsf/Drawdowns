@@ -19,17 +19,14 @@
 		//divide data from url to catogories
 		$(document).ready(
 				function () {
-					var url = "summaryData";
+					var url = "summaryDataCAPM";
 					$.ajax({
 		                type: 'GET',
 		                url: url,
 		                dataType: 'json',
-		                success: function (data) {
-		                		               		
-		               	console.log(data);    
-		               	//call method in graph.js to draw summary graph
-		               	//drawSummaryGraph('bootstrap/data/aa.json');
-		               	drawSummaryGraph(data);
+		                success: function (data) {		                		               		    
+		               	console.log(data);
+		               	drawSummaryGraphCAPM(data);
 		                },
 		                
 		                error: function (data,
@@ -42,7 +39,29 @@
 				});
 		</script>
     
-  
+  		<script>
+		//divide data from url to catogories
+		$(document).ready(
+				function () {
+					var url = "summaryDataCAFF";
+					$.ajax({
+		                type: 'GET',
+		                url: url,
+		                dataType: 'json',
+		                success: function (data) {		                		               		    
+		               	console.log(data);
+		               	drawSummaryGraphCAFF(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+				});
+		</script>
     
     
         <div class="navbar navbar-fixed-top">
@@ -132,11 +151,21 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<div id="histogram"></div>
+						<div id="histogramCAPM"></div>
 
 					</div>
 				</div>
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">Summary graph for CAAF drawdowns</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="histogramCAFF"></div>
 
+					</div>
+				</div>
 				<!-- /.row -->
 			</div>
 				

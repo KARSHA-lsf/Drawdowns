@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -69,8 +71,8 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		} else if(userPath.equals("/summaryData")){
-			System.out.println("summaryData method");
+		} else if(userPath.equals("/summaryDataCAPM")){
+			System.out.println("summaryDataCAPM method");
 			try {	
 				ResultSet set = dbconnection.selectData("select date,COUNT(date) from capm_v2_table group by date");
 				ResultSet setCount = dbconnection.selectData("select COUNT(DISTINCT date) from capm_v2_table");
@@ -92,12 +94,36 @@ public class IndexSrvlt extends HttpServlet {
 				obj.put("year", aryYear);
 				PrintWriter pwr=response.getWriter();
 				pwr.print(obj);
-				System.out.println(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-		
+		} else if(userPath.equals("/summaryDataCAFF")){
+			System.out.println("summaryDataCAFF method");
+			try {	
+				ResultSet set = dbconnection.selectData("select date,COUNT(date) from caff_drawdowns group by date");
+				ResultSet setCount = dbconnection.selectData("select COUNT(DISTINCT date) from caff_drawdowns");
+				int arySize = 0 ;
+				if (setCount.next()) {
+					arySize = setCount.getInt(1);
+				}
+
+				int[] aryCount = new int[arySize];
+				int[] aryYear = new int[arySize];
+				int x = 0;
+				while(set.next()){
+					aryCount[x]=set.getInt("COUNT(date)");
+					aryYear[x]=set.getInt("date");
+					x++;
+				}
+				JSONObject obj = new JSONObject();
+				obj.put("count", aryCount);
+				obj.put("year", aryYear);
+				PrintWriter pwr=response.getWriter();
+				pwr.print(obj);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
 		
 	}
 

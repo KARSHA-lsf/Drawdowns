@@ -50,14 +50,46 @@ function drawScatterPlot(json_object){
     
 	});
 }
-function drawSummaryGraph(json_ary){
-	var chart4=c3.generate({
-	    bindto:'#histogram',
+function drawSummaryGraphCAPM(json_ary){
+	var chart1=c3.generate({
+	    bindto:'#histogramCAPM',
 	    data:{
 	        xs: {
 	            count: 'year',
 	        },
-	        url:json_ary,
+	        json:json_ary,
+	        mimeType: 'json',
+	        type : 'bar',
+	    },
+	    size: {
+	            height: 220
+	    },
+	    axis:{
+	    	x:{
+	    		label: 'year',
+	    		tick: {
+	    		      culling: {
+	    		    	  max : 1,
+	    		      },
+	    		      rotate: 90,
+	                  multiline: false,
+	    		},
+	    	},
+	        y:{
+	            padding : 0,
+	            //max : 2300,
+	        },
+	    },
+	});
+}
+function drawSummaryGraphCAFF(json_ary){
+	var chart2=c3.generate({
+	    bindto:'#histogramCAFF',
+	    data:{
+	        xs: {
+	            count: 'year',
+	        },
+	        json:json_ary,
 	        mimeType: 'json',
 	        type : 'bar',
 	    },

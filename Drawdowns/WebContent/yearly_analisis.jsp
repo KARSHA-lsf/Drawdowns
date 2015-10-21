@@ -53,10 +53,8 @@
 		               		for(p=0;p<Arr.length;p++)
 		               		{
 		               			PermNo[p]=Arr[p].permno;
-		               			Perm_date[p]=Arr[p].capm_date;
-		               			               			
-		               		}
-		               		              		
+		               			Perm_date[p]=Arr[p].capm_date;               			
+		               		}   		
 		                  }		               
 		               	Perm_Gen(High,H_PermNo,H_Perm_date);              
 		               	Perm_Gen(High_Medium,HM_PermNo,HM_Perm_date);
@@ -69,7 +67,6 @@
 		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
 		               		
 		               	console.log(Ready_output);
-		               	
 		               	//call method in graph.js to draw scatter-plot
 		               	drawScatterPlot(Ready_output);
 		                },
