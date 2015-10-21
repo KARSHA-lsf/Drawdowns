@@ -114,3 +114,47 @@ function drawSummaryGraphCAFF(json_ary){
 	    },
 	});
 }
+function drawIndex(json_ary){
+	var chart3=c3.generate({
+	    bindto:'#barIndex',
+	    data:{
+	        xs: {
+	            value: 'date',
+	        },
+	        json:json_ary,
+	        mimeType: 'json',
+	        type : 'bar',
+	    },
+	    size: {
+	            height: 220
+	    },
+	    bar: {
+            width: {
+                ratio: 0.2 
+            }
+        },
+	    axis:{
+	    	x: {
+				type: 'timeseries',
+				label: 'Time',
+				tick: {
+					format: '%Y-%m-%d',
+					rotate:90,
+					fit: false
+				},
+			},
+	    	
+	        y:{
+	            padding : 0,
+	            //max : 2300,
+	        },
+	    },
+	    grid: {
+            y: {
+                lines: [
+                    {value: 0, text: 'Drawdown value 0'}
+                ]
+            }
+        },
+	});
+}

@@ -18,5 +18,6 @@
      <url-pattern>/dataGet</url-pattern>
      <url-pattern>/summaryDataCAPM</url-pattern>
      <url-pattern>/summaryDataCAFF</url-pattern>
+     <url-pattern>/indexData</url-pattern>     
   </servlet-mapping>
 </web-app>

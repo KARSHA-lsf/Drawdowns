@@ -123,8 +123,27 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}	
-		
+		} else if(userPath.equals("/indexData")){
+			System.out.println("indexData method");
+			try {
+				ResultSet set = dbconnection.selectData("select Index_dates,Index_values from indexDrawdown where Year='"+request.getParameter("Q")+"'");
+				double[] aryValue = new double[12];
+				String[] aryDate = new String[12];
+				int x = 0;
+				while(set.next()){
+					aryValue[x]=set.getDouble(2);
+					aryDate[x]=set.getString(1);
+					x++;
+				}
+				JSONObject obj = new JSONObject();
+				obj.put("value", aryValue);
+				obj.put("date", aryDate);
+				PrintWriter pwr=response.getWriter();
+				pwr.print(obj);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 
 	/**

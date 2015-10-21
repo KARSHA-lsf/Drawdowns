@@ -80,6 +80,33 @@
 					
 				});
 		</script>
+		
+		<script>
+		//divide data from url to catogories
+		$(document).ready(
+				function () {
+					var url = "indexData?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: url,
+		                dataType: 'json',
+		                success: function (data) {		                		               		    
+		               	console.log(data);
+		               	drawIndex(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+				});
+		</script>
+		
+		
+		
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -147,6 +174,17 @@
 				<div class="row">
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 						<div id="scatter_plot"></div>
+
+					</div>
+				</div>
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">Index drowdown for year <%=request.getParameter("Q")%></h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="barIndex"></div>
 
 					</div>
 				</div>
