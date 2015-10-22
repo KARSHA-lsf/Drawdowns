@@ -75,19 +75,13 @@ public class IndexSrvlt extends HttpServlet {
 			System.out.println("summaryDataCAPM method");
 			try {	
 				ResultSet set = dbconnection.selectData("select date,COUNT(date) from capm_v2_table group by date");
-				ResultSet setCount = dbconnection.selectData("select COUNT(DISTINCT date) from capm_v2_table");
-				int arySize = 0 ;
-				if (setCount.next()) {
-					arySize = setCount.getInt(1);
-				}
+				
+				ArrayList<Integer> aryCount = new ArrayList<Integer>();
+				ArrayList<Integer> aryYear = new ArrayList<Integer>();
 
-				int[] aryCount = new int[arySize];
-				int[] aryYear = new int[arySize];
-				int x = 0;
 				while(set.next()){
-					aryCount[x]=set.getInt("COUNT(date)");
-					aryYear[x]=set.getInt("date");
-					x++;
+					aryCount.add(set.getInt("COUNT(date)"));
+					aryYear.add(set.getInt("date"));
 				}
 				JSONObject obj = new JSONObject();
 				obj.put("count", aryCount);
@@ -101,19 +95,13 @@ public class IndexSrvlt extends HttpServlet {
 			System.out.println("summaryDataCAFF method");
 			try {	
 				ResultSet set = dbconnection.selectData("select date,COUNT(date) from caff_drawdowns group by date");
-				ResultSet setCount = dbconnection.selectData("select COUNT(DISTINCT date) from caff_drawdowns");
-				int arySize = 0 ;
-				if (setCount.next()) {
-					arySize = setCount.getInt(1);
-				}
-
-				int[] aryCount = new int[arySize];
-				int[] aryYear = new int[arySize];
-				int x = 0;
+				
+				ArrayList<Integer> aryCount = new ArrayList<Integer>();
+				ArrayList<Integer> aryYear = new ArrayList<Integer>();
+				
 				while(set.next()){
-					aryCount[x]=set.getInt("COUNT(date)");
-					aryYear[x]=set.getInt("date");
-					x++;
+					aryCount.add(set.getInt("COUNT(date)"));
+					aryYear.add(set.getInt("date"));
 				}
 				JSONObject obj = new JSONObject();
 				obj.put("count", aryCount);
@@ -127,13 +115,12 @@ public class IndexSrvlt extends HttpServlet {
 			System.out.println("indexData method");
 			try {
 				ResultSet set = dbconnection.selectData("select Index_dates,Index_values from indexDrawdown where Year='"+request.getParameter("Q")+"'");
-				double[] aryValue = new double[12];
-				String[] aryDate = new String[12];
-				int x = 0;
+
+				ArrayList<Double> aryValue = new ArrayList<Double>();
+				ArrayList<String> aryDate = new ArrayList<String>();
 				while(set.next()){
-					aryValue[x]=set.getDouble(2);
-					aryDate[x]=set.getString(1);
-					x++;
+					aryValue.add(set.getDouble(2));
+					aryDate.add(set.getString(1));
 				}
 				JSONObject obj = new JSONObject();
 				obj.put("value", aryValue);
