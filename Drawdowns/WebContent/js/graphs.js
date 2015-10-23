@@ -3,7 +3,7 @@ function drawScatterPlot(json_object,index_dates,year){
 	var yearmin = year+"-01-01";
 	year++;
 	var yearmax = year+"-01-01";
-	var chart = c3.generate({
+	var chart1 = c3.generate({
 		bindto: '#scatter_plot',
 		size: {
         height: 500,
@@ -55,7 +55,7 @@ function drawScatterPlot(json_object,index_dates,year){
 	});
 }
 function drawSummaryGraph(json_ary,bindvalue){
-	var chart1=c3.generate({
+	var chart2=c3.generate({
 	    bindto:bindvalue,
 	    data:{
 	        xs: {

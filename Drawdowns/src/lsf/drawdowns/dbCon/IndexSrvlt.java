@@ -139,7 +139,6 @@ public class IndexSrvlt extends HttpServlet {
 				while(set.next()){
 					JSONObject jsonobj=new JSONObject();
 					jsonobj.put("value", set.getString("Index_dates"));
-					//jsonobj.put("text", set.getString("Index_dates"));
 					jsonarray.put(jsonobj);
 				}
 				PrintWriter pwr=response.getWriter();
