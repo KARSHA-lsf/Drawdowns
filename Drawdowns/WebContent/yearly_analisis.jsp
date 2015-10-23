@@ -16,8 +16,27 @@
 	<script>
 		//divide data from url to catogories
 		$(document).ready(
-				function () {
-					var url = "dataGet?Q="+"<%=request.getParameter("Q")%>";
+				function y() {
+					var indexDate;
+					var urlindexdate = "index?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: urlindexdate,
+		                dataType: 'json',
+		                success: function (data) {
+		                indexDate = data;	
+		               	console.log(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+					
+					var urlscatter = "dataGet?Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
 					var High,High_Medium,Medium,Medium_low,low = [];
 					var Arr,PermNo=[],Perm_date = [];
@@ -25,7 +44,7 @@
 					var H_Perm_date=[],HM_Perm_date =[],M_Perm_date = [],ML_Perm_date = [],L_Perm_date = [];
 					$.ajax({
 		                type: 'GET',
-		                url: url,
+		                url: urlscatter,
 		                dataType: 'json',
 		                success: function (data) {
 		                	
@@ -48,8 +67,7 @@
 		                 	  return (i>=4*x );
 		                 	  });
 		               	//generate perm no and date according to catogories
-		               	function Perm_Gen(Arr,PermNo,Perm_date){
-		        			
+		               	function Perm_Gen(Arr,PermNo,Perm_date){		        			
 		               		for(p=0;p<Arr.length;p++)
 		               		{
 		               			PermNo[p]=Arr[p].permno;
@@ -68,7 +86,7 @@
 		               		
 		               	console.log(Ready_output);
 		               	//call method in graph.js to draw scatter-plot
-		               	drawScatterPlot(Ready_output);
+		               	drawScatterPlot(Ready_output,indexDate,<%=request.getParameter("Q")%>);
 		                },
 		                
 		                error: function (data,
@@ -77,20 +95,14 @@
 		                },
 		                async: false
 		            });
-					
-				});
-		</script>
-		
-		<script>
-		//divide data from url to catogories
-		$(document).ready(
-				function () {
-					var url = "indexData?Q="+"<%=request.getParameter("Q")%>";
+
+					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
 		                type: 'GET',
-		                url: url,
+		                url: urlindex,
 		                dataType: 'json',
-		                success: function (data) {		                		               		    
+		                success: function (data) {
+		                	
 		               	console.log(data);
 		               	drawIndex(data);
 		                },
@@ -103,9 +115,8 @@
 		            });
 					
 				});
+				
 		</script>
-		
-		
 		
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">

@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -63,38 +65,38 @@ public class IndexSrvlt extends HttpServlet {
 		db_connections dbconnection=new db_connections();
 		
 		if (userPath.equals("/dataGet")) {
-			try {			
+			try {
+				ResultSet set = dbconnection.selectData("SELECT permno,date_withyear FROM capm_v2_table WHERE date='"+request.getParameter("Q")+"'");
+				JSONArray jsonarray=new JSONArray();
+		        while(set.next()){
+		        	JSONObject jsonobj=new JSONObject();
+		        	int permno=set.getInt("permno");
+		        	String year_date=set.getString("date_withyear");
+		        	try {
+						jsonobj.put("permno",permno);
+						jsonobj.put("capm_date",year_date);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        	jsonarray.put(jsonobj);
+		        }
 				PrintWriter pwr=response.getWriter();
-				pwr.print(dbconnection.select_yeardata(request.getParameter("Q")));		
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			}
-			
-		} else if(userPath.equals("/summaryDataCAPM")){
-			System.out.println("summaryDataCAPM method");
-			try {	
-				ResultSet set = dbconnection.selectData("select date,COUNT(date) from capm_v2_table group by date");
-				
-				ArrayList<Integer> aryCount = new ArrayList<Integer>();
-				ArrayList<Integer> aryYear = new ArrayList<Integer>();
-
-				while(set.next()){
-					aryCount.add(set.getInt("COUNT(date)"));
-					aryYear.add(set.getInt("date"));
-				}
-				JSONObject obj = new JSONObject();
-				obj.put("count", aryCount);
-				obj.put("year", aryYear);
-				PrintWriter pwr=response.getWriter();
-				pwr.print(obj);
+				pwr.print(jsonarray);		
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} else if(userPath.equals("/summaryDataCAFF")){
-			System.out.println("summaryDataCAFF method");
+			
+		}  else if(userPath.equals("/summaryData")){
+			System.out.println(request.getParameter("D"));
 			try {	
-				ResultSet set = dbconnection.selectData("select date,COUNT(date) from caff_drawdowns group by date");
+				String sql = null;
+				if(request.getParameter("D").equals("caff")){
+					sql = "select date,COUNT(date) from caff_drawdowns group by date";
+				}else{
+					sql = "select date,COUNT(date) from capm_v2_table group by date";
+				}
+				ResultSet set =  dbconnection.selectData(sql);
 				
 				ArrayList<Integer> aryCount = new ArrayList<Integer>();
 				ArrayList<Integer> aryYear = new ArrayList<Integer>();
@@ -130,7 +132,24 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
+		} else if(userPath.equals("/index")){
+			try {
+				ResultSet set = dbconnection.selectData("select Index_dates from indexDrawdown where Year='"+request.getParameter("Q")+"'");
+				JSONArray jsonarray=new JSONArray();
+				while(set.next()){
+					JSONObject jsonobj=new JSONObject();
+					jsonobj.put("value", set.getString("Index_dates"));
+					//jsonobj.put("text", set.getString("Index_dates"));
+					jsonarray.put(jsonobj);
+				}
+				PrintWriter pwr=response.getWriter();
+				pwr.print(jsonarray);
+				System.out.println(jsonarray);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
 	}
 
 	/**

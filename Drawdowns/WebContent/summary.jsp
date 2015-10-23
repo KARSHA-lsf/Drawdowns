@@ -18,15 +18,15 @@
     	<script>
 		//divide data from url to catogories
 		$(document).ready(
-				function () {
-					var url = "summaryDataCAPM";
+				function capmgraph() {
+					var urlcapm = "summaryData?D=capm";
 					$.ajax({
 		                type: 'GET',
-		                url: url,
+		                url: urlcapm,
 		                dataType: 'json',
 		                success: function (data) {		                		               		    
 		               	console.log(data);
-		               	drawSummaryGraphCAPM(data);
+		               	drawSummaryGraph(data,"#histocapm");
 		                },
 		                
 		                error: function (data,
@@ -34,36 +34,27 @@
 		                	console.log(error);
 		                },
 		                async: false
-		            });
-					
-				});
-		</script>
-    
-  		<script>
-		//divide data from url to catogories
-		$(document).ready(
-				function () {
-					var url = "summaryDataCAFF";
+		            });	
+					var urlcaff = "summaryData?D=caff";
 					$.ajax({
 		                type: 'GET',
-		                url: url,
+		                url: urlcaff,
 		                dataType: 'json',
 		                success: function (data) {		                		               		    
 		               	console.log(data);
-		               	drawSummaryGraphCAFF(data);
-		                },
-		                
+		               	drawSummaryGraph(data,"#histocaff");
+		                }, 
 		                error: function (data,
 		                        error) {
 		                	console.log(error);
 		                },
 		                async: false
 		            });
-					
-				});
+				});	
 		</script>
     
-    
+
+  
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -151,7 +142,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<div id="histogramCAPM"></div>
+						<div id="histocapm"></div>
 
 					</div>
 				</div>
@@ -162,7 +153,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<div id="histogramCAFF"></div>
+						<div id="histocaff"></div>
 
 					</div>
 				</div>

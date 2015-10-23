@@ -1,6 +1,8 @@
-function drawScatterPlot(json_object){
+function drawScatterPlot(json_object,index_dates,year){
 	//this function draws the scatter plot.
-	//input parameter is a json_object.
+	var yearmin = year+"-01-01";
+	year++;
+	var yearmax = year+"-01-01";
 	var chart = c3.generate({
 		bindto: '#scatter_plot',
 		size: {
@@ -29,6 +31,8 @@ function drawScatterPlot(json_object){
 			x: {
 				type: 'timeseries',
 				label: 'Time',
+				min : yearmin,
+				max : yearmax,
 				tick: {
 					format: '%Y-%m-%d',
 					rotate:90,
@@ -41,7 +45,7 @@ function drawScatterPlot(json_object){
 		},
 		grid: {
 			x: {
-				show: true,
+				lines:index_dates,
 			},
 		},
 		subchart: {
@@ -50,9 +54,9 @@ function drawScatterPlot(json_object){
     
 	});
 }
-function drawSummaryGraphCAPM(json_ary){
+function drawSummaryGraph(json_ary,bindvalue){
 	var chart1=c3.generate({
-	    bindto:'#histogramCAPM',
+	    bindto:bindvalue,
 	    data:{
 	        xs: {
 	            count: 'year',
@@ -82,38 +86,7 @@ function drawSummaryGraphCAPM(json_ary){
 	    },
 	});
 }
-function drawSummaryGraphCAFF(json_ary){
-	var chart2=c3.generate({
-	    bindto:'#histogramCAFF',
-	    data:{
-	        xs: {
-	            count: 'year',
-	        },
-	        json:json_ary,
-	        mimeType: 'json',
-	        type : 'bar',
-	    },
-	    size: {
-	            height: 220
-	    },
-	    axis:{
-	    	x:{
-	    		label: 'year',
-	    		tick: {
-	    		      culling: {
-	    		    	  max : 1,
-	    		      },
-	    		      rotate: 90,
-	                  multiline: false,
-	    		},
-	    	},
-	        y:{
-	            padding : 0,
-	            //max : 2300,
-	        },
-	    },
-	});
-}
+
 function drawIndex(json_ary){
 	var chart3=c3.generate({
 	    bindto:'#barIndex',
