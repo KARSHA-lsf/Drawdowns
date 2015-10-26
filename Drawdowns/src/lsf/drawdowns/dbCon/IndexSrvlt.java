@@ -88,7 +88,6 @@ public class IndexSrvlt extends HttpServlet {
 			}
 			
 		}  else if(userPath.equals("/summaryData")){
-			System.out.println(request.getParameter("D"));
 			try {	
 				String sql = null;
 				if(request.getParameter("D").equals("caff")){
@@ -106,7 +105,7 @@ public class IndexSrvlt extends HttpServlet {
 					aryYear.add(set.getInt("date"));
 				}
 				JSONObject obj = new JSONObject();
-				obj.put("count", aryCount);
+				obj.put("Total", aryCount);
 				obj.put("year", aryYear);
 				PrintWriter pwr=response.getWriter();
 				pwr.print(obj);
@@ -117,12 +116,11 @@ public class IndexSrvlt extends HttpServlet {
 			System.out.println("indexData method");
 			try {
 				ResultSet set = dbconnection.selectData("select Index_dates,Index_values from indexDrawdown where Year='"+request.getParameter("Q")+"'");
-
-				ArrayList<Double> aryValue = new ArrayList<Double>();
+				ArrayList<Float> aryValue = new ArrayList<Float>();
 				ArrayList<String> aryDate = new ArrayList<String>();
 				while(set.next()){
-					aryValue.add(set.getDouble(2));
-					aryDate.add(set.getString(1));
+					aryValue.add(set.getFloat("Index_values"));
+					aryDate.add(set.getString("Index_dates"));
 				}
 				JSONObject obj = new JSONObject();
 				obj.put("value", aryValue);
@@ -145,7 +143,6 @@ public class IndexSrvlt extends HttpServlet {
 				pwr.print(jsonarray);
 				System.out.println(jsonarray);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}	

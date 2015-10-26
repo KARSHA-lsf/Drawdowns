@@ -59,7 +59,7 @@ function drawSummaryGraph(json_ary,bindvalue){
 	    bindto:bindvalue,
 	    data:{
 	        xs: {
-	            count: 'year',
+	            Total: 'year',
 	        },
 	        json:json_ary,
 	        mimeType: 'json',
@@ -93,6 +93,9 @@ function drawIndex(json_ary){
 	    data:{
 	        xs: {
 	            value: 'date',
+	        },
+	        colors:{
+	        	value : '#000000',
 	        },
 	        json:json_ary,
 	        mimeType: 'json',
