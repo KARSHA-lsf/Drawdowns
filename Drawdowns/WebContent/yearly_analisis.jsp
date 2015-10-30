@@ -17,6 +17,7 @@
 		//divide data from url to catogories
 		$(document).ready(
 				function y() {
+					
 					var indexDate;
 					var urlindexdate = "index?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
@@ -34,9 +35,7 @@
 		                },
 		                async: false
 		            });
-					
-					
-					var urlscatter = "dataGet?Q="+"<%=request.getParameter("Q")%>";
+					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
 					var High,High_Medium,Medium,Medium_low,low = [];
 					var Arr,PermNo=[],Perm_date = [];
@@ -86,7 +85,7 @@
 		               		
 		               	console.log(Ready_output);
 		               	//call method in graph.js to draw scatter-plot
-		               	drawScatterPlot(Ready_output,indexDate,<%=request.getParameter("Q")%>);
+		               	drawScatterPlot(Ready_output,indexDate,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
 		                },
 		                
 		                error: function (data,
@@ -95,7 +94,7 @@
 		                },
 		                async: false
 		            });
-
+					
 					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
 		                type: 'GET',
@@ -104,7 +103,7 @@
 		                success: function (data) {
 		                	
 		               	console.log(data);
-		               	drawIndex(data);
+		               	drawIndex(data,indexDate);
 		                },
 		                
 		                error: function (data,

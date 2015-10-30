@@ -1,8 +1,10 @@
-function drawScatterPlot(json_object,index_dates,year){
+function drawScatterPlot(json_object,index_dates,year,month){
 	//this function draws the scatter plot.
-	var yearmin = year+"-01-01";
-	year++;
-	var yearmax = year+"-01-01";
+	var dayMin = year+"-"+month+"-01";
+	console.log(dayMin);
+	month++;
+	var dayMax = year+"-"+month+"-01";
+	console.log(dayMax);
 	var chart1 = c3.generate({
 		bindto: '#scatter_plot',
 		size: {
@@ -31,8 +33,8 @@ function drawScatterPlot(json_object,index_dates,year){
 			x: {
 				type: 'timeseries',
 				label: 'Time',
-				min : yearmin,
-				max : yearmax,
+				min : dayMin,
+				max : dayMax,
 				tick: {
 					format: '%Y-%m-%d',
 					rotate:90,
@@ -45,7 +47,7 @@ function drawScatterPlot(json_object,index_dates,year){
 		},
 		grid: {
 			x: {
-				lines:index_dates,
+				//lines:index_dates,
 			},
 		},
 		subchart: {
@@ -87,7 +89,8 @@ function drawSummaryGraph(json_ary,bindvalue){
 	});
 }
 
-function drawIndex(json_ary){
+function drawIndex(json_ary,indexDate){
+	console.log(indexDate);
 	var chart3=c3.generate({
 	    bindto:'#barIndex',
 	    data:{
@@ -114,6 +117,7 @@ function drawIndex(json_ary){
 				type: 'timeseries',
 				label: 'Time',
 				tick: {
+					values : indexDate,
 					format: '%Y-%m-%d',
 					rotate:90,
 					fit: false
@@ -121,7 +125,12 @@ function drawIndex(json_ary){
 			},
 	    	
 	        y:{
+	        	max:0.1,
+                min:-0.4,
 	            padding : 0,
+	            tick:{
+	            	count:10,
+	            },
 	            //max : 2300,
 	        },
 	    },
