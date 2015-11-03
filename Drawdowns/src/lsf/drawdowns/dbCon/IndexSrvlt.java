@@ -70,7 +70,7 @@ public class IndexSrvlt extends HttpServlet {
 
 				System.out.println(request.getParameter("M"));
 
-				String xx = "SELECT x.PERMNO AS PERMNO,x.CAPM_resid AS CAPM_resid_D FROM (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO='"+ request.getParameter("Q") + request.getParameter("M") + "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"+ request.getParameter("Q") + request.getParameter("M") + "') AS y WHERE x.PERMNO = y.PERMNO AND x.YRMO=y.YRMO ORDER BY y.CAPM_resid";
+				String xx = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"+ request.getParameter("Q") + request.getParameter("M") + "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"+ request.getParameter("Q") + request.getParameter("M") + "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
 				ResultSet set = dbconnection.selectData(xx);
 				
 				//ResultSet set = dbconnection.selectData("SELECT PERMNO,CAPM_resid_d FROM capm_merge_data where YRMO = '"+ request.getParameter("Q") + request.getParameter("M") + "'");
