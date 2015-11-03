@@ -89,8 +89,8 @@ function drawSummaryGraph(json_ary,bindvalue){
 	});
 }
 
-function drawIndex(json_ary,indexDate){
-	console.log(indexDate);
+function drawIndex(json_ary){
+	//console.log(indexDate);
 	var chart3=c3.generate({
 	    bindto:'#barIndex',
 	    data:{
@@ -117,7 +117,7 @@ function drawIndex(json_ary,indexDate){
 				type: 'timeseries',
 				label: 'Time',
 				tick: {
-					values : indexDate,
+					//values : indexDate,
 					format: '%Y-%m-%d',
 					rotate:90,
 					fit: false

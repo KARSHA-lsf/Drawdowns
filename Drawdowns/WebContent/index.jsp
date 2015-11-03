@@ -40,6 +40,7 @@
 					<ul class="nav">
 						<li class="active"><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
+						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 					</ul>
 				</div>
 

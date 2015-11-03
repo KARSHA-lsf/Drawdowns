@@ -69,12 +69,11 @@ public class IndexSrvlt extends HttpServlet {
 				// dbconnection.selectData("SELECT caff_drawdown_end.permno,caff_drawdown_end.one_d FROM caff_drawdown_end INNER JOIN caff_drawdowns ON caff_drawdown_end.permno=caff_drawdowns.permno AND caff_drawdown_end.yrmo=caff_drawdowns.yrmo WHERE caff_drawdown_end.yrmo='200410'");
 
 				System.out.println(request.getParameter("M"));
-				;
 
-				ResultSet set = dbconnection
-						.selectData("SELECT PERMNO,CAPM_resid_D FROM view_capm where YRMO = '"
-								+ request.getParameter("Q")
-								+ request.getParameter("M") + "'");
+				String xx = "SELECT x.PERMNO AS PERMNO,x.CAPM_resid AS CAPM_resid_D FROM (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO='"+ request.getParameter("Q") + request.getParameter("M") + "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"+ request.getParameter("Q") + request.getParameter("M") + "') AS y WHERE x.PERMNO = y.PERMNO AND x.YRMO=y.YRMO ORDER BY y.CAPM_resid";
+				ResultSet set = dbconnection.selectData(xx);
+				
+				//ResultSet set = dbconnection.selectData("SELECT PERMNO,CAPM_resid_d FROM capm_merge_data where YRMO = '"+ request.getParameter("Q") + request.getParameter("M") + "'");
 				JSONArray jsonarray = new JSONArray();
 				while (set.next()) {
 					JSONObject jsonobj = new JSONObject();
@@ -93,6 +92,8 @@ public class IndexSrvlt extends HttpServlet {
 						jsonarray.put(jsonobj);
 					}
 				}
+				System.out.println();
+				System.out.println(jsonarray);
 				PrintWriter pwr = response.getWriter();
 				pwr.print(jsonarray);
 			} catch (SQLException e) {
@@ -103,9 +104,9 @@ public class IndexSrvlt extends HttpServlet {
 			try {
 				String sql = null;
 				if (request.getParameter("D").equals("caff")) {
-					sql = "SELECT YEAR(one_d) AS date,COUNT(YEAR(one_d)) AS count FROM caff_drawdown_end GROUP BY YEAR(one_d)";
+					sql = "SELECT YEAR(date_withyear) AS date,COUNT(YEAR(date_withyear)) AS count FROM caaf_drawdownend GROUP BY YEAR(date_withyear)";
 				} else {
-					sql = "select date AS date,COUNT(date) AS count from capm_v2_table group by date";
+					sql = "SELECT YEAR(CAPM_resid) AS date,COUNT(YEAR(CAPM_resid)) AS count FROM capm_drawdowns_date GROUP BY YEAR(CAPM_resid)";
 				}
 				ResultSet set = dbconnection.selectData(sql);
 
@@ -113,7 +114,7 @@ public class IndexSrvlt extends HttpServlet {
 				ArrayList<Integer> aryYear = new ArrayList<Integer>();
 
 				while (set.next()) {
-					if (set.getInt("count") == 0) {
+					if (set.getInt("date") == 0) {
 
 					} else {
 						aryCount.add(set.getInt("count"));
@@ -134,9 +135,9 @@ public class IndexSrvlt extends HttpServlet {
 				// ResultSet set =
 				// dbconnection.selectData("select Index_dates,Index_values from indexDrawdown where Year='"+
 				// request.getParameter("Q") + "'");
-				ResultSet set = dbconnection
-						.selectData("SELECT mergedata.one AS Index_values,mergedata.one_d AS Index_dates FROM mergedata WHERE mergedata.permno = 0 AND mergedata.one_d LIKE '%"
-								+ request.getParameter("Q") + "%'");
+				
+				//ResultSet set = dbconnection.selectData("SELECT mergedata.one AS Index_values,mergedata.one_d AS Index_dates FROM mergedata WHERE mergedata.permno = 0 AND mergedata.one_d LIKE '%"+ request.getParameter("Q") + "%'");
+				ResultSet set = dbconnection.selectData("SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+ request.getParameter("Q") + "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+ request.getParameter("Q") + "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
 
 				ArrayList<Float> aryValue = new ArrayList<Float>();
 				ArrayList<String> aryDate = new ArrayList<String>();
@@ -153,11 +154,12 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (userPath.equals("/index")) {
-
+			/*
 			try {
-				
+
 				ResultSet set = dbconnection
-						.selectData("select one_d from v_index_drawdown_dates where one_d like '%"+request.getParameter("Q")+"%'");
+						.selectData("select one_d from v_index_drawdown_dates where one_d like '%"
+								+ request.getParameter("Q") + "%'");
 				JSONArray jsonarray = new JSONArray();
 				while (set.next()) {
 					JSONObject jsonobj = new JSONObject();
@@ -170,7 +172,7 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
+			*/
 		}
 	}
 
