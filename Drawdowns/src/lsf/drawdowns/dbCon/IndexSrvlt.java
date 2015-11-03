@@ -128,6 +128,8 @@ public class IndexSrvlt extends HttpServlet {
 				pwr.print(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 		} else if (userPath.equals("/indexData")) {
 			System.out.println("indexData method");
@@ -152,7 +154,10 @@ public class IndexSrvlt extends HttpServlet {
 				pwr.print(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
+			
 		} else if (userPath.equals("/index")) {
 			/*
 			try {
