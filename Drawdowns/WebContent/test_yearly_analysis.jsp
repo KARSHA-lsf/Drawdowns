@@ -1,12 +1,17 @@
-<!DOCTYPE html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <html class="no-js">
 
 <head>
 <title>KARSHA-Drawdowns</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
+	media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/c3.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="utf-8">
@@ -22,17 +27,32 @@
 		});
 	});
 </script>
+
 </head>
 
 <body>
-	
-	<script>
+<script>
 		//divide data from url to catogories
 		$(document).ready(
 				function y() {
 					
 					var indexDate;
-					
+					var urlindexdate = "index?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: urlindexdate,
+		                dataType: 'json',
+		                success: function (data) {
+		                indexDate = data;	
+		               	console.log(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
 					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
 					var High,High_Medium,Medium,Medium_low,low = [];
@@ -101,7 +121,7 @@
 		                success: function (data) {
 		                	
 		               	console.log(data);
-		               	drawIndex(data);
+		               	drawIndex(data,indexDate);
 		                },
 		                
 		                error: function (data,
@@ -114,7 +134,8 @@
 				});
 				
 		</script>
-		
+
+
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -125,9 +146,8 @@
 				<div class="nav-collapse collapse">
 
 					<ul class="nav">
-						<li><a href="index.jsp">Home</a></li>
+						<li class="active"><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
-						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 					</ul>
 				</div>
 
@@ -148,7 +168,6 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2" id="sidebar">
-			
 				<div id="accordion">
 					<%
 						for (int k = 2004; k < 2015; k++) {
@@ -174,10 +193,14 @@
 					<%
 						}
 					%>
-					</div>
+
+					<ul class="nav-collapse">
+						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
+					</ul>
+
+				</div>
 
 			</div>
-
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div>
@@ -210,14 +233,12 @@
 
 				<!-- /.row -->
 			</div>
-
-			<!-- /.row -->
-
 		</div>
 	</div>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
 	<script src="js/graphs.js"></script>
+	
 </body>
 </html>
