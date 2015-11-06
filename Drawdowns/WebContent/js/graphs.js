@@ -89,7 +89,7 @@ function drawSummaryGraph(json_ary,bindvalue){
 	});
 }
 
-function drawIndex(json_ary){
+function drawIndex(json_ary,indexDate){
 	//console.log(indexDate);
 	var chart3=c3.generate({
 	    bindto:'#barIndex',
@@ -117,11 +117,12 @@ function drawIndex(json_ary){
 				type: 'timeseries',
 				label: 'Time',
 				tick: {
-					//values : indexDate,
+					values : indexDate,
 					format: '%Y-%m-%d',
 					rotate:90,
 					fit: false
 				},
+				
 			},
 	    	
 	        y:{
@@ -129,12 +130,16 @@ function drawIndex(json_ary){
                 min:-0.4,
 	            padding : 0,
 	            tick:{
-	            	count:10,
+	            	//count:10,
 	            },
 	            //max : 2300,
 	        },
 	    },
 	    grid: {
+	    	x: {	
+				//lines:indexDate,
+	    		show:true,
+			},
             y: {
                 lines: [
                     {value: 0, text: 'Drawdown value 0'}

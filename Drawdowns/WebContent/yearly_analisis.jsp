@@ -3,11 +3,14 @@
 
 <head>
 <title>KARSHA-Drawdowns</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
+	media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="utf-8">
 <link rel="stylesheet"
@@ -16,22 +19,41 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script>
-	$(function () {
-		$("#accordion").accordion({
-			heightStyle : "content"
-		});
+$(function () {
+	$("#accordion").accordion({
+		heightStyle : "content",
+		active : <%=request.getParameter("Q")%>-2004
 	});
+});
 </script>
 </head>
 
 <body>
-	
+
 	<script>
+	
 		//divide data from url to catogories
 		$(document).ready(
+				
 				function y() {
 					
 					var indexDate;
+					var urlindexdate = "index?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: urlindexdate,
+		                dataType: 'json',
+		                success: function (data) {
+		                indexDate = data;	
+		               	console.log(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
 					
 					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
@@ -94,27 +116,25 @@
 		            });
 					
 					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>";
-					$.ajax({
-		                type: 'GET',
-		                url: urlindex,
-		                dataType: 'json',
-		                success: function (data) {
-		                	
-		               	console.log(data);
-		               	drawIndex(data);
-		                },
-		                
-		                error: function (data,
-		                        error) {
-		                	console.log(error);
-		                },
-		                async: false
-		            });
-					
-				});
-				
-		</script>
-		
+							$.ajax({
+								type : 'GET',
+								url : urlindex,
+								dataType : 'json',
+								success : function(data) {
+
+									console.log(data);
+									drawIndex(data,indexDate);
+								},
+
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+							});
+
+						});
+	</script>
+
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -139,16 +159,15 @@
 		String[] months = { "January", "February", "March", "April", "May",
 				"June", "July", "August", "September", "October",
 				"November", "December" };
-		String[] monthDate = { "01", "02", "03", "04", "05",
-				"06", "07", "08", "09", "10",
-				"11", "12" };
+		String[] monthDate = { "01", "02", "03", "04", "05", "06", "07",
+				"08", "09", "10", "11", "12" };
 	%>
 
 
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2" id="sidebar">
-			
+
 				<div id="accordion">
 					<%
 						for (int k = 2004; k < 2015; k++) {
@@ -165,7 +184,9 @@
 						%>
 						<li style="text-align: center"><a
 							style="font-family: Arial; color: blue; text-decoration: none"
-							href="yearly_analisis.jsp?Q=<%=k %>&M=<%=monthDate[i]%>"> <% out.println(k+"-"+monthDate[i]); %>
+							href="yearly_analisis.jsp?Q=<%=k%>&M=<%=monthDate[i]%>"> <%
+ 	out.println(k + "-" + monthDate[i]);
+ %>
 						</a></li>
 						<%
 							}
@@ -174,7 +195,7 @@
 					<%
 						}
 					%>
-					</div>
+				</div>
 
 			</div>
 
@@ -187,7 +208,9 @@
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<h4 class="page-header">Scatter plot for year <%=request.getParameter("Q")%></h4>
+						<h4 class="page-header">
+							Scatter plot for year
+							<%=request.getParameter("Q")%></h4>
 					</div>
 				</div>
 				<div class="row">
@@ -198,7 +221,9 @@
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<h4 class="page-header">Index drowdown for year <%=request.getParameter("Q")%></h4>
+						<h4 class="page-header">
+							Index drowdown for year
+							<%=request.getParameter("Q")%></h4>
 					</div>
 				</div>
 				<div class="row">
