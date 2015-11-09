@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
@@ -129,6 +128,9 @@ public class IndexSrvlt extends HttpServlet {
 				pwr.print(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else if (userPath.equals("/indexData")) {
 			System.out.println("indexData method");
@@ -151,7 +153,7 @@ public class IndexSrvlt extends HttpServlet {
 				PrintWriter pwr = response.getWriter();
 				pwr.print(obj);
 				System.out.println(obj);
-			} catch (SQLException e) {
+			} catch (SQLException | JSONException e) {
 				e.printStackTrace();
 			}
 		} else if (userPath.equals("/index")) {
