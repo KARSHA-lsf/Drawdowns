@@ -6,7 +6,6 @@
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
         <link href="assets/styles.css" rel="stylesheet" media="screen">
-        <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <meta charset="utf-8">
 		<link rel="stylesheet"
 		href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -156,7 +155,7 @@
 						</div>
 						<div class="span3">
 							<div class="block"  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:160px;height:100px">
-								<img src="bootstrap/img/NSF.jpg">
+								<img src="bootstrap/img/Nsf.jpg">
 									<a href="http://www.nsf.gov/" target="_blank">
 										<div class="panel-footer">
 											<div class="container5">
