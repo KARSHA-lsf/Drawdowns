@@ -35,7 +35,7 @@ $(function () {
 		$(document).ready(
 				function y() {
 					
-					var indexDate;
+					
 					
 					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
