@@ -127,6 +127,13 @@ function drawIndex(json_ary){
 	        y:{
 	        	max:0.1,
 <<<<<<< HEAD
+                min:-0.4,
+	            padding : 0,
+	            tick:{
+	            	//count:10,
+	            },
+=======
+<<<<<<< HEAD
 	            min:-0.3,
 	            label: 'Drawdown value',
                 tick: {
@@ -139,10 +146,14 @@ function drawIndex(json_ary){
                     values: [0.10, 0.05, 0, ,-0.05, -0.10, -0.15, -0.20, -0.25, -0.30]
                   }
 >>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 	            //max : 2300,
 	        },
 	    },
 	    grid: {
+	    	x:{
+	    		show:true,
+	    	},
             y: {
                 lines: [
                     {value: 0, text: 'Drawdown value 0'}

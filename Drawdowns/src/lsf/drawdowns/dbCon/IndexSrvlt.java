@@ -111,7 +111,7 @@ public class IndexSrvlt extends HttpServlet {
 					sql = "SELECT YEAR(CAPM_resid_date) AS date,COUNT(YEAR(CAPM_resid_date)) AS count FROM capm_drawdowns_date GROUP BY YEAR(CAPM_resid_date)";
 				}
 				ResultSet set = dbconnection.selectData(sql);
-
+				
 				ArrayList<Integer> aryCount = new ArrayList<Integer>();
 				ArrayList<Integer> aryYear = new ArrayList<Integer>();
 
@@ -130,8 +130,9 @@ public class IndexSrvlt extends HttpServlet {
 				pwr.print(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO: handle exception
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else if (userPath.equals("/indexData")) {
 			System.out.println("indexData method");
@@ -142,7 +143,6 @@ public class IndexSrvlt extends HttpServlet {
 				
 				//ResultSet set = dbconnection.selectData("SELECT mergedata.one AS Index_values,mergedata.one_d AS Index_dates FROM mergedata WHERE mergedata.permno = 0 AND mergedata.one_d LIKE '%"+ request.getParameter("Q") + "%'");
 				ResultSet set = dbconnection.selectData("SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+ request.getParameter("Q") + "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+ request.getParameter("Q") + "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
-
 				ArrayList<Float> aryValue = new ArrayList<Float>();
 				ArrayList<String> aryDate = new ArrayList<String>();
 				while (set.next()) {
@@ -154,13 +154,29 @@ public class IndexSrvlt extends HttpServlet {
 				obj.put("date", aryDate);
 				PrintWriter pwr = response.getWriter();
 				pwr.print(obj);
-			} catch (SQLException e) {
+				System.out.println(obj);
+			} catch (SQLException | JSONException e) {
 				e.printStackTrace();
+			}
+		} else if (userPath.equals("/index")) {
+			/*
+			try {
+				ResultSet set = dbconnection.selectData("SELECT B.date_withyear AS Index_dates FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+ request.getParameter("Q") + "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+ request.getParameter("Q") + "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
+				ArrayList<String> aryDate = new ArrayList<String>();
+				JSONArray jsonarray = new JSONArray();
+				while(set.next()){
+					JSONObject obj = new JSONObject();	
+			
+					obj.put("value", set.getString("Index_dates"));
+					jsonarray.put(set.getString("Index_dates"));
+					//jsonarray.put(obj);
+				}		
+				PrintWriter pwr = response.getWriter();
+				pwr.print(jsonarray);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
-		} else if (userPath.equals("/index")) {
+			*/
 			/*
 			try {
 
