@@ -31,7 +31,7 @@
 		$(document).ready(
 				function y() {
 					
-					var indexDate;
+					
 					
 					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
@@ -83,7 +83,7 @@
 		               		
 		               	console.log(Ready_output);
 		               	//call method in graph.js to draw scatter-plot
-		               	drawScatterPlot(Ready_output,indexDate,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
+		               	drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
 		                },
 		                
 		                error: function (data,

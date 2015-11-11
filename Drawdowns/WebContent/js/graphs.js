@@ -1,4 +1,4 @@
-function drawScatterPlot(json_object,index_dates,year,month){
+function drawScatterPlot(json_object,year,month){
 	//this function draws the scatter plot.
 	var dayMin = year+"-"+month+"-01";
 	console.log(dayMin);
