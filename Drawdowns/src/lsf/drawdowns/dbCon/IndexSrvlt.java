@@ -1,5 +1,6 @@
 package lsf.drawdowns.dbCon;
 
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,7 +108,7 @@ public class IndexSrvlt extends HttpServlet {
 				if (request.getParameter("D").equals("caff")) {
 					sql = "SELECT YEAR(date_withyear) AS date,COUNT(YEAR(date_withyear)) AS count FROM caaf_drawdownend GROUP BY YEAR(date_withyear)";
 				} else {
-					sql = "SELECT YEAR(CAPM_resid) AS date,COUNT(YEAR(CAPM_resid)) AS count FROM capm_drawdowns_date GROUP BY YEAR(CAPM_resid)";
+					sql = "SELECT YEAR(CAPM_resid_date) AS date,COUNT(YEAR(CAPM_resid_date)) AS count FROM capm_drawdowns_date GROUP BY YEAR(CAPM_resid_date)";
 				}
 				ResultSet set = dbconnection.selectData(sql);
 
@@ -178,6 +180,18 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 			*/
+		}else if (userPath.equals("/test_getSet")) {
+			PrintWriter pwr = response.getWriter();
+			
+			ObjectMapper mapper = new ObjectMapper();
+			
+			String query_get_dr = "SELECT capm_drawdowns_results.PERMNO,capm_drawdowns_results.YRMO,capm_drawdowns_results.CAPM_resid FROM capm_drawdowns_results where HORIZON=1";
+			
+			String set = dbconnection.getFromDB(query_get_dr,dbconnection.getCon()).toString();
+			
+			Drawdown[] drwn = mapper.readValue(set, Drawdown[].class);
+			
+			pwr.print(drwn[456].permno+": "+drwn[456].yrmo+" : "+drwn[456].capm_resid);
 		}
 	}
 
