@@ -157,6 +157,7 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (userPath.equals("/index")) {
+			/*
 			try {
 				ResultSet set = dbconnection.selectData("SELECT B.date_withyear AS Index_dates FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+ request.getParameter("Q") + "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+ request.getParameter("Q") + "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
 				ArrayList<String> aryDate = new ArrayList<String>();
@@ -172,6 +173,7 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+			*/
 			/*
 			try {
 

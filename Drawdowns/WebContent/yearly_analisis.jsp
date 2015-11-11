@@ -31,29 +31,11 @@ $(function () {
 <body>
 
 	<script>
-	
 		//divide data from url to catogories
 		$(document).ready(
-				
 				function y() {
 					
 					var indexDate;
-					var urlindexdate = "index?Q="+"<%=request.getParameter("Q")%>";
-					$.ajax({
-		                type: 'GET',
-		                url: urlindexdate,
-		                dataType: 'json',
-		                success: function (data) {
-		                indexDate = data;	
-		               	console.log(data);
-		                },
-		                
-		                error: function (data,
-		                        error) {
-		                	console.log(error);
-		                },
-		                async: false
-		            });
 					
 					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
@@ -103,9 +85,9 @@ $(function () {
 		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
 		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
 		               		
-		               	console.log(Ready_output);
+		               	//console.log(Ready_output);
 		               	//call method in graph.js to draw scatter-plot
-		               	drawScatterPlot(Ready_output,indexDate,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
+		               	drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
 		                },
 		                
 		                error: function (data,
@@ -116,24 +98,27 @@ $(function () {
 		            });
 					
 					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>";
-							$.ajax({
-								type : 'GET',
-								url : urlindex,
-								dataType : 'json',
-								success : function(data) {
-
-									console.log(data);
-									drawIndex(data,indexDate);
-								},
-
-								error : function(data, error) {
-									console.log(error);
-								},
-								async : false
-							});
-
-						});
-	</script>
+					$.ajax({
+		                type: 'GET',
+		                url: urlindex,
+		                dataType: 'json',
+		                success: function (data) {
+		                	
+		               	//console.log(data);
+		               	
+		               	drawIndex(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+				});
+				
+		</script>
 
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
@@ -203,14 +188,14 @@ $(function () {
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div>
 					<div class "row-fluid" style="margin: 30px 30px 30px">
-						<h1>Yearly Analisis</h1>
+						<h1>Monthly Analisis</h1>
 					</div>
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 						<h4 class="page-header">
-							Scatter plot for year
-							<%=request.getParameter("Q")%></h4>
+							Scatter plot for 
+							<%=request.getParameter("Q")+" "+months[Integer.valueOf(request.getParameter("M"))-1]%></h4>
 					</div>
 				</div>
 				<div class="row">

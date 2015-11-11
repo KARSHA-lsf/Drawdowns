@@ -1,4 +1,4 @@
-function drawScatterPlot(json_object,index_dates,year,month){
+function drawScatterPlot(json_object,year,month){
 	//this function draws the scatter plot.
 	var dayMin = year+"-"+month+"-01";
 	console.log(dayMin);
@@ -89,7 +89,7 @@ function drawSummaryGraph(json_ary,bindvalue){
 	});
 }
 
-function drawIndex(json_ary,indexDate){
+function drawIndex(json_ary){
 	//console.log(indexDate);
 	var chart3=c3.generate({
 	    bindto:'#barIndex',
@@ -117,12 +117,11 @@ function drawIndex(json_ary,indexDate){
 				type: 'timeseries',
 				label: 'Time',
 				tick: {
-					values : indexDate,
+					//values : indexDate,
 					format: '%Y-%m-%d',
 					rotate:90,
 					fit: false
 				},
-				
 			},
 	    	
 	        y:{
@@ -136,10 +135,9 @@ function drawIndex(json_ary,indexDate){
 	        },
 	    },
 	    grid: {
-	    	x: {	
-				//lines:indexDate,
+	    	x:{
 	    		show:true,
-			},
+	    	},
             y: {
                 lines: [
                     {value: 0, text: 'Drawdown value 0'}
