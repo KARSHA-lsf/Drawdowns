@@ -6,6 +6,7 @@
 <html class="no-js">
 
 <head>
+
 <title>KARSHA-Drawdowns</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
@@ -16,6 +17,7 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script>
@@ -25,9 +27,22 @@
 		});
 	});
 </script>
+
+
 </head>
 
 <body>
+
+	<script>
+                                //load the nodes and links arrays
+        
+        $.post("IndexSrvlt",null).error(function () {
+                    //alert("there is error while sending data to server");
+                });
+        ;
+	</script>
+	
+	
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -86,14 +101,10 @@
 					<%
 						}
 					%>
-
-					<ul class="nav-collapse">
-						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-					</ul>
-
+					
 				</div>
-
 			</div>
+			
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class "row-fluid" style="margin: 30px 30px 30px">

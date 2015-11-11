@@ -129,7 +129,7 @@ function drawIndex(json_ary){
                 min:-0.4,
 	            padding : 0,
 	            tick:{
-	            	count:10,
+	            	//count:10,
 	            },
 	            //max : 2300,
 	        },

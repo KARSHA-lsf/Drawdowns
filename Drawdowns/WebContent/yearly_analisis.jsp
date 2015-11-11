@@ -18,7 +18,8 @@
 <script>
 	$(function () {
 		$("#accordion").accordion({
-			heightStyle : "content"
+			heightStyle : "content",
+			active : <%=request.getParameter("Q")%>-2004
 		});
 	});
 </script>
@@ -187,7 +188,7 @@
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<h4 class="page-header">Scatter plot for year <%=request.getParameter("Q")%></h4>
+						<h4 class="page-header">Scatter plot for<%=request.getParameter("Q")+"-"+request.getParameter("M")%></h4>
 					</div>
 				</div>
 				<div class="row">
