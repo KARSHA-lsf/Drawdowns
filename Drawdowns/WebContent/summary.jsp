@@ -21,7 +21,8 @@
 <script>
 	$(function() {
 		$("#accordion").accordion({
-			heightStyle : "content"
+			heightStyle : "content",
+			active : <%=request.getParameter("Q")%>-2004
 		});
 	});
 </script>

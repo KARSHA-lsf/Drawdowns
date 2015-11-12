@@ -1,4 +1,4 @@
-function drawScatterPlot(json_object,index_dates,year,month){
+function drawScatterPlot(json_object,year,month){
 	//this function draws the scatter plot.
 	var dayMin = year+"-"+month+"-01";
 	console.log(dayMin);
@@ -126,15 +126,20 @@ function drawIndex(json_ary){
 	    	
 	        y:{
 	        	max:0.1,
+
                 min:-0.4,
 	            padding : 0,
 	            tick:{
 	            	//count:10,
 	            },
+
 	            //max : 2300,
 	        },
 	    },
 	    grid: {
+	    	x:{
+	    		show:true,
+	    	},
             y: {
                 lines: [
                     {value: 0, text: 'Drawdown value 0'}
