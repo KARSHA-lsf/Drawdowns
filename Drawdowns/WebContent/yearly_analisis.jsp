@@ -133,6 +133,7 @@ $(function () {
 						<li><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
+						<li><a href="yearly_analysis_percentages.jsp?Q=2004&M=03" style="text-align: center">test</a></li>
 					</ul>
 				</div>
 
