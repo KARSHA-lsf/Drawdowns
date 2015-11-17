@@ -14,10 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import model.*;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 /**
  * Servlet implementation class IndexSrvlt
@@ -198,16 +203,20 @@ public class IndexSrvlt extends HttpServlet {
 			*/
 		}else if (userPath.equals("/test_getSet")) {
 			PrintWriter pwr = response.getWriter();
+					
+			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
+			Session session = SFact.openSession();
+			session.beginTransaction();
 			
-			ObjectMapper mapper = new ObjectMapper();
+			@SuppressWarnings("unchecked")
+			List<CaafRv> list = session.createQuery("from model.CaafRv ").list();
 			
-			String query_get_dr = "SELECT capm_drawdowns_results.PERMNO,capm_drawdowns_results.YRMO,capm_drawdowns_results.CAPM_resid FROM capm_drawdowns_results where HORIZON=1";
+			for (Iterator<CaafRv> iterator = list.iterator(); iterator.hasNext();) {
+				CaafRv data = (CaafRv) iterator.next();
+				pwr.print(data.getId().getPermno());
+			}
 			
-			String set = dbconnection.getFromDB(query_get_dr,dbconnection.getCon()).toString();
-			
-			Drawdown[] drwn = mapper.readValue(set, Drawdown[].class);
-			
-			pwr.print(drwn[456].permno+": "+drwn[456].yrmo+" : "+drwn[456].capm_resid);
+			session.getTransaction().commit();
 		}
 	}
 

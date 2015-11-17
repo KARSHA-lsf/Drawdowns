@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/capm_db</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <mapping class="model.CaafDrawdownend"/>
+  <mapping class="model.CaafDrawdownendId"/>
+  <mapping class="model.CaafDrawdowns"/>
+  <mapping class="model.CaafDrawdownsId"/>
+  <mapping class="model.CaafMarketcapitalization"/>
+  <mapping class="model.CaafMarketcapitalizationId"/>
+  <mapping class="model.CaafPeakToTrough"/>
+  <mapping class="model.CaafPeakToTroughId"/>
+  <mapping class="model.CaafPeakToTroughEnd"/>
+  <mapping class="model.CaafPeakToTroughEndId"/>
+  <mapping class="model.CaafPeakToTroughStart"/>
+  <mapping class="model.CaafPeakToTroughStartId"/>
+  <mapping class="model.CaafReturns"/>
+  <mapping class="model.CaafReturnsId"/>
+  <mapping class="model.CaafRv"/>
+  <mapping class="model.CaafRvId"/>
+  <mapping class="model.CaafTurnover"/>
+  <mapping class="model.CaafTurnoverId"/>
+  <mapping class="model.CapmDrawdownsDate"/>
+  <mapping class="model.CapmDrawdownsDateId"/>
+  <mapping class="model.CapmDrawdownsResults"/>
+  <mapping class="model.CapmDrawdownsResultsId"/>
+  <mapping class="model.CapmPttEndDates"/>
+  <mapping class="model.CapmPttEndDatesId"/>
+  <mapping class="model.CapmPttResults"/>
+  <mapping class="model.CapmPttResultsId"/>
+  <mapping class="model.CapmPttStartDates"/>
+  <mapping class="model.CapmPttStartDatesId"/>
+ </session-factory>
+</hibernate-configuration>
