@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.*;
 
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -253,13 +255,23 @@ public class IndexSrvlt extends HttpServlet {
 			Session session = SFact.openSession();
 			session.beginTransaction();
 			
-			@SuppressWarnings("unchecked")
-			List<CapmDrawdownsResults> list = session.createQuery("from model.CapmDrawdownsResults ").list();
+			
+			SQLQuery q = session.createSQLQuery("SELECT YEAR(date_withyear) AS date,COUNT(YEAR(date_withyear)) AS count FROM caaf_drawdownend GROUP BY YEAR(date_withyear)");
+			q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			
+			
+		
+			List results = q.list();
+			pwr.print(results);
+			
+			
+			/*@SuppressWarnings("unchecked")
+			List<?> list = session.createQuery("FROM model.CapmDrawdownsResults E WHERE E.id =  ").list();
 			
 			for (Iterator<CapmDrawdownsResults> iterator = list.iterator(); iterator.hasNext();) {
 				CapmDrawdownsResults data = (CapmDrawdownsResults) iterator.next();
 				pwr.println(data.getId().getPermno()+" : "+data.getCapmResid());
-			}
+			}*/
 			
 			session.getTransaction().commit();
 
