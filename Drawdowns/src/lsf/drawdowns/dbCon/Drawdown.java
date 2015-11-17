@@ -23,10 +23,5 @@ public class Drawdown {
 	public void setCapm_resid(double capm_resid) {
 		this.capm_resid = capm_resid;
 	}
-	
-	
-	
-	
-	
 
 }

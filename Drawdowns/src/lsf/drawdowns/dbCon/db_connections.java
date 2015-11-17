@@ -72,9 +72,6 @@ public class db_connections {
 				}
 				jsonArray.put(obj);
 			}
-
-			// System.out.println("llll");
-			// System.out.println(resultSet.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

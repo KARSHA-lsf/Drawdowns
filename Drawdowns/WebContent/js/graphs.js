@@ -3,6 +3,7 @@ function drawScatterPlot(json_object,year,month){
 	var dayMin = year+"-"+month+"-01";
 	console.log(dayMin);
 	month++;
+	year++;
 	var dayMax = year+"-"+month+"-01";
 	console.log(dayMax);
 	var chart1 = c3.generate({
@@ -146,5 +147,45 @@ function drawIndex(json_ary){
                 ]
             }
         },
+	});
+}
+
+function drawlmtGraph(){
+	var chart4=c3.generate({
+	    bindto:'#multihistogram',
+	    data:{
+	        url:'bootstrap/data/aa.json',
+	        mimeType: 'json',
+	        type : 'bar',
+			x : 'xx'		
+	    },
+	    size: {
+	            height: 220
+	    },
+	    axis:{
+			x: {
+					type: 'timeseries',
+					label: 'Time',
+					//min : dayMin,
+					//max : dayMax,
+					tick: {
+						format: '%Y-%m-%d',
+						rotate:90,
+						fit: false
+					}
+				},
+	        y:{
+	            padding : 0,
+	            //max : 2300,
+	        },
+	    },
+	    grid: {
+	                y: {
+	                    lines: [
+	                        {value: 410, text: 'Average 410'}
+	                    ]
+	                }
+	            }
+	    
 	});
 }
