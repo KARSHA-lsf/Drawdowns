@@ -4,6 +4,7 @@ public class Drawdown {
 	int permno;
 	int yrmo;
 	double capm_resid;
+	String date;
 	
 	public int getPermno() {
 		return permno;
@@ -22,6 +23,12 @@ public class Drawdown {
 	}
 	public void setCapm_resid(double capm_resid) {
 		this.capm_resid = capm_resid;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 	

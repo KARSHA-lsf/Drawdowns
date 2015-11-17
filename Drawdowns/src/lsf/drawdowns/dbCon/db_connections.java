@@ -49,6 +49,9 @@ public class db_connections {
 		ResultSet set = state.executeQuery(sqlQuery);
 		return set;
 	}
+	public void ConnectionClose() throws SQLException{
+		con.close();
+	}
 	
 	public JSONArray getFromDB(String query, Connection connection) {
 

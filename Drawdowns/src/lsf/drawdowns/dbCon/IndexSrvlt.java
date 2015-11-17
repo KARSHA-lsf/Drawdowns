@@ -75,7 +75,7 @@ public class IndexSrvlt extends HttpServlet {
 				String xx = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"+ request.getParameter("Q") + request.getParameter("M") + "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"+ request.getParameter("Q") + request.getParameter("M") + "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
 				ResultSet set = dbconnection.selectData(xx);
 				
-				//ResultSet set = dbconnection.selectData("SELECT PERMNO,CAPM_resid_d FROM capm_merge_data where YRMO = '"+ request.getParameter("Q") + request.getParameter("M") + "'");
+				
 				JSONArray jsonarray = new JSONArray();
 				while (set.next()) {
 					JSONObject jsonobj = new JSONObject();
@@ -88,13 +88,12 @@ public class IndexSrvlt extends HttpServlet {
 							jsonobj.put("permno", permno);
 							jsonobj.put("capm_date", year_date);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						
 						jsonarray.put(jsonobj);
 					}
 				}
-				System.out.println();
 				System.out.println(jsonarray);
 				PrintWriter pwr = response.getWriter();
 				pwr.print(jsonarray);
@@ -158,45 +157,13 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (SQLException | JSONException e) {
 				e.printStackTrace();
 			}
-		} else if (userPath.equals("/index")) {
-			/*
-			try {
-				ResultSet set = dbconnection.selectData("SELECT B.date_withyear AS Index_dates FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+ request.getParameter("Q") + "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+ request.getParameter("Q") + "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
-				ArrayList<String> aryDate = new ArrayList<String>();
-				JSONArray jsonarray = new JSONArray();
-				while(set.next()){
-					JSONObject obj = new JSONObject();	
+		}
+		else if (userPath.equals("/index_Re")) {
+			System.out.println("INDEX");
 			
-					obj.put("value", set.getString("Index_dates"));
-					jsonarray.put(set.getString("Index_dates"));
-					//jsonarray.put(obj);
-				}		
-				PrintWriter pwr = response.getWriter();
-				pwr.print(jsonarray);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			*/
-			/*
-			try {
-
-				ResultSet set = dbconnection
-						.selectData("select one_d from v_index_drawdown_dates where one_d like '%"
-								+ request.getParameter("Q") + "%'");
-				JSONArray jsonarray = new JSONArray();
-				while (set.next()) {
-					JSONObject jsonobj = new JSONObject();
-					jsonobj.put("value", set.getString("one_d"));
-					jsonarray.put(set.getString("one_d"));
-				}
-				PrintWriter pwr = response.getWriter();
-				pwr.print(jsonarray);
-				System.out.println(jsonarray);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			*/
-		}else if (userPath.equals("/test_getSet")) {
+			
+		}
+		else if (userPath.equals("/test_getSet")) {
 			PrintWriter pwr = response.getWriter();
 			
 			ObjectMapper mapper = new ObjectMapper();
@@ -208,6 +175,32 @@ public class IndexSrvlt extends HttpServlet {
 			Drawdown[] drwn = mapper.readValue(set, Drawdown[].class);
 			
 			pwr.print(drwn[456].permno+": "+drwn[456].yrmo+" : "+drwn[456].capm_resid);
+			System.out.println("test_getSet:"+drwn[456].permno+": "+drwn[456].yrmo+" : "+drwn[456].capm_resid);
+		}
+		
+		
+		else if (userPath.equals("/index_return")) {
+		
+			try {
+				PrintWriter pwr = response.getWriter();
+				System.out.println("requestttt"+request.getParameter("Q"));
+				ResultSet set=dbconnection.selectData("SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+ request.getParameter("Q") + "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+ request.getParameter("Q") + "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
+				
+				ArrayList<Float> aryValue = new ArrayList<Float>();
+				ArrayList<String> aryDate = new ArrayList<String>();
+				while (set.next()) {
+					aryValue.add(set.getFloat("Index_values"));
+					aryDate.add(set.getString("Index_dates"));
+				}
+				JSONObject obj = new JSONObject();
+				obj.put("value", aryValue);
+				obj.put("date", aryDate);
+				pwr.print(obj);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {	
+				e.printStackTrace();
+			}			
 		}
 	}
 

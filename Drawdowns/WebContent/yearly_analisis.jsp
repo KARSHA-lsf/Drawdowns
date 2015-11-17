@@ -19,18 +19,10 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script>
-<<<<<<< HEAD
-	$(function () {
-		$("#accordion").accordion({
-			heightStyle : "content",
-			active : <%=request.getParameter("Q")%>-2004
-		});
-=======
 $(function () {
 	$("#accordion").accordion({
 		heightStyle : "content",
 		active : <%=request.getParameter("Q")%>-2004
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 	});
 });
 </script>
@@ -141,6 +133,7 @@ $(function () {
 						<li><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
+						<li><a href="yearly_analysis_percentages.jsp?Q=2004&M=03" style="text-align: center">test</a></li>
 					</ul>
 				</div>
 
@@ -201,13 +194,9 @@ $(function () {
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
-<<<<<<< HEAD
-						<h4 class="page-header">Scatter plot for<%=request.getParameter("Q")+"-"+request.getParameter("M")%></h4>
-=======
 						<h4 class="page-header">
 							Scatter plot for 
 							<%=request.getParameter("Q")+" "+months[Integer.valueOf(request.getParameter("M"))-1]%></h4>
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 					</div>
 				</div>
 				<div class="row">
