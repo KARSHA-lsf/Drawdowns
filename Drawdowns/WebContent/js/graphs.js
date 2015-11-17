@@ -126,11 +126,10 @@ function drawIndex(json_ary){
 	    	
 	        y:{
 	        	max:0.1,
-
-                min:-0.4,
-	            padding : 0,
+                min:-0.3,
+                label: 'Drawdown value',
 	            tick:{
-	            	//count:10,
+	            	values: [0.10,0, -0.10, -0.20, -0.30]
 	            },
 
 	            //max : 2300,

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 16, 2015 8:49:02 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.CapmPttResultsId" table="CAPMPTTRESULTSID">
+        <id name="ff3Resid" type="java.math.BigDecimal">
+            <column name="FF3RESID" />
+            <generator class="assigned" />
+        </id>
+        <property name="permno" type="java.lang.Integer">
+            <column name="PERMNO" />
+        </property>
+        <property name="yrmo" type="java.lang.Integer">
+            <column name="YRMO" />
+        </property>
+        <property name="horizon" type="java.lang.Integer">
+            <column name="HORIZON" />
+        </property>
+        <property name="ret" type="java.math.BigDecimal">
+            <column name="RET" />
+        </property>
+        <property name="capmResid" type="java.math.BigDecimal">
+            <column name="CAPMRESID" />
+        </property>
+    </class>
+</hibernate-mapping>
