@@ -67,5 +67,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.0.0.Final</version>
 		</dependency>
+
+
 	</dependencies>
 </project>
