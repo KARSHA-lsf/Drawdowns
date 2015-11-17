@@ -254,11 +254,11 @@ public class IndexSrvlt extends HttpServlet {
 			session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			List<CaafRv> list = session.createQuery("from model.CaafRv ").list();
+			List<CapmDrawdownsResults> list = session.createQuery("from model.CapmDrawdownsResults ").list();
 			
-			for (Iterator<CaafRv> iterator = list.iterator(); iterator.hasNext();) {
-				CaafRv data = (CaafRv) iterator.next();
-				pwr.print(data.getId().getPermno());
+			for (Iterator<CapmDrawdownsResults> iterator = list.iterator(); iterator.hasNext();) {
+				CapmDrawdownsResults data = (CapmDrawdownsResults) iterator.next();
+				pwr.println(data.getId().getPermno()+" : "+data.getCapmResid());
 			}
 			
 			session.getTransaction().commit();
