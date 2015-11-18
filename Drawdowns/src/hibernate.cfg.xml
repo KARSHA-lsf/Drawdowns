@@ -7,6 +7,7 @@
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/capm_db</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.hbm2ddl.auto">validate</property>
   <mapping class="model.CaafDrawdownend"/>
   <mapping class="model.CaafDrawdownendId"/>
   <mapping class="model.CaafDrawdowns"/>

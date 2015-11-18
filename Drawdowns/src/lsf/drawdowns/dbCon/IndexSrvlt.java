@@ -22,6 +22,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -255,14 +256,19 @@ public class IndexSrvlt extends HttpServlet {
 			Session session = SFact.openSession();
 			session.beginTransaction();
 			
+			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,x.CAPM_resid_date AS drawdownDate,y.value1 AS marketCapitalization FROM (SELECT A.PERMNO,A.YRMO,A.CAPM_resid, B.PERMNO_date,B.YRMO_date,B.CAPM_resid_date FROM (SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON =1) AS A INNER JOIN (SELECT * FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON=1) AS B ON A.PERMNO=B.PERMNO_date) AS x INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS y ON y.permno=x.PERMNO AND y.yrmo=x.yrmo";
 			
-			SQLQuery q = session.createSQLQuery("SELECT YEAR(date_withyear) AS date,COUNT(YEAR(date_withyear)) AS count FROM caaf_drawdownend GROUP BY YEAR(date_withyear)");
-			q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-			
-			
+			SQLQuery q = session.createSQLQuery(all_drawdown);
+			//q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 		
-			List results = q.list();
-			pwr.print(results);
+			@SuppressWarnings("unchecked")
+			List<Drawdown> results = q.list();
+			
+			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
+				Drawdown data = (Drawdown) iterator.next();
+				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization());
+			}
 			
 			
 			/*@SuppressWarnings("unchecked")
