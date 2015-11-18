@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.*;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -252,15 +255,20 @@ public class IndexSrvlt extends HttpServlet {
 			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 			Session session = SFact.openSession();
 			session.beginTransaction();
-			
+			String hql = "SELECT x.PERMNO, x.YRMO, x.CAPM_resid, x.value1, y.CAPM_resid_date FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN ( SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON = 1) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo";
+			Query query = session.createQuery(hql);
+			//query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			@SuppressWarnings("unchecked")
-			List<CapmDrawdownsResults> list = session.createQuery("from model.CapmDrawdownsResults ").list();
-			
-			for (Iterator<CapmDrawdownsResults> iterator = list.iterator(); iterator.hasNext();) {
-				CapmDrawdownsResults data = (CapmDrawdownsResults) iterator.next();
-				pwr.println(data.getId().getPermno()+" : "+data.getCapmResid());
+			List<CapmDrawdownsDate> list = query.list();
+			for (CapmDrawdownsDate data : list) {
+				//CapmDrawdownsDate data = (CapmDrawdownsDate) x[0];
+				//CapmDrawdownsDate data = (CapmDrawdownsDate) iterator.next();
+				//System.out.println();
+				
+				pwr.println(data.getId().getYrmoDate()+" : "+data.getId().getPermnoDate()+" : "+data.getCapmResidDate());
 			}
-			
+			System.out.print("aa");
+		
 			session.getTransaction().commit();
 
 		}

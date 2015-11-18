@@ -3,7 +3,7 @@ function drawScatterPlot(json_object,year,month){
 	var dayMin = year+"-"+month+"-01";
 	console.log(dayMin);
 	month++;
-	year++;
+	//year++;
 	var dayMax = year+"-"+month+"-01";
 	console.log(dayMax);
 	var chart1 = c3.generate({
@@ -53,8 +53,7 @@ function drawScatterPlot(json_object,year,month){
 		},
 		subchart: {
 			show: true
-		},
-    
+		},   
 	});
 }
 function drawSummaryGraph(json_ary,bindvalue){
