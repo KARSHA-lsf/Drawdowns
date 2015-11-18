@@ -18,11 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.*;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,7 +64,6 @@ public class IndexSrvlt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -190,7 +189,13 @@ public class IndexSrvlt extends HttpServlet {
 		} else if (userPath.equals("/indexData")) {
 			System.out.println("indexData method");
 			try {
-			
+				// ResultSet set =
+				// dbconnection.selectData("select Index_dates,Index_values from indexDrawdown where Year='"+
+				// request.getParameter("Q") + "'");
+
+				// ResultSet set =
+				// dbconnection.selectData("SELECT mergedata.one AS Index_values,mergedata.one_d AS Index_dates FROM mergedata WHERE mergedata.permno = 0 AND mergedata.one_d LIKE '%"+
+				// request.getParameter("Q") + "%'");
 				ResultSet set = dbconnection
 						.selectData("SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"
 								+ request.getParameter("Q")
@@ -212,27 +217,71 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (SQLException | JSONException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (userPath.equals("/test_getSet")) {
+		} else if (userPath.equals("/index")) {
+			/*
+			 * try { ResultSet set = dbconnection.selectData(
+			 * "SELECT B.date_withyear AS Index_dates FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"
+			 * + request.getParameter("Q") +
+			 * "%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"
+			 * + request.getParameter("Q") +
+			 * "%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end");
+			 * ArrayList<String> aryDate = new ArrayList<String>(); JSONArray
+			 * jsonarray = new JSONArray(); while(set.next()){ JSONObject obj =
+			 * new JSONObject();
+			 * 
+			 * obj.put("value", set.getString("Index_dates"));
+			 * jsonarray.put(set.getString("Index_dates"));
+			 * //jsonarray.put(obj); } PrintWriter pwr = response.getWriter();
+			 * pwr.print(jsonarray); } catch (Exception e) { // TODO: handle
+			 * exception }
+			 */
+			/*
+			 * try {
+			 * 
+			 * ResultSet set = dbconnection .selectData(
+			 * "select one_d from v_index_drawdown_dates where one_d like '%" +
+			 * request.getParameter("Q") + "%'"); JSONArray jsonarray = new
+			 * JSONArray(); while (set.next()) { JSONObject jsonobj = new
+			 * JSONObject(); jsonobj.put("value", set.getString("one_d"));
+			 * jsonarray.put(set.getString("one_d")); } PrintWriter pwr =
+			 * response.getWriter(); pwr.print(jsonarray);
+			 * System.out.println(jsonarray); } catch (SQLException e) {
+			 * e.printStackTrace(); }
+			 */
+		} else if (userPath.equals("/test_getSet")) {
 			PrintWriter pwr = response.getWriter();
-				
+
+					
 			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 			Session session = SFact.openSession();
 			session.beginTransaction();
 			
+			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,x.CAPM_resid_date AS drawdownDate,y.value1 AS marketCapitalization FROM (SELECT A.PERMNO,A.YRMO,A.CAPM_resid, B.PERMNO_date,B.YRMO_date,B.CAPM_resid_date FROM (SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON =1) AS A INNER JOIN (SELECT * FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON=1) AS B ON A.PERMNO=B.PERMNO_date) AS x INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS y ON y.permno=x.PERMNO AND y.yrmo=x.yrmo";
+			
+			SQLQuery q = session.createSQLQuery(all_drawdown);
+			//q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
+		
 			@SuppressWarnings("unchecked")
-			List<CapmDrawdownsResults> list = session.createQuery("from model.CapmDrawdownsResults").list();
+			List<Drawdown> results = q.list();
+			
+			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
+				Drawdown data = (Drawdown) iterator.next();
+				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization());
+			}
+			
+			
+			/*@SuppressWarnings("unchecked")
+			List<?> list = session.createQuery("FROM model.CapmDrawdownsResults E WHERE E.id =  ").list();
 			
 			for (Iterator<CapmDrawdownsResults> iterator = list.iterator(); iterator.hasNext();) {
 				CapmDrawdownsResults data = (CapmDrawdownsResults) iterator.next();
 				pwr.println(data.getId().getPermno()+" : "+data.getCapmResid());
-			}
+			}*/
 			
 			session.getTransaction().commit();
-	
+
 		}
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request,
