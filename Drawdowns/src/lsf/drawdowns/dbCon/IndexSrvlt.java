@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,10 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.*;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,15 +117,16 @@ public class IndexSrvlt extends HttpServlet {
 			try {
 				
 			//	String sql ="SELECT * FROM(SELECT v1.*, @counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar, v1) AS X where counter <= (10/100 * @counter) AND YRMO BETWEEN 200401 AND 200412";
-				int percent = Integer.valueOf(request.getParameter("P"));
-				String start = request.getParameter("S")+"01";
-				String end = request.getParameter("E")+"12";
-				//int percent = 10;
-				//String start = "200401";
-				//String end = "200412";
-				System.out.println(request.getParameter("P"));
-				String xx = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date,@counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar,capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date BETWEEN '"+start+"' AND '"+end+"') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO BETWEEN '"+start+"' AND '"+end+"') AS y WHERE counter <= ('"+percent+"'/100 * @counter) AND  x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
+				
+				String xx = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date,@counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar,capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"
+						+ request.getParameter("Q")
+						+ request.getParameter("M")
+						+ "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"
+						+ request.getParameter("Q")
+						+ request.getParameter("M")
+						+ "') AS y WHERE counter <= (10/100 * @counter) AND  x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
 				ResultSet set = dbconnection.selectData(xx);
+
 				JSONArray jsonarray = new JSONArray();
 				while (set.next()) {
 					JSONObject jsonobj = new JSONObject();
@@ -179,7 +180,6 @@ public class IndexSrvlt extends HttpServlet {
 				obj.put("year", aryYear);
 				PrintWriter pwr = response.getWriter();
 				pwr.print(obj);
-				System.out.println(obj);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (JSONException e) {
@@ -255,20 +255,30 @@ public class IndexSrvlt extends HttpServlet {
 			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 			Session session = SFact.openSession();
 			session.beginTransaction();
-			String hql = "SELECT x.PERMNO, x.YRMO, x.CAPM_resid, x.value1, y.CAPM_resid_date FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN ( SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON = 1) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo";
-			Query query = session.createQuery(hql);
-			//query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-			@SuppressWarnings("unchecked")
-			List<CapmDrawdownsDate> list = query.list();
-			for (CapmDrawdownsDate data : list) {
-				//CapmDrawdownsDate data = (CapmDrawdownsDate) x[0];
-				//CapmDrawdownsDate data = (CapmDrawdownsDate) iterator.next();
-				//System.out.println();
-				
-				pwr.println(data.getId().getYrmoDate()+" : "+data.getId().getPermnoDate()+" : "+data.getCapmResidDate());
-			}
-			System.out.print("aa");
+			
+			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,x.CAPM_resid_date AS drawdownDate,y.value1 AS marketCapitalization FROM (SELECT A.PERMNO,A.YRMO,A.CAPM_resid, B.PERMNO_date,B.YRMO_date,B.CAPM_resid_date FROM (SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON =1) AS A INNER JOIN (SELECT * FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON=1) AS B ON A.PERMNO=B.PERMNO_date) AS x INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS y ON y.permno=x.PERMNO AND y.yrmo=x.yrmo";
+			
+			SQLQuery q = session.createSQLQuery(all_drawdown);
+			//q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 		
+			@SuppressWarnings("unchecked")
+			List<Drawdown> results = q.list();
+			
+			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
+				Drawdown data = (Drawdown) iterator.next();
+				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization());
+			}
+			
+			
+			/*@SuppressWarnings("unchecked")
+			List<?> list = session.createQuery("FROM model.CapmDrawdownsResults E WHERE E.id =  ").list();
+			
+			for (Iterator<CapmDrawdownsResults> iterator = list.iterator(); iterator.hasNext();) {
+				CapmDrawdownsResults data = (CapmDrawdownsResults) iterator.next();
+				pwr.println(data.getId().getPermno()+" : "+data.getCapmResid());
+			}*/
+			
 			session.getTransaction().commit();
 
 		}
