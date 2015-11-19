@@ -9,6 +9,7 @@ public class Drawdown {
 	String drawdownDate;
 	BigDecimal drawdownValue;
 	double marketCapitalization;
+	BigDecimal returnValue;
 	public int getPermno() {
 		return permno;
 	}
@@ -42,6 +43,12 @@ public class Drawdown {
 		}else{
 			this.marketCapitalization = Double.parseDouble(marketCapitalization);
 		}
+	}
+	public BigDecimal getReturnValue() {
+		return returnValue;
+	}
+	public void setReturnValue(BigDecimal returnValue) {
+		this.returnValue = returnValue;
 	}
 	
 	

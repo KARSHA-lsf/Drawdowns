@@ -42,10 +42,18 @@
 
 <body>
 	<script>
-		//divide data from url to catogories
-		$(document).ready(
-				function y() {
-					var urlscatter = "rangeData?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
+	$(document).ready(
+			function x() {
+				//y();
+			});
+	</script>
+	<script>
+		function y() {
+			console.log();
+			var x =document.getElementById("start").value;
+			var y =document.getElementById("end").value;
+			var z =document.getElementById("perc").value;
+					var urlscatter = "rangeData?S="+x+"&E="+y+"&P="+z+"";
 					var i,p;
 					var High,High_Medium,Medium,Medium_low,low = [];
 					var Arr,PermNo=[],Perm_date = [];
@@ -105,8 +113,7 @@
 		                async: false
 		            });
 					
-					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>
-		";
+					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%> ";
 							$.ajax({
 								type : 'GET',
 								url : urlindex,
@@ -122,7 +129,7 @@
 								async : false
 							});
 
-						});
+				}
 	</script>
 
 	<div class="navbar navbar-fixed-top">
@@ -168,31 +175,28 @@
 							<h2 style="margin-top: 5px">Yearly Analisis</h2>
 						</div>
 						<div class="span9">
-							<select name="percentage" style="width: 80px">
-								<option value="10">10%</option>
-								<option value="20">20%</option>
-								<option value="30">30%</option>
-								<option value="40">40%</option>
-								<option value="50">50%</option>
-								<option value="60">60%</option>
-								<option value="70">70%</option>
-								<option value="80">80%</option>
-								<option value="90">90%</option>
-								<option selected value="100">100%</option>
+							<select id="start" onchange=y() style="width: 80px">
+							<% for (int k = 2004; k < 2016; k++) { %>
+								<option value=<%=k%>><% out.println(k);%></option>
+							<% } %>	
 							</select>
-							<k></k>
-							<script>
-								$("select").change(
-										function() {
-											var str = "";
-											$("select option:selected").each(
-													function() {
-														str += $(this).text()
-																+ " ";
-													});
-											$("k").text(str);
-										}).change();
-							</script>
+							<select id="end" onchange=y() style="width: 80px">
+							<% for (int k = 2004; k < 2016; k++) { %>
+								<option value=<%=k%>><% out.println(k); %></option>
+							<% } %>	
+							</select>
+							<select  id="perc" onchange=y() style="width: 80px">
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option selected value="100">100</option>
+							</select>
 						</div>
 
 					</div>
@@ -221,10 +225,19 @@
 				<div class="row">
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 						<div id="barIndex"></div>
-
 					</div>
 				</div>
-
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">
+							Cummulative Loss market cap graph</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="multihistogram"></div>
+					</div>
+				</div>
 				<!-- /.row -->
 			</div>
 
