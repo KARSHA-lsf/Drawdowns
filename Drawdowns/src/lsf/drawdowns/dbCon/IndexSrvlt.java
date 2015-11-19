@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -265,10 +267,20 @@ public class IndexSrvlt extends HttpServlet {
 			@SuppressWarnings("unchecked")
 			List<Drawdown> results = q.list();
 			
+			/*
+			Collections.sort(results,new Comparator<Drawdown>(){
+				@Override
+				public int compare(Drawdown d0,Drawdown d1){
+					return d0.getDrawdownDate().compareTo(d1.getDrawdownDate());
+				}
+				});*/
+			
+			
 			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
 				Drawdown data = (Drawdown) iterator.next();
 				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization());
 			}
+			
 			
 			
 			/*@SuppressWarnings("unchecked")

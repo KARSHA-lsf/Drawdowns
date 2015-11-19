@@ -37,7 +37,7 @@ public class Drawdown {
 		return marketCapitalization;
 	}
 	public void setMarketCapitalization(String marketCapitalization) {
-		if(marketCapitalization==null){
+		if(marketCapitalization==null | marketCapitalization.equalsIgnoreCase("")){
 			this.marketCapitalization = 0;
 		}else{
 			this.marketCapitalization = Double.parseDouble(marketCapitalization);
