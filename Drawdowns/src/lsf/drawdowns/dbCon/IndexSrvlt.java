@@ -296,19 +296,16 @@ public class IndexSrvlt extends HttpServlet {
 				/** end of orange bar */
 				obj.put("emp_date", empDate );
 				obj.put("emp_value", empValue);
-				//obj.put("index_date", indexDate);
-				//obj.put("index_value", indexValue);
+				obj.put("index_date", indexDate);
+				obj.put("index_value", indexValue);
 				pwr.print(obj);
 			} catch (SQLException | JSONException e) {
 				e.printStackTrace();
-			}
-			
-			
+			}			
 			session.getTransaction().commit();
 
 		}
 	}
-
 	
 
 	protected void doPost(HttpServletRequest request,
