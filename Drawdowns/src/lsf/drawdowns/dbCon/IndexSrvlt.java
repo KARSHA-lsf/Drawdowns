@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +30,9 @@ import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 
 /**
@@ -262,6 +267,7 @@ public class IndexSrvlt extends HttpServlet {
 			String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON = 1) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '2004%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo";
 			SQLQuery q = session.createSQLQuery(all_drawdown);
 			//q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			
 			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 			/*
 			String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '2004%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '2004%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end";
@@ -292,13 +298,40 @@ public class IndexSrvlt extends HttpServlet {
 			*/
 			@SuppressWarnings("unchecked")
 			List<Drawdown> results = q.list();
-			
-			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
-				Drawdown data = (Drawdown) iterator.next();
-				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization()+" : "+data.getReturnValue());
+			ArrayList<CRSP_ValueWeightedReturns> CRSP = new ArrayList<>();
+			List<Double> Mkt_Cap = new ArrayList<>();
+			List<String> dates = new ArrayList<>();
+			String sql = "SELECT * FROM CRSP_ValueWeightedReturns";
+			try {
+				ResultSet rs = dbconnection.selectData(sql);
+				
+				while(rs.next()){
+					CRSP_ValueWeightedReturns CRSP_obj = new CRSP_ValueWeightedReturns();
+					CRSP_obj.setDate(rs.getString("DATE"));
+					CRSP_obj.setINDEX(rs.getDouble("INDEX"));
+					CRSP_obj.setRET(rs.getDouble("RET"));
+					CRSP.add(CRSP_obj);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			//System.out.println(CRSP.get(2).getRET() * CRSP.get(2).getINDEX());
+			for(int i=0;i<=Mkt_Cap.size();i++)
+			{
+				Mkt_Cap.add(CRSP.get(2).getRET() * CRSP.get(2).getINDEX());
+				dates.add(CRSP.get(i).getDate()); 
+			}
+			System.out.println(Mkt_Cap.get(2));
+			/*Gson gson = new Gson();
+			JSONObject J_obj = new JSONObject();
+			
+			JsonElement dates = 
+				*/
 			
 			
+			
+						
 			/*@SuppressWarnings("unchecked")
 			List<?> list = session.createQuery("FROM model.CapmDrawdownsResults E WHERE E.id =  ").list();
 			
