@@ -274,7 +274,34 @@ public class IndexSrvlt extends HttpServlet {
 			double empValue[] = getEndOfMonthLossMC(result,empDate);
 			/** end of red bar*/
 			
-			
+			/** orange bar */ 
+			String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '2004%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '2004%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
+			ArrayList<String> indexDate = new ArrayList<String>();
+			ArrayList<Double> indexValue = new ArrayList<Double>();				
+			double max = -10;
+			double tmp = 0;
+			try {
+				ResultSet rset = dbconnection.selectData(sql);
+				while(rset.next()){
+					tmp = rset.getDouble("Index_values");
+					if(tmp>max){
+						max=tmp;
+					}
+					indexDate.add(rset.getString("Index_dates"));
+					indexValue.add(Double.valueOf(rset.getString("Index_values")));
+				}
+				for (int j = 0; j < indexValue.size(); j++) {
+					indexValue.set(j, indexValue.get(j)*100/max);
+				}
+				/** end of orange bar */
+				obj.put("emp_date", empDate );
+				obj.put("emp_value", empValue);
+				//obj.put("index_date", indexDate);
+				//obj.put("index_value", indexValue);
+				pwr.print(obj);
+			} catch (SQLException | JSONException e) {
+				e.printStackTrace();
+			}
 			
 			
 			session.getTransaction().commit();
