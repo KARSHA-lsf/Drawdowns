@@ -2,14 +2,18 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,6 +32,7 @@ import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.Test;
 
 
 /**
@@ -252,68 +257,104 @@ public class IndexSrvlt extends HttpServlet {
 			 */
 		} else if (userPath.equals("/test_getSet")) {
 			PrintWriter pwr = response.getWriter();
-
+			JSONObject obj = new JSONObject();
 					
 			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 			Session session = SFact.openSession();
 			session.beginTransaction();
 			
-			//String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,x.CAPM_resid_date AS drawdownDate,y.value1 AS marketCapitalization FROM (SELECT A.PERMNO,A.YRMO,A.CAPM_resid, B.PERMNO_date,B.YRMO_date,B.CAPM_resid_date FROM (SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON =1) AS A INNER JOIN (SELECT * FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON=1) AS B ON A.PERMNO=B.PERMNO_date) AS x INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS y ON y.permno=x.PERMNO AND y.yrmo=x.yrmo";
-			String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON = 1) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '2004%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo";
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");			
+			String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON = 1) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '2004%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER by y.CAPM_resid_date";
 			SQLQuery q = session.createSQLQuery(all_drawdown);
-			//q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
-			/*
-			String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '2004%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '2004%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end";
-			String[] index_date = new String[12];
-			try {
-				ResultSet rset = dbconnection.selectData(sql);
-				int i=0;
-				while(rset.next()){
-					//System.out.println(rset.getString(2));
-					System.out.println(rset.getString(1));
-					index_date[i]=rset.getString(1);
-					i++;				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			for (int i = 0; i < 12; i++) {
-				try {
-					Date d1 = (Date) df.parse(index_date[i]);
-					Date d2 = (Date) df.parse(index_date[i]);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-			*/
-			@SuppressWarnings("unchecked")
-			List<Drawdown> results = q.list();
+			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));			
+			List<Drawdown> result=q.list();
 			
-			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
-				Drawdown data = (Drawdown) iterator.next();
-				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization()+" : "+data.getReturnValue());
-			}
+			/** red bar */
+			String empDate[] = getEndOfMonth(result);
+			double empValue[] = getEndOfMonthLossMC(result,empDate);
+			/** end of red bar*/
 			
 			
-			/*@SuppressWarnings("unchecked")
-			List<?> list = session.createQuery("FROM model.CapmDrawdownsResults E WHERE E.id =  ").list();
 			
-			for (Iterator<CapmDrawdownsResults> iterator = list.iterator(); iterator.hasNext();) {
-				CapmDrawdownsResults data = (CapmDrawdownsResults) iterator.next();
-				pwr.println(data.getId().getPermno()+" : "+data.getCapmResid());
-			}*/
 			
 			session.getTransaction().commit();
 
 		}
 	}
 
+	
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+	}
+	String[] getEndOfMonth(List<Drawdown> result){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String empDate[] = new String[12];
+		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+			Drawdown drawdown = (Drawdown) iterator.next();
+			try {
+				if (drawdown.getDrawdownDate().equals("")) {					
+				}else{
+					Date date1 = df.parse(drawdown.getDrawdownDate());
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(date1);
+					int month = cal.get(Calendar.MONTH) + 1;
+					switch(month){
+					case 1: empDate[0]=df.format(date1);
+					case 2: empDate[1]=df.format(date1);
+					case 3: empDate[2]=df.format(date1);
+					case 4: empDate[3]=df.format(date1);
+					case 5: empDate[4]=df.format(date1);
+					case 6: empDate[5]=df.format(date1);
+					case 7: empDate[6]=df.format(date1);
+					case 8: empDate[7]=df.format(date1);
+					case 9: empDate[8]=df.format(date1);
+					case 10: empDate[9]=df.format(date1);
+					case 11: empDate[10]=df.format(date1);
+					case 12: empDate[11]=df.format(date1);
+					
+					}						
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return empDate;
+	}
+	private double[] getEndOfMonthLossMC(List<Drawdown> result, String[] empDate) {
+		double empValue[] = new double[12];
+		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+			Drawdown drawdown = (Drawdown) iterator.next();
+			String check = drawdown.getDrawdownDate();
+			if (drawdown.getDrawdownDate().equals(empDate[0])) {
+				empValue[0]=empValue[0]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[1])) {
+				empValue[1]=empValue[1]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[2])) {
+				empValue[2]=empValue[2]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[3])) {
+				empValue[3]=empValue[3]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[4])) {
+				empValue[4]=empValue[4]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[5])) {
+				empValue[5]=empValue[5]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[6])) {
+				empValue[6]=empValue[6]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[7])) {
+				empValue[7]=empValue[7]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[8])) {
+				empValue[8]=empValue[8]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[9])) {
+				empValue[9]=empValue[9]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[10])) {
+				empValue[10]=empValue[10]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			} else if (drawdown.getDrawdownDate().equals(empDate[11])) {
+				empValue[11]=empValue[11]+(drawdown.getMarketCapitalization()*(1-drawdown.getReturnValue().doubleValue()));
+			}
+		}
+		return empValue;
+		
 	}
 }

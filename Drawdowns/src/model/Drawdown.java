@@ -51,7 +51,4 @@ public class Drawdown {
 		this.returnValue = returnValue;
 	}
 	
-	
-	
-
 }
