@@ -307,6 +307,8 @@ public class IndexSrvlt extends HttpServlet {
 			BigDecimal cummilativeValue=new BigDecimal(0);
 			String CumalativeArray[][]=new String[countforSecondArray+1][2];
 			
+			
+			
 			for(int i=0;i<arrayYear.length;i++){
 	
 				for(int j=0;j<countforSecondArray+1;j++){
@@ -317,17 +319,37 @@ public class IndexSrvlt extends HttpServlet {
 					Date d6;
 					try {	
 						
-						if(i<= 10){
+						if(i==0){
 							d1 = (Date)format.parse(arrayYear[i]);
 							d2=(Date)format.parse(arrayYear[i+1]);						
 							d3=(Date)format.parse(secondSortArray[j][0]);
+							if(d3.before(d1)){
+								cummilativeValue=new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
+								CumalativeArray[j][0]=secondSortArray[j][0];
+								CumalativeArray[j][1]=cummilativeValue.toString();
+							}
+							if(d3.equals(d1)||d3.after(d1)&&d3.before(d2)){
+								cummilativeValue=new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
+								CumalativeArray[j][0]=secondSortArray[j][0];
+								CumalativeArray[j][1]=cummilativeValue.toString();
+								//pwr.println(secondSortArray[j][0]);
+							}
+							else{
+								cummilativeValue=zero;
+							}
+						}
+						else if(0<i && i<= 10){
 							
-							if(d3.before(d1)||d3.equals(d1)||d3.after(d1)&&d3.before(d2)){
+							d1 = (Date)format.parse(arrayYear[i]);
+							d2=(Date)format.parse(arrayYear[i+1]);						
+							d3=(Date)format.parse(secondSortArray[j][0]);
+							//pwr.println(d3);
+							if(d3.equals(d1)||d3.after(d1)&&d3.before(d2)){
 								
 								cummilativeValue=new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
 								CumalativeArray[j][0]=secondSortArray[j][0];
 								CumalativeArray[j][1]=cummilativeValue.toString();
-								
+								//pwr.println(secondSortArray[j][0]);
 							}						
 							else{
 								cummilativeValue=zero;
@@ -351,15 +373,17 @@ public class IndexSrvlt extends HttpServlet {
 						e.printStackTrace();
 					}					
 				}
-			}			
+			}
+			
 			JSONArray cummitativeJarray=new JSONArray();
 			for(int i=0;i<CumalativeArray.length;i++){
 				
 				JSONObject cummilativeJobject=new JSONObject();
 				
 				try {
-					cummilativeJobject.put("Date", CumalativeArray[i][0]);
 					cummilativeJobject.put("Value", CumalativeArray[i][1]);
+					cummilativeJobject.put("Date", CumalativeArray[i][0]);
+					
 				} catch (JSONException e) {				
 					e.printStackTrace();
 				}
