@@ -1,5 +1,6 @@
 package lsf.drawdowns.dbCon;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -71,25 +72,54 @@ public class adminSrvlt extends HttpServlet {
 		try {
 			ResultSet rset = dbconnection
 					.selectData("SELECT DISTINCT CAPM_resid_date,YRMO_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 201412 AND HORIZON = 1 ORDER BY CAPM_resid_date");
-			Date ordate = df.parse("2004-01-01");
-			ArrayList<String> edate = getEndOfMonthDates(rset);	
-			obj.put("d", edate);
-			pwr.print(obj);
+			//Date ordate = df.parse("2004-01-01");
+			ArrayList<String> eofdate = getEndOfMonthDates(rset);	
 			
-			String all_drawdown =  "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO BETWEEN 200401 AND 201512 AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo BETWEEN 200401 AND 201512) AS B ON A.PERMNO = B.permno AND A.YRMO = B.yrmo) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 201512 AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo  BETWEEN 200401 AND 201512) AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
+			
+			String all_drawdown =  "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO BETWEEN 200401 AND 200512 AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo BETWEEN 200401 AND 200512) AS B ON A.PERMNO = B.permno AND A.YRMO = B.yrmo) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 200512 AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo  BETWEEN 200401 AND 200512) AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
 			SQLQuery q = session.createSQLQuery(all_drawdown);
 			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 			List<Drawdown> result=q.list();
 			
-			
+			//ArrayList<Double> eofvalue = new ArrayList<Double>();
+			ArrayList<Double> eofvalue = getEndOfMonthvalues(result,eofdate);
+			//int i = 0;
+			obj.put("d", eofdate);
+			obj.put("v", eofvalue);
+			pwr.print(obj);
 
-		} catch (SQLException | ParseException | JSONException e1) {
+		} catch (SQLException | JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		session.getTransaction().commit();
 
+	}
+
+	private ArrayList<Double> getEndOfMonthvalues(List<Drawdown> result,
+			ArrayList<String> eofdate) {
+		double empValue[] = new double[1000];
+		ArrayList<Double> eofvalue = new ArrayList<Double>();
+		for (int j = 0; j < eofdate.size(); j++) {		
+			double x= 0;
+			for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+				Drawdown drawdown = (Drawdown) iterator.next();
+				double returnvalue = (drawdown.getReturnValue().doubleValue()-1)*drawdown.getMarketCapitalization();
+				if (drawdown.getDrawdownDate().equals(eofdate.get(j))) {
+					x = x + returnvalue;
+				} 
+			}
+			empValue[j]= x;
+		}
+		
+		for (int j = 0; j < 30; j++) {
+			if (empValue[j]!=0) {
+				eofvalue.add(empValue[j]);
+			}		
+		}
+		// TODO Auto-generated method stub
+		return eofvalue;
 	}
 
 	private ArrayList<String> getEndOfMonthDates(ResultSet rset) {
