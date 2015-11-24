@@ -332,7 +332,7 @@ public class IndexSrvlt extends HttpServlet {
 								cummilativeValue=new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
 								CumalativeArray[j][0]=secondSortArray[j][0];
 								CumalativeArray[j][1]=cummilativeValue.toString();
-								//pwr.println(secondSortArray[j][0]);
+								
 							}
 							else{
 								cummilativeValue=zero;
@@ -349,7 +349,6 @@ public class IndexSrvlt extends HttpServlet {
 								cummilativeValue=new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
 								CumalativeArray[j][0]=secondSortArray[j][0];
 								CumalativeArray[j][1]=cummilativeValue.toString();
-								//pwr.println(secondSortArray[j][0]);
 							}						
 							else{
 								cummilativeValue=zero;
@@ -400,4 +399,5 @@ public class IndexSrvlt extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 	}
+	
 }
