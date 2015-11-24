@@ -128,7 +128,19 @@ $(function () {
 
 					</div>
 				</div>
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">
+							Cummulative loss market capitalization : 
+							<%=request.getParameter("Q")%></h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="multihistogram"></div>
 
+					</div>
+				</div>
 				<!-- /.row -->
 			</div>
 
@@ -221,6 +233,25 @@ $(function () {
 		                async: false
 		            });
 					
+					var x = "test_getSet";
+					$.ajax({
+		                type: 'GET',
+		                url: x,
+		                dataType: 'json',
+		                success: function (data) {
+		                	
+		               	//console.log(data);
+		               	
+		               	drawLossMcGraph(data);
+		               	
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
 				});
 				
 		</script>

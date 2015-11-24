@@ -1,3 +1,4 @@
+
 function drawScatterPlot(json_object,year,month){
 	//this function draws the scatter plot.
 	var dayMin = year+"-"+month+"-01";
@@ -88,7 +89,6 @@ function drawSummaryGraph(json_ary,bindvalue){
 	    },
 	});
 }
-
 function drawIndex(json_ary){
 	//console.log(indexDate);
 	var chart3=c3.generate({
@@ -147,16 +147,38 @@ function drawIndex(json_ary){
         },
 	});
 }
-
-function drawlmtGraph(){
+function drawLossMcGraph(jsd){
 	var chart4=c3.generate({
 	    bindto:'#multihistogram',
+		padding: {
+    top: 0,
+    right: 60,
+    bottom: 0,
+    left: 50,
+        },
 	    data:{
 	        url:'bootstrap/data/aa.json',
 	        mimeType: 'json',
 	        type : 'bar',
-			x : 'xx'		
+			xs: {
+	            'emp_value': 'emp_date',
+	            'index_value': 'index_date',
+				'cumulative_value': 'cumulative_date',
+	        },		
+			axes: {
+	            emp_value: 'y',
+	            index_value: 'y2',
+				cumulative_value: 'y'
+	        }
 	    },
+		bar: {
+        width: {
+            ratio: 0.08 // this makes bar width 50% of length between ticks
+        },
+    },
+    zoom: {
+        enabled: true
+    },
 	    size: {
 	            height: 220
 	    },
@@ -164,8 +186,6 @@ function drawlmtGraph(){
 			x: {
 					type: 'timeseries',
 					label: 'Time',
-					//min : dayMin,
-					//max : dayMax,
 					tick: {
 						format: '%Y-%m-%d',
 						rotate:90,
@@ -173,17 +193,19 @@ function drawlmtGraph(){
 					}
 				},
 	        y:{
-	            padding : 0,
-	            //max : 2300,
-	        },
+           tick: {
+                format: function (d) { return d/1000000 ; },
+            },
+            label: 'Loss Market Capitalization - millions'
+        },
+        y2: {
+            tick: {
+                format: function (d) { return d+"%"; }
+            },
+            show: true,
+            label: 'Index'
+        },    
 	    },
-	    grid: {
-	                y: {
-	                    lines: [
-	                        {value: 410, text: 'Average 410'}
-	                    ]
-	                }
-	            }
 	    
 	});
 }
