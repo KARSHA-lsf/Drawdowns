@@ -14,14 +14,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transaction;
 
 import model.*;
 
@@ -34,6 +33,7 @@ import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 
 /**
@@ -83,7 +83,7 @@ public class IndexSrvlt extends HttpServlet {
 
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
-		session.beginTransaction();
+		org.hibernate.Transaction tx = session.beginTransaction();
 		
 		if (userPath.equals("/dataGet")) {
 			
@@ -419,6 +419,9 @@ public class IndexSrvlt extends HttpServlet {
 			pwr.println(cummitativeJarray);
 
 		}
+		tx.commit();
+		session.close();
+		
 	}
 
 	protected void doPost(HttpServletRequest request,
