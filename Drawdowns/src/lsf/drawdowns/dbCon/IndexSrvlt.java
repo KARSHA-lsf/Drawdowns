@@ -5,19 +5,11 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.text.DateFormat;
-=======
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Arrays;
-=======
-import java.util.Collections;
-import java.util.Comparator;
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 import java.util.Iterator;
 import java.util.List;
 import java.math.BigDecimal;
@@ -33,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.*;
 
+import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -255,7 +248,6 @@ public class IndexSrvlt extends HttpServlet {
 			}
 			
 			PrintWriter pwr = response.getWriter();
-<<<<<<< HEAD
 			pwr.print(obj);
 		
 		}  
@@ -276,46 +268,6 @@ public class IndexSrvlt extends HttpServlet {
 			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 			
 			
-=======
-
-					
-			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
-			Session session = SFact.openSession();
-			session.beginTransaction();
-			
-			//String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,x.CAPM_resid_date AS drawdownDate,y.value1 AS marketCapitalization FROM (SELECT A.PERMNO,A.YRMO,A.CAPM_resid, B.PERMNO_date,B.YRMO_date,B.CAPM_resid_date FROM (SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON =1) AS A INNER JOIN (SELECT * FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON=1) AS B ON A.PERMNO=B.PERMNO_date) AS x INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS y ON y.permno=x.PERMNO AND y.yrmo=x.yrmo";
-			String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '2004%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '2004%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '2004%' AND HORIZON = 1) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '2004%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo";
-			SQLQuery q = session.createSQLQuery(all_drawdown);
-			//q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
-			/*
-			String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '2004%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '2004%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end";
-			String[] index_date = new String[12];
-			try {
-				ResultSet rset = dbconnection.selectData(sql);
-				int i=0;
-				while(rset.next()){
-					//System.out.println(rset.getString(2));
-					System.out.println(rset.getString(1));
-					index_date[i]=rset.getString(1);
-					i++;				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			for (int i = 0; i < 12; i++) {
-				try {
-					Date d1 = (Date) df.parse(index_date[i]);
-					Date d2 = (Date) df.parse(index_date[i]);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-			*/
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 			@SuppressWarnings("unchecked")
 			
 			List<Drawdown> results = q.list();
@@ -325,19 +277,9 @@ public class IndexSrvlt extends HttpServlet {
 			String multiArry[][] =new String[results.size()][2];
 		
 			
-			/*
-			Collections.sort(results,new Comparator<Drawdown>(){
-				@Override
-				public int compare(Drawdown d0,Drawdown d1){
-					return d0.getDrawdownDate().compareTo(d1.getDrawdownDate());
-				}
-				});*/
-			
-			
 			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
 				
 				Drawdown data = (Drawdown) iterator.next();
-<<<<<<< HEAD
 				
 				if(!data.getDrawdownDate().isEmpty()){
 					
@@ -386,18 +328,13 @@ public class IndexSrvlt extends HttpServlet {
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
-=======
-				pwr.println(data.getPermno()+" : "+data.getYrmo()+" : "+data.getDrawdownDate()+" : "+data.getMarketCapitalization()+" : "+data.getReturnValue());
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 			}
-			
 			
 			BigDecimal cummilativeValue=new BigDecimal(0);
 			String CumalativeArray[][]=new String[countforSecondArray+1][2];
 			
 			
 			
-<<<<<<< HEAD
 			for(int i=0;i<arrayYear.length;i++){
 	
 				for(int j=0;j<countforSecondArray+1;j++){
@@ -480,9 +417,6 @@ public class IndexSrvlt extends HttpServlet {
 				
 			}			
 			pwr.println(cummitativeJarray);
-=======
-			session.getTransaction().commit();
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 
 		}
 	}
@@ -491,9 +425,5 @@ public class IndexSrvlt extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 	}
-<<<<<<< HEAD
 	
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
