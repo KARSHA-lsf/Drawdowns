@@ -33,26 +33,10 @@
 <body>
 <script>
 		//divide data from url to catogories
+		
 		$(document).ready(
 				function y() {
-					
-					var indexDate;
-					var urlindexdate = "index?Q="+"<%=request.getParameter("Q")%>";
-					$.ajax({
-		                type: 'GET',
-		                url: urlindexdate,
-		                dataType: 'json',
-		                success: function (data) {
-		                indexDate = data;	
-		               	console.log(data);
-		                },
-		                
-		                error: function (data,
-		                        error) {
-		                	console.log(error);
-		                },
-		                async: false
-		            });
+					console.log("reddai1");					
 					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					var i,p;
 					var High,High_Medium,Medium,Medium_low,low = [];
@@ -66,7 +50,7 @@
 		                success: function (data) {
 		                	
 		               	 var x = parseInt(data.length/5);
-		               	 
+		               	console.log("reddai2");	
 		               	High = $.grep(data, function(n, i){
 		               	  return (i < x);
 		               	  });
@@ -113,7 +97,7 @@
 		                async: false
 		            });
 					
-					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>";
+					var urlindex = "index_return?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
 		                type: 'GET',
 		                url: urlindex,
@@ -121,7 +105,7 @@
 		                success: function (data) {
 		                	
 		               	console.log(data);
-		               	drawIndex(data,indexDate);
+		               	drawIndex(data,index_return);
 		                },
 		                
 		                error: function (data,
