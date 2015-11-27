@@ -299,7 +299,7 @@ public class IndexSrvlt extends HttpServlet {
 				ArrayList<CRSP_ValueWeightedReturns> CRSP = new ArrayList<>();
 				List<Double> Mkt_Cap = new ArrayList<>();
 				List<String> dates = new ArrayList<>();
-				String sql = "SELECT * FROM `CRSP_ValueWeightedReturns` WHERE DATE like '2010%'";
+				String sql = "SELECT * FROM `CRSP_ValueWeightedReturns` WHERE DATE like '2008%'";
 				try {
 					ResultSet rs = dbconnection.selectData(sql);
 					
