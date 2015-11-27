@@ -36,5 +36,6 @@
   <mapping class="model.CapmPttResultsId"/>
   <mapping class="model.CapmPttStartDates"/>
   <mapping class="model.CapmPttStartDatesId"/>
+  <mapping class="model.Drawdown"/>
  </session-factory>
 </hibernate-configuration>
