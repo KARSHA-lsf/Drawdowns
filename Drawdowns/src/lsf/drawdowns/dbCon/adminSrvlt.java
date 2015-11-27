@@ -47,20 +47,20 @@ public class adminSrvlt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		db_connections dbconnection = new db_connections();
-		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		PrintWriter pwr = response.getWriter();
 		
+		// create database connection and session 
+		db_connections dbconnection = new db_connections();
+		PrintWriter pwr = response.getWriter();
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
 		session.beginTransaction();
 		
+		//read data between 2004 t0 2014
 		for(int k=2004;k<=2014;k++){
 			
 			
 			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"+k+"%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"+k+"%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"+k+"%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"+k+"%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
-			//String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO BETWEEN 200401 AND 200512 AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo BETWEEN 200401 AND 200512) AS B ON A.PERMNO = B.permno AND A.YRMO = B.yrmo) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 200512 AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo  BETWEEN 200401 AND 200512) AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
-
+			
 			SQLQuery q = session.createSQLQuery(all_drawdown);
 			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 			
@@ -73,7 +73,7 @@ public class adminSrvlt extends HttpServlet {
 			System.out.println("Results.size is :"+results.size());
 			String multiArry[][] =new String[results.size()][2];
 		
-			
+			//multiple drawdownValue and marketCapitalization 
 			for (Iterator<Drawdown> iterator = results.iterator(); iterator.hasNext();) {
 				
 				Drawdown data = (Drawdown) iterator.next();
@@ -208,10 +208,8 @@ public class adminSrvlt extends HttpServlet {
 					
 				} catch (JSONException e) {				
 					e.printStackTrace();
-				}
-				
-				cummitativeJarray.put(cummilativeJobject);
-				
+				}			
+				cummitativeJarray.put(cummilativeJobject);				
 			}			
 			pwr.println(cummitativeJarray);
 
