@@ -39,6 +39,6 @@
   <mapping class="model.CapmPttStartDatesId"/>
   <mapping class="model.Sys_CLM_EndofMonthLMC"/>
   <mapping class="model.Sys_CLM_CumulativeLMC"/>
-  
+  <mapping class="model.Drawdown"/>
  </session-factory>
 </hibernate-configuration>
