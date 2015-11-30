@@ -2,21 +2,15 @@
 <html class="no-js">
 
 <head>
+<meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
-	media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<meta charset="utf-8">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="assets/jquery-ui.css">
+<script src="js/jquery-1.10.2.js"></script>
+
 
 <script>
 $(function () {
@@ -135,7 +129,9 @@ $(function () {
 			<!-- /.row -->
 
 		</div>
-	</div><script>
+	</div>
+	
+	<script>
 		//divide data from url to catogories
 		$(document).ready(
 				function y() {
@@ -229,5 +225,6 @@ $(function () {
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
 	<script src="js/graphs.js"></script>
+	<script src="js/jquery-ui.js"></script>
 </body>
 </html>

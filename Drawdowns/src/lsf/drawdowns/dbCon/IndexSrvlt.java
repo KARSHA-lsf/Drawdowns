@@ -412,15 +412,15 @@ public class IndexSrvlt extends HttpServlet {
 				ArrayList<CRSP_ValueWeightedReturns> CRSP = new ArrayList<>();
 				List<Double> Mkt_Cap = new ArrayList<>();
 				List<String> dates = new ArrayList<>();
-				String sql = "SELECT * FROM `CRSP_ValueWeightedReturns` WHERE DATE like '2008%'";
+				String sql = "SELECT * FROM `CRSP_ValueWeightedReturns` WHERE Crsp_date like '2008%'";
 				try {
 					ResultSet rs = dbconnection.selectData(sql);
 					
 					while(rs.next()){
 						CRSP_ValueWeightedReturns CRSP_obj = new CRSP_ValueWeightedReturns();
-						CRSP_obj.setDate(rs.getString("DATE"));
-						CRSP_obj.setINDEX(rs.getDouble("INDEX"));
-						CRSP_obj.setRET(rs.getDouble("RET"));
+						CRSP_obj.setDate(rs.getString("Crsp_date"));
+						CRSP_obj.setINDEX(rs.getDouble("Crsp_value"));
+						CRSP_obj.setRET(rs.getDouble("Crsp_ret"));
 						CRSP.add(CRSP_obj);
 					}
 				} catch (SQLException e) {
