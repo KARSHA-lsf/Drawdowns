@@ -82,6 +82,8 @@ public class IndexSrvlt extends HttpServlet {
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
+		
+		PrintWriter pwr = response.getWriter();
 
 		if (userPath.equals("/dataGet")) {
 
@@ -120,7 +122,7 @@ public class IndexSrvlt extends HttpServlet {
 						jsonarray.put(jsonobj);
 					}					
 				}			
-				PrintWriter pwr = response.getWriter();
+				
 				pwr.print(jsonarray);
 			} finally {
 				
@@ -159,7 +161,7 @@ public class IndexSrvlt extends HttpServlet {
 					}
 					System.out.println();
 					System.out.println(jsonarray);
-					PrintWriter pwr = response.getWriter();
+					
 					pwr.print(jsonarray);
 				} catch (SQLException e) {
 					e.printStackTrace(); }
@@ -175,8 +177,6 @@ public class IndexSrvlt extends HttpServlet {
 				sql = "SELECT YEAR(CAPM_resid_date) AS date,COUNT(YEAR(CAPM_resid_date)) AS count FROM capm_drawdowns_date WHERE CAPM_resid_date GROUP BY YEAR(CAPM_resid_date)";
 			}
 		
-			
-
 			SQLQuery q = session.createSQLQuery(sql);			
 			
 			@SuppressWarnings("unchecked")
@@ -200,6 +200,7 @@ public class IndexSrvlt extends HttpServlet {
 			try {
 				obj.put("year", aryYear);
 				obj.put("Total", aryCount);
+				pwr.print(obj);
 			} catch (JSONException e) {
 				
 				e.printStackTrace();
@@ -240,13 +241,13 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			PrintWriter pwr = response.getWriter();
+			
 			pwr.print(obj);
 			
 		} 
 		
 		 else if (userPath.equals("/test_getSet")) {
-			 PrintWriter pwr = response.getWriter();
+			
 				
 				
 				
