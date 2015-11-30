@@ -2,29 +2,28 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transaction;
 
 import model.*;
 
-import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,7 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import com.google.gson.*;
 
 /**
  * Servlet implementation class IndexSrvlt
@@ -72,7 +71,6 @@ public class IndexSrvlt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings({ "null", "deprecation" })
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -84,9 +82,9 @@ public class IndexSrvlt extends HttpServlet {
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		
+
 		if (userPath.equals("/dataGet")) {
-			
+
 			String query = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"
 					+ request.getParameter("Q")
 					+ request.getParameter("M")
@@ -131,41 +129,41 @@ public class IndexSrvlt extends HttpServlet {
 
 			try {
 				
-			//	String sql ="SELECT * FROM(SELECT v1.*, @counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar, v1) AS X where counter <= (10/100 * @counter) AND YRMO BETWEEN 200401 AND 200412";
-				
-				String xx = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date,@counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar,capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"
-						+ request.getParameter("Q")
-						+ request.getParameter("M")
-						+ "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"
-						+ request.getParameter("Q")
-						+ request.getParameter("M")
-						+ "') AS y WHERE counter <= (10/100 * @counter) AND  x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
-				ResultSet set = dbconnection.selectData(xx);
+				//	String sql ="SELECT * FROM(SELECT v1.*, @counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar, v1) AS X where counter <= (10/100 * @counter) AND YRMO BETWEEN 200401 AND 200412";
+					
+					String xx = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date,@counter := @counter +1 AS counter FROM (select @counter:=0) AS initvar,capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"
+							+ request.getParameter("Q")
+							+ request.getParameter("M")
+							+ "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"
+							+ request.getParameter("Q")
+							+ request.getParameter("M")
+							+ "') AS y WHERE counter <= (10/100 * @counter) AND  x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
+					ResultSet set = dbconnection.selectData(xx);
 
-				JSONArray jsonarray = new JSONArray();
-				while (set.next()) {
-					JSONObject jsonobj = new JSONObject();
-					int permno = set.getInt("PERMNO");
-					String year_date = set.getString("CAPM_resid_D");
-					if (year_date == null) {
+					JSONArray jsonarray = new JSONArray();
+					while (set.next()) {
+						JSONObject jsonobj = new JSONObject();
+						int permno = set.getInt("PERMNO");
+						String year_date = set.getString("CAPM_resid_D");
+						if (year_date == null) {
 
-					} else {
-						try {
-							jsonobj.put("permno", permno);
-							jsonobj.put("capm_date", year_date);
-						} catch (JSONException e) {
-							e.printStackTrace();
+						} else {
+							try {
+								jsonobj.put("permno", permno);
+								jsonobj.put("capm_date", year_date);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							jsonarray.put(jsonobj);
 						}
-						jsonarray.put(jsonobj);
 					}
-				}
-				System.out.println();
-				System.out.println(jsonarray);
-				PrintWriter pwr = response.getWriter();
-				pwr.print(jsonarray);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
+					System.out.println();
+					System.out.println(jsonarray);
+					PrintWriter pwr = response.getWriter();
+					pwr.print(jsonarray);
+				} catch (SQLException e) {
+					e.printStackTrace(); }
+				finally {
 				// dbconnection.con.close();
 			}
 
@@ -206,12 +204,7 @@ public class IndexSrvlt extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-	
-			PrintWriter pwr = response.getWriter();
-			pwr.print(obj);
-		} 
-		
-		else if (userPath.equals("/indexData")) {
+		} else if (userPath.equals("/indexData")) {
 			System.out.println("indexData method");
 			String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"
 							+ request.getParameter("Q")
@@ -249,27 +242,20 @@ public class IndexSrvlt extends HttpServlet {
 			
 			PrintWriter pwr = response.getWriter();
 			pwr.print(obj);
+			
+		} 
 		
-		}  
-		
-		
-		//--------------------------------->
-		
-		else if (userPath.equals("/test_getSet")) {
+		 else if (userPath.equals("/test_getSet")) {
+			 PrintWriter pwr = response.getWriter();
+				
+				
+				
+				String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"+request.getParameter("Q")+"%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"+request.getParameter("Q")+"%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"+request.getParameter("Q")+"%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"+request.getParameter("Q")+"%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
+				//String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO BETWEEN 200401 AND 200512 AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo BETWEEN 200401 AND 200512) AS B ON A.PERMNO = B.permno AND A.YRMO = B.yrmo) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 200512 AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo  BETWEEN 200401 AND 200512) AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
 
-			PrintWriter pwr = response.getWriter();
-			
-			
-			
-			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"+request.getParameter("Q")+"%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"+request.getParameter("Q")+"%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"+request.getParameter("Q")+"%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"+request.getParameter("Q")+"%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
-			//String all_drawdown ="SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO BETWEEN 200401 AND 200512 AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo BETWEEN 200401 AND 200512) AS B ON A.PERMNO = B.permno AND A.YRMO = B.yrmo) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 200512 AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo  BETWEEN 200401 AND 200512) AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
-
-			SQLQuery q = session.createSQLQuery(all_drawdown);
-			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
-			
-			
+				SQLQuery q = session.createSQLQuery(all_drawdown);
+				q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 			@SuppressWarnings("unchecked")
-			
 			List<Drawdown> results = q.list();
 			int count=0;
 			int emptyCount=0;
@@ -301,6 +287,7 @@ public class IndexSrvlt extends HttpServlet {
 			BigDecimal AdditionofValue=new BigDecimal(0);
 			BigDecimal zero=BigDecimal.ZERO;
 			
+
 			for(int i=0;i<multiArry.length-emptyCount-1;i++){	
 						
 				if(multiArry[i][0].equals(multiArry[i+1][0])){					
@@ -313,8 +300,7 @@ public class IndexSrvlt extends HttpServlet {
 					AdditionofValue=zero;					
 				}				
 			}
-								
-			//----------------------------index query output---------------------------------------//
+			
 			String index="SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end";
 			String arrayYear[]=new String[12];
 			
@@ -333,10 +319,8 @@ public class IndexSrvlt extends HttpServlet {
 			BigDecimal cummilativeValue=new BigDecimal(0);
 			String CumalativeArray[][]=new String[countforSecondArray+1][2];
 			
-			
-			
 			for(int i=0;i<arrayYear.length;i++){
-	
+				
 				for(int j=0;j<countforSecondArray+1;j++){
 					Date d1;
 					Date d2;
@@ -364,7 +348,7 @@ public class IndexSrvlt extends HttpServlet {
 								cummilativeValue=zero;
 							}
 						}
-						else if(0<i && i<= 10){
+							else if(0<i && i<= 10){
 							
 							d1 = (Date)format.parse(arrayYear[i]);
 							d2=(Date)format.parse(arrayYear[i+1]);						
@@ -422,11 +406,63 @@ public class IndexSrvlt extends HttpServlet {
 		tx.commit();
 		session.close();
 		
-	}
+	
+				// CAPM VW Return calculation
+			
+				ArrayList<CRSP_ValueWeightedReturns> CRSP = new ArrayList<>();
+				List<Double> Mkt_Cap = new ArrayList<>();
+				List<String> dates = new ArrayList<>();
+				String sql = "SELECT * FROM `CRSP_ValueWeightedReturns` WHERE DATE like '2008%'";
+				try {
+					ResultSet rs = dbconnection.selectData(sql);
+					
+					while(rs.next()){
+						CRSP_ValueWeightedReturns CRSP_obj = new CRSP_ValueWeightedReturns();
+						CRSP_obj.setDate(rs.getString("DATE"));
+						CRSP_obj.setINDEX(rs.getDouble("INDEX"));
+						CRSP_obj.setRET(rs.getDouble("RET"));
+						CRSP.add(CRSP_obj);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				int listsize = CRSP.size();
+				for(int i=0;i < listsize;i++)
+				{
+					Mkt_Cap.add(CRSP.get(i).getRET() * CRSP.get(i).getINDEX());
+					dates.add(CRSP.get(i).getDate()); 
+				}
+				
+				Gson gson = new Gson();
+				JsonObject J_obj = new JsonObject();
+				JsonElement returnvalue = gson.toJsonTree(Mkt_Cap);
+				JsonElement Rdates = gson.toJsonTree(dates);
+				
+				
+					try {
+						J_obj.add("ReturnValue", returnvalue);
+						J_obj.add("dates", Rdates);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+				
+					//pwr.print(J_obj);
+				
+						
+		
+			
+	
+			
+
+		}
+	
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 	}
-	
 }
