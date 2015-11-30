@@ -6,25 +6,23 @@
 <html class="no-js">
 
 <head>
+<meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
 	media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
-<meta charset="utf-8">
-<link rel="stylesheet"
-	href="assets/jquery-ui.css">
+
+<link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
-
 <script>
-	$(function() {
-		$("#accordion").accordion({
-			heightStyle : "content"
-		});
-	});
+$(function() {
+  $( "#tabs" ).tabs();
+});
 </script>
+
 </head>
 
 <body>
@@ -41,8 +39,10 @@
 						<li class="active"><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="advance_filter.jsp?Q=2004&M=03"
+							style="text-align: center">Advance Filter</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
+								Analysis</a></li>
 					</ul>
 				</div>
 
@@ -50,54 +50,36 @@
 		</div>
 	</div>
 
-	<%
-		String[] months = { "January", "February", "March", "April", "May",
-				"June", "July", "August", "September", "October",
-				"November", "December" };
-		String[] monthDate = { "01", "02", "03", "04", "05",
-				"06", "07", "08", "09", "10",
-				"11", "12" };
-	%>
+	
 
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span2" id="sidebar">
-				<div id="accordion">
-					<%
-						for (int k = 2004; k < 2015; k++) {
-					%>
-					<h7>
-						Year
-						<%
-						out.println(k);
-					%>
-					</h7>
-					<ul class="nav-collapse">
-						<%
-							for (int i = 0; i < 12; i++) {
-						%>
-						<li class="nav-collapse" style="text-align: center"><a
-							style="font-family: Arial; color: blue; text-decoration: none"
-							href="yearly_analisis.jsp?Q=<%=k %>&M=<%=monthDate[i]%>"> <% out.println(k+"-"+monthDate[i]); %>
-						</a></li>
-						<%
-							}
-						%>
-					</ul>
-					<%
-						}
-					%>
 
-					
-
-				</div>
-
-			</div>
-			<div class="span10"
+			<div class="span12"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class "row-fluid" style="margin: 30px 30px 30px">
-					<h1>KARSHA-Drawdowns</h1>
+					<h3>Yearly Analysis [ 2004 - 2014 ]</h3>
+				</div>
+				<div id="tabs">
+				
+					<ul>
+					<% for(int i=2004;i<2015;i++){ %>
+						<li><a href="#tabs-1"><%=i%></a></li>
+					<% } %>
+					</ul>
+					<div id="tabs-1">
+						<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo
+							a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet
+							mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa
+							et lorem. Mauris dapibus lacus auctor risus. Aenean tempor
+							ullamcorper leo. Vivamus sed magna quis ligula eleifend
+							adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum.
+							Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede
+							varius sollicitudin. Sed ut dolor nec orci tincidunt interdum.
+							Phasellus ipsum. Nunc tristique tempus lectus.</p>
+					</div>
+					
 				</div>
 			</div>
 		</div>
