@@ -8,7 +8,11 @@
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
+<<<<<<< HEAD
    <property name="show_sql">true</property>
+=======
+  <property name="show_sql">true</property>
+>>>>>>> branch 'master' of https://github.com/Sandunts/Drawdowns.git
   <mapping class="model.CaafDrawdownend"/>
   <mapping class="model.CaafDrawdownendId"/>
   <mapping class="model.CaafDrawdowns"/>
@@ -37,6 +41,8 @@
   <mapping class="model.CapmPttResultsId"/>
   <mapping class="model.CapmPttStartDates"/>
   <mapping class="model.CapmPttStartDatesId"/>
+  <mapping class="model.Sys_CLM_EndofMonthLMC"/>
+  <mapping class="model.Sys_CLM_CumulativeLMC"/>
   <mapping class="model.Drawdown"/>
   <mapping class="model.cummulative"/>
  </session-factory>

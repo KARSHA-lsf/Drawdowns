@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 26, 2015 10:02:55 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.CapmDrawdownsDateId" table="CAPMDRAWDOWNSDATEID">
-        <id name="permnoDate" type="int">
-            <column name="PERMNODATE" />
+    <class name="model.CRSP_ValueWeightedReturns" table="CRSP_VALUEWEIGHTEDRETURNS">
+        <id name="Date" type="java.lang.String">
+            <column name="DATE" />
             <generator class="assigned" />
         </id>
-        <property name="yrmoDate" type="int">
-            <column name="YRMODATE" />
+        <property name="RET" type="java.lang.Double">
+            <column name="RET" />
         </property>
-        <property name="horizon" type="int">
-            <column name="HORIZON" />
+        <property name="INDEX" type="java.lang.Double">
+            <column name="INDEX" />
         </property>
     </class>
 </hibernate-mapping>
