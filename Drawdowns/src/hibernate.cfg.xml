@@ -7,7 +7,7 @@
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/capm_db</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <property name="hibernate.hbm2ddl.auto">validate</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping class="model.CaafDrawdownend"/>
   <mapping class="model.CaafDrawdownendId"/>
   <mapping class="model.CaafDrawdowns"/>
@@ -36,5 +36,6 @@
   <mapping class="model.CapmPttResultsId"/>
   <mapping class="model.CapmPttStartDates"/>
   <mapping class="model.CapmPttStartDatesId"/>
+  <mapping class="model.Sys_CLM_EndofMonthLMC"/>
  </session-factory>
 </hibernate-configuration>
