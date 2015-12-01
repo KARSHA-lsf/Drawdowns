@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Drawdown;
+import model.cummulative;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
  */
 @WebServlet("/adminSrvlt")
 public class adminSrvlt extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -48,16 +50,24 @@ public class adminSrvlt extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// create database connection and session 
+		cummulativeLoassMakt();		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+	
+	protected void cummulativeLoassMakt() {
 		db_connections dbconnection = new db_connections();
-		PrintWriter pwr = response.getWriter();
+	
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
-		session.beginTransaction();
+		org.hibernate.Transaction tx = session.beginTransaction();
 		
-		//read data between 2004 t0 2014
 		for(int k=2004;k<=2014;k++){
-			
 			
 			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"+k+"%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"+k+"%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"+k+"%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"+k+"%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
 			
@@ -189,40 +199,26 @@ public class adminSrvlt extends HttpServlet {
 								CumalativeArray[j][1]=cummilativeValue.toString();	
 								
 							}
-						}						
+						}				
+						
 					} catch (ParseException e) {
 					
 						e.printStackTrace();
 					}					
 				}
 			}
-			
-			JSONArray cummitativeJarray=new JSONArray();
-			for(int i=0;i<CumalativeArray.length;i++){
+						
+			for(int i=0;i<CumalativeArray.length;i++){			
+				cummulative cummulativeObject=new cummulative();
+				cummulativeObject.setDate(CumalativeArray[i][0]);
+				cummulativeObject.setValue(new BigDecimal(CumalativeArray[i][1]));			
+				session.save(cummulativeObject);
+			}
 				
-				JSONObject cummilativeJobject=new JSONObject();
-				
-				try {
-					cummilativeJobject.put("Value", CumalativeArray[i][1]);
-					cummilativeJobject.put("Date", CumalativeArray[i][0]);
-					
-				} catch (JSONException e) {				
-					e.printStackTrace();
-				}			
-				cummitativeJarray.put(cummilativeJobject);				
-			}			
-			pwr.println(cummitativeJarray);
-
 		}
 		
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		tx.commit();
+		session.close();
 	}
 
 }
