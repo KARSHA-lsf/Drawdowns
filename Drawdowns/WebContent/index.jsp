@@ -102,6 +102,12 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	$.post("IndexSrvlt","")
+			.error(function() {
+				//alert("there is error while sending data to server");
+			});
+	</script>
 </body>
 </html>
 
