@@ -66,8 +66,8 @@ public class annualy_analysis extends HttpServlet {
 		org.hibernate.Transaction tx = session.beginTransaction();
 		PrintWriter pwr = response.getWriter();
 
-		String yr = request.getParameter("Q");
-				yr = "200401";
+		String yr = request.getParameter("yr");
+				
 		if (userPath.equals("/GetAnnualData")) {
 
 			String query = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D "
