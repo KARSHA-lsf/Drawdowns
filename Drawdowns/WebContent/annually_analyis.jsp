@@ -62,18 +62,39 @@
 					<h3>Yearly Analysis [ 2004 - 2014 ]</h3>
 				</div>
 				<div id="tabs">
-					
-						<ul>
-						<% for(int i=2004;i<2007;i++){String tab = "#tab"+i;%>
-							<li><a href="<%=tab%>"><%=i%></a></li>
+					<ul>
+						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
+						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
-						</ul>
-						<% for(int i=2004;i<2007;i++){String tab = "tab"+i;%>
-						<div id="<%=tab%>">
-							<div id="scatter_plot<%=i%>"></div>
-						</div>
-						<% } %>
-						
+					</ul>
+					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
+					<div id="<%=tab%>">
+						<div id="scatter_plot<%=i%>"></div>
+						<script type="text/javascript">
+							$("#ta<%=i%>").click(function(){
+								var urlscatter = "GetAnnualData?yr="+<%=i%>;
+								$.ajax({
+									type : 'GET',
+									url : urlscatter,
+									dataType : 'json',
+									success : function(data) {
+										var Ready_output = sccaterPlot_dataPreprocess(data);
+										//call method in graph.js to draw scatter-plot
+										drawScatterPlot_yearly(
+											Ready_output,<%=i%> , 01,
+									 		'#scatter_plot<%=i%>');
+										},
+										error : function(data, error) {
+											console.log(error);
+										},
+										async : false
+								});
+								
+							});
+							</script>
+					</div>
+					<% } %>
+
 
 				</div>
 			</div>
@@ -85,26 +106,28 @@
 		$(document)
 				.ready(
 						function() {
-							var urlscatter = "GetAnnualData";
+							var urlscatter = "GetAnnualData?yr=2004";
 
-							$
-									.ajax({
-										type : 'GET',
-										url : urlscatter,
-										dataType : 'json',
-										success : function(data) {
-											var Ready_output = sccaterPlot_dataPreprocess(data);
-											//call method in graph.js to draw scatter-plot
-											drawScatterPlot_yearly(
-													Ready_output, 2004, 01,
-													'#scatter_plot2004');
-										},
+							$.ajax({
+								type : 'GET',
+								url : urlscatter,
+								dataType : 'json',
+								success : function(data) {
+									var Ready_output = sccaterPlot_dataPreprocess(data);
+									//call method in graph.js to draw scatter-plot
+									drawScatterPlot_yearly(
+										Ready_output, 2004, 01,
+								 		'#scatter_plot2004');
+									},
 
-										error : function(data, error) {
-											console.log(error);
-										},
-										async : false
-									});
+									error : function(data, error) {
+										console.log(error);
+									},
+									async : false
+							});
+							
+							
+						
 
 						});
 	</script>

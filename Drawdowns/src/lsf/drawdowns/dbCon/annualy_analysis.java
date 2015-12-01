@@ -66,7 +66,7 @@ public class annualy_analysis extends HttpServlet {
 		org.hibernate.Transaction tx = session.beginTransaction();
 		PrintWriter pwr = response.getWriter();
 
-		String yr = request.getParameter("yr");
+		String yr = request.getParameter("yr")+"01";
 				
 		if (userPath.equals("/GetAnnualData")) {
 
