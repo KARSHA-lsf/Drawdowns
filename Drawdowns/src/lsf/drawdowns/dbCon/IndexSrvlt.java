@@ -119,7 +119,8 @@ public class IndexSrvlt extends HttpServlet {
 
 				CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
 				clm_grp.request_initalize(request);
-				pwr.print(clm_grp.CLM_cap());
+				pwr.print(clm_grp.Index_vw_return());
+				//clm_grp.Index_vw_return();
 		 }
 				
 				
