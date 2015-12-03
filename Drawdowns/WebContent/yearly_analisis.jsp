@@ -128,28 +128,13 @@ $(function () {
 
 					</div>
 				</div>
-<<<<<<< HEAD
-				<div>
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<h4 class="page-header">
-							Cummulative loss market capitalization : 
-							<%=request.getParameter("Q")%></h4>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-						<div id="multihistogram"></div>
-=======
 				<div class="row">
                     <div class="col-lg-12" style="border:solid 1px">
                         <h4><center>Loss Market Capitalization - <%=request.getParameter("Q")%> </center></h4>
                         <div id="lossbar"></div>
                     </div>
                 </div>
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 
-					</div>
-				</div>
 				<!-- /.row -->
 			</div>
 
@@ -261,25 +246,6 @@ $(function () {
 		                async: false
 		            });
 					
-					var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>";
-					$.ajax({
-		                type: 'GET',
-		                url: x,
-		                dataType: 'json',
-		                success: function (data) {
-		                	
-		               	//console.log(data);
-		               	
-		               	//drawLossMcGraph(data);
-		               	
-		                },
-		                
-		                error: function (data,
-		                        error) {
-		                	console.log(error);
-		                },
-		                async: false
-		            });
 				});
 				
 		</script>
