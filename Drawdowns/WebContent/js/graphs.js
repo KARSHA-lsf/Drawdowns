@@ -187,3 +187,67 @@ function drawlmtGraph(){
 	    
 	});
 }
+function drawLossMcGraph(json_ary){
+		var chart5356=c3.generate({
+		    bindto:'#lossbar',
+			padding: {
+	    top: 0,
+	    right: 60,
+	    bottom: 0,
+	    left: 50,
+	        },
+		    data:{
+		        url:json_ary,
+		        mimeType: 'json',
+		        type : 'bar',
+				xs: {
+		            //'emp_value': 'emp_date',
+		            //'index_value': 'index_date',
+					//'cumulative_value': 'cumulative_date',
+					'ReturnValue':'dates',
+		        },		
+				axes: {
+		            emp_value: 'y',
+		            index_value: 'y2',
+					cumulative_value: 'y'
+		        }
+		    },
+			bar: {
+	        width: {
+	            ratio: 0.08 // this makes bar width 50% of length between ticks
+	        },
+	    },
+	    zoom: {
+	        enabled: true
+	    },
+		    size: {
+		            height: 220
+		    },
+		    axis:{
+				x: {
+						type: 'timeseries',
+						label: 'Time',
+						tick: {
+							format: '%Y-%m-%d',
+							rotate:90,
+							fit: false
+						}
+					},
+		        y:{
+	           tick: {
+	                format: function (d) { return d/1000000 ; },
+	            },
+	            label: 'Loss Market Capitalization - millions'
+	        },
+	        y2: {
+	            tick: {
+	                format: function (d) { return d+"%"; }
+	            },
+	            show: true,
+	            label: 'Index'
+	        },    
+		    },
+		    
+		});
+	}
+
