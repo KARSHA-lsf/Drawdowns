@@ -5,7 +5,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Sys_CLM_EndofMonthLMC {
-
 	private String lmcdate;
 	private Double value;
 	
@@ -21,5 +20,6 @@ public class Sys_CLM_EndofMonthLMC {
 	}
 	public void setValue(Double value) {
 		this.value = value;
-	}	
+	}
+
 }

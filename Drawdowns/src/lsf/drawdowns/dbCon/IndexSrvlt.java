@@ -108,7 +108,12 @@ public class IndexSrvlt extends HttpServlet {
 			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
 			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.clmIndexPercentage());
-			
+			// pwr.print(jsonobj);
+			// pwr.print(clm_grp.red());
+			// pwr.print(clm_grp.Index_vw_return());
+
+			// CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
+			// pwr.print(clm_grp.drawCLMCgraph());
 		}
 
 	}

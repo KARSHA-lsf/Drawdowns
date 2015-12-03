@@ -8,6 +8,7 @@
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="show_sql">true</property>
   <mapping class="model.CaafDrawdownend"/>
   <mapping class="model.CaafDrawdownendId"/>
   <mapping class="model.CaafDrawdowns"/>
@@ -36,8 +37,9 @@
   <mapping class="model.CapmPttResultsId"/>
   <mapping class="model.CapmPttStartDates"/>
   <mapping class="model.CapmPttStartDatesId"/>
-  <mapping class="model.CRSP_ValueWeightedReturns"/>
   <mapping class="model.Sys_CLM_EndofMonthLMC"/>
   <mapping class="model.Sys_CLM_CumulativeLMC"/>
+  <mapping class="model.Drawdown"/>
+  <mapping class="model.CRSP_ValueWeightedReturns"/>
  </session-factory>
 </hibernate-configuration>
