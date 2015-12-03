@@ -17,12 +17,33 @@
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
 </script>
-
+<script>
+var Dr_value,LossMcap_value;
+  $(function() {
+    $( "#Dr_slider" ).slider({
+    		max:20,
+    		slide: function( event, ui ) {
+                $( "#Dr_value" ).text( ui.value + " %" );
+                Dr_value=ui.value;
+             }}			
+   	);
+    $( "#LossMcap_slider" ).slider({
+    	max:20,
+		slide: function( event, ui ) {
+            $( "#LossMcap_value" ).text( ui.value + " %" );
+            LossMcap_value=ui.value;
+         }		
+    });
+    var value = $( ".Dr_slider" ).slider( "values", 0 );
+    console.log(value);
+  });
+  </script>
 </head>
 
 <body>
@@ -55,12 +76,37 @@
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-
 			<div class="span12"
 				style="border: 1px solid LightSeaGreen; background-color: white">
-				<div class "row-fluid" style="margin: 30px 30px 30px">
-					<h3>Yearly Analysis [ 2004 - 2014 ]</h3>
+				<div class="span4">
+					<div class="block" style="border: 1px none LightSeaGreen;">
+						<h3 style="padding-left: 10px;">
+						Yearly Analysis [ 2004 - 2014 ]</h3>		
+					</div>
 				</div>
+				<div class="span3">
+					<br>
+						<div class="col-sm-3">
+							Drawdown Value Top : <span id="Dr_value"  style="font-weight:bold;"></span>
+						</div>
+						<div class="col-sm-3">
+							<div id="Dr_slider"></div>
+						</div>
+				</div>
+				<div class="span3">
+					<br>
+						<div class="col-sm-3">
+							LossMcap Value Top : <span id="LossMcap_value" style="font-weight:bold;"></span>
+						</div>
+						<div class="col-sm-3">
+							<div id="LossMcap_slider"></div>
+						</div>
+				</div>
+				</div>
+			</div>
+		
+				<div class "row-fluid">
+				
 				<div id="tabs">
 					<ul>
 						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
@@ -72,6 +118,7 @@
 						<div id="scatter_plot<%=i%>"></div>
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
+								//console.log("lll :"+Dr_value+" : "+LossMcap_value);
 								var urlscatter = "GetAnnualData?yr="+<%=i%>;
 								$.ajax({
 									type : 'GET',
@@ -94,8 +141,8 @@
 							</script>
 					</div>
 					<% } %>
-
-
+				</div>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -131,11 +178,11 @@
 
 						});
 	</script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
 	<script src="js/graphs.js"></script>
-	<script src="js/jquery-ui.js"></script>
+	
 
 </body>
 </html>
