@@ -119,7 +119,7 @@ var Dr_value,LossMcap_value;
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
 								//console.log("lll :"+Dr_value+" : "+LossMcap_value);
-								var urlscatter = "GetAnnualData?yr="+<%=i%>;
+								var urlscatter = "GetAnnualData?Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
 								$.ajax({
 									type : 'GET',
 									url : urlscatter,

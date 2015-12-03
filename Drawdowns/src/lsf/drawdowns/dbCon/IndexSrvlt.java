@@ -89,12 +89,7 @@ public class IndexSrvlt extends HttpServlet {
 
 		if (userPath.equals("/dataGet")) {
 
-			String query = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D "
-					+"FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date "
-					+"WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date= :yrmo) AS x JOIN "
-					+"(SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results "
-					+"WHERE capm_drawdowns_results.HORIZON=1 AND YRMO= :yrmo) AS y"
-					+" ON x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
+			String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO = :yrmo ORDER BY CAPM_resid";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query).setParameter("yrmo", yrmo);			
 			
 			@SuppressWarnings("unchecked")
