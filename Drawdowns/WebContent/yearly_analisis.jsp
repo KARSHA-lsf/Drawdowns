@@ -233,7 +233,7 @@ $(function () {
 		                async: false
 		            });
 					
-					var x = "test_getSet";
+					var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
 		                type: 'GET',
 		                url: x,
@@ -242,7 +242,7 @@ $(function () {
 		                	
 		               	//console.log(data);
 		               	
-		               	drawLossMcGraph(data);
+		               	//drawLossMcGraph(data);
 		               	
 		                },
 		                

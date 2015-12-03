@@ -36,6 +36,8 @@
   <mapping class="model.CapmPttResultsId"/>
   <mapping class="model.CapmPttStartDates"/>
   <mapping class="model.CapmPttStartDatesId"/>
+  <mapping class="model.CRSP_ValueWeightedReturns"/>
   <mapping class="model.Sys_CLM_EndofMonthLMC"/>
+  <mapping class="model.Sys_CLM_CumulativeLMC"/>
  </session-factory>
 </hibernate-configuration>
