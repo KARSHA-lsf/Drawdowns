@@ -47,29 +47,18 @@ public class CLM_Cap_Graph {
 	
 	public JsonObject Index_vw_return() {
 
-		ArrayList<CRSP_ValueWeightedReturns> CRSP = new ArrayList<>();
+		String sql = "SELECT * FROM crsp_valueweightedreturns WHERE Crsp_date like '" + request.getParameter("Q") + "%'";
+		SQLQuery vw = session.createSQLQuery(sql);
+		vw.addEntity(CRSP_ValueWeightedReturns.class);
+		@SuppressWarnings("unchecked")
+		List<CRSP_ValueWeightedReturns> results = vw.list();
 		List<Double> Mkt_Cap = new ArrayList<>();
 		List<String> dates = new ArrayList<>();
-		String sql = "SELECT * FROM crsp_valueweightedreturns WHERE Crsp_date like '2008%'";
-		try {
-			ResultSet rs = dbconnection.selectData(sql);
-
-			while (rs.next()) {
-				CRSP_ValueWeightedReturns CRSP_obj = new CRSP_ValueWeightedReturns();
-				CRSP_obj.setDate(rs.getString("Crsp_date"));
-				CRSP_obj.setINDEX(rs.getDouble("Crsp_ret"));
-				CRSP_obj.setRET(rs.getDouble("Crsp_value"));
-				CRSP.add(CRSP_obj);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		int listsize = CRSP.size();
+					
+		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-			Mkt_Cap.add(CRSP.get(i).getRET() * CRSP.get(i).getINDEX());
-			dates.add(CRSP.get(i).getDate());
+			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value());
+			dates.add(results.get(i).getCrsp_date());
 		}
 
 		Gson gson = new Gson();
@@ -81,12 +70,11 @@ public class CLM_Cap_Graph {
 			J_obj.add("ReturnValue", returnvalue);
 			J_obj.add("dates", Rdates);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
-		// pwr.print(J_obj);
-
+		
 		return J_obj;
 
 	}
@@ -261,6 +249,72 @@ public class CLM_Cap_Graph {
 			e.printStackTrace();
 		}
 		return obj;
+	}
+	public JSONObject red(){
+		
+		String query = "select * from sys_clm_endofmonthlmc where lmcdate like '%"+request.getParameter("Q")+"%'";
+		SQLQuery q = session.createSQLQuery(query);			
+		
+		
+		ArrayList<String> aryDate = new ArrayList<String>();
+		ArrayList<String> aryValue = new ArrayList<String>();
+		
+		@SuppressWarnings("unchecked")
+		
+		List<Object[]> results = q.list();
+		
+		
+		for (Object[] aRow : results) {
+			
+			String date = (String) aRow[0];
+			BigDecimal value=new BigDecimal(aRow[1].toString());
+			aryDate.add(date);
+			aryValue.add(value.toString());
+			
+		}
+		JSONObject jsonObject=new JSONObject();
+		try {
+			jsonObject.put("Date",aryDate);
+			jsonObject.put("Value",aryValue);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonObject;
+	}
+	
+	public JSONObject cumulativeLossMkp() {
+		System.out.println("cumulativelossmarketcapitalization");
+		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		SQLQuery q = session.createSQLQuery(query);			
+		
+		
+		ArrayList<String> aryDate = new ArrayList<String>();
+		ArrayList<String> aryValue = new ArrayList<String>();
+		
+		@SuppressWarnings("unchecked")
+		
+		List<Object[]> results = q.list();
+		
+		
+		for (Object[] aRow : results) {
+			
+			String date = (String) aRow[0];
+			BigDecimal value=new BigDecimal(aRow[1].toString());
+			aryDate.add(date);
+			aryValue.add(value.toString());
+			
+		}
+		JSONObject jsonObject=new JSONObject();
+		try {
+			jsonObject.put("Date",aryDate);
+			jsonObject.put("Value",aryValue);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonObject;
+		
 	}
 
 }

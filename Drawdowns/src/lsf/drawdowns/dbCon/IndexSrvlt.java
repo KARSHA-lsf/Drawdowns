@@ -77,52 +77,41 @@ public class IndexSrvlt extends HttpServlet {
 		System.out.println("Doget method running now........");
 
 		String userPath = request.getServletPath();
-		db_connections dbconnection = new db_connections();
 
-		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
-		Session session = SFact.openSession();
-		org.hibernate.Transaction tx = session.beginTransaction();
-		
 		PrintWriter pwr = response.getWriter();
-		
-		
+
 		if (userPath.equals("/dataGet")) {
-		
-				CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
-				clm_grp.request_initalize(request);
-				pwr.print(clm_grp.dataget_method());
 
-			
+			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
+			clm_grp.request_initalize(request);
+			pwr.print(clm_grp.dataget_method());
+
 		} else if (userPath.equals("/rangeData")) {
-			
-				CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
-				clm_grp.request_initalize(request);
-				pwr.print(clm_grp.rangedata_method());
 
-			
+			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
+			clm_grp.request_initalize(request);
+			pwr.print(clm_grp.rangedata_method());
 
 		} else if (userPath.equals("/summaryData")) {
-			CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
+			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
 			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.summarydata_method());
-			
-			
+
 		} else if (userPath.equals("/indexData")) {
-		
-			CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
+			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
 			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.indexdata_method());
-			
-		} 
-		
-		
-				
-				
-				
-				
-		
 		}
-	
+
+		else if (userPath.equals("/test_getSet")) {
+			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
+			clm_grp.request_initalize(request);
+			//pwr.print(clm_grp.cumulativeLossMkp());
+			//pwr.print(clm_grp.red());
+			pwr.print(clm_grp.Index_vw_return());
+		}
+
+	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
