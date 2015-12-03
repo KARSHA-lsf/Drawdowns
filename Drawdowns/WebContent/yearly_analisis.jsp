@@ -219,6 +219,7 @@ $(function () {
 		               	//console.log(data);
 		               	
 		               	drawIndex(data);
+		               	//drawLossMcGraph(data);
 		                },
 		                
 		                error: function (data,
@@ -235,13 +236,32 @@ $(function () {
 		                success: function (data) {
 		                	
 		               	console.log(data);
-		               	
+		               	//drawIndex(data);
 		               	drawLossMcGraph(data);
 		                },
 		                
 		                error: function (data,
 		                        error) {
 		                	console.log("data not suitable to use"+error);
+		                },
+		                async: false
+		            });
+					var urlindex = "test?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: urlindex,
+		                dataType: 'json',
+		                success: function (data) {
+		                	
+		               	//console.log(data);
+		               	
+		               	//drawIndex(data);
+		               	drawLossMcGraph(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
 		                },
 		                async: false
 		            });

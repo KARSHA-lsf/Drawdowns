@@ -119,8 +119,31 @@ public class IndexSrvlt extends HttpServlet {
 
 				CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
 				clm_grp.request_initalize(request);
-				pwr.print(clm_grp.Index_vw_return());
+				
+				JsonObject J_obj = new JsonObject();
+				//JsonObject index_vw = clm_grp.Index_vw_return();
+				JsonObject index_vw = clm_grp.Index_vw_return();
+				JSONObject cum_loss = clm_grp.cumulativeLossMkp();
+				JSONObject Index_percent = clm_grp.clmIndexPercentage();
+				JsonParser jsonParser = new JsonParser();
+			    JsonObject cum = (JsonObject)jsonParser.parse(cum_loss.toString());
+			    JsonObject Ipercent = (JsonObject)jsonParser.parse(Index_percent.toString());
+				J_obj.add("Return_Value", index_vw.getAsJsonArray("ReturnValue"));
+				J_obj.add("Return_Dates", index_vw.getAsJsonArray("dates"));
+				J_obj.add("Value", cum.getAsJsonArray("Value"));
+				J_obj.add("Date", cum.getAsJsonArray("Date"));
+				J_obj.add("Index_Value",Ipercent.getAsJsonArray("indexValue") ); 
+				J_obj.add("Index_Date",Ipercent.getAsJsonArray("indexDate") );
+				 System.out.println(J_obj);
+				 pwr.print(J_obj);
 				//clm_grp.Index_vw_return();
+		 }
+		 else if (userPath.equals("/test")){
+			 CLM_Cap_Graph clm_grp  = new CLM_Cap_Graph();
+				clm_grp.request_initalize(request);
+				//pwr.print(clm_grp.eofMonthLMC());
+				System.out.println(clm_grp.eofMonthLMC());
+			 
 		 }
 				
 				

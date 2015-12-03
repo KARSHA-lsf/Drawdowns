@@ -197,13 +197,13 @@ function drawLossMcGraph(json_ary){
 	    left: 50,
 	        },
 		    data:{
-		        url:json_ary,
+		        json:json_ary,
 		        mimeType: 'json',
 		        type : 'bar',
 				xs: {
 		            //'emp_value': 'emp_date',
 		            //'index_value': 'index_date',
-					//'cumulative_value': 'cumulative_date',
+					'Value': 'Date',
 					'ReturnValue':'dates',
 		        },		
 				axes: {
