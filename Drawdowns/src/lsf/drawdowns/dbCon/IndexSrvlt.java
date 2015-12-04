@@ -107,14 +107,30 @@ public class IndexSrvlt extends HttpServlet {
 
 			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
 			clm_grp.request_initalize(request);
-			//pwr.print(clm_grp.clmIndexPercentage());
-			pwr.print(clm_grp.Index_vw_return());
-			// pwr.print(jsonobj);
-			// pwr.print(clm_grp.red());
-			// pwr.print(clm_grp.Index_vw_return());
 
-			// CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
-			// pwr.print(clm_grp.drawCLMCgraph());
+			JsonObject J_obj = new JsonObject();
+			// JsonObject index_vw = clm_grp.Index_vw_return();
+			JsonObject index_vw = clm_grp.Index_vw_return();
+			JSONObject cum_loss = clm_grp.cumulativeLossMkp();
+			JSONObject Index_percent = clm_grp.clmIndexPercentage();
+			JSONObject eofobj = clm_grp.eofMonthLMC();
+
+			JsonParser jsonParser = new JsonParser();
+			JsonObject eof = (JsonObject) jsonParser.parse(eofobj.toString());
+			JsonObject cum = (JsonObject) jsonParser.parse(cum_loss.toString());
+			JsonObject Ipercent = (JsonObject) jsonParser.parse(Index_percent
+					.toString());
+			J_obj.add("Return_Value", index_vw.getAsJsonArray("ReturnValue"));
+			J_obj.add("Return_Dates", index_vw.getAsJsonArray("dates"));
+			J_obj.add("Value", cum.getAsJsonArray("Value"));
+			J_obj.add("Date", cum.getAsJsonArray("Date"));
+			J_obj.add("Index_Value", Ipercent.getAsJsonArray("indexValue"));
+			J_obj.add("Index_Date", Ipercent.getAsJsonArray("indexDate"));
+			J_obj.add("eof_Value", eof.getAsJsonArray("Value"));
+			J_obj.add("eof_Date", eof.getAsJsonArray("Date"));
+			System.out.println(J_obj);
+			pwr.print(J_obj);
+			System.out.print(J_obj);
 		}
 
 	}

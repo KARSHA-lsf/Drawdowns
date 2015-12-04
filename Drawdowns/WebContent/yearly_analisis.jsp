@@ -128,13 +128,19 @@ $(function () {
 
 					</div>
 				</div>
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">
+							Loss Market Capitalization : 
+							<%=request.getParameter("Q")%></h4>
+					</div>
+				</div>
 				<div class="row">
-                    <div class="col-lg-12" style="border:solid 1px">
-                        <h4><center>Loss Market Capitalization - <%=request.getParameter("Q")%> </center></h4>
-                        <div id="lossbar"></div>
-                    </div>
-                </div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="multihistogram"></div>
 
+					</div>
+				</div>
 				<!-- /.row -->
 			</div>
 
@@ -199,7 +205,6 @@ $(function () {
 		               	//console.log(Ready_output);
 		               	//call method in graph.js to draw scatter-plot
 		               	drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
-		               	
 		                },
 		                
 		                error: function (data,
@@ -227,25 +232,26 @@ $(function () {
 		                },
 		                async: false
 		            });
-					var urllmc = "test_getSet?Q="+"<%=request.getParameter("Q")%>";
+					
+					var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
 		                type: 'GET',
-		                url: urllmc,
+		                url: x,
 		                dataType: 'json',
 		                success: function (data) {
 		                	
-		               	console.log(data);
+		               	//console.log(data);
 		               	
 		               	drawLossMcGraph(data);
+		               	
 		                },
 		                
 		                error: function (data,
 		                        error) {
-		                	console.log("data not suitable to use"+error);
+		                	console.log(error);
 		                },
 		                async: false
 		            });
-					
 				});
 				
 		</script>
