@@ -38,5 +38,4 @@
     <servlet-name>annualy_analysis</servlet-name>
     <url-pattern>/GetAnnualData</url-pattern>
   </servlet-mapping>
-  
 </web-app>

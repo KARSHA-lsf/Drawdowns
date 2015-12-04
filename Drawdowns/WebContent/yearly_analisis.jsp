@@ -122,7 +122,19 @@ $(function () {
 
 					</div>
 				</div>
+				<div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">
+							Loss Market Capitalization : 
+							<%=request.getParameter("Q")%></h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="multihistogram"></div>
 
+					</div>
+				</div>
 				<!-- /.row -->
 			</div>
 
@@ -173,6 +185,25 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                async: false
 		            });
 					
+					var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: x,
+		                dataType: 'json',
+		                success: function (data) {
+		                	
+		               	//console.log(data);
+		               	
+		               	drawLossMcGraph(data);
+		               	
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
 				});
 				
 		</script>
