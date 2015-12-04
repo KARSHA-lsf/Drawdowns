@@ -26,6 +26,12 @@ $(function () {
 	});
 });
 </script>
+
+<script>
+$(function () {
+	$("#area").load("yearly_analisis.jsp #area > *");
+});
+</script>
 </head>
 
 <body>
@@ -63,7 +69,8 @@ $(function () {
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2" id="sidebar">
-
+				<div id="area">
+				
 				<div id="accordion">
 					<%
 						for (int k = 2004; k < 2015; k++) {
@@ -80,9 +87,7 @@ $(function () {
 						%>
 						<li style="text-align: center"><a
 							style="font-family: Arial; color: blue; text-decoration: none"
-							href="yearly_analisis.jsp?Q=<%=k%>&M=<%=monthDate[i]%>"> <%
- 	out.println(k + "-" + monthDate[i]);
- %>
+							href="yearly_analisis.jsp?Q=<%=k%>&M=<%=monthDate[i]%>"> <%out.println(k + "-" + monthDate[i]);%>
 						</a></li>
 						<%
 							}
@@ -92,7 +97,7 @@ $(function () {
 						}
 					%>
 				</div>
-
+				</div>
 			</div>
 
 			<div class="span10"
