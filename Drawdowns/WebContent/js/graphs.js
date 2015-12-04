@@ -147,6 +147,7 @@ function drawIndex(json_ary) {
 		},
 	});
 }
+
 function drawLossMcGraph(jsd) {
 	var chart4 = c3.generate({
 		bindto : '#multihistogram',
@@ -157,31 +158,39 @@ function drawLossMcGraph(jsd) {
 			left : 50,
 		},
 		data : {
-			url : 'bootstrap/data/aa.json',
+			// url : 'bootstrap/data/aa.json',
+			json : jsd,
 			mimeType : 'json',
 			type : 'bar',
 			xs : {
-				'emp_value' : 'emp_date',
-				'index_value' : 'index_date',
-				'cumulative_value' : 'cumulative_date',
+				'eof_Value' : 'eof_Date',
+				'Index_Value' : 'Index_Date',
+				'Value' : 'Date',
+				'Return_Value' : 'Return_Dates',
+			},
+			colors : {
+				eof_Value : '#FF0000',
+				Index_Value : '#FFA500',
+				Value : '#0000FF',
+				Return_Value : '#008000',
 			},
 			axes : {
-				emp_value : 'y',
-				index_value : 'y2',
-				cumulative_value : 'y'
+				eof_Value : 'y',
+				Index_Value : 'y2',
+				Value : 'y',
+				Return_Value : 'y'
 			}
 		},
 		bar : {
 			width : {
-				ratio : 0.08
-			// this makes bar width 50% of length between ticks
+				ratio : 0.09,
 			},
 		},
 		zoom : {
 			enabled : true
 		},
 		size : {
-			height : 220
+			height : 400
 		},
 		axis : {
 			x : {
@@ -194,6 +203,9 @@ function drawLossMcGraph(jsd) {
 				}
 			},
 			y : {
+				min : -12000000000,
+				max : 500000000,
+				padding: {top: 10, bottom: 0},
 				tick : {
 					format : function(d) {
 						return d / 1000000;
@@ -202,78 +214,15 @@ function drawLossMcGraph(jsd) {
 				label : 'Loss Market Capitalization - millions'
 			},
 			y2 : {
+				inverted: true,
+				min : -5,
+				max : 120,
+				padding: {top: 0, bottom: 10},
 				tick : {
 					format : function(d) {
-						return d + "%";
-					}
-				},
-				show : true,
-				label : 'Index'
-			},
-		},
-
-	});
-}
-function drawLossMcGraph(json_ary) {
-	var chart5356 = c3.generate({
-		bindto : '#lossbar',
-		padding : {
-			top : 0,
-			right : 60,
-			bottom : 0,
-			left : 50,
-		},
-		data : {
-			url : json_ary,
-			mimeType : 'json',
-			type : 'bar',
-			xs : {
-				'emp_value' : 'emp_date',
-				'index_value' : 'index_date',
-				'cumulative_value' : 'cumulative_date',
-				//'ReturnValue' : 'dates',
-			},
-			axes : {
-				emp_value : 'y',
-				index_value : 'y2',
-				cumulative_value : 'y'
-			}
-		},
-		bar : {
-			width : {
-				ratio : 0.08
-			// this makes bar width 50% of length between ticks
-			},
-		},
-		zoom : {
-			enabled : true
-		},
-		size : {
-			height : 220
-		},
-		axis : {
-			x : {
-				type : 'timeseries',
-				label : 'Time',
-				tick : {
-					format : '%Y-%m-%d',
-					rotate : 90,
-					fit : false
-				}
-			},
-			y : {
-				tick : {
-					format : function(d) {
-						return d / 1000000;
+						return d +"%";
 					},
-				},
-				label : 'Loss Market Capitalization - millions'
-			},
-			y2 : {
-				tick : {
-					format : function(d) {
-						return d + "%";
-					}
+					
 				},
 				show : true,
 				label : 'Index'

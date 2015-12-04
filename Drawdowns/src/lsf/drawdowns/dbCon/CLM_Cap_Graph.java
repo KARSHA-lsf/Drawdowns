@@ -57,7 +57,7 @@ public class CLM_Cap_Graph {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value());
+			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()*1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
 
@@ -284,7 +284,7 @@ public class CLM_Cap_Graph {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from Sys_CLM_CumulativeLMC where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		
@@ -298,7 +298,7 @@ public class CLM_Cap_Graph {
 		for (Object[] aRow : results) {
 			
 			String date = (String) aRow[0];
-			BigDecimal realvalue=(BigDecimal) aRow[1];
+			BigDecimal realvalue=((BigDecimal) aRow[1]);
 			aryDate.add(date);
 			aryValue.add(realvalue);
 		}
