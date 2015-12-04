@@ -1,26 +1,24 @@
 package model;
-
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 public class Sys_CLM_CumulativeLMC {
-	private String lmcdate;
-	private Double value;
+	private String clmdate;
+	private BigDecimal value;
 	
 	@Id
-	public String getLmcdate() {
-		return lmcdate;
+	public String getDate() {
+		return clmdate;
 	}
-	public void setLmcdate(String lmcdate) {
-		this.lmcdate = lmcdate;
+	public void setDate(String clmdate) {
+		this.clmdate = clmdate;
 	}
-	public Double getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
-	public void setValue(Double value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
-	
-
 }
