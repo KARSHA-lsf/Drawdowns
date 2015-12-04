@@ -66,19 +66,14 @@ public class annualy_analysis extends HttpServlet {
 		org.hibernate.Transaction tx = session.beginTransaction();
 		PrintWriter pwr = response.getWriter();
 
+		String yrmo = request.getParameter("yrmo");
 		String Dr_top = request.getParameter("Dr_top");
 		String LossMcap_top = request.getParameter("LossMcap_top");
 		
 		if (userPath.equals("/GetAnnualData")) {
 
-			String query = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D "
-					+ "FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date "
-					+ "WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date= :yr) AS x JOIN "
-					+ "(SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results "
-					+ "WHERE capm_drawdowns_results.HORIZON=1 AND YRMO= :yr) AS y"
-					+ " ON x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
-			SQLQuery q = (SQLQuery) session.createSQLQuery(query).setParameter(
-					"yr", Dr_top);
+			String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid";
+			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
 			@SuppressWarnings("unchecked")
 			List<Object[]> results = q.list();

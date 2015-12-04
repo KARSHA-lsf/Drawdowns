@@ -237,7 +237,7 @@ function drawScatterPlot_yearly(json_object,year,month,tag){
 	//this function draws the scatter plot.
 	var dayMin = year+"-"+month+"-01";
 	console.log(dayMin);
-	month++;
+	month=month+12;
 	//year++;
 	var dayMax = year+"-"+month+"-01";
 	console.log(dayMax);

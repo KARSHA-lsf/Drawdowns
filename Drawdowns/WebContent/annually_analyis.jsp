@@ -43,6 +43,7 @@ var Dr_value,LossMcap_value;
     var value = $( ".Dr_slider" ).slider( "values", 0 );
     console.log(value);
   });
+ 
   </script>
 </head>
 
@@ -115,11 +116,16 @@ var Dr_value,LossMcap_value;
 					</ul>
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
-						<div id="scatter_plot<%=i%>"></div>
+						<div class="row">
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<div id="scatter_plot<%=i%>"></div>
+						</div>
+						</div>
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
-								//console.log("lll :"+Dr_value+" : "+LossMcap_value);
-								var urlscatter = "GetAnnualData?Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+								console.log("lll :"+Dr_value+" : "+LossMcap_value);
+								var urlscatter = "GetAnnualData?yrmo="+<%=i%>+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+								console.log(urlscatter);
 								$.ajax({
 									type : 'GET',
 									url : urlscatter,
@@ -153,7 +159,7 @@ var Dr_value,LossMcap_value;
 		$(document)
 				.ready(
 						function() {
-							var urlscatter = "GetAnnualData?yr=2004";
+							var urlscatter = "GetAnnualData?yrmo=2004";
 
 							$.ajax({
 								type : 'GET',
