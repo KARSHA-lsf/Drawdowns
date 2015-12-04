@@ -284,7 +284,7 @@ public class CLM_Cap_Graph {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from Sys_CLM_CumulativeLMC where date like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		
