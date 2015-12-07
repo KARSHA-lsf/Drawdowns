@@ -178,7 +178,7 @@ function drawLossMcGraph(jsd) {
 				eof_Value : 'y',
 				Index_Value : 'y2',
 				Value : 'y',
-				Return_Value : 'y'
+				Return_Value : 'y2'
 			}
 		},
 		bar : {
@@ -204,7 +204,7 @@ function drawLossMcGraph(jsd) {
 			},
 			y : {
 				min : -12000000000,
-				max : 500000000,
+				max :   6000000000,
 				padding: {top: 10, bottom: 0},
 				tick : {
 					format : function(d) {
@@ -214,10 +214,10 @@ function drawLossMcGraph(jsd) {
 				label : 'Loss Market Capitalization - millions'
 			},
 			y2 : {
-				inverted: true,
-				min : -5,
-				max : 120,
-				padding: {top: 0, bottom: 10},
+////////////				inverted: false,
+				min : -200,
+				max : 100,
+				padding: {top: 10, bottom: 0},
 				tick : {
 					format : function(d) {
 						return d +"%";

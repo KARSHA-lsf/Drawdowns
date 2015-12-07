@@ -45,25 +45,41 @@ public class CLM_Cap_Graph {
 	}
 
 	
-	public JsonObject Index_vw_return() {
-
+public JsonObject Index_vw_return() {
+		
 		String sql = "SELECT * FROM crsp_valueweightedreturns WHERE Crsp_date like '" + request.getParameter("Q") + "%'";
 		SQLQuery vw = session.createSQLQuery(sql);
 		vw.addEntity(CRSP_ValueWeightedReturns.class);
 		@SuppressWarnings("unchecked")
 		List<CRSP_ValueWeightedReturns> results = vw.list();
 		List<Double> Mkt_Cap = new ArrayList<>();
+		List<Double> Mkt_Cap_percentage = new ArrayList<>();
 		List<String> dates = new ArrayList<>();
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()*1000000);
+			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
-
+		double min = Mkt_Cap.get(0);
+	    double max = min;
+	    int length = Mkt_Cap.size();
+	    for (int i = 1; i < length; i++) {
+	      double value = Mkt_Cap.get(i);
+	      min = Math.min(min, value);
+	      max = Math.max(max, value);
+	    }
+	    
+		double T_value = max-min;
+		
+		for (int i = 0; i < listsize; i++) {
+			Mkt_Cap_percentage.add(Mkt_Cap.get(i)*100/T_value);
+			
+		}
+		 
 		Gson gson = new Gson();
 		JsonObject J_obj = new JsonObject();
-		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap);
+		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap_percentage);
 		JsonElement Rdates = gson.toJsonTree(dates);
 
 		try {
@@ -73,7 +89,6 @@ public class CLM_Cap_Graph {
 			
 			e.printStackTrace();
 		}
-
 		
 		return J_obj;
 
@@ -315,24 +330,30 @@ public class CLM_Cap_Graph {
 	}
 
 	public JSONObject clmIndexPercentage() {
-		String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
+		String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
 		ArrayList<String> indexDate = new ArrayList<String>();
 		ArrayList<Double> indexValue = new ArrayList<Double>();
 		JSONObject obj = new JSONObject();
 		double max = -10;
 		double tmp = 0;
+		double min = 0;
+		double tmp_min = 0;
 		try {
 			ResultSet rset = dbconnection.selectData(sql);
 			while(rset.next()){
 				tmp = rset.getDouble("Index_values");
+				tmp_min = rset.getDouble("Index_values");
 				if(tmp>max){
 					max=tmp;
+				}
+				if (tmp_min<min) {
+					min=tmp_min;
 				}
 				indexDate.add(rset.getString("Index_dates"));
 				indexValue.add(Double.valueOf(rset.getString("Index_values")));
 			}
 			for (int j = 0; j < indexValue.size(); j++) {
-				indexValue.set(j, indexValue.get(j)*100/max);
+				indexValue.set(j, indexValue.get(j)*100/(max-min));
 			}
 			
 			obj.put("indexDate", indexDate);
