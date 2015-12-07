@@ -2,21 +2,15 @@
 <html class="no-js">
 
 <head>
+<meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
-	media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<meta charset="utf-8">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="assets/jquery-ui.css">
+<script src="js/jquery-1.10.2.js"></script>
+
 
 <script>
 $(function () {
@@ -45,7 +39,7 @@ $(function () {
 						<li><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="yearly_analysis_percentages.jsp?Q=2004&M=03" style="text-align: center">test</a></li>
+						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li>
 					</ul>
 				</div>
 
@@ -148,64 +142,22 @@ $(function () {
 			<!-- /.row -->
 
 		</div>
-	</div><script>
+	</div>
+	
+	<script>
 		//divide data from url to catogories
 		$(document).ready(
-				function y() {
+				function() {
+var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					
-					
-					
-					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
-					var i,p;
-					var High,High_Medium,Medium,Medium_low,low = [];
-					var Arr,PermNo=[],Perm_date = [];
-					var H_PermNo=[],HM_PermNo =[],M_PermNo = [],ML_PermNo = [],L_PermNo = [];
-					var H_Perm_date=[],HM_Perm_date =[],M_Perm_date = [],ML_Perm_date = [],L_Perm_date = [];
 					$.ajax({
 		                type: 'GET',
 		                url: urlscatter,
 		                dataType: 'json',
 		                success: function (data) {
-		                	
-		               	 var x = parseInt(data.length/5);
-		               	 
-		               	High = $.grep(data, function(n, i){
-		               	  return (i < x);
-		               	  });
-		               	 
-		               	High_Medium = $.grep(data, function(n, i){
-		                 	  return (i<2*x && i>=x );
-		                 	  });
-		               	Medium = $.grep(data, function(n, i){
-		               	  return (i<3*x && i>=2*x );
-		               	  });
-		               	Medium_low = $.grep(data, function(n, i){
-		                 	  return (i<4*x && i>=3*x );
-		                 	  });
-		               	low = $.grep(data, function(n, i){
-		                 	  return (i>=4*x );
-		                 	  });
-		               	//generate perm no and date according to catogories
-		               	function Perm_Gen(Arr,PermNo,Perm_date){		        			
-		               		for(p=0;p<Arr.length;p++)
-		               		{
-		               			PermNo[p]=Arr[p].permno;
-		               			Perm_date[p]=Arr[p].capm_date;               			
-		               		}   		
-		                  }		               
-		               	Perm_Gen(High,H_PermNo,H_Perm_date);              
-		               	Perm_Gen(High_Medium,HM_PermNo,HM_Perm_date);
-		               	Perm_Gen(Medium,M_PermNo,M_Perm_date);
-		               	Perm_Gen(Medium_low,ML_PermNo,ML_Perm_date);
-		               	Perm_Gen(low,L_PermNo,L_Perm_date);
-		               	
-		               	//ready variable to json output
-		               	var Ready_output={"High":H_PermNo,"High_x":H_Perm_date,"HighMedium":HM_PermNo,"HighMedium_x":HM_Perm_date,"Medium":M_PermNo,
-		               			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
-		               		
-		               	//console.log(Ready_output);
+		                	var Ready_output = sccaterPlot_dataPreprocess(data);          
 		               	//call method in graph.js to draw scatter-plot
-		               	drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
+		               		drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
 		                },
 		                
 		                error: function (data,
@@ -261,5 +213,6 @@ $(function () {
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
 	<script src="js/graphs.js"></script>
+	<script src="js/jquery-ui.js"></script>
 </body>
 </html>
