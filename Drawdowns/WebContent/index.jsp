@@ -14,9 +14,9 @@
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <meta charset="utf-8">
 <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	href="assets/jquery-ui.css">
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui.js"></script>
 
 <script>
 	$(function() {
@@ -42,6 +42,7 @@
 						<li><a href="about.jsp">About</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
 					</ul>
 				</div>
 
@@ -66,17 +67,17 @@
 					<%
 						for (int k = 2004; k < 2015; k++) {
 					%>
-					<h6>
+					<h7>
 						Year
 						<%
 						out.println(k);
 					%>
-					</h6>
+					</h7>
 					<ul class="nav-collapse">
 						<%
 							for (int i = 0; i < 12; i++) {
 						%>
-						<li style="text-align: center"><a
+						<li class="nav-collapse" style="text-align: center"><a
 							style="font-family: Arial; color: blue; text-decoration: none"
 							href="yearly_analisis.jsp?Q=<%=k %>&M=<%=monthDate[i]%>"> <% out.println(k+"-"+monthDate[i]); %>
 						</a></li>
@@ -88,9 +89,7 @@
 						}
 					%>
 
-					<ul class="nav-collapse">
-						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-					</ul>
+					
 
 				</div>
 
@@ -103,6 +102,12 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	$.post("IndexSrvlt","")
+			.error(function() {
+				//alert("there is error while sending data to server");
+			});
+	</script>
 </body>
 </html>
 
