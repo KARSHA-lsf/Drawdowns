@@ -27,11 +27,7 @@ $(function () {
 });
 </script>
 
-<script>
-$(function () {
-	$("#area").load("yearly_analisis.jsp #area > *");
-});
-</script>
+
 </head>
 
 <body>
