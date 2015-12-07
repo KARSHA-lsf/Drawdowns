@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.*;
 
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
