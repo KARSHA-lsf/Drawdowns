@@ -335,3 +335,201 @@ function drawScatterPlot_yearly(json_object,year,month,tag){
 		},   
 	});
 }
+<<<<<<< HEAD
+function drawSummaryGraph(json_ary,bindvalue){
+	var chart2=c3.generate({
+	    bindto:bindvalue,
+	    data:{
+	        xs: {
+	            Total: 'year',
+	        },
+	        json:json_ary,
+	        mimeType: 'json',
+	        type : 'bar',
+	    },
+	    size: {
+	            height: 220
+	    },
+	    axis:{
+	    	x:{
+	    		label: 'year',
+	    		tick: {
+	    		      culling: {
+	    		    	  max : 1,
+	    		      },
+	    		      rotate: 90,
+	                  multiline: false,
+	    		},
+	    	},
+	        y:{
+	            padding : 0,
+	            //max : 2300,
+	        },
+	    },
+	});
+}
+
+function drawIndex(json_ary){
+	//console.log(indexDate);
+	var chart3=c3.generate({
+	    bindto:'#barIndex',
+	    data:{
+	        xs: {
+	            value: 'date',
+	        },
+	        colors:{
+	        	value : '#000000',
+	        },
+	        json:json_ary,
+	        mimeType: 'json',
+	        type : 'bar',
+	    },
+	    size: {
+	            height: 220
+	    },
+	    bar: {
+            width: {
+                ratio: 0.2 
+            }
+        },
+	    axis:{
+	    	x: {
+				type: 'timeseries',
+				label: 'Time',
+				tick: {
+					//values : indexDate,
+					format: '%Y-%m-%d',
+					rotate:90,
+					fit: false
+				},
+			},
+	    	
+	        y:{
+	        	max:0.1,
+                min:-0.3,
+                label: 'Drawdown value',
+	            tick:{
+	            	values: [0.10,0, -0.10, -0.20, -0.30]
+	            },
+
+	            //max : 2300,
+	        },
+	    },
+	    grid: {
+	    	x:{
+	    		show:true,
+	    	},
+            y: {
+                lines: [
+                    {value: 0, text: 'Drawdown value 0'}
+                ]
+            }
+        },
+	});
+}
+
+function drawlmtGraph(){
+	var chart4=c3.generate({
+	    bindto:'#multihistogram',
+	    data:{
+	        url:'bootstrap/data/aa.json',
+	        mimeType: 'json',
+	        type : 'bar',
+			x : 'xx'		
+	    },
+	    size: {
+	            height: 220
+	    },
+	    axis:{
+			x: {
+					type: 'timeseries',
+					label: 'Time',
+					//min : dayMin,
+					//max : dayMax,
+					tick: {
+						format: '%Y-%m-%d',
+						rotate:90,
+						fit: false
+					}
+				},
+	        y:{
+	            padding : 0,
+	            //max : 2300,
+	        },
+	    },
+	    grid: {
+	                y: {
+	                    lines: [
+	                        {value: 410, text: 'Average 410'}
+	                    ]
+	                }
+	            }
+	    
+	});
+}
+function drawLossMcGraph(json_ary){
+		var chart5356=c3.generate({
+		    bindto:'#lossbar',
+			padding: {
+	    top: 0,
+	    right: 60,
+	    bottom: 0,
+	    left: 50,
+	        },
+		    data:{
+		        json:json_ary,
+		        mimeType: 'json',
+		        type : 'bar',
+				xs: {
+		            //'emp_value': 'emp_date',
+		            //'index_value': 'index_date',
+					'Value': 'Date',
+					'ReturnValue':'dates',
+		        },		
+				axes: {
+		            emp_value: 'y',
+		            index_value: 'y2',
+					cumulative_value: 'y'
+		        }
+		    },
+			bar: {
+	        width: {
+	            ratio: 0.08 // this makes bar width 50% of length between ticks
+	        },
+	    },
+	    zoom: {
+	        enabled: true
+	    },
+		    size: {
+		            height: 220
+		    },
+		    axis:{
+				x: {
+						type: 'timeseries',
+						label: 'Time',
+						tick: {
+							format: '%Y-%m-%d',
+							rotate:90,
+							fit: false
+						}
+					},
+		        y:{
+	           tick: {
+	                format: function (d) { return d/1000000 ; },
+	            },
+	            label: 'Loss Market Capitalization - millions'
+	        },
+	        y2: {
+	            tick: {
+	                format: function (d) { return d+"%"; }
+	            },
+	            show: true,
+	            label: 'Index'
+	        },    
+		    },
+		    
+		});
+	}
+
+=======
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git

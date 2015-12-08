@@ -177,6 +177,7 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		               	//console.log(data);
 		               	
 		               	drawIndex(data);
+		               	//drawLossMcGraph(data);
 		                },
 		                
 		                error: function (data,
@@ -193,8 +194,13 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                dataType: 'json',
 		                success: function (data) {
 		                	
+<<<<<<< HEAD
+		               	console.log(data);
+		               	//drawIndex(data);
+=======
 		               	//console.log(data);
 		               	
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 		               	drawLossMcGraph(data);
 		               	
 		                },
@@ -205,6 +211,29 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                },
 		                async: false
 		            });
+<<<<<<< HEAD
+					var urlindex = "test?Q="+"<%=request.getParameter("Q")%>";
+					$.ajax({
+		                type: 'GET',
+		                url: urlindex,
+		                dataType: 'json',
+		                success: function (data) {
+		                	
+		               	//console.log(data);
+		               	
+		               	//drawIndex(data);
+		               	drawLossMcGraph(data);
+		                },
+		                
+		                error: function (data,
+		                        error) {
+		                	console.log(error);
+		                },
+		                async: false
+		            });
+					
+=======
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 				});
 				
 		</script>

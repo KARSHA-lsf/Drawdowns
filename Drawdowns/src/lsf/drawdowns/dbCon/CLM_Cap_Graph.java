@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -58,6 +59,7 @@ public class CLM_Cap_Graph {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
+<<<<<<< HEAD
 
 			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
@@ -95,6 +97,7 @@ public class CLM_Cap_Graph {
 
 
 	}
+	
 
 	
 	
@@ -267,6 +270,102 @@ public class CLM_Cap_Graph {
 		}
 		return obj;
 	}
+<<<<<<< HEAD
+	public JSONObject cumulativeLossMkp() {
+		System.out.println("cumulativelossmarketcapitalization");
+		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		SQLQuery q = session.createSQLQuery(query);			
+		
+		
+		ArrayList<String> aryDate = new ArrayList<String>();
+		ArrayList<String> aryValue = new ArrayList<String>();
+		
+		@SuppressWarnings("unchecked")
+		
+		List<Object[]> results = q.list();
+		
+		
+		for (Object[] aRow : results) {
+			
+			String date = (String) aRow[0];
+			BigDecimal value=new BigDecimal(aRow[1].toString());
+			aryDate.add(date);
+			aryValue.add(value.toString());
+			
+		}
+		JSONObject jsonObject=new JSONObject();
+		try {
+			jsonObject.put("Date",aryDate);
+			jsonObject.put("Value",aryValue);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonObject;
+		
+	}
+	public JSONObject clmIndexPercentage() {
+		String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
+		ArrayList<String> indexDate = new ArrayList<String>();
+		ArrayList<Double> indexValue = new ArrayList<Double>();
+		JSONObject obj = new JSONObject();
+		double max = -10;
+		double tmp = 0;
+		try {
+			ResultSet rset = dbconnection.selectData(sql);
+			while(rset.next()){
+				tmp = rset.getDouble("Index_values");
+				if(tmp>max){
+					max=tmp;
+				}
+				indexDate.add(rset.getString("Index_dates"));
+				indexValue.add(Double.valueOf(rset.getString("Index_values")));
+			}
+			for (int j = 0; j < indexValue.size(); j++) {
+				indexValue.set(j, indexValue.get(j)*100/max);
+			}
+			
+			obj.put("indexDate", indexDate);
+			obj.put("indexValue", indexValue);
+		}catch(SQLException | JSONException ex){
+			ex.printStackTrace();
+		}
+		return obj;
+		
+	}
+ public JSONObject eofMonthLMC(){
+		
+		String query = "select * from sys_clm_endofmonthlmc where lmcdate like '%"+request.getParameter("Q")+"%'";
+		SQLQuery q = session.createSQLQuery(query);			
+		
+		ArrayList<String> aryDate = new ArrayList<String>();
+		ArrayList<Double> aryValue = new ArrayList<Double>();
+		
+		@SuppressWarnings("unchecked")
+		
+		List<Object[]> results = q.list();
+		
+		
+		for (Object[] aRow : results) {
+			
+			String date = (String) aRow[0];
+			double value= (double) aRow[1];
+			aryDate.add(date);
+			aryValue.add(value);
+			
+		}
+		JSONObject jsonObject=new JSONObject();
+		try {
+			jsonObject.put("Date",aryDate);
+			jsonObject.put("Value",aryValue);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonObject;
+	}
+
+=======
 	public JSONObject eofMonthLMC(){
 		
 		String query = "select * from sys_clm_endofmonthlmc where lmcdate like '%"+request.getParameter("Q")+"%'";
@@ -311,6 +410,7 @@ public class CLM_Cap_Graph {
 		@SuppressWarnings("unchecked")
 		
 		List<Object[]> results = q.list();
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 
 		for (Object[] aRow : results) {
 			
