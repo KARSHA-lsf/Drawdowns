@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.dbcp.dbcp.DbcpException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,23 +54,90 @@ public class adminSrvlt extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		eoflossmc();
-		cummulativeLoassMakt();
-
+	//	eoflossmc();
+	//	cummulativeLoassMakt();
+			end_of_month_LMC();
+			
 	}
 
 	
+	private void end_of_month_LMC() {
+		// TODO Auto-generated method stub
+	//	String sql ="SELECT SUM(x.rmc) FROM (SELECT a.permno,a.yrmo,(a.value1*b.value1) as rmc FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo=201501) a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo = 201501) b ON a.permno = b.permno) x INNER JOIN  (SELECT DISTINCT(PERMNO_date) FROM capm_drawdowns_date WHERE DATE(CAPM_resid_date) BETWEEN '2014-12-16' AND '2015-01-15' ORDER BY CAPM_resid_date ) y ON x.permno = y.PERMNO_date";
+		
+		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
+		Session session = SFact.openSession();
+		session.beginTransaction();
+		
+		
+		
+		db_connections db_con = new db_connections();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<String> indexDates = get_index_dates();
+		ArrayList<Double> endOfMonthVales = new ArrayList<Double>();
+		ArrayList<String> endOFMonthDates = new ArrayList<String>();
+		for (int i = 0; i < indexDates.size()-1; i++) {
+				String d1 = indexDates.get(i);
+				String d2 = indexDates.get(i+1);
+				String[] parts = d2.split("-");
+				int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
+
+				String sql ="SELECT SUM(x.rmc) FROM (SELECT a.permno,a.yrmo,(a.value1*b.value1) as rmc FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo='"+yrmo+"') a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo = '"+yrmo+"') b ON a.permno = b.permno) x INNER JOIN  (SELECT DISTINCT(PERMNO_date) FROM capm_drawdowns_date WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid_date ) y ON x.permno = y.PERMNO_date";
+				
+				try {
+					Date eDate = dateFormat.parse(d2);
+					Calendar calendar = Calendar.getInstance();
+			        calendar.setTime(eDate);
+			        calendar.add(Calendar.MONTH, 1);
+			        calendar.set(Calendar.DAY_OF_MONTH, 1);
+			        calendar.add(Calendar.DATE, -1);
+			        Date lastDayOfMonth = calendar.getTime();
+			        
+					ResultSet rset = db_con.selectData(sql);
+					if(rset.next()){
+						endOfMonthVales.add(rset.getDouble("SUM(x.rmc)"));
+						endOFMonthDates.add(dateFormat.format(lastDayOfMonth));
+					}
+						
+				} catch (SQLException | ParseException e) {
+					e.printStackTrace();
+				}
+		}
+		for (int i = 0; i < endOfMonthVales.size(); i++) {
+			Sys_CLM_EndofMonthLMC obj = new Sys_CLM_EndofMonthLMC();
+			obj.setLmcdate(endOFMonthDates.get(i));
+			obj.setValue(endOfMonthVales.get(i));		
+			session.save(obj);
+		}
+		session.getTransaction().commit();
+	}
+
+	private ArrayList<String> get_index_dates() {
+		// TODO Auto-generated method stub
+		ArrayList<String> tmp_indexDates = new ArrayList<String>();
+		db_connections dbconnection = new db_connections();
+		try {
+			ResultSet rset = dbconnection.selectData("SELECT date_withyear FROM caaf_drawdownend WHERE DATE(date_withyear) > '2003-11-30' AND date_withyear != '0000-00-00' AND permno_end=0 ORDER BY date_withyear");
+			while(rset.next()){
+				tmp_indexDates.add(rset.getString("date_withyear"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tmp_indexDates;
+	}
+
+	/*
 	public void eoflossmc(){
+		
 		db_connections dbconnection = new db_connections();
 
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
 		session.beginTransaction();
 
-		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-		/**  end of the month loss market capitalization **/
-		//Sys_CLM_EndofMonthLMC obj = new Sys_CLM_EndofMonthLMC();
 		try {
 			
 			ResultSet rset = dbconnection.selectData("SELECT DISTINCT CAPM_resid_date,YRMO_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 201412 AND HORIZON = 1 ORDER BY CAPM_resid_date");
@@ -94,12 +162,14 @@ public class adminSrvlt extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		/**  end of the month loss market capitalization **/
+		
 		
 		session.getTransaction().commit();
+		
 	}
-	
+	*/
 
+	/*
 	private ArrayList<Double> getEndOfMonthvalues(List<Drawdown> result,
 			ArrayList<String> eofdate) {
 		double empValue[] = new double[1000];
@@ -123,6 +193,7 @@ public class adminSrvlt extends HttpServlet {
 		}
 		return eofvalue;
 	}
+	*/
 
 	private ArrayList<String> getEndOfMonthDates(ResultSet rset) {
 		ArrayList<String> edate = new ArrayList<>();

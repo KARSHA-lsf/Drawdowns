@@ -276,8 +276,7 @@ public JsonObject Index_vw_return() {
 		@SuppressWarnings("unchecked")
 		
 		List<Object[]> results = q.list();
-		
-		
+
 		for (Object[] aRow : results) {
 			
 			String date = (String) aRow[0];
@@ -301,8 +300,7 @@ public JsonObject Index_vw_return() {
 		System.out.println("cumulativelossmarketcapitalization");
 		String query = "select * from Sys_CLM_CumulativeLMC where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
-		
-		
+	
 		ArrayList<String> aryDate = new ArrayList<String>();
 		ArrayList<BigDecimal> aryValue = new ArrayList<BigDecimal>();
 		
