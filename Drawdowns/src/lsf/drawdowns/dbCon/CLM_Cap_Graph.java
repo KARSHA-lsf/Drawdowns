@@ -53,17 +53,34 @@ public class CLM_Cap_Graph {
 		@SuppressWarnings("unchecked")
 		List<CRSP_ValueWeightedReturns> results = vw.list();
 		List<Double> Mkt_Cap = new ArrayList<>();
+		List<Double> Mkt_Cap_percentage = new ArrayList<>();
 		List<String> dates = new ArrayList<>();
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()*1000000);
+
+			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
-
+		double min = Mkt_Cap.get(0);
+	    double max = min;
+	    int length = Mkt_Cap.size();
+	    for (int i = 1; i < length; i++) {
+	      double value = Mkt_Cap.get(i);
+	      min = Math.min(min, value);
+	      max = Math.max(max, value);
+	    }
+	    
+		double T_value = max-min;
+		
+		for (int i = 0; i < listsize; i++) {
+			Mkt_Cap_percentage.add(Mkt_Cap.get(i)*100/T_value);
+			
+		}
+		 
 		Gson gson = new Gson();
 		JsonObject J_obj = new JsonObject();
-		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap);
+		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap_percentage);
 		JsonElement Rdates = gson.toJsonTree(dates);
 
 		try {
@@ -73,9 +90,9 @@ public class CLM_Cap_Graph {
 			
 			e.printStackTrace();
 		}
-
 		
 		return J_obj;
+
 
 	}
 
