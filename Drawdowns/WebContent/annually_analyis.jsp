@@ -19,35 +19,15 @@
 <script src="js/jquery-ui.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
+var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
 	});
 </script>
-<script>
-var Dr_value=100,LossMcap_value=100,tab=2004,data_init;
-  $(function() {
-    $( "#Dr_slider" ).slider({
-    		min:1,
-    		max:50,
-    		slide: function( event, ui ) {
-                $( "#Dr_value" ).text( ui.value + " %" );
-                Dr_value=ui.value;
-                draw_me(data_init);
-             }}			
-   	);
-    $( "#LossMcap_slider" ).slider({
-    	max:50,
-    	min:1,
-		slide: function( event, ui ) {
-            $( "#LossMcap_value" ).text( ui.value + " %" );
-            LossMcap_value=ui.value;
-         }		
-    });
-    var value = $( ".Dr_slider" ).slider( "values", 0 );
-    console.log(value);
-  });
- 
-  </script>
+
+<style type="text/css">
+	#Dr_slider .ui-slider-range { background: #ef2929; }
+</style>
 </head>
 
 <body>
@@ -171,6 +151,33 @@ var Dr_value=100,LossMcap_value=100,tab=2004,data_init;
 		$(document)
 			.ready(
 				function() {
+					$("#Dr_value").text(Dr_value);
+					 
+					  $(function() {
+					    $( "#Dr_slider" ).slider({
+					    		min:1,
+					    		max:50,
+					    		value:Dr_value,
+					    		slide: function( event, ui ) {
+					                $( "#Dr_value" ).text( ui.value + " %" );
+					                Dr_value=ui.value;
+					                draw_me(data_init);
+					             }}			
+					   	);
+					    $( "#LossMcap_slider" ).slider({
+					    	max:50,
+					    	min:1,
+					    	value:LossMcap_value,
+							slide: function( event, ui ) {
+					            $( "#LossMcap_value" ).text( ui.value + " %" );
+					            LossMcap_value=ui.value;
+					         }		
+					    });
+					    
+					  });
+					 
+					
+					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 			});
 	</script> 
