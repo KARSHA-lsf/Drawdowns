@@ -41,7 +41,16 @@ import com.google.gson.*;
  */
 @WebServlet(description = "this servelet will be the startup servlet and it "
 		+ "may allow to open DB connection", urlPatterns = { "/IndexSrvlt" })
+
+
 public class IndexSrvlt extends HttpServlet {
+	
+	db_connections dbconnection = new db_connections();
+	HttpServletRequest request;
+	SessionFactory SFact = new Configuration().configure().buildSessionFactory();
+	Session session = SFact.openSession();
+	org.hibernate.Transaction tx = session.beginTransaction();
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -58,6 +67,7 @@ public class IndexSrvlt extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("Drawdown system on live...!!!!!!1");
+		
 	}
 
 	/**
@@ -74,39 +84,28 @@ public class IndexSrvlt extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		
 		System.out.println("Doget method running now........");
-
+		CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
+		clm_grp.request_initalize(request);
 		String userPath = request.getServletPath();
 
 		PrintWriter pwr = response.getWriter();
 
 		if (userPath.equals("/dataGet")) {
-
-			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
-			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.dataget_method());
 
 		} else if (userPath.equals("/rangeData")) {
-
-			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
-			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.rangedata_method());
 
 		} else if (userPath.equals("/summaryData")) {
-			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
-			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.summarydata_method());
-
+			
 		} else if (userPath.equals("/indexData")) {
-			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
-			clm_grp.request_initalize(request);
 			pwr.print(clm_grp.indexdata_method());
+			
 		}
-
 		else if (userPath.equals("/test_getSet")) {
-
-			CLM_Cap_Graph clm_grp = new CLM_Cap_Graph();
 			clm_grp.request_initalize(request);
 
 			JsonObject J_obj = new JsonObject();
