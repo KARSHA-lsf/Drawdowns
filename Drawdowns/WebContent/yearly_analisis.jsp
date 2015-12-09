@@ -193,14 +193,11 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                url: x,
 		                dataType: 'json',
 		                success: function (data) {
-		                	
-<<<<<<< HEAD
-		               	console.log(data);
-		               	//drawIndex(data);
-=======
+		               	//console.log(data);
+
 		               	//console.log(data);
 		               	
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
 		               	drawLossMcGraph(data);
 		               	
 		                },
@@ -211,7 +208,7 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                },
 		                async: false
 		            });
-<<<<<<< HEAD
+
 					var urlindex = "test?Q="+"<%=request.getParameter("Q")%>";
 					$.ajax({
 		                type: 'GET',
@@ -232,8 +229,7 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                async: false
 		            });
 					
-=======
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
 				});
 				
 		</script>

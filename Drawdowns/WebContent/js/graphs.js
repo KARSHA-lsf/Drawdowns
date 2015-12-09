@@ -335,7 +335,7 @@ function drawScatterPlot_yearly(json_object,year,month,tag){
 		},   
 	});
 }
-<<<<<<< HEAD
+
 function drawSummaryGraph(json_ary,bindvalue){
 	var chart2=c3.generate({
 	    bindto:bindvalue,
@@ -531,5 +531,3 @@ function drawLossMcGraph(json_ary){
 		});
 	}
 
-=======
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git

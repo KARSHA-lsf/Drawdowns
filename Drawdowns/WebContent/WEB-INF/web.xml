@@ -38,7 +38,7 @@
     <servlet-name>annualy_analysis</servlet-name>
     <url-pattern>/GetAnnualData</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
+
   
   <servlet-mapping>
     <servlet-name>IndexSrvlt</servlet-name>
@@ -51,6 +51,4 @@
         
   </servlet-mapping>
 </web-app>
-=======
-</web-app>
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
