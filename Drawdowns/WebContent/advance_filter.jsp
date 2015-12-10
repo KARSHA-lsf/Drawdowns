@@ -224,8 +224,7 @@
 		                async: false
 		            });
 					
-					var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>
-		";
+					var urlindex = "indexData?Q="+<%=request.getParameter("Q")%>";
 							$.ajax({
 								type : 'GET',
 								url : urlindex,

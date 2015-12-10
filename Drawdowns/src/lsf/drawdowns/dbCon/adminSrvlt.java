@@ -1,8 +1,6 @@
 package lsf.drawdowns.dbCon;
 
-import java.io.EOFException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,18 +18,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.dbcp.dbcp.DbcpException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.transform.Transformers;
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
+
 
 import model.Drawdown;
 import model.Sys_CLM_CumulativeLMC;
 import model.Sys_CLM_EndofMonthLMC;
+import model.Sys_CLM_EndofMonthLMC_top_ten;
 
 /**
  * Servlet implementation class adminSrvlt
@@ -76,6 +75,9 @@ public class adminSrvlt extends HttpServlet {
 		ArrayList<String> indexDates = get_index_dates();
 		ArrayList<Double> endOfMonthVales = new ArrayList<Double>();
 		ArrayList<String> endOFMonthDates = new ArrayList<String>();
+		ArrayList<Double> endOfMonthVales_top_ten = new ArrayList<Double>();
+		ArrayList<String> endOFMonthDates_top_ten = new ArrayList<String>();
+		
 		for (int i = 0; i < indexDates.size()-1; i++) {
 				String d1 = indexDates.get(i);
 				String d2 = indexDates.get(i+1);
@@ -83,6 +85,7 @@ public class adminSrvlt extends HttpServlet {
 				int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
 
 				String sql ="SELECT SUM(x.rmc) FROM (SELECT a.permno,a.yrmo,(a.value1*b.value1) as rmc FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo='"+yrmo+"') a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo = '"+yrmo+"') b ON a.permno = b.permno) x INNER JOIN  (SELECT DISTINCT(PERMNO_date) FROM capm_drawdowns_date WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid_date ) y ON x.permno = y.PERMNO_date";
+				String sql_top_ten="SELECT SUM(a.marketCapitalization*b.value1) FROM (SELECT PERMNO,YRMO,marketCapitalization,CAPM_resid_date FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid) AS a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo='"+yrmo+"') AS b ON a.PERMNO=b.permno";
 				
 				try {
 					Date eDate = dateFormat.parse(d2);
@@ -98,6 +101,12 @@ public class adminSrvlt extends HttpServlet {
 						endOfMonthVales.add(rset.getDouble("SUM(x.rmc)"));
 						endOFMonthDates.add(dateFormat.format(lastDayOfMonth));
 					}
+					
+					ResultSet rset_top_ten = db_con.selectData(sql_top_ten);
+					if(rset_top_ten.next()){
+						endOfMonthVales_top_ten.add(rset_top_ten.getDouble("SUM(a.marketCapitalization*b.value1)"));
+						endOFMonthDates_top_ten.add(dateFormat.format(lastDayOfMonth));
+					}
 						
 				} catch (SQLException | ParseException e) {
 					e.printStackTrace();
@@ -107,6 +116,12 @@ public class adminSrvlt extends HttpServlet {
 			Sys_CLM_EndofMonthLMC obj = new Sys_CLM_EndofMonthLMC();
 			obj.setLmcdate(endOFMonthDates.get(i));
 			obj.setValue(endOfMonthVales.get(i));		
+			session.save(obj);
+		}
+		for (int i = 0; i < endOfMonthVales_top_ten.size(); i++) {
+			Sys_CLM_EndofMonthLMC_top_ten obj = new Sys_CLM_EndofMonthLMC_top_ten();
+			obj.setLmcdate(endOFMonthDates_top_ten.get(i));
+			obj.setValue(endOfMonthVales_top_ten.get(i));		
 			session.save(obj);
 		}
 		session.getTransaction().commit();

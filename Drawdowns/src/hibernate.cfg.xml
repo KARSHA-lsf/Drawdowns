@@ -41,5 +41,7 @@
   <mapping class="model.Sys_CLM_CumulativeLMC"/>
   <mapping class="model.Drawdown"/>
   <mapping class="model.CRSP_ValueWeightedReturns"/>
+  <mapping class="model.Sys_CLM_EndofMonthLMC_top_ten"/>
+  
  </session-factory>
 </hibernate-configuration>
