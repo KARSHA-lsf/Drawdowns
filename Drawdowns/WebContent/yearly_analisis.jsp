@@ -148,7 +148,7 @@ $(function () {
 		//divide data from url to catogories
 		$(document).ready(
 				function() {
-var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
+				var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					
 					$.ajax({
 		                type: 'GET',
@@ -177,7 +177,7 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		               	//console.log(data);
 		               	
 		               	drawIndex(data);
-		               	//drawLossMcGraph(data);
+		               	
 		                },
 		                
 		                error: function (data,
@@ -193,33 +193,10 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                url: x,
 		                dataType: 'json',
 		                success: function (data) {
-		               	//console.log(data);
-
-		               	//console.log(data);
+		                 	//console.log(data);
 		               	
-
 		               	drawLossMcGraph(data);
 		               	
-		                },
-		                
-		                error: function (data,
-		                        error) {
-		                	console.log(error);
-		                },
-		                async: false
-		            });
-
-					var urlindex = "test?Q="+"<%=request.getParameter("Q")%>";
-					$.ajax({
-		                type: 'GET',
-		                url: urlindex,
-		                dataType: 'json',
-		                success: function (data) {
-		                	
-		               	//console.log(data);
-		               	
-		               	//drawIndex(data);
-		               	drawLossMcGraph(data);
 		                },
 		                
 		                error: function (data,
@@ -229,8 +206,11 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                async: false
 		            });
 					
-
-				});
+	});
+		
+	
+			 
+		
 				
 		</script>
 	

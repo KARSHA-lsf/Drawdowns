@@ -71,7 +71,7 @@ public class annualy_analysis extends HttpServlet {
 		String LossMcap_top = request.getParameter("LossMcap_top");
 		
 		if (userPath.equals("/GetAnnualData")) {
-
+			System.out.println("kkkkkkk : "+Dr_top + " lll : "+LossMcap_top);
 			String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
