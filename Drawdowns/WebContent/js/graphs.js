@@ -233,7 +233,6 @@ function drawLossMcGraph(jsd) {
 }
 
 function sccaterPlot_dataPreprocess(data) {
-	
 	var i,p;
 	var High,High_Medium,Medium,Medium_low,low = [];
 	var Arr,PermNo=[],Perm_date = [];
@@ -337,7 +336,7 @@ function drawScatterPlot_yearly(json_object,year,month,tag){
 	});
 }
 
-<<<<<<< HEAD
+
 function drawSummaryGraph(json_ary,bindvalue){
 	var chart2=c3.generate({
 	    bindto:bindvalue,
