@@ -43,7 +43,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<ul class="nav">
 						<li class="active"><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
-						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
+						<li><a href="summary.jsp" style="text-align:center;">Summary</a></li>
 						<li><a href="advance_filter.jsp?Q=2004&M=03"
 							style="text-align: center">Advance Filter</a></li>
 						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
@@ -100,14 +100,28 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
 						<div class="row">
+						
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="scatter_plot<%=i%>"></div>
 						</div>
+						
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+								<h4 class="page-header"> Index drowdown</h4>
+								<div id="scatter_plot_index<%=i%>"></div>
+						</div>
+						
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+								<h4 class="page-header"> Loss MarketCapitalization</h4>
+								<div id="multihistogram<%=i%>"></div>
+						</div>
+						
 						</div>
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								drw_filtered_index(<%=i%>,Dr_value,LossMcap_value);
+								drw_filtered_LMC(<%=i%>,Dr_value,LossMcap_value);
 							});
 						</script>
 					</div>
@@ -138,6 +152,43 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							Ready_output,tab , 01,
 					 		'#scatter_plot'+tab);
 					}
+					function drw_filtered_index(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "indexData?Q="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								//console.log(data);
+								//data_init = data;
+								drawIndex_yearly(data,tab , 01, '#scatter_plot_index'+tab);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
+					function drw_filtered_LMC(tab,Dr_value,LossMcap_value){
+						var urlscatter = "test_getSet?Q="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								//console.log(data);
+								//data_init = data;
+								drawLossMcGraph_yearly(data,tab , 01, '#multihistogram'+tab);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
 					</script>
 				</div>
 				</div>
@@ -152,8 +203,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 			.ready(
 				function() {
 					$("#Dr_value").text(Dr_value);
-					 
-					  $(function() {
+
+ 					   $(function() {
 					    $( "#Dr_slider" ).slider({
 					    		min:1,
 					    		max:50,
@@ -177,8 +228,9 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					  });
 					 
 					
-					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					drw_filtered_index(2004,Dr_value,LossMcap_value);
+					drw_filtered_LMC(2004,Dr_value,LossMcap_value);
 			});
 	</script> 
 	
