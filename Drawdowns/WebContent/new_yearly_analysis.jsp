@@ -109,6 +109,7 @@
 									<div id="scatter_plot<%=i%>"></div>
 								</div>
 							</div>
+							
 						</div>
 						<%
 							}

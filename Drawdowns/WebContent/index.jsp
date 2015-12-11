@@ -43,7 +43,6 @@
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li>
 						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
-						<li><a href="new_yearly_analysis.jsp" style="text-align: center">New Yearly Analysis</a></li>
 					</ul>
 				</div>
 
