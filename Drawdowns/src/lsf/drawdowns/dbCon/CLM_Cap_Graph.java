@@ -29,16 +29,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class CLM_Cap_Graph {
+public class CLM_Cap_Graph extends IndexSrvlt {
+	
+	private static final long serialVersionUID = 1L;
 
-	db_connections dbconnection = new db_connections();
-	HttpServletRequest request;
-	SessionFactory SFact = new Configuration().configure().buildSessionFactory();
-	Session session = SFact.openSession();
-	org.hibernate.Transaction tx = session.beginTransaction();
-	
-	
-	
 	public void request_initalize(HttpServletRequest request_get ) {
 		request = request_get;
 		//System.out.println(request.getParameter("Q"));
@@ -97,13 +91,15 @@ public JsonObject Index_vw_return() {
 	
 	
 	public JSONArray dataget_method(){
-		String query = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"
+		/*String query = "SELECT x.PERMNO_date AS PERMNO,x.CAPM_resid_date AS CAPM_resid_D FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE capm_drawdowns_date.HORIZON=1 AND YRMO_date='"
 				+ request.getParameter("Q")
 				+ request.getParameter("M")
 				+ "') AS x , (SELECT PERMNO,YRMO,CAPM_resid FROM capm_drawdowns_results WHERE capm_drawdowns_results.HORIZON=1 AND YRMO='"
 				+ request.getParameter("Q")
 				+ request.getParameter("M")
-				+ "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";
+				+ "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";*/
+		String yrmo = request.getParameter("Q")+ request.getParameter("M");
+		String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO = "+yrmo+" ORDER BY CAPM_resid";
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		@SuppressWarnings("unchecked")

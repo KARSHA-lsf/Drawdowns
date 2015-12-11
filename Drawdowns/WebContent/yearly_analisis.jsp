@@ -145,9 +145,9 @@ $(function () {
 	
 	<script>
 		//divide data from url to catogories
-		$(document).ready(
+		$(window).ready(
 				function() {
-var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
+				var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					
 					$.ajax({
 		                type: 'GET',
@@ -204,7 +204,13 @@ var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.ge
 		                },
 		                async: false
 		            });
+					
+					
 				});
+		
+	
+			 
+		
 				
 		</script>
 	

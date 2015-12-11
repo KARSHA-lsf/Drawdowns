@@ -19,32 +19,15 @@
 <script src="js/jquery-ui.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
+var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
 	});
 </script>
-<script>
-var Dr_value,LossMcap_value;
-  $(function() {
-    $( "#Dr_slider" ).slider({
-    		max:20,
-    		slide: function( event, ui ) {
-                $( "#Dr_value" ).text( ui.value + " %" );
-                Dr_value=ui.value;
-             }}			
-   	);
-    $( "#LossMcap_slider" ).slider({
-    	max:20,
-		slide: function( event, ui ) {
-            $( "#LossMcap_value" ).text( ui.value + " %" );
-            LossMcap_value=ui.value;
-         }		
-    });
-    var value = $( ".Dr_slider" ).slider( "values", 0 );
-    console.log(value);
-  });
- 
-  </script>
+
+<style type="text/css">
+	#Dr_slider .ui-slider-range { background: #ef2929; }
+</style>
 </head>
 
 <body>
@@ -123,30 +106,39 @@ var Dr_value,LossMcap_value;
 						</div>
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
-								console.log("lll :"+Dr_value+" : "+LossMcap_value);
-								var urlscatter = "GetAnnualData?yrmo="+<%=i%>+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
-								console.log(urlscatter);
-								$.ajax({
-									type : 'GET',
-									url : urlscatter,
-									dataType : 'json',
-									success : function(data) {
-										var Ready_output = sccaterPlot_dataPreprocess(data);
-										//call method in graph.js to draw scatter-plot
-										drawScatterPlot_yearly(
-											Ready_output,<%=i%> , 01,
-									 		'#scatter_plot<%=i%>');
-										},
-										error : function(data, error) {
-											console.log(error);
-										},
-										async : false
-								});
-								
+								tab =<%=i%>;
+								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 							});
-							</script>
+						</script>
 					</div>
 					<% } %>
+					<script type="text/javascript">
+					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "GetAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						//console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								data_init = data;
+								draw_me(data);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
+					function draw_me(data){
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						drawScatterPlot_yearly(
+							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab);
+					}
+					</script>
 				</div>
 				</div>
 				</div>
@@ -157,33 +149,38 @@ var Dr_value,LossMcap_value;
 	<script>
 		//divide data from url to catogories
 		$(document)
-				.ready(
-						function() {
-							var urlscatter = "GetAnnualData?yrmo=2004";
-
-							$.ajax({
-								type : 'GET',
-								url : urlscatter,
-								dataType : 'json',
-								success : function(data) {
-									var Ready_output = sccaterPlot_dataPreprocess(data);
-									//call method in graph.js to draw scatter-plot
-									drawScatterPlot_yearly(
-										Ready_output, 2004, 01,
-								 		'#scatter_plot2004');
-									},
-
-									error : function(data, error) {
-										console.log(error);
-									},
-									async : false
-							});
-							
-							
-						
-
-						});
-	</script>
+			.ready(
+				function() {
+					$("#Dr_value").text(Dr_value);
+					 
+					  $(function() {
+					    $( "#Dr_slider" ).slider({
+					    		min:1,
+					    		max:50,
+					    		value:Dr_value,
+					    		slide: function( event, ui ) {
+					                $( "#Dr_value" ).text( ui.value + " %" );
+					                Dr_value=ui.value;
+					                draw_me(data_init);
+					             }}			
+					   	);
+					    $( "#LossMcap_slider" ).slider({
+					    	max:50,
+					    	min:1,
+					    	value:LossMcap_value,
+							slide: function( event, ui ) {
+					            $( "#LossMcap_value" ).text( ui.value + " %" );
+					            LossMcap_value=ui.value;
+					         }		
+					    });
+					    
+					  });
+					 
+					
+					
+					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+			});
+	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
