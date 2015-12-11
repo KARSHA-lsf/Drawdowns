@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+YPE html>
 <html class="no-js">
 
 <head>
@@ -93,7 +93,7 @@ $(function () {
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div>
-					<div class "row-fluid" style="margin: 30px 30px 30px">
+					<div class="row-fluid" style="margin: 30px 30px 30px">
 						<h1>Monthly Analisis</h1>
 					</div>
 				</div>

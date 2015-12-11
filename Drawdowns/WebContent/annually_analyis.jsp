@@ -81,40 +81,51 @@ var Dr_value,LossMcap_value;
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class="span4">
 					<div class="block" style="border: 1px none LightSeaGreen;">
-						<h3 style="padding-left: 10px;">
-						Yearly Analysis [ 2004 - 2014 ]</h3>		
+						<h3 style="padding-left: 10px;">Yearly Analysis [ 2004 - 2014
+							]</h3>
 					</div>
 				</div>
 				<div class="span3">
 					<br>
-						<div class="col-sm-3">
-							Drawdown Value Top : <span id="Dr_value"  style="font-weight:bold;"></span>
-						</div>
-						<div class="col-sm-3">
-							<div id="Dr_slider"></div>
-						</div>
+					<div class="col-sm-3">
+						Drawdown Value Top : <span id="Dr_value"
+							style="font-weight: bold;"></span>
+					</div>
+					<div class="col-sm-3">
+						<div id="Dr_slider"></div>
+					</div>
 				</div>
 				<div class="span3">
 					<br>
-						<div class="col-sm-3">
-							LossMcap Value Top : <span id="LossMcap_value" style="font-weight:bold;"></span>
-						</div>
-						<div class="col-sm-3">
-							<div id="LossMcap_slider"></div>
-						</div>
-				</div>
+					<div class="col-sm-3">
+						LossMcap Value Top : <span id="LossMcap_value"
+							style="font-weight: bold;"></span>
+					</div>
+					<div class="col-sm-3">
+						<div id="LossMcap_slider"></div>
+					</div>
 				</div>
 			</div>
-		
-				<div class "row-fluid">
+		</div>
+
+		<div class="row-fluid">
 				
 				<div id="tabs">
 					<ul>
-						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
+						<%
+							for (int i = 2004; i < 2015; i++) {
+								String tab = "#tab" + i;
+								String tabid = "tab" + i;
+						%>
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
-						<% } %>
+						<%
+							}
+						%>
 					</ul>
-					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
+					<%
+						for (int i = 2004; i < 2015; i++) {
+							String tab = "tab" + i;
+					%>
 					<div id="<%=tab%>">
 						<div class="row">
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
@@ -136,22 +147,26 @@ var Dr_value,LossMcap_value;
 										drawScatterPlot_yearly(
 											Ready_output,<%=i%> , 01,
 									 		'#scatter_plot<%=i%>');
-										},
-										error : function(data, error) {
-											console.log(error);
-										},
-										async : false
-								});
-								
-							});
-							</script>
+															},
+															error : function(
+																	data, error) {
+																console
+																		.log(error);
+															},
+															async : false
+														});
+
+											});
+						</script>
 					</div>
-					<% } %>
+					<%
+						}
+					%>
 				</div>
 				</div>
 				</div>
-			</div>
-		</div>
+	</div>
+	</div>
 	</div>
 
 	<script>
@@ -161,34 +176,32 @@ var Dr_value,LossMcap_value;
 						function() {
 							var urlscatter = "GetAnnualData?yrmo=2004";
 
-							$.ajax({
-								type : 'GET',
-								url : urlscatter,
-								dataType : 'json',
-								success : function(data) {
-									var Ready_output = sccaterPlot_dataPreprocess(data);
-									//call method in graph.js to draw scatter-plot
-									drawScatterPlot_yearly(
-										Ready_output, 2004, 01,
-								 		'#scatter_plot2004');
-									},
+							$
+									.ajax({
+										type : 'GET',
+										url : urlscatter,
+										dataType : 'json',
+										success : function(data) {
+											var Ready_output = sccaterPlot_dataPreprocess(data);
+											//call method in graph.js to draw scatter-plot
+											drawScatterPlot_yearly(
+													Ready_output, 2004, 01,
+													'#scatter_plot2004');
+										},
 
-									error : function(data, error) {
-										console.log(error);
-									},
-									async : false
-							});
-							
-							
-						
+										error : function(data, error) {
+											console.log(error);
+										},
+										async : false
+									});
 
 						});
 	</script>
-	
+
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
 	<script src="js/graphs.js"></script>
-	
+
 
 </body>
 </html>
