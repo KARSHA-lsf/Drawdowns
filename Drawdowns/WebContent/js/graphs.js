@@ -532,7 +532,7 @@ function drawLossMcGraph(json_ary){
 		});
 	}
 
-=======
+
 function sccaterPlot_dataPreprocess_withTopFilter(data_org,Dr_value,LossMcap_value) {
 	
 	var org_length = parseInt(data_org.length*(Dr_value/100));
