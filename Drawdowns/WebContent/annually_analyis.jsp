@@ -145,14 +145,14 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 			</div>
 		</div>
 	</div>
-
+	<div id="more_details"></div>
 	<script>
 		//divide data from url to catogories
 		$(document)
 			.ready(
 				function() {
-					$("#Dr_value").text(Dr_value);
-					 
+					$("#Dr_value").text(Dr_value+ " %");
+					$("#LossMcap_value").text(LossMcap_value+ " %");
 					  $(function() {
 					    $( "#Dr_slider" ).slider({
 					    		min:1,
