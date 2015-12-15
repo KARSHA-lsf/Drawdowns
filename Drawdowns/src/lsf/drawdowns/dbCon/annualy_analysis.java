@@ -71,7 +71,7 @@ public class annualy_analysis extends HttpServlet {
 		String LossMcap_top = request.getParameter("LossMcap_top");
 		
 		if (userPath.equals("/GetAnnualData")) {
-
+			
 			String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
@@ -105,6 +105,39 @@ public class annualy_analysis extends HttpServlet {
 						.println("some error occured during scatterPlot data pre processing");
 			}
 			
+		}else if (userPath.equals("/TopLossesAnnualData")) {
+			String query = "SELECT PERMNO,CAPM_resid_date as CAPM_resid_D FROM sys_top10_losess WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid";
+			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
+
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = q.list();
+
+			try {
+
+				JSONArray jsonarray = new JSONArray();
+
+				for (Object[] aRow : results) {
+					JSONObject jsonobj = new JSONObject();
+					int permno = (int) aRow[0];
+					String year_date = (String) aRow[1];
+					if (year_date == null) {
+
+					} else {
+						try {
+							jsonobj.put("permno", permno);
+							jsonobj.put("capm_date", year_date);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						jsonarray.put(jsonobj);
+					}
+				}
+
+				pwr.print(jsonarray);
+			} catch (Exception e) {
+				System.out
+						.println("some error occured during scatterPlot data pre processing");
+			}
 		}
 
 	}
