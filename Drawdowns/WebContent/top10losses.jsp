@@ -41,14 +41,13 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				<div class="nav-collapse collapse">
 
 					<ul class="nav">
-						<li class="active"><a href="index.jsp">Home</a></li>
-						<li><a href="about.jsp">About</a></li>
+						<li><a href="index.jsp">Home</a></li>
+						<li class="active"><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="Monthly_analysis.jsp">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03"
-							style="text-align: center">Advance Filter</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
-								Analysis</a></li>
-						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
 					</ul>
 				</div>
 

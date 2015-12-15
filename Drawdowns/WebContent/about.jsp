@@ -34,10 +34,12 @@
                        
                         <ul class="nav">
                             <li><a href="index.jsp">Home</a></li>
-							<li class="active"><a href="about.jsp">About</a></li>
-                            <li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-<!--                             <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
-                        <li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="Monthly_analysis.jsp">Monthly Analysis</a></li>
+						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
+						<li class="active"><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
                         </ul>
                     </div>
                     
@@ -58,7 +60,7 @@
         <div class="container-fluid">
 			
             <div class="row-fluid">
-                <div class="span2" id="sidebar">
+                <%-- <div class="span2" id="sidebar">
                     <div id="accordion">
 						<%
 							for (int k = 2004; k < 2015; k++) {
@@ -85,11 +87,11 @@
 						}
 						%>
 						
-					</div>					
-                </div>  	
+					</div>					 --%>
+                	
                 
                 
-				<div class="span10" style="border:1px solid LightSeaGreen;background-color:white" >
+				<div class="span12" style="border:1px solid LightSeaGreen;background-color:white" >
 					<div class "row-fluid" style="margin:30px 30px 30px">
 						<div class="col-lg-12">
 							<h1 class="page-header" style="text-align:center">About Us</h1>
