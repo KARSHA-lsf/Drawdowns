@@ -309,6 +309,10 @@ function drawScatterPlot_yearly(json_object,year,month,tag){
 				MediumLow: '#3399FF',
 				Low: '#0A1F33',
 			},
+			onclick:function(e){
+				$('#more_details').dialog();
+			}
+			
 		},
 		axis: {
 			x: {
