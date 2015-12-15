@@ -38,6 +38,7 @@
   <servlet-mapping>
     <servlet-name>annualy_analysis</servlet-name>
     <url-pattern>/GetAnnualData</url-pattern>
+    <url-pattern>/TopLossesAnnualData</url-pattern>
   </servlet-mapping>
 
   

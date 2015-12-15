@@ -19,7 +19,7 @@
 <script src="js/jquery-ui.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
-var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
+var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
 	});
@@ -44,10 +44,11 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li class="active"><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-<!-- 						<li><a href="advance_filter.jsp?Q=2004&M=03" -->
-<!-- 							style="text-align: center">Advance Filter</a></li> -->
+						<li><a href="advance_filter.jsp?Q=2004&M=03"
+							style="text-align: center">Advance Filter</a></li>
 						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
 								Analysis</a></li>
+						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
 					</ul>
 				</div>
 
@@ -81,11 +82,10 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<br>
 						<!-- <div class="col-sm-3">
 							LossMcap Value Top : <span id="LossMcap_value" style="font-weight:bold;"></span>
-						</div> 
+						</div>
 						<div class="col-sm-3">
 							<div id="LossMcap_slider"></div>
-						</div>
-						-->
+						</div> -->
 				</div>
 				</div>
 			</div>
@@ -116,7 +116,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
-						var urlscatter = "GetAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						var urlscatter = "TopLossesAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
 						//console.log(urlscatter);
 						$.ajax({
 							type : 'GET',
@@ -157,7 +157,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					  $(function() {
 					    $( "#Dr_slider" ).slider({
 					    		min:1,
-					    		max:50,
+					    		max:100,
 					    		value:Dr_value,
 					    		slide: function( event, ui ) {
 					                $( "#Dr_value" ).text( ui.value + " %" );
