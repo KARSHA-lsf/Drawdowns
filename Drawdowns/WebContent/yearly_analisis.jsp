@@ -10,6 +10,7 @@
 <link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui.js"></script>
 
 
 <script>
@@ -52,6 +53,7 @@ $(function () {
 				"November", "December" };
 		String[] monthDate = { "01", "02", "03", "04", "05", "06", "07",
 				"08", "09", "10", "11", "12" };
+		
 	%>
 
 
@@ -93,7 +95,7 @@ $(function () {
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div>
-					<div class "row-fluid" style="margin: 30px 30px 30px">
+					<div class ="row-fluid" style="margin: 30px 30px 30px">
 						<h1>Monthly Analisis</h1>
 					</div>
 				</div>
@@ -109,6 +111,8 @@ $(function () {
 						<div id="scatter_plot"></div>
 
 					</div>
+					<div id="dialog" title="Basic Dialog">
+					<div id="permhistory"></div>
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
@@ -148,7 +152,8 @@ $(function () {
 		//divide data from url to catogories
 		$(document).ready(
 				function() {
-				var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
+					
+					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					
 					$.ajax({
 		                type: 'GET',
@@ -207,6 +212,35 @@ $(function () {
 		            });
 					
 	});
+		function popup(d, element) {
+			
+			var urlindex = "perm_history?Q="+<%=request.getParameter("Q")%>+ "&P=" + d.value;
+			$("#dialog").dialog({
+				resizable: true,
+				width: 450,
+				height: 220
+			});
+			$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
+			$.ajax({
+		        type: 'GET',
+		        url: urlindex,
+		        dataType: 'json',
+		        success: function (data) {
+		        	
+		       	//console.log(data);
+		       	console.log(d.value);
+		        Permno_history_graph(data);
+		       	
+		        },
+		        
+		        error: function (data,
+		                error) {
+		        	console.log(error);
+		        },
+		        async: false
+		    });
+		}
+		
 		
 	
 			 
