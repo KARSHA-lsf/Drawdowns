@@ -1,6 +1,7 @@
 function drawScatterPlot(json_object, year, month,bind) {
 	console.log(json_object);
 	console.log(year,month,bind);
+	console.log(window.innerWidth);
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
 	console.log(dayMin);
@@ -12,6 +13,7 @@ function drawScatterPlot(json_object, year, month,bind) {
 		bindto : bind,
 		size : {
 			height : 500,
+			width : window.innerWidth*0.75,
 		},
 		data : {
 			xs : {
@@ -57,6 +59,7 @@ function drawScatterPlot(json_object, year, month,bind) {
 			show : true
 		},
 	});
+
 }
 function drawSummaryGraph(json_ary, bindvalue) {
 	var chart2 = c3.generate({
@@ -89,6 +92,7 @@ function drawSummaryGraph(json_ary, bindvalue) {
 			},
 		},
 	});
+	
 }
 function drawIndex(json_ary) {
 	// console.log(indexDate);
@@ -148,6 +152,7 @@ function drawIndex(json_ary) {
 			}
 		},
 	});
+	
 }
 
 function drawLossMcGraph(jsd) {

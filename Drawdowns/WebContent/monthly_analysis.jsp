@@ -55,7 +55,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	</div>
 
 	<%
-		String[] months = {"January", "February", "March", "April", "May",
+		String yy = request.getParameter("Q");
+		String[] months = {yy,"January", "February", "March", "April", "May",
 				"June", "July", "August", "September", "October",
 				"November", "December"};
 		String[] monthDate = {"01", "02", "03", "04", "05", "06", "07",
@@ -77,7 +78,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li
 							style="text-align: center; width: 150px; margin-left: 0px; padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;border-bottom: 1px solid #e7e7e7;">
 							<a style="font-size: 16px" class="#"
-							href="new_yearly_analysis.jsp?Q=<%=i%>&M=01"> Year <%
+							href="monthly_analysis.jsp?Q=<%=i%>&M=01"> Year <%
 								out.println(i);
 							%>
 						</a>
@@ -100,19 +101,19 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<ul>
 
 							<%
-								for (int i = 1; i < 13; i++) {
+								for (int i = 0; i < 13; i++) {
 									String tab = "#tab" + i;
 									String tabid = "tab" + i;
 							%>
-							<li><a style="font-size: 14px;" id="ta<%=i%>"
-								href="<%=tab%>"> <%=months[i-1]%>
+							<li><a style="font-size: 13px;" id="ta<%=i%>"
+								href="<%=tab%>"> <%=months[i]%>
 							</a></li>
 							<%
 								}
 							%>
 						</ul>
 						<%
-							for (int j = 1; j < 13; j++) {
+							for (int j = 0; j < 13; j++) {
 								String tab = "tab" + j;
 						%>
 						
@@ -128,7 +129,12 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								m =<%=j%>;
 								b = '#scatter_plot'+<%=j%>;
 								console.log(y,m,b);
-								draw_scatter(y,m,b);	
+								if (m<1) {
+									
+								}else{
+									draw_scatter(y,m,b);
+								}
+									
 							});
 						</script>
 						</div>
