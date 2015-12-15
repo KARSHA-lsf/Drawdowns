@@ -98,7 +98,15 @@ public JsonObject Index_vw_return() {
 				+ request.getParameter("Q")
 				+ request.getParameter("M")
 				+ "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";*/
-		String yrmo = request.getParameter("Q")+ request.getParameter("M");
+		
+		int tmp_month = Integer.valueOf(request.getParameter("M"));
+		String month = request.getParameter("M");
+		if (tmp_month<10) {
+			month = "0"+tmp_month;
+		}
+		
+		
+		String yrmo = request.getParameter("Q")+ month;
 		String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO = "+yrmo+" ORDER BY CAPM_resid";
 		SQLQuery q = session.createSQLQuery(query);			
 		

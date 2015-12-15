@@ -1,4 +1,6 @@
-function drawScatterPlot(json_object, year, month) {
+function drawScatterPlot(json_object, year, month,bind) {
+	console.log(json_object);
+	console.log(year,month,bind);
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
 	console.log(dayMin);
@@ -7,7 +9,7 @@ function drawScatterPlot(json_object, year, month) {
 	var dayMax = year + "-" + month + "-01";
 	console.log(dayMax);
 	var chart1 = c3.generate({
-		bindto : '#scatter_plot',
+		bindto : bind,
 		size : {
 			height : 500,
 		},
@@ -532,3 +534,4 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org,Dr_value,LossMcap_val
    			"Medium_x":M_Perm_date,"MediumLow":ML_PermNo,"MediumLow_x":ML_Perm_date,"Low":L_PermNo,"Low_x":L_Perm_date};
    	return Ready_output;
 }
+

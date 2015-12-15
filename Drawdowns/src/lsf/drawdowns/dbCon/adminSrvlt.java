@@ -78,6 +78,9 @@ public class adminSrvlt extends HttpServlet {
 		ArrayList<Double> endOfMonthVales_top_ten = new ArrayList<Double>();
 		ArrayList<String> endOFMonthDates_top_ten = new ArrayList<String>();
 		
+	//	ArrayList<Double> cumulative_LMC_top_ten_values = new ArrayList<Double>();
+	//	ArrayList<String> cumulative_LMC_top_ten_date = new ArrayList<String>();
+		
 		for (int i = 0; i < indexDates.size()-1; i++) {
 				String d1 = indexDates.get(i);
 				String d2 = indexDates.get(i+1);
@@ -86,6 +89,7 @@ public class adminSrvlt extends HttpServlet {
 
 				String sql ="SELECT SUM(x.rmc) FROM (SELECT a.permno,a.yrmo,(a.value1*b.value1) as rmc FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo='"+yrmo+"') a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo = '"+yrmo+"') b ON a.permno = b.permno) x INNER JOIN  (SELECT DISTINCT(PERMNO_date) FROM capm_drawdowns_date WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid_date ) y ON x.permno = y.PERMNO_date";
 				String sql_top_ten="SELECT SUM(a.marketCapitalization*b.value1) FROM (SELECT PERMNO,YRMO,marketCapitalization,CAPM_resid_date FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid) AS a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo='"+yrmo+"') AS b ON a.PERMNO=b.permno";
+				//String sql_LMC ="SELECT SUM(LOSSMcap) FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid";
 				
 				try {
 					Date eDate = dateFormat.parse(d2);
@@ -107,11 +111,19 @@ public class adminSrvlt extends HttpServlet {
 						endOfMonthVales_top_ten.add(rset_top_ten.getDouble("SUM(a.marketCapitalization*b.value1)"));
 						endOFMonthDates_top_ten.add(dateFormat.format(lastDayOfMonth));
 					}
+					
+			        /*
+					ResultSet rset_lmc_top_ten = db_con.selectData(sql_LMC);
+					if(rset_lmc_top_ten.next()){
+						System.out.println(rset_lmc_top_ten.getDouble("SUM(LOSSMcap)")+" date "+dateFormat.format(lastDayOfMonth));
 						
+					}
+					*/
 				} catch (SQLException | ParseException e) {
 					e.printStackTrace();
 				}
 		}
+		/*
 		for (int i = 0; i < endOfMonthVales.size(); i++) {
 			Sys_CLM_EndofMonthLMC obj = new Sys_CLM_EndofMonthLMC();
 			obj.setLmcdate(endOFMonthDates.get(i));
@@ -124,6 +136,8 @@ public class adminSrvlt extends HttpServlet {
 			obj.setValue(endOfMonthVales_top_ten.get(i));		
 			session.save(obj);
 		}
+			
+		*/
 		session.getTransaction().commit();
 	}
 

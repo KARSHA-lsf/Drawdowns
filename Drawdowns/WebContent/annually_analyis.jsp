@@ -103,8 +103,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="scatter_plot<%=i%>"></div>
-						</div>
-						
+  						</div>
+							
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 								<h4 class="page-header"> Index drowdown</h4>
 								<div id="scatter_plot_index<%=i%>"></div>
