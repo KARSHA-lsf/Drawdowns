@@ -52,10 +52,7 @@ public JsonObject Index_vw_return() {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
