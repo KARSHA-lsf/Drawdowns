@@ -328,14 +328,13 @@ function drawScatterPlot_yearly(json_object, year, month, tag) {
 				MediumLow : '#3399FF',
 				Low : '#0A1F33',
 			},
-<<<<<<< HEAD
 
-=======
+
+
 			onclick:function(e){
 				$('#more_details').dialog();
 			}
 			
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 		},
 		axis : {
 			x : {
@@ -639,7 +638,7 @@ function Permno_history_graph(json_ary) {
 			type : 'line',
 			xs : {
 
-				'phvalue' : 'phdate',
+				'Drawdown_value' : 'Drawdown_date',
 			}
 
 		},

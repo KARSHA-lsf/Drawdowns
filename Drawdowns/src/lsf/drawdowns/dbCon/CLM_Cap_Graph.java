@@ -264,7 +264,7 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 	}
 	public JSONObject eofMonthLMC(){
 		
-		String query = "select * from sys_clm_endofmonthlmc where lmcdate like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -371,15 +371,14 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 			Lidate.add(date);
 			Livalue.add(value);
 		}
-		System.out.println(Livalue);
 		Gson gson = new Gson();
 		JsonObject J_obj = new JsonObject();
 		JsonElement phvalue = gson.toJsonTree(Livalue);
 		JsonElement phdates = gson.toJsonTree(Lidate);
 
 		try {
-			J_obj.add("phvalue", phvalue);
-			J_obj.add("phdate", phdates);
+			J_obj.add("Drawdown_value", phvalue);
+			J_obj.add("Drawdown_date", phdates);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
