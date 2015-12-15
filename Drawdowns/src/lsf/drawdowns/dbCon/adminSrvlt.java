@@ -123,7 +123,7 @@ public class adminSrvlt extends HttpServlet {
 					e.printStackTrace();
 				}
 		}
-		/*
+		
 		for (int i = 0; i < endOfMonthVales.size(); i++) {
 			Sys_CLM_EndofMonthLMC obj = new Sys_CLM_EndofMonthLMC();
 			obj.setLmcdate(endOFMonthDates.get(i));
@@ -136,8 +136,6 @@ public class adminSrvlt extends HttpServlet {
 			obj.setValue(endOfMonthVales_top_ten.get(i));		
 			session.save(obj);
 		}
-			
-		*/
 		session.getTransaction().commit();
 	}
 
