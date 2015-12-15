@@ -39,8 +39,8 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 	}
 
 	
-	public JsonObject Index_vw_return() {
-
+public JsonObject Index_vw_return() {
+		
 		String sql = "SELECT * FROM crsp_valueweightedreturns WHERE Crsp_date like '" + request.getParameter("Q") + "%'";
 		SQLQuery vw = session.createSQLQuery(sql);
 		vw.addEntity(CRSP_ValueWeightedReturns.class);
@@ -52,7 +52,10 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
@@ -99,7 +102,15 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 				+ request.getParameter("Q")
 				+ request.getParameter("M")
 				+ "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";*/
-		String yrmo = request.getParameter("Q")+ request.getParameter("M");
+		
+		int tmp_month = Integer.valueOf(request.getParameter("M"));
+		String month = request.getParameter("M");
+		if (tmp_month<10) {
+			month = "0"+tmp_month;
+		}
+		
+		
+		String yrmo = request.getParameter("Q")+ month;
 		String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO = "+yrmo+" ORDER BY CAPM_resid";
 		SQLQuery q = session.createSQLQuery(query);			
 		
@@ -273,8 +284,7 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 		@SuppressWarnings("unchecked")
 		
 		List<Object[]> results = q.list();
-		
-		
+
 		for (Object[] aRow : results) {
 			
 			String date = (String) aRow[0];
@@ -298,8 +308,7 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 		System.out.println("cumulativelossmarketcapitalization");
 		String query = "select * from Sys_CLM_CumulativeLMC where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
-		
-		
+	
 		ArrayList<String> aryDate = new ArrayList<String>();
 		ArrayList<BigDecimal> aryValue = new ArrayList<BigDecimal>();
 		
@@ -376,6 +385,7 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 		JsonElement phvalue = gson.toJsonTree(Livalue);
 		JsonElement phdates = gson.toJsonTree(Lidate);
 
+
 		try {
 			J_obj.add("Drawdown_value", phvalue);
 			J_obj.add("Drawdown_date", phdates);
@@ -385,5 +395,6 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 		}
 		return J_obj;
 	}
+
 
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 10, 2015 11:12:45 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.Sys_CLM_EndofMonthLMC_top_ten" table="SYS_CLM_ENDOFMONTHLMC_TOP_TEN">
+        <id name="lmcdate" type="java.lang.String">
+            <column name="LMCDATE" />
+            <generator class="assigned" />
+        </id>
+        <property name="value" type="java.lang.Double">
+            <column name="VALUE" />
+        </property>
+    </class>
+</hibernate-mapping>
