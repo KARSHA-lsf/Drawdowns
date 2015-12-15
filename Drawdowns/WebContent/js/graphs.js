@@ -209,16 +209,13 @@ function drawLossMcGraph(jsd) {
 			},
 			y : {
 				min : -12000000000,
-<<<<<<< HEAD
 				max : 500000000,
 				padding : {
 					top : 10,
 					bottom : 0
 				},
-=======
 				max :   6000000000,
 				padding: {top: 10, bottom: 0},
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 				tick : {
 					format : function(d) {
 						return d / 1000000;
@@ -637,7 +634,6 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 }
 
 function Permno_history_graph(json_ary) {
-=======
 function drawIndex_yearly(json_object,year,month,tag) {
 	 console.log(json_object);
 	var chart44 = c3.generate({
@@ -832,5 +828,6 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org,Dr_value,LossMcap_val
 
 	});
 
+}
 }
 
