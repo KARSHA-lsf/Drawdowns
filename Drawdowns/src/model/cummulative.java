@@ -2,19 +2,25 @@ package model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class cummulative {
-	private String date;
+	private String clmdate;
 	private BigDecimal value;
-	String getDate() {
-		return date;
+	
+	@Id
+	public String getDate() {
+		return clmdate;
 	}
-	void setDate(String date) {
-		this.date = date;
+	public void setDate(String clmdate) {
+		this.clmdate = clmdate;
 	}
-	BigDecimal getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
-	void setValue(BigDecimal value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 }

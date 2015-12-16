@@ -41,14 +41,14 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				<div class="nav-collapse collapse">
 
 					<ul class="nav">
-						<li class="active"><a href="index.jsp">Home</a></li>
-						<li><a href="about.jsp">About</a></li>
+						<li><a href="index.jsp">Home</a></li>
+						<li class="active"><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
+						<li><a href="Monthly_analysis.jsp">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03"
-							style="text-align: center">Advance Filter</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
-								Analysis</a></li>
-						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
 					</ul>
 				</div>
 
@@ -113,6 +113,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						</script>
 					</div>
 					<% } %>
+					<div id="dialog" title="Basic Dialog">
+						<div id="permhistory"></div>
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
@@ -181,6 +183,34 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 			});
+		//permno history graph in dialog window 
+		function popup(d, element) {
+				var urlindex = "perm_history?Q="+tab+ "&P=" + d.value;
+				$("#dialog").dialog({
+						resizable: true,
+						width: 450,
+						height: 220
+					});
+				$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
+					$.ajax({
+				       type: 'GET',
+					   url: urlindex,
+					   dataType: 'json',
+					   success: function (data) {
+					        	
+					    console.log(data);
+					    console.log(d.value);
+					    Permno_history_graph(data);
+					       	
+				        },
+					        
+					    error: function (data,
+					                error) {
+					      		console.log(error);
+					     },
+					        	async: false
+					    });
+					}
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>
