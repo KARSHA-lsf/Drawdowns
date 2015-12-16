@@ -68,8 +68,6 @@ public class adminSrvlt extends HttpServlet {
 		Session session = SFact.openSession();
 		session.beginTransaction();
 		
-		
-		
 		db_connections db_con = new db_connections();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<String> indexDates = get_index_dates();

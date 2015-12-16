@@ -1,26 +1,13 @@
 package lsf.drawdowns.dbCon;
 
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import model.CRSP_ValueWeightedReturns;
-import model.Drawdown;
-
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.transform.Transformers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
