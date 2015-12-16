@@ -227,7 +227,14 @@ public class adminSrvlt extends HttpServlet {
 					//+ "%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"
 					//+ k
 					//+ "%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
-			String all_drawdown="SELECT * FROM sys_blu_top10_losess WHERE yrmo LIKE '%"+k+"%' ORDER BY drawdownDate";
+			
+	        
+	        /*String all_drawdown="SELECT X.permno AS permno,X.yrmo AS yrmo,X.drawdownValue AS drawdownValue,X.drawdownDate AS drawdownDate,X.marketCapitalization AS marketCapitalization,X.returnValue AS returnValue FROM (SELECT *, @counter := @counter +1 AS counter FROM (select @counter :=0) AS initvar, (SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"
+	        +k+"%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"
+	        +k+"%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM(SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"
+	        +k+"%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"
+	        +k+"%') AS LON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo)  as p ) AS Xwhere counter <= (10/100 * @counter) ORDER BY X.drawdownDate";*/
+	        String all_drawdown="SELECT * FROM sys_blu_top10_losess WHERE yrmo LIKE '%"+k+"%' ORDER BY drawdownDate";
 			SQLQuery q = session.createSQLQuery(all_drawdown);
 			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 
@@ -308,8 +315,8 @@ public class adminSrvlt extends HttpServlet {
 
 			BigDecimal cummilativeValue = new BigDecimal(0);
 			String CumalativeArray[][] = new String[countforSecondArray + 1][2];
-
 			
+						
 			for (int i = 0; i < arrayYear.length; i++) {
 
 				for (int j = 0; j < countforSecondArray + 1; j++) {
@@ -335,17 +342,21 @@ public class adminSrvlt extends HttpServlet {
 								cummilativeValue = new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
 								CumalativeArray[j][0] = secondSortArray[j][0];
 								CumalativeArray[j][1] = cummilativeValue.toString();							
-								//System.out.println(CumalativeArray[j][0]+"===>"+CumalativeArray[j][1]);		
-							} else {
+										
+							}else if(d3.equals(d2)){
+								cummilativeValue = new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
+								CumalativeArray[j][0] = secondSortArray[j][0];
+								CumalativeArray[j][1] = cummilativeValue.toString();
+							}
+							else {
 								cummilativeValue = zero;
 							}
 						} else if (0 < i && i <= 10) {
-
 							d1 = (Date) format.parse(arrayYear[i]);
 							d2 = (Date) format.parse(arrayYear[i + 1]);
 							d3 = (Date) format.parse(secondSortArray[j][0]);
-							// pwr.println(d3);
-							if (d3.equals(d2) || d3.after(d1) && d3.before(d2)) {
+						
+							if (d3.equals(d2) || (d3.after(d1) && d3.before(d2))) {
 
 								cummilativeValue = new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
 								CumalativeArray[j][0] = secondSortArray[j][0];
@@ -356,18 +367,16 @@ public class adminSrvlt extends HttpServlet {
 								cummilativeValue = zero;
 							}
 						}
-
+						
 						else if (i == 11) {
 							d4 = (Date) format.parse(arrayYear[i]);
 							d6 = (Date) format.parse(secondSortArray[j][0]);
 
 							if ( d6.after(d4)) {
-
 								cummilativeValue = new BigDecimal(secondSortArray[j][1]).add(cummilativeValue);
 								CumalativeArray[j][0] = secondSortArray[j][0];
 								CumalativeArray[j][1] = cummilativeValue.toString();
-										
-
+	
 							}
 						}
 
@@ -387,18 +396,18 @@ public class adminSrvlt extends HttpServlet {
 					}
 				}
 			}*/
-			//for(int i=0;i<CumalativeArray.length;i++){
-				//System.out.println(CumalativeArray[i][0]+"==="+CumalativeArray[i][1]);
-			//}
+			for(int i=0;i<CumalativeArray.length;i++){
+				System.out.println(CumalativeArray[i][0]+"==="+CumalativeArray[i][1]);
+			}
 			
-			  JSONArray jary=new JSONArray();
+			/*JSONArray jary=new JSONArray();
 			  for(int i=0;i<CumalativeArray.length;i++){
 				 JSONObject jobj=new
 				 JSONObject(); jobj.put("Date",CumalativeArray[i][0]);
 				  jobj.put("value",CumalativeArray[i][1]); jary.put(jobj);
-			  }
+			}
 			 
-			 System.out.println(jary);
+			 System.out.println(jary);*/
 			/*
 			 * for(int i=0;i<CumalativeArray.length;i++){ cummulative
 			 * cummulativeObject=new cummulative();

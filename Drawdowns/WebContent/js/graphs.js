@@ -10,6 +10,7 @@ function drawScatterPlot(json_object, year, month) {
 		bindto : '#scatter_plot',
 		size : {
 			height : 500,
+			width : window.innerWidth*0.75,
 		},
 		data : {
 			xs : {

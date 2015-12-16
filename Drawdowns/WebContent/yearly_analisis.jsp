@@ -1,4 +1,4 @@
-YPE html>
+
 <html class="no-js">
 
 <head>
