@@ -2,7 +2,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 26, 2015 10:02:55 AM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Dec 1, 2015 11:42:42 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.Drawdown" table="DRAWDOWN">
         <id name="permno" type="int">
@@ -30,7 +30,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 19, 2015 12:29:20 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Dec 10, 2015 1:48:50 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.Drawdown" table="DRAWDOWN">
         <id name="permno" type="int">
@@ -48,6 +48,9 @@
         </property>
         <property name="marketCapitalization" type="double">
             <column name="MARKETCAPITALIZATION" />
+        </property>
+        <property name="returnValue" type="java.math.BigDecimal">
+            <column name="RETURNVALUE" />
         </property>
     </class>
 </hibernate-mapping>

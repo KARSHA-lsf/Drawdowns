@@ -33,10 +33,24 @@
     <url-pattern>/rangeData</url-pattern>
     <url-pattern>/index</url-pattern>
     <url-pattern>/test_getSet</url-pattern>
+    <url-pattern>/perm_history</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>annualy_analysis</servlet-name>
     <url-pattern>/GetAnnualData</url-pattern>
     <url-pattern>/TopLossesAnnualData</url-pattern>
   </servlet-mapping>
+
+  
+  <servlet-mapping>
+    <servlet-name>IndexSrvlt</servlet-name>
+    <url-pattern>/dataGet</url-pattern>
+    <url-pattern>/summaryData</url-pattern>
+    <url-pattern>/indexData</url-pattern>
+    <url-pattern>/rangeData</url-pattern>
+    <url-pattern>/index</url-pattern>
+    <url-pattern>/test_getSet</url-pattern>
+        
+  </servlet-mapping>
 </web-app>
+

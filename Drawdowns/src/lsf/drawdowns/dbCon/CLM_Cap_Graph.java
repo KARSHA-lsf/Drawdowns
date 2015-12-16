@@ -39,25 +39,42 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 	}
 
 	
-	public JsonObject Index_vw_return() {
-
+public JsonObject Index_vw_return() {
+		
 		String sql = "SELECT * FROM crsp_valueweightedreturns WHERE Crsp_date like '" + request.getParameter("Q") + "%'";
 		SQLQuery vw = session.createSQLQuery(sql);
 		vw.addEntity(CRSP_ValueWeightedReturns.class);
 		@SuppressWarnings("unchecked")
 		List<CRSP_ValueWeightedReturns> results = vw.list();
 		List<Double> Mkt_Cap = new ArrayList<>();
+		List<Double> Mkt_Cap_percentage = new ArrayList<>();
 		List<String> dates = new ArrayList<>();
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()*1000000);
+
+			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
-
+		double min = Mkt_Cap.get(0);
+	    double max = min;
+	    int length = Mkt_Cap.size();
+	    for (int i = 1; i < length; i++) {
+	      double value = Mkt_Cap.get(i);
+	      min = Math.min(min, value);
+	      max = Math.max(max, value);
+	    }
+	    
+		double T_value = max-min;
+		
+		for (int i = 0; i < listsize; i++) {
+			Mkt_Cap_percentage.add(Mkt_Cap.get(i)*100/T_value);
+			
+		}
+		 
 		Gson gson = new Gson();
 		JsonObject J_obj = new JsonObject();
-		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap);
+		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap_percentage);
 		JsonElement Rdates = gson.toJsonTree(dates);
 
 		try {
@@ -67,7 +84,6 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 			
 			e.printStackTrace();
 		}
-
 		
 		return J_obj;
 
@@ -83,7 +99,15 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 				+ request.getParameter("Q")
 				+ request.getParameter("M")
 				+ "') AS y WHERE x.PERMNO_date = y.PERMNO AND x.YRMO_date=y.YRMO ORDER BY y.CAPM_resid";*/
-		String yrmo = request.getParameter("Q")+ request.getParameter("M");
+		
+		int tmp_month = Integer.valueOf(request.getParameter("M"));
+		String month = request.getParameter("M");
+		if (tmp_month<10) {
+			month = "0"+tmp_month;
+		}
+		
+		
+		String yrmo = request.getParameter("Q")+ month;
 		String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO = "+yrmo+" ORDER BY CAPM_resid";
 		SQLQuery q = session.createSQLQuery(query);			
 		
@@ -248,7 +272,7 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 	}
 	public JSONObject eofMonthLMC(){
 		
-		String query = "select * from sys_clm_endofmonthlmc where lmcdate like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -257,8 +281,7 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 		@SuppressWarnings("unchecked")
 		
 		List<Object[]> results = q.list();
-		
-		
+
 		for (Object[] aRow : results) {
 			
 			String date = (String) aRow[0];
@@ -280,10 +303,9 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
-		
-		
+	
 		ArrayList<String> aryDate = new ArrayList<String>();
 		ArrayList<BigDecimal> aryValue = new ArrayList<BigDecimal>();
 		
@@ -339,5 +361,37 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 		return obj;
 		
 	}
+	public JsonObject Perm_History_Method(){
+		String sql = "SELECT CAPM_resid_D,CAPM_resid FROM sys_scatter_plot  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<String> Lidate = new ArrayList<>();
+		List<BigDecimal> Livalue = new ArrayList<>();
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = q.list();
+		//System.out.println(results.get(0).toString());
+			
+		for (Object[] perhis : results){
+			String date = (String) perhis[0]; 
+			BigDecimal value = (BigDecimal) perhis[1];
+			Lidate.add(date);
+			Livalue.add(value);
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement phvalue = gson.toJsonTree(Livalue);
+		JsonElement phdates = gson.toJsonTree(Lidate);
+
+
+		try {
+			J_obj.add("Drawdown_value", phvalue);
+			J_obj.add("Drawdown_date", phdates);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return J_obj;
+	}
+
 
 }
