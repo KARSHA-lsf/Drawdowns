@@ -41,7 +41,5 @@
     <url-pattern>/TopLossesAnnualData</url-pattern>
   </servlet-mapping>
 
-  
-
 </web-app>
 
