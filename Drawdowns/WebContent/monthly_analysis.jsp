@@ -43,10 +43,12 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 
 					<ul class="nav">
 						<li><a href="index.jsp">Home</a></li>
-						<li><a href="about.jsp">About</a></li>
+						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li  class="active"><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03"
-							style="text-align: center">Advance Filter</a></li>
+						<li><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
 					</ul>
 				</div>
 
@@ -122,7 +124,9 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								<div class="col-lg-12" style="margin: 30px 30px 30px">
 									<div id="scatter_plot<%=j%>"></div>
   								</div>
+  								
 							</div>
+							
 							<script type="text/javascript">
 							$("#ta<%=j%>").click(function(){
 								y =<%=request.getParameter("Q")%>;
@@ -141,6 +145,9 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<%
 							}
 						%>
+						<div id="dialog" title="Basic Dialog">
+									<div id="permhistory"></div>
+						</div>
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
@@ -235,8 +242,36 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
             async: false
         });
 	}
+	//permno history graph in dialog window 
+	function popup(d, element) {
+			var urlindex = "perm_history?Q="+<%=request.getParameter("Q")%>+ "&P=" + d.value;
+			$("#dialog").dialog({
+					resizable: true,
+					width: 450,
+					height: 220
+				});
+			$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
+				$.ajax({
+			       type: 'GET',
+				   url: urlindex,
+				   dataType: 'json',
+				   success: function (data) {
+				        	
+				    console.log(data);
+				    console.log(d.value);
+				    Permno_history_graph(data);
+				       	
+			        },
+				        
+				    error: function (data,
+				                error) {
+				      		console.log(error);
+				     },
+				        	async: false
+				    });
+				}
 						
-						</script>
+	</script>
 
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="bootstrap/js/c3.js"></script>

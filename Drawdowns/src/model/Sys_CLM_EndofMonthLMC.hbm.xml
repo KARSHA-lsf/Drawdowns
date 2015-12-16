@@ -3,10 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 1, 2015 11:42:42 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.CaafReturns" table="CAAFRETURNS">
-        <id name="id" type="model.CaafReturnsId">
-            <column name="ID" />
+    <class name="model.Sys_CLM_EndofMonthLMC" table="SYS_CLM_ENDOFMONTHLMC">
+        <id name="lmcdate" type="java.lang.String">
+            <column name="LMCDATE" />
             <generator class="assigned" />
         </id>
+        <property name="value" type="java.lang.Double">
+            <column name="VALUE" />
+        </property>
     </class>
 </hibernate-mapping>

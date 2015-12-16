@@ -52,6 +52,7 @@ public JsonObject Index_vw_return() {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
+
 			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
 			dates.add(results.get(i).getCrsp_date());
 		}
@@ -271,7 +272,7 @@ public JsonObject Index_vw_return() {
 	}
 	public JSONObject eofMonthLMC(){
 		
-		String query = "select * from sys_clm_endofmonthlmc where lmcdate like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -302,7 +303,7 @@ public JsonObject Index_vw_return() {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from Sys_CLM_CumulativeLMC where date like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 	
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -332,30 +333,24 @@ public JsonObject Index_vw_return() {
 	}
 
 	public JSONObject clmIndexPercentage() {
-		String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
+		String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
 		ArrayList<String> indexDate = new ArrayList<String>();
 		ArrayList<Double> indexValue = new ArrayList<Double>();
 		JSONObject obj = new JSONObject();
 		double max = -10;
 		double tmp = 0;
-		double min = 0;
-		double tmp_min = 0;
 		try {
 			ResultSet rset = dbconnection.selectData(sql);
 			while(rset.next()){
 				tmp = rset.getDouble("Index_values");
-				tmp_min = rset.getDouble("Index_values");
 				if(tmp>max){
 					max=tmp;
-				}
-				if (tmp_min<min) {
-					min=tmp_min;
 				}
 				indexDate.add(rset.getString("Index_dates"));
 				indexValue.add(Double.valueOf(rset.getString("Index_values")));
 			}
 			for (int j = 0; j < indexValue.size(); j++) {
-				indexValue.set(j, indexValue.get(j)*100/(max-min));
+				indexValue.set(j, indexValue.get(j)*100/max);
 			}
 			
 			obj.put("indexDate", indexDate);
@@ -366,5 +361,37 @@ public JsonObject Index_vw_return() {
 		return obj;
 		
 	}
+	public JsonObject Perm_History_Method(){
+		String sql = "SELECT CAPM_resid_D,CAPM_resid FROM sys_scatter_plot  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<String> Lidate = new ArrayList<>();
+		List<BigDecimal> Livalue = new ArrayList<>();
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = q.list();
+		//System.out.println(results.get(0).toString());
+			
+		for (Object[] perhis : results){
+			String date = (String) perhis[0]; 
+			BigDecimal value = (BigDecimal) perhis[1];
+			Lidate.add(date);
+			Livalue.add(value);
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement phvalue = gson.toJsonTree(Livalue);
+		JsonElement phdates = gson.toJsonTree(Lidate);
+
+
+		try {
+			J_obj.add("Drawdown_value", phvalue);
+			J_obj.add("Drawdown_date", phdates);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return J_obj;
+	}
+
 
 }
