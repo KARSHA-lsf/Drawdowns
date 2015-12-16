@@ -121,7 +121,7 @@ public class annualy_analysis extends HttpServlet {
 					int permno = (int) aRow[0];
 					String year_date = (String) aRow[1];
 					if (year_date == null) {
-
+						
 					} else {
 						try {
 							jsonobj.put("permno", permno);
@@ -138,6 +138,38 @@ public class annualy_analysis extends HttpServlet {
 				System.out
 						.println("some error occured during scatterPlot data pre processing");
 			}
+		}else if(userPath.equals("/blueBar_calcu")){
+			String query = "SELECT PERMNO,CAPM_resid_date as CAPM_resid_D FROM sys_top10_losess WHERE YRMO LIKE '2004%' ORDER BY CAPM_resid";
+			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
+
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = q.list();
+			try {
+				JSONArray jsonarray = new JSONArray();
+				for (Object[] aRow : results) {
+					JSONObject jsonobj = new JSONObject();
+					int permno = (int) aRow[0];
+					String year_date = (String) aRow[1];
+					if (year_date == null) {
+						System.out.println("null date is not valid..");
+						continue;
+					} else {
+						try {
+							jsonobj.put("permno", permno);
+							jsonobj.put("capm_date", year_date);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						jsonarray.put(jsonobj);
+					}
+				}
+
+				pwr.print(jsonarray);
+			} catch (Exception e) {
+				System.out
+						.println("some error occured during scatterPlot data pre processing");
+			}
+			
 		}
 
 	}

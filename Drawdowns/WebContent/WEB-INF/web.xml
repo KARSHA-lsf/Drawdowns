@@ -38,5 +38,6 @@
     <servlet-name>annualy_analysis</servlet-name>
     <url-pattern>/GetAnnualData</url-pattern>
     <url-pattern>/TopLossesAnnualData</url-pattern>
+    <url-pattern>/blueBar_calcu</url-pattern>
   </servlet-mapping>
 </web-app>
