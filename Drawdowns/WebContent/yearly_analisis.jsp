@@ -162,7 +162,7 @@ $(function () {
 		                success: function (data) {
 		                	var Ready_output = sccaterPlot_dataPreprocess(data);          
 		               	//call method in graph.js to draw scatter-plot
-		               		drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
+		               		drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>,'#scatter_plot');
 		                },
 		                
 		                error: function (data,

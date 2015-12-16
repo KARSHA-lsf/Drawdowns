@@ -81,7 +81,7 @@
 						<div class="span3">
 							<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:270px;height:150px">
 							<h2 class="icon shirt">
-								<a href="Monthly_analysis.jsp">Monthly Analysis</a> 
+								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a> 
 							</h2>
 <!-- 							<p>Need a poster, a book cover, a label for a booze or beer -->
 <!-- 								bottle? I can do that too!</p> -->
