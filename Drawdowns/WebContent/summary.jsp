@@ -105,7 +105,7 @@
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span2" id="sidebar">
+<!-- 			<div class="span2" id="sidebar"> -->
 				<%-- <div id="accordion">
 					<%
 						for (int k = 2004; k < 2015; k++) {
