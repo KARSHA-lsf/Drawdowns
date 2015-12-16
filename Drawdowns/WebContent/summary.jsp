@@ -82,6 +82,7 @@
 						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
 						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
 						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
+						<li><a href="Monthly_analysis.jsp">Monthly Analysis</a></li>
 						<li class="active"><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
@@ -132,6 +133,7 @@
 					<%
 						}
 					%>
+
 				</div> --%>
 
 			</div>
