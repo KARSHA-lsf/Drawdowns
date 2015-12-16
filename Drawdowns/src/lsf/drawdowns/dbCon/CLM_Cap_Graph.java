@@ -302,7 +302,7 @@ public JsonObject Index_vw_return() {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from Sys_CLM_CumulativeLMC where date like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 	
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -366,5 +366,38 @@ public JsonObject Index_vw_return() {
 		return obj;
 		
 	}
+	public JsonObject Perm_History_Method(){
+		String sql = "SELECT CAPM_resid_D,CAPM_resid FROM sys_scatter_plot  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<String> Lidate = new ArrayList<>();
+		List<BigDecimal> Livalue = new ArrayList<>();
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = q.list();
+		//System.out.println(results.get(0).toString());
+			
+		for (Object[] perhis : results){
+			String date = (String) perhis[0]; 
+			BigDecimal value = (BigDecimal) perhis[1];
+			Lidate.add(date);
+			Livalue.add(value);
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement phvalue = gson.toJsonTree(Livalue);
+		JsonElement phdates = gson.toJsonTree(Lidate);
+
+
+		try {
+			J_obj.add("Drawdown_value", phvalue);
+			J_obj.add("Drawdown_date", phdates);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return J_obj;
+	}
+
+
 
 }

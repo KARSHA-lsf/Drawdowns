@@ -133,6 +133,10 @@ public class IndexSrvlt extends HttpServlet {
 			pwr.print(J_obj);
 			System.out.print(J_obj);
 		}
+		else if(userPath.equals("/perm_history")){
+			pwr.print(clm_grp.Perm_History_Method());
+		}
+		
 
 	}
 
