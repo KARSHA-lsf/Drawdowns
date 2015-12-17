@@ -171,9 +171,9 @@ function drawLossMcGraph(jsd) {
 			mimeType : 'json',
 			type : 'bar',
 			xs : {
-				'eof_Value' : 'eof_Date',
+				'End_of_the_Month_Loss_MC' : 'eof_Date',
 				'Index_Value' : 'Index_Date',
-				'Value' : 'Date',
+				'Cumulative_Loss_MC' : 'Date',
 				'Return_Value' : 'Return_Dates',
 			},
 			colors : {
@@ -245,6 +245,97 @@ function drawLossMcGraph(jsd) {
 
 	});
 }
+
+function drawLossMcGraphTopTen(jsd) {
+	var chart4 = c3.generate({
+		bindto : '#multihistogram',
+		padding : {
+			top : 0,
+			right : 60,
+			bottom : 0,
+			left : 50,
+		},
+		data : {
+			// url : 'bootstrap/data/aa.json',
+			json : jsd,
+			mimeType : 'json',
+			type : 'bar',
+			xs : {
+				'End_of_the_Month_Loss_MC' : 'eof_Date',
+				'Index_Value' : 'Index_Date',
+				'Cumulative_Loss_MC' : 'Date',
+				'Return_Value' : 'Return_Dates',
+			},
+			colors : {
+				eof_Value : '#FF0000',
+				Index_Value : '#FFA500',
+				Value : '#0000FF',
+				Return_Value : '#008000',
+			},
+			axes : {
+				eof_Value : 'y',
+				Index_Value : 'y2',
+				Value : 'y',
+				Return_Value : 'y2'
+			}
+		},
+		bar : {
+			width : {
+				ratio : 0.09,
+			},
+		},
+		zoom : {
+			enabled : true
+		},
+		size : {
+			height : 400
+		},
+		axis : {
+			x : {
+				type : 'timeseries',
+				label : 'Time',
+				tick : {
+					format : '%Y-%m-%d',
+					rotate : 90,
+					fit : false
+				}
+			},
+			y : {
+				min : -1000000000,
+				max : 1000000000,
+				padding : {
+					top : 10,
+					bottom : 0
+				},
+				tick : {
+					format : function(d) {
+						return d / 1000000;
+					},
+				},
+				label : 'Loss Market Capitalization - millions'
+			},
+			y2 : {
+				// ////////// inverted: false,
+				min : -100,
+				max : 100,
+				padding : {
+					top : 10,
+					bottom : 0
+				},
+				tick : {
+					format : function(d) {
+						return d + "%";
+					},
+
+				},
+				show : true,
+				label : 'Index'
+			},
+		},
+
+	});
+}
+
 
 function sccaterPlot_dataPreprocess(data) {
 

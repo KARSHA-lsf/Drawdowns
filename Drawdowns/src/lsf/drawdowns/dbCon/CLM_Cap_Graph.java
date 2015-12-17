@@ -260,6 +260,13 @@ public JsonObject Index_vw_return() {
 	public JSONObject eofMonthLMC(){
 		
 		String query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
+		
+		if (request.getParameter("T").equals("top10Precent")) {
+			query = "select * from Sys_CLM_EndofMonthLMC_top_ten where lmcdate like '%"+request.getParameter("Q")+"%'";
+		}else{
+			query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
+		}
+		
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -290,7 +297,17 @@ public JsonObject Index_vw_return() {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+		String query; 
+		if(request.getParameter("T").equals("top10Precent")){
+			query = "select all_dates,cum from sys_10precnt_2004to2014 where all_dates like '%"+request.getParameter("Q")+"%'";
+				
+		}
+		else if(request.getParameter("T").equals("month")){
+			query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+		}
+		else{
+			query="select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+		}
 		SQLQuery q = session.createSQLQuery(query);			
 	
 		ArrayList<String> aryDate = new ArrayList<String>();

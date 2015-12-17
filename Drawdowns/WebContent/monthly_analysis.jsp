@@ -222,7 +222,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
         });
 	}
 	function draw_cumulativeGraph(){
-		var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>";
+		var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>&T=all";
 		$.ajax({
             type: 'GET',
             url: x,
