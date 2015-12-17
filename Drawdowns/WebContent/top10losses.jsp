@@ -109,7 +109,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
-								//draw_cumulativeGraph(tab);
+								draw_cumulativeGraph(tab);
 							});
 						</script>
 					</div>
@@ -120,11 +120,11 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							</h4>
 							<div id="barIndex"></div>
 							</div>
-					<!-- <div class="col-lg-12" style="margin: 30px 30px 30px">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Loss Market Capitalization</h4>
 							<div id="multihistogram"></div>
-							</div> -->
+							</div> 
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
 					<script type="text/javascript">
@@ -192,10 +192,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					  });
 					 
 					
-					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					draw_indexdata(2004);
-					//draw_cumulativeGraph(2004);
+					draw_cumulativeGraph(2004);
 			});
 		//permno history graph in dialog window 
 		function popup(d, element) {
@@ -246,7 +245,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	        });
 		}
 		function draw_cumulativeGraph(year){
-			var x = "test_getSet?Q="+year;
+			var x = "test_getSet?Q="+year+"&T=top10Precent";
 			$.ajax({
 	            type: 'GET',
 	            url: x,
@@ -255,7 +254,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            	
 	           	//console.log(data);
 	           	
-	           	drawLossMcGraph(data);
+	           	drawLossMcGraphTopTen(data);
 	           	
 	            },
 	            

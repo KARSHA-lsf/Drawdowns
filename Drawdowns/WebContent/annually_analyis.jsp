@@ -177,7 +177,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				        });
 					}
 					function draw_cumulativeGraph(year){
-						var x = "test_getSet?Q="+year;
+						var x = "test_getSet?Q="+year+"&T=top10Percent";
 						$.ajax({
 				            type: 'GET',
 				            url: x,
