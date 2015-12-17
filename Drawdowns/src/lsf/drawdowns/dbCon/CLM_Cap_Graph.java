@@ -290,7 +290,7 @@ public JsonObject Index_vw_return() {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
 		SQLQuery q = session.createSQLQuery(query);			
 	
 		ArrayList<String> aryDate = new ArrayList<String>();
