@@ -45,7 +45,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<li class="active"><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
 						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
 						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
-						<li><a href="Monthly_analysis.jsp">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
@@ -63,10 +62,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 		<div class="row-fluid">
 			<div class="span12"
 				style="border: 1px solid LightSeaGreen; background-color: white">
-				<div class="span4">
+				<div class="span5">
 					<div class="block" style="border: 1px none LightSeaGreen;">
 						<h3 style="padding-left: 10px;">
-						Yearly Analysis [ 2004 - 2014 ]</h3>		
+					Top 10% Losses [ 2004 - 2014 ]</h3>		
 					</div>
 				</div>
 				<div class="span3">
@@ -109,10 +108,23 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							$("#ta<%=i%>").click(function(){
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								draw_indexdata(tab);
+								//draw_cumulativeGraph(tab);
 							});
 						</script>
 					</div>
 					<% } %>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Index drowdown
+							</h4>
+							<div id="barIndex"></div>
+							</div>
+					<!-- <div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Loss Market Capitalization</h4>
+							<div id="multihistogram"></div>
+							</div> -->
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
 					<script type="text/javascript">
@@ -182,6 +194,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					
 					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					draw_indexdata(2004);
+					//draw_cumulativeGraph(2004);
 			});
 		//permno history graph in dialog window 
 		function popup(d, element) {
@@ -211,6 +225,47 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					        	async: false
 					    });
 					}
+		function draw_indexdata(year){
+			var urlindex = "indexData?Q="+year;
+			$.ajax({
+	            type: 'GET',
+	            url: urlindex,
+	            dataType: 'json',
+	            success: function (data) {
+	            	
+	           	//console.log(data);
+	           	
+	           	drawIndex(data);
+	            },
+	            
+	            error: function (data,
+	                    error) {
+	            	console.log(error);
+	            },
+	            async: false
+	        });
+		}
+		function draw_cumulativeGraph(year){
+			var x = "test_getSet?Q="+year;
+			$.ajax({
+	            type: 'GET',
+	            url: x,
+	            dataType: 'json',
+	            success: function (data) {
+	            	
+	           	//console.log(data);
+	           	
+	           	drawLossMcGraph(data);
+	           	
+	            },
+	            
+	            error: function (data,
+	                    error) {
+	            	console.log(error);
+	            },
+	            async: false
+	        });
+		}
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>
