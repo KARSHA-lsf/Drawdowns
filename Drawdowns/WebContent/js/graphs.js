@@ -60,7 +60,6 @@ function drawScatterPlot(json_object, year, month, bind) {
 			show : true
 		},
 	});
-
 }
 function drawSummaryGraph(json_ary, bindvalue) {
 	var chart2 = c3.generate({
@@ -93,7 +92,6 @@ function drawSummaryGraph(json_ary, bindvalue) {
 			},
 		},
 	});
-
 }
 function drawIndex(json_ary) {
 	// console.log(indexDate);
@@ -129,7 +127,6 @@ function drawIndex(json_ary) {
 					fit : false
 				},
 			},
-
 			y : {
 				max : 0.1,
 				min : -0.3,
@@ -137,7 +134,6 @@ function drawIndex(json_ary) {
 				tick : {
 					values : [ 0.10, 0, -0.10, -0.20, -0.30 ]
 				},
-
 			// max : 2300,
 			},
 		},
@@ -153,9 +149,7 @@ function drawIndex(json_ary) {
 			}
 		},
 	});
-
 }
-
 function drawLossMcGraph(jsd) {
 	var chart4 = c3.generate({
 		bindto : '#multihistogram',
@@ -171,9 +165,9 @@ function drawLossMcGraph(jsd) {
 			mimeType : 'json',
 			type : 'bar',
 			xs : {
-				'eof_Value' : 'eof_Date',
+				'End_of_the_Month_Loss_MC' : 'eof_Date',
 				'Index_Value' : 'Index_Date',
-				'Value' : 'Date',
+				'Cumulative_Loss_MC' : 'Date',
 				'Return_Value' : 'Return_Dates',
 			},
 			colors : {
@@ -236,30 +230,110 @@ function drawLossMcGraph(jsd) {
 					format : function(d) {
 						return d + "%";
 					},
-
 				},
 				show : true,
 				label : 'Index'
 			},
 		},
-
 	});
 }
-
+function drawLossMcGraphTopTen(jsd) {
+	var chart4 = c3.generate({
+		bindto : '#multihistogram',
+		padding : {
+			top : 0,
+			right : 60,
+			bottom : 0,
+			left : 50,
+		},
+		data : {
+			// url : 'bootstrap/data/aa.json',
+			json : jsd,
+			mimeType : 'json',
+			type : 'bar',
+			xs : {
+				'End_of_the_Month_Loss_MC' : 'eof_Date',
+				'Index_Value' : 'Index_Date',
+				'Cumulative_Loss_MC' : 'Date',
+				'Return_Value' : 'Return_Dates',
+			},
+			colors : {
+				eof_Value : '#FF0000',
+				Index_Value : '#FFA500',
+				Value : '#0000FF',
+				Return_Value : '#008000',
+			},
+			axes : {
+				eof_Value : 'y',
+				Index_Value : 'y2',
+				Value : 'y',
+				Return_Value : 'y2'
+			}
+		},
+		bar : {
+			width : {
+				ratio : 0.09,
+			},
+		},
+		zoom : {
+			enabled : true
+		},
+		size : {
+			height : 400
+		},
+		axis : {
+			x : {
+				type : 'timeseries',
+				label : 'Time',
+				tick : {
+					format : '%Y-%m-%d',
+					rotate : 90,
+					fit : false
+				}
+			},
+			y : {
+				min : -1000000000,
+				max : 1000000000,
+				padding : {
+					top : 10,
+					bottom : 0
+				},
+				tick : {
+					format : function(d) {
+						return d / 1000000;
+					},
+				},
+				label : 'Loss Market Capitalization - millions'
+			},
+			y2 : {
+				// ////////// inverted: false,
+				min : -100,
+				max : 100,
+				padding : {
+					top : 10,
+					bottom : 0
+				},
+				tick : {
+					format : function(d) {
+						return d + "%";
+					},
+				},
+				show : true,
+				label : 'Index'
+			},
+		},
+	});
+}
 function sccaterPlot_dataPreprocess(data) {
-
 	var i, p;
 	var High, High_Medium, Medium, Medium_low, low = [];
 	var Arr, PermNo = [], Perm_date = [];
 	var H_PermNo = [], HM_PermNo = [], M_PermNo = [], ML_PermNo = [], L_PermNo = [];
 	var H_Perm_date = [], HM_Perm_date = [], M_Perm_date = [], ML_Perm_date = [], L_Perm_date = [];
-
 	var x = parseInt(data.length / 5);
-
 	High = $.grep(data, function(n, i) {
 		return (i < x);
 	});
-
 	High_Medium = $.grep(data, function(n, i) {
 		return (i < 2 * x && i >= x);
 	});
@@ -284,7 +358,6 @@ function sccaterPlot_dataPreprocess(data) {
 	Perm_Gen(Medium, M_PermNo, M_Perm_date);
 	Perm_Gen(Medium_low, ML_PermNo, ML_Perm_date);
 	Perm_Gen(low, L_PermNo, L_Perm_date);
-
 	// ready variable to json output
 	var Ready_output = {
 		"High" : H_PermNo,
@@ -300,7 +373,6 @@ function sccaterPlot_dataPreprocess(data) {
 	};
 	return Ready_output;
 }
-
 function drawScatterPlot_yearly(json_object, year, month, tag) {
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
@@ -363,7 +435,6 @@ function drawScatterPlot_yearly(json_object, year, month, tag) {
 		},
 	});
 }
-
 function drawIndex_yearly(json_object, year, month, tag) {
 	console.log(json_object);
 	var chart44 = c3.generate({
@@ -398,7 +469,6 @@ function drawIndex_yearly(json_object, year, month, tag) {
 					fit : false
 				},
 			},
-
 			y : {
 				max : 0.1,
 				min : -0.3,
@@ -406,7 +476,6 @@ function drawIndex_yearly(json_object, year, month, tag) {
 				tick : {
 					values : [ 0.10, 0, -0.10, -0.20, -0.30 ]
 				},
-
 			// max : 2300,
 			},
 		},
@@ -423,7 +492,6 @@ function drawIndex_yearly(json_object, year, month, tag) {
 		},
 	});
 }
-
 function drawLossMcGraph_yearly(json_object, year, month, tag) {
 	var chart54 = c3.generate({
 		bindto : tag,
@@ -504,21 +572,16 @@ function drawLossMcGraph_yearly(json_object, year, month, tag) {
 					format : function(d) {
 						return d + "%";
 					},
-
 				},
 				show : true,
 				label : 'Index'
 			},
 		},
-
 	});
 }
-
 function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 		LossMcap_value) {
-
 	var org_length = parseInt(data_org.length * (Dr_value / 100));
-
 	var data = $.grep(data_org, function(n, i) {
 		return (i < org_length);
 	});
@@ -527,13 +590,10 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 	var Arr, PermNo = [], Perm_date = [];
 	var H_PermNo = [], HM_PermNo = [], M_PermNo = [], ML_PermNo = [], L_PermNo = [];
 	var H_Perm_date = [], HM_Perm_date = [], M_Perm_date = [], ML_Perm_date = [], L_Perm_date = [];
-
 	var x = parseInt(data.length / 5);
-
 	High = $.grep(data, function(n, i) {
 		return (i < x);
 	});
-
 	High_Medium = $.grep(data, function(n, i) {
 		return (i < 2 * x && i >= x);
 	});
@@ -558,7 +618,6 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 	Perm_Gen(Medium, M_PermNo, M_Perm_date);
 	Perm_Gen(Medium_low, ML_PermNo, ML_Perm_date);
 	Perm_Gen(low, L_PermNo, L_Perm_date);
-
 	// ready variable to json output
 	var Ready_output = {
 		"High" : H_PermNo,
@@ -582,10 +641,8 @@ function Permno_history_graph(json_ary) {
 			mimeType : 'json',
 			type : 'line',
 			xs : {
-
 				'Drawdown_value' : 'Drawdown_date',
 			}
-
 		},
 		size : {
 			height : 200,
@@ -596,7 +653,6 @@ function Permno_history_graph(json_ary) {
 				show : true,
 			}
 		},
-
 		axis : {
 			x : {
 				type : 'timeseries',
@@ -608,18 +664,13 @@ function Permno_history_graph(json_ary) {
 				}
 			},
 			y : {
-
 				label : 'Drawdown Value',
 				tick : {
 					format : d3.format(".2f")
-
 				}
 			},
-
 		}
-
 	});
-
 }
 function sccaterPlot_dataPreprocess_withTopFilter(data_org,Dr_value,LossMcap_value) {
 	

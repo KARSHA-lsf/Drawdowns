@@ -104,11 +104,11 @@ public class IndexSrvlt extends HttpServlet {
 					.toString());
 			J_obj.add("Return_Value", index_vw.getAsJsonArray("ReturnValue"));
 			J_obj.add("Return_Dates", index_vw.getAsJsonArray("dates"));
-			J_obj.add("Value", cum.getAsJsonArray("Value"));
+			J_obj.add("Cumulative_Loss_MC", cum.getAsJsonArray("Value"));
 			J_obj.add("Date", cum.getAsJsonArray("Date"));
 			J_obj.add("Index_Value", Ipercent.getAsJsonArray("indexValue"));
 			J_obj.add("Index_Date", Ipercent.getAsJsonArray("indexDate"));
-			J_obj.add("eof_Value", eof.getAsJsonArray("Value"));
+			J_obj.add("End_of_the_Month_Loss_MC", eof.getAsJsonArray("Value"));
 			J_obj.add("eof_Date", eof.getAsJsonArray("Date"));
 			System.out.println(J_obj);
 			pwr.print(J_obj);

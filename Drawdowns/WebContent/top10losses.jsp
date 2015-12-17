@@ -255,7 +255,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            	
 	           	//console.log(data);
 	           	
-	           	drawLossMcGraph(data);
+	           	drawLossMcGraphTopTen(data);
 	           	
 	            },
 	            
