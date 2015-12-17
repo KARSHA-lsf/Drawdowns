@@ -184,33 +184,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 			});
-		function popup(d, element) {
-			var urlindex = "perm_history?Q="+tab+ "&P=" + d.value;
-			$("#dialog").dialog({
-					resizable: true,
-					width: 450,
-					height: 220
-				});
-			$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
-				$.ajax({
-			       type: 'GET',
-				   url: urlindex,
-				   dataType: 'json',
-				   success: function (data) {
-				        	
-				    console.log(data);
-				    console.log(d.value);
-				    Permno_history_graph(data);
-				       	
-			        },
-				        
-				    error: function (data,
-				                error) {
-				      		console.log(error);
-				     },
-				        	async: false
-				    });
-				}
+		
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>

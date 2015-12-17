@@ -4,9 +4,11 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -391,6 +393,48 @@ public JsonObject Index_vw_return() {
 			e.printStackTrace();
 		}
 		return J_obj;
+	}
+	public JsonObject perm_return_method(){
+		String sql = "SELECT yrmo,value1 FROM caaf_returns  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<Integer> Arr_yrmo = new ArrayList<>();
+		List<BigDecimal> Arr_value = new ArrayList<>();
+		List<String> End_date = new ArrayList<>(); 
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> result = q.list();
+		for (Object[] returns : result) {
+			int yrmo = (int) returns[0];
+			BigDecimal value = (BigDecimal) returns[1];
+			Arr_yrmo.add(yrmo);
+			Arr_value.add(value);
+		}
+		for (int i = 0; i < result.size(); i++) {
+			int year = Arr_yrmo.get(i)/100;
+			int month = Arr_yrmo.get(i)%100;
+			String date = getDate(month, year);
+			End_date.add(date);
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement retvalue = gson.toJsonTree(Arr_value); 
+		JsonElement enddate = gson.toJsonTree(End_date);
+		
+		J_obj.add("Return_value",retvalue);
+		J_obj.add("End_date", enddate); 
+		
+		return J_obj;
+		
+	}
+	public String getDate(int month, int year) {
+	    Calendar calendar = Calendar.getInstance();
+	    // passing month-1 because 0-->jan, 1-->feb... 11-->dec
+	    calendar.set(year, month - 1, 1);
+	    calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
+	    Date date = calendar.getTime();
+	    DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	    return DATE_FORMAT.format(date);
 	}
 
 
