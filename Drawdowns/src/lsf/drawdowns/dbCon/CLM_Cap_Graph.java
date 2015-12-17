@@ -260,6 +260,12 @@ public JsonObject Index_vw_return() {
 	public JSONObject eofMonthLMC(){
 		
 		String query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
+		
+		if (request.getParameter("T").equals("top10Precent")) {
+			query = "select * from Sys_CLM_EndofMonthLMC_top_ten where lmcdate like '%"+request.getParameter("Q")+"%'";
+		}else{
+			query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
+		}
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -290,9 +296,20 @@ public JsonObject Index_vw_return() {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
-		SQLQuery q = session.createSQLQuery(query);			
-	
+		String query; //= "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		if(request.getParameter("T").equals("top10Precent")){
+			query = "select all_dates,cum from sys_10precnt_2004to2014 where all_dates like '%"+request.getParameter("Q")+"%'";
+				
+		}
+		else if(request.getParameter("T").equals("month")){
+			query = "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		}
+		else{
+			query="select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		}
+		
+				
+		SQLQuery q = session.createSQLQuery(query);
 		ArrayList<String> aryDate = new ArrayList<String>();
 		ArrayList<BigDecimal> aryValue = new ArrayList<BigDecimal>();
 		
@@ -318,6 +335,8 @@ public JsonObject Index_vw_return() {
 		return jsonObject;
 		
 	}
+	
+	
 
 	public JSONObject clmIndexPercentage() {
 		String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
