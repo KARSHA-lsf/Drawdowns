@@ -211,8 +211,8 @@ function drawLossMcGraph(jsd) {
 				}
 			},
 			y : {
-				min : -12000000000,
-				max : 6000000000,
+				min : -1100000000,
+				max : 1100000000,
 				padding : {
 					top : 10,
 					bottom : 0
@@ -226,8 +226,8 @@ function drawLossMcGraph(jsd) {
 			},
 			y2 : {
 				// ////////// inverted: false,
-				min : -200,
-				max : 100,
+				min : -110,
+				max : 110,
 				padding : {
 					top : 10,
 					bottom : 0
