@@ -303,10 +303,12 @@ public JsonObject Index_vw_return() {
 				
 		}
 		else if(request.getParameter("T").equals("month")){
-			query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			//query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			query="select * from sys_cumilativealldata2004_2014 where all_dates like '%"+request.getParameter("Q")+"%'";
 		}
 		else{
-			query="select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			//query="select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			query="select * from sys_cumilativealldata2004_2014 where all_dates like '%"+request.getParameter("Q")+"%'";
 		}
 		SQLQuery q = session.createSQLQuery(query);			
 	

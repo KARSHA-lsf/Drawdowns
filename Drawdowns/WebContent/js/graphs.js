@@ -177,9 +177,9 @@ function drawLossMcGraph(jsd) {
 				'Return_Value' : 'Return_Dates',
 			},
 			colors : {
-				eof_Value : '#FF0000',
+				End_of_the_Month_Loss_MC : '#FF0000',
 				Index_Value : '#FFA500',
-				Value : '#0000FF',
+				Cumulative_Loss_MC : '#0000FF',
 				Return_Value : '#008000',
 			},
 			axes : {
@@ -267,9 +267,9 @@ function drawLossMcGraphTopTen(jsd) {
 				'Return_Value' : 'Return_Dates',
 			},
 			colors : {
-				eof_Value : '#FF0000',
+				End_of_the_Month_Loss_MC : '#FF0000',
 				Index_Value : '#FFA500',
-				Value : '#0000FF',
+				Cumulative_Loss_MC : '#0000FF',
 				Return_Value : '#008000',
 			},
 			axes : {
