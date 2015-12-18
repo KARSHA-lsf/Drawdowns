@@ -102,13 +102,13 @@ public class IndexSrvlt extends HttpServlet {
 			JsonObject cum = (JsonObject) jsonParser.parse(cum_loss.toString());
 			JsonObject Ipercent = (JsonObject) jsonParser.parse(Index_percent
 					.toString());
-			J_obj.add("Return_Value", index_vw.getAsJsonArray("ReturnValue"));
+			J_obj.add("Index_VW_Return", index_vw.getAsJsonArray("ReturnValue"));
 			J_obj.add("Return_Dates", index_vw.getAsJsonArray("dates"));
-			J_obj.add("Cumulative_Loss_MC", cum.getAsJsonArray("Value"));
+			J_obj.add("Cumulative_Loss_Market_capitalization", cum.getAsJsonArray("Value"));
 			J_obj.add("Date", cum.getAsJsonArray("Date"));
-			J_obj.add("Index_Value", Ipercent.getAsJsonArray("indexValue"));
+			J_obj.add("Index_Drawdown", Ipercent.getAsJsonArray("indexValue"));
 			J_obj.add("Index_Date", Ipercent.getAsJsonArray("indexDate"));
-			J_obj.add("End_of_the_Month_Loss_MC", eof.getAsJsonArray("Value"));
+			J_obj.add("EndofMonth_Total_Loss_Market_capitalization", eof.getAsJsonArray("Value"));
 			J_obj.add("eof_Date", eof.getAsJsonArray("Date"));
 			System.out.println(J_obj);
 			pwr.print(J_obj);
