@@ -335,7 +335,7 @@ function drawLossMcGraphTopTen(jsd) {
 
 	});
 }
-
+ 
 
 function sccaterPlot_dataPreprocess(data) {
 
