@@ -171,22 +171,22 @@ function drawLossMcGraph(jsd) {
 			mimeType : 'json',
 			type : 'bar',
 			xs : {
-				'End_of_the_Month_Loss_MC' : 'eof_Date',
-				'Index_Value' : 'Index_Date',
-				'Cumulative_Loss_MC' : 'Date',
-				'Return_Value' : 'Return_Dates',
+				'EndofMonth_Total_Loss_Market_capitalization' : 'eof_Date',
+				'Index_Drawdown' : 'Index_Date',
+				'Cumulative_Loss_Market_capitalization' : 'Date',
+				'Index_VW_Return' : 'Return_Dates',
 			},
 			colors : {
-				End_of_the_Month_Loss_MC : '#FF0000',
-				Index_Value : '#FFA500',
-				Cumulative_Loss_MC : '#0000FF',
-				Return_Value : '#008000',
+				EndofMonth_Total_Loss_Market_capitalization : '#FF0000',
+				Index_Drawdown : '#FFA500',
+				Cumulative_Loss_Market_capitalization : '#0000FF',
+				Index_VW_Return : '#008000',
 			},
 			axes : {
-				eof_Value : 'y',
-				Index_Value : 'y2',
-				Value : 'y',
-				Return_Value : 'y2'
+				EndofMonth_Total_Loss_Market_capitalization : 'y',
+				Index_Drawdown : 'y2',
+				Cumulative_Loss_Market_capitalization : 'y',
+				Index_VW_Return : 'y2'
 			}
 		},
 		bar : {
@@ -261,22 +261,22 @@ function drawLossMcGraphTopTen(jsd) {
 			mimeType : 'json',
 			type : 'bar',
 			xs : {
-				'End_of_the_Month_Loss_MC' : 'eof_Date',
-				'Index_Value' : 'Index_Date',
-				'Cumulative_Loss_MC' : 'Date',
-				'Return_Value' : 'Return_Dates',
+				'EndofMonth_Total_Loss_Market_capitalization' : 'eof_Date',
+				'Index_Drawdown' : 'Index_Date',
+				'Cumulative_Loss_Market_capitalization' : 'Date',
+				'Index_VW_Return' : 'Return_Dates',
 			},
 			colors : {
-				End_of_the_Month_Loss_MC : '#FF0000',
-				Index_Value : '#FFA500',
-				Cumulative_Loss_MC : '#0000FF',
-				Return_Value : '#008000',
+				EndofMonth_Total_Loss_Market_capitalization : '#FF0000',
+				Index_Drawdown : '#FFA500',
+				Cumulative_Loss_Market_capitalization : '#0000FF',
+				Index_VW_Return : '#008000',
 			},
 			axes : {
-				eof_Value : 'y',
-				Index_Value : 'y2',
-				Value : 'y',
-				Return_Value : 'y2'
+				EndofMonth_Total_Loss_Market_capitalization : 'y',
+				Index_Drawdown : 'y2',
+				Cumulative_Loss_Market_capitalization : 'y',
+				Index_VW_Return : 'y2'
 			}
 		},
 		bar : {

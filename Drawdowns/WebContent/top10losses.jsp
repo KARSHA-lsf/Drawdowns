@@ -246,6 +246,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 		}
 		function draw_cumulativeGraph(year){
 			var x = "test_getSet?Q="+year+"&T=top10Precent";
+			console.log(x);
 			$.ajax({
 	            type: 'GET',
 	            url: x,
