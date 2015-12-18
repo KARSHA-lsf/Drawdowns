@@ -26,7 +26,7 @@ function drawScatterPlot(json_object, year, month, bind) {
 			json : json_object,
 			mimeType : 'json',
 			type : 'scatter',
-			onclick : function(d, element) {popup(d, element);},
+			onclick : function(d, element) {popup2(d, element);},
 			colors : {
 				High : '#CC0000',
 				HighMedium : '#FF0000',
@@ -714,7 +714,7 @@ function Permno_history_graph(json_ary) {
 					},
 					y : {
 		
-						label : 'Drawdown Value',
+						//label : 'Drawdown Value',
 						tick: {
 			                format: d3.format(".2f"),
 			                count: 5
@@ -744,9 +744,10 @@ function popup(d, element) {
 	$("#dialog").dialog({
 			resizable: true,
 			width: 450,
-			height: 270
+			height: 270,
+		    	  
 		});
-	$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
+	$('#dialog').dialog('option', 'title', 'Behavior of permno : '+d.value+ ' year '+tab);
 		$.ajax({
 	       type: 'GET',
 		   url: urlindex,

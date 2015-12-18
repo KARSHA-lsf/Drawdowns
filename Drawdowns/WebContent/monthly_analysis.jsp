@@ -243,6 +243,34 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
             async: false
         });
 	}
+	function popup2(d, element) {
+		var urlindex = "perm_history?Q="+<%=request.getParameter("Q")%>+ "&P=" + d.value;
+		$("#dialog").dialog({
+				resizable: true,
+				width: 450,
+				height: 270,
+			    	  
+			});
+		$('#dialog').dialog('option', 'title', 'Behavior of permno : '+d.value+ ' year '+<%=request.getParameter("Q")%>);
+			$.ajax({
+		       type: 'GET',
+			   url: urlindex,
+			   dataType: 'json',
+			   success: function (data) {
+			        	
+			    console.log(data);
+			    console.log(d.value);
+			    Permno_history_graph(data);
+			       	
+		        },
+			        
+			    error: function (data,
+			                error) {
+			      		console.log(error);
+			     },
+			        	async: false
+			    });
+			}
 							
 	</script>
 
