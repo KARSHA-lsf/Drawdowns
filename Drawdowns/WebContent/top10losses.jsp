@@ -109,10 +109,23 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							$("#ta<%=i%>").click(function(){
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								draw_indexdata(tab);
+								draw_cumulativeGraph(tab);
 							});
 						</script>
 					</div>
 					<% } %>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Index drowdown
+							</h4>
+							<div id="barIndex"></div>
+							</div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Loss Market Capitalization</h4>
+							<div id="multihistogram"></div>
+							</div> 
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
 					<script type="text/javascript">
@@ -180,10 +193,53 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					  });
 					 
 					
-					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					draw_indexdata(2004);
+					draw_cumulativeGraph(2004);
 			});
-		
+
+		function draw_indexdata(year){
+			var urlindex = "indexData?Q="+year;
+			$.ajax({
+	            type: 'GET',
+	            url: urlindex,
+	            dataType: 'json',
+	            success: function (data) {
+	            	
+	           	//console.log(data);
+	           	
+	           	drawIndex(data);
+	            },
+	            
+	            error: function (data,
+	                    error) {
+	            	console.log(error);
+	            },
+	            async: false
+	        });
+		}
+		function draw_cumulativeGraph(year){
+			var x = "test_getSet?Q="+year+"&T=top10Precent";
+			$.ajax({
+	            type: 'GET',
+	            url: x,
+	            dataType: 'json',
+	            success: function (data) {
+	            	
+	           	//console.log(data);
+	           	
+	           	drawLossMcGraphTopTen(data);
+	           	
+	            },
+	            
+	            error: function (data,
+	                    error) {
+	            	console.log(error);
+	            },
+	            async: false
+	        });
+		}
+
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>
