@@ -26,7 +26,7 @@ function drawScatterPlot(json_object, year, month, bind) {
 			json : json_object,
 			mimeType : 'json',
 			type : 'scatter',
-			onclick : function(d, element) {popup(d, element);},
+			onclick : function(d, element) {popup2(d, element);},
 			colors : {
 				High : '#CC0000',
 				HighMedium : '#FF0000',
@@ -705,6 +705,7 @@ function Permno_history_graph(json_ary) {
 					format : d3.format(".2f")
 
 				}
+				
 			},
 
 		}
@@ -774,12 +775,17 @@ function Permno_history_graph(json_ary) {
 					xs : {
 		
 						'Drawdown_value' : 'Drawdown_date',
-					}
+						'Return_value' : 'End_date',
+					},
+					colors : {
+						Drawdown_value : '#0000ff',
+						Return_value : '#ff0000',
+					},
 		
 				},
 				size : {
-					height : 200,
-					width : 410
+					height : 220,
+					width : 400
 				},
 				grid : {
 					x : {
@@ -792,23 +798,63 @@ function Permno_history_graph(json_ary) {
 					type : 'timeseries',
 						label : 'Date',
 						tick : {
-							format : '%Y-%m-%d',
+							format : '%m-%d',
 							rotate : 90,
 							fit : false
 						}
 					},
 					y : {
 		
-						label : 'Drawdown Value',
+						//label : 'Drawdown Value',
 						tick: {
-			                format: d3.format(".2f")
+			                format: d3.format(".2f"),
+			                count: 5
 			                
 			            }
 					},
 		
-				}
+				},
+				grid : {
+					x : {
+						show : true,
+					},
+					y : {
+						lines : [ {
+							value : 0,
+							text : 'value 0'
+						} ]
+					}
+				},
 		
 			});
 		
 	
 }
+function popup(d, element) {
+	var urlindex = "perm_history?Q="+tab+ "&P=" + d.value;
+	$("#dialog").dialog({
+			resizable: true,
+			width: 450,
+			height: 270,
+		    	  
+		});
+	$('#dialog').dialog('option', 'title', 'Behavior of permno : '+d.value+ ' year '+tab);
+		$.ajax({
+	       type: 'GET',
+		   url: urlindex,
+		   dataType: 'json',
+		   success: function (data) {
+		        	
+		    console.log(data);
+		    console.log(d.value);
+		    Permno_history_graph(data);
+		       	
+	        },
+		        
+		    error: function (data,
+		                error) {
+		      		console.log(error);
+		     },
+		        	async: false
+		    });
+		}

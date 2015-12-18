@@ -115,11 +115,20 @@ public class IndexSrvlt extends HttpServlet {
 			System.out.print(J_obj);
 			
 		}else if(userPath.equals("/perm_history")){
-			pwr.print(clm_grp.Perm_History_Method());
+			
+			//pwr.print(clm_grp.Perm_History_Method());
+			//pwr.print(clm_grp.perm_return_method());
+			
+			JsonObject dialog = new JsonObject();
+			JsonObject ret = clm_grp.perm_return_method();
+			JsonObject draw = clm_grp.Perm_History_Method();
+			dialog.add("Drawdown_value", draw.getAsJsonArray("Drawdown_value"));
+			dialog.add("Drawdown_date", draw.getAsJsonArray("Drawdown_date"));
+			dialog.add("Return_value", ret.getAsJsonArray("Return_value"));
+			dialog.add("End_date", ret.getAsJsonArray("End_date"));
+			pwr.print(dialog); 
 		}
-		else if(userPath.equals("/perm_history")){
-			pwr.print(clm_grp.Perm_History_Method());
-		}
+		
 		
 
 	}
