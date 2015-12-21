@@ -34,6 +34,7 @@ import model.Drawdown;
 import model.Sys_CLM_CumulativeLMC;
 import model.Sys_CLM_EndofMonthLMC;
 import model.Sys_CLM_EndofMonthLMC_top_ten;
+import model.cummulative;
 
 /**
  * Servlet implementation class adminSrvlt
@@ -57,8 +58,13 @@ public class adminSrvlt extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 	//	eoflossmc();
-	//	cummulativeLoassMakt();
-			end_of_month_LMC();
+		try {
+			cummulativeLoassMakt();
+		} catch (JSONException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			//end_of_month_LMC();
 			
 	}
 
@@ -303,14 +309,14 @@ public class adminSrvlt extends HttpServlet {
 	        }
 			
 
-			//String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"+ k
-					//+ "%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"
-					//+ k
-					//+ "%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"
-					//+ k
-					//+ "%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"
-					//+ k
-					//+ "%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
+			String all_drawdown = "SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"+ k
+					+ "%' AND HORIZON = 1) AS A INNER JOIN ( SELECT permno, yrmo, value1 FROM caaf_marketcapitalization WHERE yrmo LIKE '"
+					+ k
+					+ "%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM (SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"
+					+ k
+					+ "%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"
+					+ k
+					+ "%') AS L ON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo ORDER BY y.CAPM_resid_date";
 			
 	        
 	        /*String all_drawdown="SELECT X.permno AS permno,X.yrmo AS yrmo,X.drawdownValue AS drawdownValue,X.drawdownDate AS drawdownDate,X.marketCapitalization AS marketCapitalization,X.returnValue AS returnValue FROM (SELECT *, @counter := @counter +1 AS counter FROM (select @counter :=0) AS initvar, (SELECT x.PERMNO AS permno,x.YRMO AS yrmo,x.CAPM_resid AS drawdownValue,y.CAPM_resid_date AS drawdownDate,x.value1 AS marketCapitalization,y.returnValue FROM ( SELECT A.PERMNO, A.YRMO, A.CAPM_resid, B.value1 FROM ( SELECT * FROM capm_drawdowns_results WHERE YRMO LIKE '"
@@ -318,7 +324,7 @@ public class adminSrvlt extends HttpServlet {
 	        +k+"%') AS B ON A.PERMNO = B.permno ) AS x INNER JOIN (SELECT K.PERMNO_date,K.YRMO_date,K.CAPM_resid_date,L.value1 AS returnValue FROM(SELECT PERMNO_date,YRMO_date,CAPM_resid_date FROM capm_drawdowns_date WHERE YRMO_date LIKE '"
 	        +k+"%' AND HORIZON = 1 ) AS K INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo LIKE '"
 	        +k+"%') AS LON K.PERMNO_date=L.permno AND K.YRMO_date=L.yrmo) AS y ON y.PERMNO_date = x.PERMNO AND y.YRMO_date = x.yrmo)  as p ) AS Xwhere counter <= (10/100 * @counter) ORDER BY X.drawdownDate";*/
-	        String all_drawdown="SELECT * FROM sys_blu_top10_losess WHERE yrmo LIKE '%"+k+"%' ORDER BY drawdownDate";
+	        //String all_drawdown="SELECT * FROM sys_blu_top10_losess WHERE yrmo LIKE '%"+k+"%' ORDER BY drawdownDate";
 			SQLQuery q = session.createSQLQuery(all_drawdown);
 			q.setResultTransformer(Transformers.aliasToBean(Drawdown.class));
 
@@ -469,17 +475,19 @@ public class adminSrvlt extends HttpServlet {
 				}
 			}
 			
-			/*for(int i=0;i<=allDate.length-1;i++){
+			for(int i=0;i<=allDate.length-1;i++){
 				for(int j=0;j<CumalativeArray.length;j++){
 					Date dateA=(Date)format.parse(allDate[i][0]);
-					Date dateB=(Date)format.parse(CumalativeArray[j][0]);
+					Date dateB=(Date)format.parse(CumalativeArray[0][0]);
+					Date dateC=(Date)format.parse(CumalativeArray[j][0]);
 					if(dateA.before(dateB)){
-						allDate[i][1]=Integer.valueOf(0).toString();
+						allDate[i][1]="ta";//Integer.valueOf(0).toString();
 					}
+					
 				}
-			}*/
+			}
 			for(int i=0;i<CumalativeArray.length;i++){
-				System.out.println(CumalativeArray[i][0]+"==="+CumalativeArray[i][1]);
+				System.out.println(allDate[i][0]+"==="+allDate[i][1]);
 			}
 			
 			/*JSONArray jary=new JSONArray();
@@ -490,14 +498,16 @@ public class adminSrvlt extends HttpServlet {
 			}
 			 
 			 System.out.println(jary);*/
-			/*
-			 * for(int i=0;i<CumalativeArray.length;i++){ cummulative
-			 * cummulativeObject=new cummulative();
-			 * cummulativeObject.setDate(CumalativeArray[i][0]);
-			 * cummulativeObject.setValue(new
-			 * BigDecimal(CumalativeArray[i][1]));
-			 * session.save(cummulativeObject); }
-			 */
+			
+			 /*for(int i=0;i<CumalativeArray.length;i++){ 
+				 
+				 cummulative cummulativeObject=new cummulative();
+			 	 cummulativeObject.setDate(CumalativeArray[i][0]);
+			 	 cummulativeObject.setValue(new
+			 	 BigDecimal(CumalativeArray[i][1]));
+			 	 session.save(cummulativeObject);
+			 }*/
+			 
 
 		}
 
