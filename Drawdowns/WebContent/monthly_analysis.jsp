@@ -15,8 +15,9 @@
 <link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
-<script src="js/jquery-ui.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+
 <script>
 var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
@@ -222,7 +223,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
         });
 	}
 	function draw_cumulativeGraph(){
-		var x = "test_getSet?Q="+<%=request.getParameter("Q")%>+"&T=month";
+		var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>&T=all";
 		$.ajax({
             type: 'GET',
             url: x,
@@ -242,35 +243,35 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
             async: false
         });
 	}
-	//permno history graph in dialog window 
-	function popup(d, element) {
-			var urlindex = "perm_history?Q="+<%=request.getParameter("Q")%>+ "&P=" + d.value;
-			$("#dialog").dialog({
-					resizable: true,
-					width: 450,
-					height: 220
-				});
-			$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
-				$.ajax({
-			       type: 'GET',
-				   url: urlindex,
-				   dataType: 'json',
-				   success: function (data) {
-				        	
-				    console.log(data);
-				    console.log(d.value);
-				    Permno_history_graph(data);
-				       	
-			        },
-				        
-				    error: function (data,
-				                error) {
-				      		console.log(error);
-				     },
-				        	async: false
-				    });
-				}
-						
+	function popup2(d, element) {
+		var urlindex = "perm_history?Q="+<%=request.getParameter("Q")%>+ "&P=" + d.value;
+		$("#dialog").dialog({
+				resizable: true,
+				width: 450,
+				height: 270,
+			    	  
+			});
+		$('#dialog').dialog('option', 'title', 'Behavior of permno : '+d.value+ ' year '+<%=request.getParameter("Q")%>);
+			$.ajax({
+		       type: 'GET',
+			   url: urlindex,
+			   dataType: 'json',
+			   success: function (data) {
+			        	
+			    console.log(data);
+			    console.log(d.value);
+			    Permno_history_graph(data);
+			       	
+		        },
+			        
+			    error: function (data,
+			                error) {
+			      		console.log(error);
+			     },
+			        	async: false
+			    });
+			}
+							
 	</script>
 
 	<script src="bootstrap/js/bootstrap.min.js"></script>

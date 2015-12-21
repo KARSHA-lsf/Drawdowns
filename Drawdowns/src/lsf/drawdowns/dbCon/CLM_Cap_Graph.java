@@ -3,7 +3,13 @@ package lsf.drawdowns.dbCon;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.CRSP_ValueWeightedReturns;
@@ -266,6 +272,7 @@ public JsonObject Index_vw_return() {
 		}else{
 			query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
 		}
+		
 		SQLQuery q = session.createSQLQuery(query);			
 		
 		ArrayList<String> aryDate = new ArrayList<String>();
@@ -296,20 +303,21 @@ public JsonObject Index_vw_return() {
 	
 	public JSONObject cumulativeLossMkp() {
 		System.out.println("cumulativelossmarketcapitalization");
-		String query; //= "select * from cummulative where date like '%"+request.getParameter("Q")+"%'";
+		String query; 
 		if(request.getParameter("T").equals("top10Precent")){
 			query = "select all_dates,cum from sys_10precnt_2004to2014 where all_dates like '%"+request.getParameter("Q")+"%'";
 				
 		}
 		else if(request.getParameter("T").equals("month")){
-			query = "select * from sys_cumilativealldata2004_2014 where all_dates like '%"+request.getParameter("Q")+"%'";
+			//query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			query="select all_dates,cumilativeLossMcap from sys_blu_cumilative_2004to2014all where all_dates like '%"+request.getParameter("Q")+"%'";
 		}
 		else{
-			query="select * from sys_cumilativealldata2004_2014 where all_dates like '%"+request.getParameter("Q")+"%'";
+			//query="select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			query="select all_dates,cumilativeLossMcap from sys_blu_cumilative_2004to2014all where all_dates like '%"+request.getParameter("Q")+"%'";
 		}
-		
-				
-		SQLQuery q = session.createSQLQuery(query);
+		SQLQuery q = session.createSQLQuery(query);			
+	
 		ArrayList<String> aryDate = new ArrayList<String>();
 		ArrayList<BigDecimal> aryValue = new ArrayList<BigDecimal>();
 		
@@ -335,8 +343,6 @@ public JsonObject Index_vw_return() {
 		return jsonObject;
 		
 	}
-	
-	
 
 	public JSONObject clmIndexPercentage() {
 		String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
@@ -397,6 +403,48 @@ public JsonObject Index_vw_return() {
 			e.printStackTrace();
 		}
 		return J_obj;
+	}
+	public JsonObject perm_return_method(){
+		String sql = "SELECT yrmo,value1 FROM caaf_returns  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<Integer> Arr_yrmo = new ArrayList<>();
+		List<BigDecimal> Arr_value = new ArrayList<>();
+		List<String> End_date = new ArrayList<>(); 
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> result = q.list();
+		for (Object[] returns : result) {
+			int yrmo = (int) returns[0];
+			BigDecimal value = (BigDecimal) returns[1];
+			Arr_yrmo.add(yrmo);
+			Arr_value.add(value);
+		}
+		for (int i = 0; i < result.size(); i++) {
+			int year = Arr_yrmo.get(i)/100;
+			int month = Arr_yrmo.get(i)%100;
+			String date = getDate(month, year);
+			End_date.add(date);
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement retvalue = gson.toJsonTree(Arr_value); 
+		JsonElement enddate = gson.toJsonTree(End_date);
+		
+		J_obj.add("Return_value",retvalue);
+		J_obj.add("End_date", enddate); 
+		
+		return J_obj;
+		
+	}
+	public String getDate(int month, int year) {
+	    Calendar calendar = Calendar.getInstance();
+	    // passing month-1 because 0-->jan, 1-->feb... 11-->dec
+	    calendar.set(year, month - 1, 1);
+	    calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
+	    Date date = calendar.getTime();
+	    DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	    return DATE_FORMAT.format(date);
 	}
 
 

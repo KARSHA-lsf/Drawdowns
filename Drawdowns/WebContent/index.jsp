@@ -13,6 +13,7 @@
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <meta charset="utf-8">
 <link rel="stylesheet" href="assets/jquery-ui.css">
+<link rel="stylesheet" href="css/footer-distributed.css">
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
 
@@ -60,7 +61,7 @@
 					<h1 align="center">KARSHA-Drawdowns</h1>
 				</div>
 						<div class="span4">
-						<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:260px;height:150px">
+						<div style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
 							<h2 class="icon soul">
 								<a href="top10losses.jsp">Top 10% Losses</a>
 							</h2>
@@ -69,7 +70,7 @@
 						</div>
 						</div>
 						<div class="span4">
-							<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:260px;height:150px">
+							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
 							<h2 class="icon web">
 								<a href="annually_analyis.jsp">Yearly Analysis</a>
 							</h2>
@@ -78,7 +79,7 @@
 						</div>
 					</div>
 						<div class="span3">
-							<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:270px;height:150px">
+							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:100%;height:150px">
 							<h2 class="icon shirt">
 								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a> 
 							</h2>
@@ -99,6 +100,11 @@
 			//alert("there is error while sending data to server");
 		});
 	</script>
+	<div id="footer">
+  <div class="container">
+    <p style="text-align:center">Lanka Software Foundation &copy; 2015</p>
+  </div>
+</div>
 </body>
 </html>
 

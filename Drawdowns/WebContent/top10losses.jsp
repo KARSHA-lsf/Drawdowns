@@ -15,9 +15,10 @@
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+
 <script>
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
@@ -109,7 +110,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
-								//draw_cumulativeGraph(tab);
+								draw_cumulativeGraph(tab);
 							});
 						</script>
 					</div>
@@ -120,7 +121,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							</h4>
 							<div id="barIndex"></div>
 							</div>
-					 <div class="col-lg-12" style="margin: 30px 30px 30px">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Loss Market Capitalization</h4>
 							<div id="multihistogram"></div>
@@ -192,39 +193,11 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					  });
 					 
 					
-					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					draw_indexdata(2004);
 					draw_cumulativeGraph(2004);
 			});
-		//permno history graph in dialog window 
-		function popup(d, element) {
-				var urlindex = "perm_history?Q="+tab+ "&P=" + d.value;
-				$("#dialog").dialog({
-						resizable: true,
-						width: 450,
-						height: 220
-					});
-				$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
-					$.ajax({
-				       type: 'GET',
-					   url: urlindex,
-					   dataType: 'json',
-					   success: function (data) {
-					        	
-					    console.log(data);
-					    console.log(d.value);
-					    Permno_history_graph(data);
-					       	
-				        },
-					        
-					    error: function (data,
-					                error) {
-					      		console.log(error);
-					     },
-					        	async: false
-					    });
-					}
+
 		function draw_indexdata(year){
 			var urlindex = "indexData?Q="+year;
 			$.ajax({
@@ -247,6 +220,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 		}
 		function draw_cumulativeGraph(year){
 			var x = "test_getSet?Q="+year+"&T=top10Precent";
+			console.log(x);
 			$.ajax({
 	            type: 'GET',
 	            url: x,
@@ -266,6 +240,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            async: false
 	        });
 		}
+
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>
