@@ -305,14 +305,16 @@ public JsonObject Index_vw_return() {
 		System.out.println("cumulativelossmarketcapitalization");
 		String query; 
 		if(request.getParameter("T").equals("top10Precent")){
-			query = "select all_dates,cum from sys_10precnt_2004to2014 where all_dates like '%"+request.getParameter("Q")+"%'";
+			query = "select all_dates,cumilativeLossMcap from sys_blu_cumilative_2004to2014top10 where all_dates like '%"+request.getParameter("Q")+"%'";
 				
 		}
 		else if(request.getParameter("T").equals("month")){
-			query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			//query = "select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			query="select all_dates,cumilativeLossMcap from sys_blu_cumilative_2004to2014all where all_dates like '%"+request.getParameter("Q")+"%'";
 		}
 		else{
-			query="select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			//query="select * from sys_clm_cumulativelmc where date like '%"+request.getParameter("Q")+"%'";
+			query="select all_dates,cumilativeLossMcap from sys_blu_cumilative_2004to2014all where all_dates like '%"+request.getParameter("Q")+"%'";
 		}
 		SQLQuery q = session.createSQLQuery(query);			
 	
@@ -343,24 +345,33 @@ public JsonObject Index_vw_return() {
 	}
 
 	public JSONObject clmIndexPercentage() {
-		String sql = "SELECT B.date_withyear AS Index_dates,ABS(A.value1) AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
+		String sql = "SELECT B.date_withyear AS Index_dates,A.value1 AS Index_values FROM ( SELECT  permno, value1,yrmo FROM caaf_drawdowns WHERE  permno=0 AND yrmo LIKE '"+request.getParameter("Q")+"%') AS  A  JOIN (SELECT  permno_end,date_withyear,yrmo_end FROM  caaf_drawdownend WHERE permno_end=0 AND yrmo_end LIKE '"+request.getParameter("Q")+"%') AS  B ON A.permno=B.permno_end AND A.yrmo=B.yrmo_end ";	
 		ArrayList<String> indexDate = new ArrayList<String>();
 		ArrayList<Double> indexValue = new ArrayList<Double>();
 		JSONObject obj = new JSONObject();
+		double min = 10;
 		double max = -10;
 		double tmp = 0;
+		double devisor = 0;
 		try {
 			ResultSet rset = dbconnection.selectData(sql);
 			while(rset.next()){
 				tmp = rset.getDouble("Index_values");
+				if(tmp<min){
+					min=tmp;
+				}
 				if(tmp>max){
 					max=tmp;
 				}
 				indexDate.add(rset.getString("Index_dates"));
 				indexValue.add(Double.valueOf(rset.getString("Index_values")));
 			}
+			devisor = min-max;
+			if (devisor<0) {
+				devisor=-1*devisor;
+			} 
 			for (int j = 0; j < indexValue.size(); j++) {
-				indexValue.set(j, indexValue.get(j)*100/max);
+				indexValue.set(j, indexValue.get(j)*100/(devisor));
 			}
 			
 			obj.put("indexDate", indexDate);

@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class db_connections {
 
 	String driver = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/capm_db";
+	String url = "jdbc:mysql://localhost:3306/karsha_drawdowns";
 	String username = "root";
 	String password = "";
 	
