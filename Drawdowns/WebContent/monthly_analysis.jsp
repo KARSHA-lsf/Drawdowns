@@ -23,6 +23,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
 	});
+	
 </script>
 
 <style type="text/css">
@@ -93,6 +94,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					</ul>
 
 				</div>
+				
 
 			</div>
 

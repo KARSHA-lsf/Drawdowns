@@ -74,9 +74,11 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<div class="col-sm-3">
 							Drawdown Value Top : <span id="Dr_value"  style="font-weight:bold;"></span>
 						</div>
+						<div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
 						<div class="col-sm-3">
-							<div id="Dr_slider"></div>
+							<div id="Dr_slider"></div>							
 						</div>
+						
 				</div>
 				<div class="span3">
 					<br>
@@ -86,6 +88,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<div class="col-sm-3">
 							<div id="LossMcap_slider"></div>
 						</div> -->
+						
 				</div>
 				</div>
 			</div>
@@ -103,6 +106,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<div class="row">
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="scatter_plot<%=i%>"></div>
+<!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
 						</div>
 						</div>
 						<script type="text/javascript">
@@ -167,6 +171,12 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 		$(document)
 			.ready(
 				function() {
+					$(document).ajaxStart(function(){
+				        $("#loading").css("display", "block");
+				    });
+				    $(document).ajaxComplete(function(){
+				        $("#loading").css("display", "none");
+				    });
 					$("#Dr_value").text(Dr_value+ " %");
 					$("#LossMcap_value").text(LossMcap_value+ " %");
 					  $(function() {
