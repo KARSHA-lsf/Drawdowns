@@ -18,18 +18,18 @@
 	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 </type-mapping>
-<table-filter match-catalog="capm_db" match-name="caaf_drawdownend"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_drawdowns"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_marketcapitalization"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_peak_to_trough"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_peak_to_trough_end"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_peak_to_trough_start"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_returns"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_rv"/>
-  <table-filter match-catalog="capm_db" match-name="caaf_turnover"/>
-  <table-filter match-catalog="capm_db" match-name="capm_drawdowns_date"/>
-  <table-filter match-catalog="capm_db" match-name="capm_drawdowns_results"/>
-  <table-filter match-catalog="capm_db" match-name="capm_ptt_end_dates"/>
-  <table-filter match-catalog="capm_db" match-name="capm_ptt_results"/>
-  <table-filter match-catalog="capm_db" match-name="capm_ptt_start_dates"/>
+<table-filter match-catalog="karsha_drawdowns" match-name="caaf_drawdownend"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_drawdowns"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_marketcapitalization"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_peak_to_trough"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_peak_to_trough_end"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_peak_to_trough_start"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_returns"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_rv"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="caaf_turnover"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="capm_drawdowns_date"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="capm_drawdowns_results"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="capm_ptt_end_dates"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="capm_ptt_results"/>
+  <table-filter match-catalog="karsha_drawdowns" match-name="capm_ptt_start_dates"/>
 </hibernate-reverse-engineering>
