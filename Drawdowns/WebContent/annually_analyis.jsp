@@ -41,13 +41,13 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				<div class="nav-collapse collapse">
 
 					<ul class="nav">
-						<li class="active"><a href="index.jsp">Home</a></li>
-						<li><a href="about.jsp">About</a></li>
+						<li><a href="index.jsp">Home</a></li>
+						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li class="active"><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03"
-							style="text-align: center">Advance Filter</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
-								Analysis</a></li>
+						<li><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
 					</ul>
 				</div>
 
@@ -109,10 +109,26 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							$("#ta<%=i%>").click(function(){
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								draw_indexdata(tab);
+								draw_cumulativeGraph(tab);
 							});
 						</script>
 					</div>
 					<% } %>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Index drowdown
+							</h4>
+							<div id="barIndex"></div>
+							</div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Loss Market Capitalization</h4>
+							<div id="multihistogram"></div>
+							</div>
+					<div id="dialog" title="Basic Dialog">
+									<div id="permhistory"></div>
+						</div>
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
@@ -125,6 +141,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							success : function(data) {
 								data_init = data;
 								draw_me(data);
+								
 								},
 								error : function(data, error) {
 									console.log(error);
@@ -138,6 +155,47 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
 					 		'#scatter_plot'+tab);
+					}
+					function draw_indexdata(year){
+						var urlindex = "indexData?Q="+year;
+						$.ajax({
+				            type: 'GET',
+				            url: urlindex,
+				            dataType: 'json',
+				            success: function (data) {
+				            	
+				           	//console.log(data);
+				           	
+				           	drawIndex(data);
+				            },
+				            
+				            error: function (data,
+				                    error) {
+				            	console.log(error);
+				            },
+				            async: false
+				        });
+					}
+					function draw_cumulativeGraph(year){
+						var x = "test_getSet?Q="+year+"&T=top10Percent";
+						$.ajax({
+				            type: 'GET',
+				            url: x,
+				            dataType: 'json',
+				            success: function (data) {
+				            	
+				           	//console.log(data);
+				           	
+				           	drawLossMcGraph(data);
+				           	
+				            },
+				            
+				            error: function (data,
+				                    error) {
+				            	console.log(error);
+				            },
+				            async: false
+				        });
 					}
 					</script>
 				</div>
@@ -180,7 +238,10 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					
 					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					draw_indexdata(2004);
+					draw_cumulativeGraph(2004);
 			});
+		
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>

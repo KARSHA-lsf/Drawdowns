@@ -10,6 +10,7 @@
 <link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui.js"></script>
 
 
 <script>
@@ -35,9 +36,14 @@ $(function () {
 
 					<ul class="nav">
 						<li><a href="index.jsp">Home</a></li>
-						<li><a href="about.jsp">About</a></li>
+						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li class="active"><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li>
+						<li><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
+<!-- 						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
+					<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
 					</ul>
 				</div>
 
@@ -51,6 +57,7 @@ $(function () {
 				"November", "December" };
 		String[] monthDate = { "01", "02", "03", "04", "05", "06", "07",
 				"08", "09", "10", "11", "12" };
+		
 	%>
 
 
@@ -92,7 +99,7 @@ $(function () {
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div>
-					<div class "row-fluid" style="margin: 30px 30px 30px">
+					<div class ="row-fluid" style="margin: 30px 30px 30px">
 						<h1>Monthly Analisis</h1>
 					</div>
 				</div>
@@ -108,6 +115,11 @@ $(function () {
 						<div id="scatter_plot"></div>
 
 					</div>
+					<div id="dialog" title="Basic Dialog">
+					<div id="permhistory"></div>
+				</div>
+				<div id="dialog" title="Basic Dialog">
+						<div id="permhistory"></div>
 				</div>
 				<div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
@@ -145,9 +157,10 @@ $(function () {
 	
 	<script>
 		//divide data from url to catogories
-		$(window).ready(
+		$(document).ready(
 				function() {
-				var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
+					
+					var urlscatter = "dataGet?M="+"<%=request.getParameter("M")%>&Q="+"<%=request.getParameter("Q")%>";
 					
 					$.ajax({
 		                type: 'GET',
@@ -156,7 +169,7 @@ $(function () {
 		                success: function (data) {
 		                	var Ready_output = sccaterPlot_dataPreprocess(data);          
 		               	//call method in graph.js to draw scatter-plot
-		               		drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>);
+		               		drawScatterPlot(Ready_output,<%=request.getParameter("Q")%>,<%=request.getParameter("M")%>,'#scatter_plot');
 		                },
 		                
 		                error: function (data,
@@ -176,6 +189,7 @@ $(function () {
 		               	//console.log(data);
 		               	
 		               	drawIndex(data);
+		               	
 		                },
 		                
 		                error: function (data,
@@ -191,8 +205,7 @@ $(function () {
 		                url: x,
 		                dataType: 'json',
 		                success: function (data) {
-		                	
-		               	//console.log(data);
+		                 	//console.log(data);
 		               	
 		               	drawLossMcGraph(data);
 		               	
@@ -205,8 +218,36 @@ $(function () {
 		                async: false
 		            });
 					
-					
-				});
+	});
+		function popup(d, element) {
+			
+			var urlindex = "perm_history?Q="+<%=request.getParameter("Q")%>+ "&P=" + d.value;
+			$("#dialog").dialog({
+				resizable: true,
+				width: 450,
+				height: 220
+			});
+			$('#dialog').dialog('option', 'title', 'History of permno '+d.value);
+			$.ajax({
+		        type: 'GET',
+		        url: urlindex,
+		        dataType: 'json',
+		        success: function (data) {
+		        	
+		       	//console.log(data);
+		       	console.log(d.value);
+		        Permno_history_graph(data);
+		       	
+		        },
+		        
+		        error: function (data,
+		                error) {
+		        	console.log(error);
+		        },
+		        async: false
+		    });
+		}
+		
 		
 	
 			 

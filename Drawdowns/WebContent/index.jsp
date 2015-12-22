@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,8 +12,8 @@
 	media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <meta charset="utf-8">
-<link rel="stylesheet"
-	href="assets/jquery-ui.css">
+<link rel="stylesheet" href="assets/jquery-ui.css">
+<link rel="stylesheet" href="css/footer-distributed.css">
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
 
@@ -39,76 +38,73 @@
 
 					<ul class="nav">
 						<li class="active"><a href="index.jsp">Home</a></li>
-						<li><a href="about.jsp">About</a></li>
-						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
-						<li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
 						<li><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
+						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
+						<li><a href="about.jsp">About</a></li>
+						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
+						
+						
 					</ul>
 				</div>
 
 			</div>
 		</div>
 	</div>
-
-	<%
-		String[] months = { "January", "February", "March", "April", "May",
-				"June", "July", "August", "September", "October",
-				"November", "December" };
-		String[] monthDate = { "01", "02", "03", "04", "05",
-				"06", "07", "08", "09", "10",
-				"11", "12" };
-	%>
-
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span2" id="sidebar">
-				<div id="accordion">
-					<%
-						for (int k = 2004; k < 2015; k++) {
-					%>
-					<h7>
-						Year
-						<%
-						out.println(k);
-					%>
-					</h7>
-					<ul class="nav-collapse">
-						<%
-							for (int i = 0; i < 12; i++) {
-						%>
-						<li class="nav-collapse" style="text-align: center"><a
-							style="font-family: Arial; color: blue; text-decoration: none"
-							href="yearly_analisis.jsp?Q=<%=k %>&M=<%=monthDate[i]%>"> <% out.println(k+"-"+monthDate[i]); %>
-						</a></li>
-						<%
-							}
-						%>
-					</ul>
-					<%
-						}
-					%>
-
-					
-
-				</div>
-
-			</div>
-			<div class="span10"
+			<div class="span12"
 				style="border: 1px solid LightSeaGreen; background-color: white">
-				<div class "row-fluid" style="margin: 30px 30px 30px">
-					<h1>KARSHA-Drawdowns</h1>
+				<div class="row-fluid" style="margin: 30px 30px 30px">
+					<h1 align="center">KARSHA-Drawdowns</h1>
+				</div>
+						<div class="span4">
+						<div style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
+							<h2 class="icon soul">
+								<a href="top10losses.jsp">Top 10% Losses</a>
+							</h2>
+<!-- 							<p>Every great brand needs a good logo. This is my bread and -->
+<!-- 								butter.</p> -->
+						</div>
+						</div>
+						<div class="span4">
+							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
+							<h2 class="icon web">
+								<a href="annually_analyis.jsp">Yearly Analysis</a>
+							</h2>
+<!-- 							<p>Websites are the new store fronts. A nice one can bring -->
+<!-- 								more business.</p> -->
+						</div>
+					</div>
+						<div class="span3">
+							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:100%;height:150px">
+							<h2 class="icon shirt">
+								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a> 
+							</h2>
+<!-- 							<p>Need a poster, a book cover, a label for a booze or beer -->
+<!-- 								bottle? I can do that too!</p> -->
+						</div>
+						</div>
+					</div> 
+					<hr>
 				</div>
 			</div>
-		</div>
-	</div>
+		
+				<!-- /container -->
+			
+	
 	<script type="text/javascript">
-	$.post("IndexSrvlt","")
-			.error(function() {
-				//alert("there is error while sending data to server");
-			});
+		$.post("IndexSrvlt", "").error(function() {
+			//alert("there is error while sending data to server");
+		});
 	</script>
+	<div id="footer">
+  <div class="container">
+    <p style="text-align:center">Lanka Software Foundation &copy; 2015</p>
+  </div>
+</div>
 </body>
 </html>
 

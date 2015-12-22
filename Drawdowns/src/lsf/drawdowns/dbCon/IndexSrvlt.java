@@ -2,19 +2,6 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,16 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.*;
-
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.transform.Transformers;
-import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import com.google.gson.*;
@@ -121,18 +102,34 @@ public class IndexSrvlt extends HttpServlet {
 			JsonObject cum = (JsonObject) jsonParser.parse(cum_loss.toString());
 			JsonObject Ipercent = (JsonObject) jsonParser.parse(Index_percent
 					.toString());
-			J_obj.add("Return_Value", index_vw.getAsJsonArray("ReturnValue"));
+			J_obj.add("Index_VW_Return", index_vw.getAsJsonArray("ReturnValue"));
 			J_obj.add("Return_Dates", index_vw.getAsJsonArray("dates"));
-			J_obj.add("Value", cum.getAsJsonArray("Value"));
+			J_obj.add("Cumulative_Loss_Market_capitalization", cum.getAsJsonArray("Value"));
 			J_obj.add("Date", cum.getAsJsonArray("Date"));
-			J_obj.add("Index_Value", Ipercent.getAsJsonArray("indexValue"));
+			J_obj.add("Index_Drawdown", Ipercent.getAsJsonArray("indexValue"));
 			J_obj.add("Index_Date", Ipercent.getAsJsonArray("indexDate"));
-			J_obj.add("eof_Value", eof.getAsJsonArray("Value"));
+			J_obj.add("EndofMonth_Total_Loss_Market_capitalization", eof.getAsJsonArray("Value"));
 			J_obj.add("eof_Date", eof.getAsJsonArray("Date"));
 			System.out.println(J_obj);
 			pwr.print(J_obj);
 			System.out.print(J_obj);
+			
+		}else if(userPath.equals("/perm_history")){
+			
+			//pwr.print(clm_grp.Perm_History_Method());
+			//pwr.print(clm_grp.perm_return_method());
+			
+			JsonObject dialog = new JsonObject();
+			JsonObject ret = clm_grp.perm_return_method();
+			JsonObject draw = clm_grp.Perm_History_Method();
+			dialog.add("Drawdown_value", draw.getAsJsonArray("Drawdown_value"));
+			dialog.add("Drawdown_date", draw.getAsJsonArray("Drawdown_date"));
+			dialog.add("Return_value", ret.getAsJsonArray("Return_value"));
+			dialog.add("End_date", ret.getAsJsonArray("End_date"));
+			pwr.print(dialog); 
 		}
+		
+		
 
 	}
 
