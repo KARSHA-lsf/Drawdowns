@@ -242,6 +242,12 @@ function drawLossMcGraph(jsd) {
 				label : 'Index'
 			},
 		},
+		grid : {
+			x : {
+				show : true,
+			},
+			
+		},
 
 	});
 }
@@ -331,6 +337,12 @@ function drawLossMcGraphTopTen(jsd) {
 				show : true,
 				label : 'Index'
 			},
+		},
+		grid : {
+			x : {
+				show : true,
+			},
+			
 		},
 
 	});
@@ -600,6 +612,12 @@ function drawLossMcGraph_yearly(json_object, year, month, tag) {
 				show : true,
 				label : 'Index'
 			},
+		},
+		grid : {
+			x : {
+				show : true,
+			},
+			
 		},
 
 	});
