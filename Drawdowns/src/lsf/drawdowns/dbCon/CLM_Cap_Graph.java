@@ -305,7 +305,7 @@ public JsonObject Index_vw_return() {
 		System.out.println("cumulativelossmarketcapitalization");
 		String query; 
 		if(request.getParameter("T").equals("top10Precent")){
-			query = "select all_dates,cum from sys_10precnt_2004to2014 where all_dates like '%"+request.getParameter("Q")+"%'";
+			query = "select all_dates,cumilativeLossMcap from sys_blu_cumilative_2004to2014top10 where all_dates like '%"+request.getParameter("Q")+"%'";
 				
 		}
 		else if(request.getParameter("T").equals("month")){
