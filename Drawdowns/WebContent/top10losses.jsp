@@ -119,12 +119,18 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						</script>
 					</div>
 					<% } %>
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
+					</div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Index drowdown
 							</h4>
 							<div id="barIndex"></div>
 							</div>
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="draw_cumulativeGraph(tab)">Show Loss Market Capitalization</button>
+					</div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Loss Market Capitalization</h4>
@@ -204,8 +210,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					 
 					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
-					draw_indexdata(2004);
-					draw_cumulativeGraph(2004);
+					//draw_indexdata(2004);
+					//draw_cumulativeGraph(2004);
 			});
 
 		function draw_indexdata(year){

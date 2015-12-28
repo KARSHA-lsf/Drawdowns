@@ -101,7 +101,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white; margin-left: 10px;">
 				<div>
-
+<div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
 					<div id="tabs">
 						<ul>
 
@@ -183,6 +183,12 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	
 	$(window).ready(
 			function() {
+				$(document).ajaxStart(function(){
+			        $("#loading").css("display", "block");
+			    });
+			    $(document).ajaxComplete(function(){
+			        $("#loading").css("display", "none");
+			    });
 				draw_indexdata();
 				draw_cumulativeGraph();
 			});
