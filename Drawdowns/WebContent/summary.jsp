@@ -29,12 +29,18 @@
 </head>
 
 <body>
-
+<div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
 
 
 	<script>
 		//divide data from url to catogories
 		$(document).ready(function capmgraph() {
+			$(document).ajaxStart(function(){
+		        $("#loading").css("display", "block");
+		    });
+		    $(document).ajaxComplete(function(){
+		        $("#loading").css("display", "none");
+		    });
 			var urlcapm = "summaryData?D=capm";
 			$.ajax({
 				type : 'GET',
