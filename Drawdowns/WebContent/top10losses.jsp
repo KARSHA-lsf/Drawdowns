@@ -101,13 +101,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
 					</ul>
-					
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-								Loss Market Capitalization</h4>
-							<div id="multihistogram"></div>
-					</div> 
-					
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
 						<div class="row">
@@ -134,10 +127,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							Index drowdown
 							</h4>
 							<div id="barIndex"></div>
-<<<<<<< HEAD
-					</div>
-					
-=======
 							</div>
 					<div class="butt" style="margin: 30px 30px 30px">
 					<button type="button" class="btn btn-info" onclick="draw_cumulativeGraph(tab)">Show Loss Market Capitalization</button>
@@ -147,7 +136,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							Loss Market Capitalization</h4>
 							<div id="multihistogram"></div>
 							</div> 
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
 					<script type="text/javascript">
@@ -225,7 +213,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					//draw_indexdata(2004);
 					//draw_cumulativeGraph(2004);
 			});
-
 		function draw_indexdata(year){
 			var urlindex = "indexData?Q="+year;
 			$.ajax({
@@ -268,7 +255,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            async: false
 	        });
 		}
-
 	</script> 
 	
 	<script src="bootstrap/js/c3.js"></script>
