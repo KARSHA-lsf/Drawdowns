@@ -322,15 +322,15 @@ function drawLossMcGraphTopTen(jsd) {
 			},
 			y2 : {
 				// ////////// inverted: false,
-				min : -100,
-				max : 100,
+				min : -0.09,
+				max : 0.09,
 				padding : {
 					top : 10,
 					bottom : 0
 				},
 				tick : {
 					format : function(d) {
-						return d + "%";
+						return d;
 					},
 
 				},

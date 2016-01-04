@@ -169,12 +169,9 @@ public class adminSrvlt extends HttpServlet {
 	public void eoflossmc(){
 		
 		db_connections dbconnection = new db_connections();
-
 		SessionFactory SFact = new Configuration().configure().buildSessionFactory();
 		Session session = SFact.openSession();
 		session.beginTransaction();
-
-
 		try {
 			
 			ResultSet rset = dbconnection.selectData("SELECT DISTINCT CAPM_resid_date,YRMO_date FROM capm_drawdowns_date WHERE YRMO_date  BETWEEN 200401 AND 201412 AND HORIZON = 1 ORDER BY CAPM_resid_date");
@@ -470,7 +467,6 @@ public class adminSrvlt extends HttpServlet {
 					String d2 = indexDates.get(i+1);
 					String[] parts = d2.split("-");
 					int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
-
 					String sql_LMC ="SELECT SUM(LOSSMcap) FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid";
 					
 					try {
