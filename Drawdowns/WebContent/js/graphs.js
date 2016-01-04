@@ -344,6 +344,15 @@ function drawLossMcGraphTopTen(jsd) {
 			},
 			
 		},
+		tooltip: {
+	        format: {
+	           value: function (value, ratio, id) {
+	        	   var formatMeA = id === 'Index_VW_Return' ? value = value*100000+"M$":
+	        		   id === 'Cumulative_Loss_Market_capitalization'||id==='EndofMonth_Total_Loss_Market_capitalization'? value = value/1000000+"M$":value;
+	        	   return value;
+	           }
+	        }
+		},
 
 	});
 }
