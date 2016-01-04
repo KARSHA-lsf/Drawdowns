@@ -98,6 +98,13 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
 					</ul>
+					
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Loss Market Capitalization</h4>
+							<div id="multihistogram"></div>
+					</div>
+					
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
 						<div class="row">
@@ -120,12 +127,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							Index drowdown
 							</h4>
 							<div id="barIndex"></div>
-							</div>
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Loss Market Capitalization</h4>
-							<div id="multihistogram"></div>
-							</div>
+					</div>
+					
 					<div id="dialog" title="Basic Dialog">
 									<div id="permhistory"></div>
 						</div>
