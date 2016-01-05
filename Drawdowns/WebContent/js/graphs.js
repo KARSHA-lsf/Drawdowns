@@ -157,7 +157,13 @@ function drawIndex(json_ary) {
 }
 
 function drawLossMcGraph(jsd) {
-	console.log(jsd);
+	//console.log(jsd);
+	var index_vw_max=Math.abs(Math.max.apply(Math,jsd.Index_VW_Return));
+    var index_vw_min=Math.abs(Math.min.apply(Math,jsd.Index_VW_Return));
+    var index_drawdown_max=Math.abs(Math.max.apply(Math,jsd.Index_Drawdown));
+    var index_drawdown_min=Math.abs(Math.min.apply(Math,jsd.Index_Drawdown));
+    var maxvalue=Math.max(index_drawdown_max,index_drawdown_min,index_vw_max,index_vw_min);
+    
 	var chart4 = c3.generate({
 		bindto : '#multihistogram',
 		padding : {
@@ -227,15 +233,15 @@ function drawLossMcGraph(jsd) {
 			},
 			y2 : {
 				// ////////// inverted: false,
-				min : -110,
-				max : 110,
+				min : -maxvalue,
+				max : maxvalue,
 				padding : {
 					top : 10,
 					bottom : 0
 				},
 				tick : {
 					format : function(d) {
-						return d + "%";
+						return d;
 					},
 
 				},
