@@ -45,7 +45,6 @@ public JsonObject Index_vw_return() {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-
 			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()/100000);
 			dates.add(results.get(i).getCrsp_date());
 		}
