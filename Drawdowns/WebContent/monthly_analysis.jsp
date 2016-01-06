@@ -23,6 +23,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
 	});
+	
 </script>
 
 <style type="text/css">
@@ -93,13 +94,14 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					</ul>
 
 				</div>
+				
 
 			</div>
 
 			<div class="span10"
 				style="border: 1px solid LightSeaGreen; background-color: white; margin-left: 10px;">
 				<div>
-
+<div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
 					<div id="tabs">
 						<ul>
 
@@ -115,6 +117,16 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								}
 							%>
 						</ul>
+						
+						<div class="row">
+							<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Loss Market Capitalization : 
+							<%=request.getParameter("Q")%></h4>
+							<div id="multihistogram"></div>
+							</div>
+						</div>
+						
 						<%
 							for (int j = 0; j < 13; j++) {
 								String tab = "tab" + j;
@@ -157,14 +169,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							<div id="barIndex"></div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Loss Market Capitalization : 
-							<%=request.getParameter("Q")%></h4>
-							<div id="multihistogram"></div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 
@@ -181,6 +186,12 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	
 	$(window).ready(
 			function() {
+				$(document).ajaxStart(function(){
+			        $("#loading").css("display", "block");
+			    });
+			    $(document).ajaxComplete(function(){
+			        $("#loading").css("display", "none");
+			    });
 				draw_indexdata();
 				draw_cumulativeGraph();
 			});
