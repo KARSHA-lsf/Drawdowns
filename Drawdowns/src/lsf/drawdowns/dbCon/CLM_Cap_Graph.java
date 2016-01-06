@@ -46,11 +46,10 @@ public JsonObject Index_vw_return() {
 					
 		int listsize = results.size();
 		for (int i = 0; i < listsize; i++) {
-
-			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()* 1000000);
+			Mkt_Cap.add(results.get(i).getCrsp_ret() * results.get(i).getCrsp_value()/100000);
 			dates.add(results.get(i).getCrsp_date());
 		}
-		double min = Mkt_Cap.get(0);
+		/*double min = Mkt_Cap.get(0);
 	    double max = min;
 	    int length = Mkt_Cap.size();
 	    for (int i = 1; i < length; i++) {
@@ -64,13 +63,15 @@ public JsonObject Index_vw_return() {
 		for (int i = 0; i < listsize; i++) {
 			Mkt_Cap_percentage.add(Mkt_Cap.get(i)*100/T_value);
 			
-		}
+		}*/
 		 
 		Gson gson = new Gson();
 		JsonObject J_obj = new JsonObject();
-		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap_percentage);
+		//JsonElement returnvalue = gson.toJsonTree(Mkt_Cap_percentage);
+		//JsonElement Rdates = gson.toJsonTree(dates);
+		JsonElement returnvalue = gson.toJsonTree(Mkt_Cap);
 		JsonElement Rdates = gson.toJsonTree(dates);
-
+		
 		try {
 			J_obj.add("ReturnValue", returnvalue);
 			J_obj.add("dates", Rdates);
@@ -78,7 +79,7 @@ public JsonObject Index_vw_return() {
 			
 			e.printStackTrace();
 		}
-		
+		System.out.println("=D=D   "+J_obj);
 		return J_obj;
 
 	}
@@ -380,6 +381,7 @@ public JsonObject Index_vw_return() {
 		}catch(SQLException | JSONException ex){
 			ex.printStackTrace();
 		}
+	
 		return obj;
 		
 	}

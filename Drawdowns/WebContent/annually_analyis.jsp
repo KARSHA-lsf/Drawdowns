@@ -132,7 +132,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							<h4 class="page-header">
 							Loss Market Capitalization</h4>
 							<div id="multihistogram"></div>
-							</div>
+					</div>
 					<div id="dialog" title="Basic Dialog">
 									<div id="permhistory"></div>
 						</div>
