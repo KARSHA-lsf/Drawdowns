@@ -57,9 +57,6 @@ public class adminSrvlt extends HttpServlet {
 	//	cummulativeLoassMakt();
 			end_of_month_LMC();
 
-				//test_blue_bar_calculation();
-			
-			
 	}
 
 	
@@ -231,7 +228,7 @@ public class adminSrvlt extends HttpServlet {
 		return eofvalue;
 	}
 	*/
-
+/*
 	private ArrayList<String> getEndOfMonthDates(ResultSet rset) {
 		ArrayList<String> edate = new ArrayList<>();
 		String[] eofdate = new String[1000];
@@ -268,7 +265,8 @@ public class adminSrvlt extends HttpServlet {
 		}
 		return edate;
 	}
-
+*/
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -441,57 +439,6 @@ public class adminSrvlt extends HttpServlet {
 			tx.commit();
 			session.close();
 		}
-		/*
-		private void test_blue_bar_calculation() throws ParseException {
-			// TODO Auto-generated method stub
-		//	String sql ="SELECT SUM(x.rmc) FROM (SELECT a.permno,a.yrmo,(a.value1*b.value1) as rmc FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo=201501) a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo = 201501) b ON a.permno = b.permno) x INNER JOIN  (SELECT DISTINCT(PERMNO_date) FROM capm_drawdowns_date WHERE DATE(CAPM_resid_date) BETWEEN '2014-12-16' AND '2015-01-15' ORDER BY CAPM_resid_date ) y ON x.permno = y.PERMNO_date";
-			
-			SessionFactory SFact = new Configuration().configure().buildSessionFactory();
-			Session session = SFact.openSession();
-			session.beginTransaction();
-			
-			db_connections db_con = new db_connections();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			ArrayList<String> indexDates = get_index_dates();
-			ArrayList<Double> endOfMonthVales = new ArrayList<Double>();
-			ArrayList<String> endOFMonthDates = new ArrayList<String>();
-			ArrayList<Double> endOfMonthVales_top_ten = new ArrayList<Double>();
-			ArrayList<String> endOFMonthDates_top_ten = new ArrayList<String>();
-			
-		//	ArrayList<Double> cumulative_LMC_top_ten_values = new ArrayList<Double>();
-		//	ArrayList<String> cumulative_LMC_top_ten_date = new ArrayList<String>();
-			
-			for (int i = 0; i < indexDates.size()-1; i++) {
-					String d1temp = indexDates.get(i);
-					 Calendar c = Calendar.getInstance();
-					 c.setTime(dateFormat.parse(d1temp));
-					 c.add(Calendar.DATE, 1);
-					 String d1 =  dateFormat.format(c.getTime());
-					String d2 = indexDates.get(i+1);
-					String[] parts = d2.split("-");
-					int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
-
-					String sql_LMC ="SELECT SUM(LOSSMcap) FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid";
-					
-					try {
-						Date eDate = dateFormat.parse(d2);
-						Calendar calendar = Calendar.getInstance();
-				        calendar.setTime(eDate);
-				        calendar.add(Calendar.MONTH, 1);
-				        calendar.set(Calendar.DAY_OF_MONTH, 1);
-				        calendar.add(Calendar.DATE, -1);
-				        Date lastDayOfMonth = calendar.getTime();
-				        
-						ResultSet rset_lmc_top_ten = db_con.selectData(sql_LMC);
-						if(rset_lmc_top_ten.next()){
-							System.out.println(rset_lmc_top_ten.getDouble("SUM(LOSSMcap)")+" date "+dateFormat.format(lastDayOfMonth));
-							
-						}
-						
-					} catch (SQLException | ParseException e) {
-						e.printStackTrace();
-					}
-			}
-			session.getTransaction().commit();
-		}*/
+		
+		
 }
