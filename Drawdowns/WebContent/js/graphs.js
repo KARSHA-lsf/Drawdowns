@@ -218,11 +218,11 @@ function drawLossMcGraph(jsd) {
 				}
 			},
 			y : {
-				min : -1100000000,
-				max : 1100000000,
+				min : -1200000000,
+				max : 1200000000,
 				padding : {
 					top : 10,
-					bottom : 0
+					bottom : 10
 				},
 				tick : {
 					format : function(d) {
@@ -233,15 +233,15 @@ function drawLossMcGraph(jsd) {
 			},
 			y2 : {
 				// ////////// inverted: false,
-				min : -maxvalue,
-				max : maxvalue,
+				min : -0.3,
+				max : 0.3,
 				padding : {
 					top : 10,
-					bottom : 0
+					bottom : 10
 				},
 				tick : {
 					format : function(d) {
-						return d;
+						return d.toFixed(2);
 					},
 
 				},
@@ -322,11 +322,11 @@ function drawLossMcGraphTopTen(jsd) {
 				}
 			},
 			y : {
-				min : -1000000000,
-				max : 1000000000,
+				min : -1200000000,
+				max : 1200000000,
 				padding : {
 					top : 10,
-					bottom : 0
+					bottom : 10
 				},
 				tick : {
 					format : function(d) {
@@ -337,15 +337,15 @@ function drawLossMcGraphTopTen(jsd) {
 			},
 			y2 : {
 				// ////////// inverted: false,
-				min : -maxvalue,
-				max : maxvalue,
+				min : -0.3,
+				max : 0.3,
 				padding : {
 					top : 10,
-					bottom : 0
+					bottom : 10
 				},
 				tick : {
 					format : function(d) {
-						return d;
+						return d.toFixed(2);
 					},
 
 				},
