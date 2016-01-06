@@ -35,7 +35,8 @@ public class CLM_Cap_Graph extends IndexSrvlt {
 public JsonObject Index_vw_return() {
 		
 		String sql = "SELECT * FROM crsp_valueweightedreturns WHERE Crsp_date like '" + request.getParameter("Q") + "%'";
-		SQLQuery vw = session.createSQLQuery(sql);
+	
+	    SQLQuery vw = session.createSQLQuery(sql);
 		vw.addEntity(CRSP_ValueWeightedReturns.class);
 		@SuppressWarnings("unchecked")
 		List<CRSP_ValueWeightedReturns> results = vw.list();
@@ -384,6 +385,7 @@ public JsonObject Index_vw_return() {
 	}
 	public JsonObject Perm_History_Method(){
 		String sql = "SELECT CAPM_resid_D,CAPM_resid FROM sys_scatter_plot  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
+		
 		SQLQuery q = session.createSQLQuery(sql);
 		
 		List<String> Lidate = new ArrayList<>();
