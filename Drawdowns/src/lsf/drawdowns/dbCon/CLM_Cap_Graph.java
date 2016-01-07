@@ -265,7 +265,7 @@ public JsonObject Index_vw_return() {
 		}
 		return obj;
 	}
-	public JSONObject eofMonthLMC(){
+public JSONObject eofMonthLMC(){
 		
 		String query = "select * from Sys_CLM_EndofMonthLMC where lmcdate like '%"+request.getParameter("Q")+"%'";
 		

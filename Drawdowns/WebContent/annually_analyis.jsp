@@ -99,40 +99,42 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
 					</ul>
-					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
-					<div id="<%=tab%>">
-						<div class="row">
-						<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<div id="scatter_plot<%=i%>"></div>
-						</div>
-						</div>
-						<script type="text/javascript">
-							$("#ta<%=i%>").click(function(){
-								tab =<%=i%>;
-								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
-								draw_indexdata(tab);
-								draw_cumulativeGraph(tab);
-							});
-						</script>
-					</div>
-					<% } %>
-					<div class="butt" style="margin: 30px 30px 30px">
-					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
-					</div>
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Index drowdown
-							</h4>
-							<div id="barIndex"></div>
-							</div>
-							<div class="butt" style="margin: 30px 30px 30px">
-					<button type="button" class="btn btn-info" onclick="draw_cumulativeGraph(tab)">Show Loss Market Capitalization</button>
-					</div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Loss Market Capitalization</h4>
 							<div id="multihistogram"></div>
 					</div>
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="drw_filtered_SCAT(tab,Dr_value,LossMcap_value)">Draw Scatter Plot</button>
+					</div>
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
+					</div>
+					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
+					<div id="<%=tab%>">
+						<div class="row">
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<div id="scatter_plot<%=i%>"></div>
+						
+						</div>
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Index drowdown
+							</h4>
+							<div id="barIndex"></div>
+							</div>
+						</div>
+						<script type="text/javascript">
+							$("#ta<%=i%>").click(function(){
+								tab =<%=i%>;
+								draw_cumulativeGraph(tab);
+								
+							});
+						</script>
+					</div>
+					<% } %>
+						
+				
 					<div id="dialog" title="Basic Dialog">
 									<div id="permhistory"></div>
 						</div>
@@ -250,9 +252,9 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					 
 					
 					
-					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					//drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
-					//draw_cumulativeGraph(2004);
+					draw_cumulativeGraph(2004);
 			});
 		
 	</script> 
