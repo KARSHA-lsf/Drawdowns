@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,6 +68,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					</div>
 				</div>
 				<div class="span3">
+				
 					<br>
 						<div class="col-sm-3">
 							Drawdown Value Top : <span id="Dr_value"  style="font-weight:bold;"></span>
@@ -77,6 +77,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							<div id="Dr_slider"></div>
 						</div>
 				</div>
+				
 				<div class="span3">
 					<br>
 						<!-- <div class="col-sm-3">
@@ -172,7 +173,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					 		'#scatter_plot'+tab);
 					}
 					function draw_indexdata(year){
-						document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>"';
+						document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>';
 						var urlindex = "indexData?Q="+year;
 						$.ajax({
 				            type: 'GET',
@@ -234,7 +235,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				    });
 					$("#Dr_value").text(Dr_value+ " %");
 					$("#LossMcap_value").text(LossMcap_value+ " %");
-					  $(function() {
+				 	  $(function() {
 					    $( "#Dr_slider" ).slider({
 					    		min:1,
 					    		max:50,
@@ -243,8 +244,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					                $( "#Dr_value" ).text( ui.value + " %" );
 					                Dr_value=ui.value;
 					                draw_me(data_init);
-					             }}			
-					   	);
+					             }}		
+					   	); 
 					    $( "#LossMcap_slider" ).slider({
 					    	max:50,
 					    	min:1,
@@ -255,7 +256,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					         }		
 					    });
 					    
-					  });
+					  }); 
 					 
 					
 					
@@ -263,6 +264,22 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004);
 			});
+		
+		
+		
+		/* function slider(){
+				    $( "#Dr_slider" ).slider({
+				    		min:1,
+				    		max:50,
+				    		value:Dr_value,
+				    		slide: function( event, ui ) {
+				                $( "#Dr_value" ).text( ui.value + " %" );
+				                Dr_value=ui.value;
+				                draw_me(data_init);
+				             }}			
+				   	);
+			
+		} */
 		
 	</script> 
 	
