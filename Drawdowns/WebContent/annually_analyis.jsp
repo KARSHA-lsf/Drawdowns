@@ -107,13 +107,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
 					</ul>
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-<<<<<<< HEAD
-							Loss Market Capitalization</h4>
-=======
-							</h4>
-							<!-- loss market ca -->
+					
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
 								<h4 class="page-header">Loss Market Capitalization</h4>		
 						
@@ -140,7 +134,6 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						</div>
 							
 							
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 							<div id="multihistogram"></div>
 					</div>
 					<div class="butt" style="margin: 30px 30px 30px">
@@ -179,16 +172,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						document.getElementById("P1"+tab).innerHTML = '<div><h4 class="page-header"> Scatter Plot</h4>'
-<<<<<<< HEAD
-								
-=======
-						
-							
-						
-												
-					
-				
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
 						var urlscatter = "GetAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
 						//console.log(urlscatter);
@@ -215,11 +199,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					 		'#scatter_plot'+tab);
 					}
 					function draw_indexdata(year){
-<<<<<<< HEAD
+
 						document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>';
-=======
-						document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>"';
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 						var urlindex = "indexData?Q="+year;
 						$.ajax({
 				            type: 'GET',
