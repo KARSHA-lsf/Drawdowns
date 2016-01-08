@@ -243,7 +243,7 @@ function drawLossMcGraph(jsd,status) {
 						return d / 1000000;
 					},
 				},
-				label : 'Loss Market Capitalization - millions'
+				label : 'Loss Market Capitalization - millions $'
 			},
 			y2 : {
 				// ////////// inverted: false,
@@ -269,7 +269,16 @@ function drawLossMcGraph(jsd,status) {
 			},
 			
 		},
-
+		tooltip: {
+	        format: {
+	           value: function (value, ratio, id) {
+	        	   var formatMeA = id === 'Index_VW_Return' ? value = (value*100000).toFixed(2)+"M$":
+	        		   id === 'Cumulative_Loss_Market_capitalization'||id==='EndofMonth_Total_Loss_Market_capitalization'? value = (value/1000000).toFixed(2)+"M$":
+	        			   id==='Index_Drawdown' ? value = value.toFixed(4):value;
+	        	   return value;
+	           }
+	        }
+		},
 	});
 }
 
@@ -362,7 +371,7 @@ function drawLossMcGraphTopTen(jsd,status) {
 						return d / 1000000;
 					},
 				},
-				label : 'Loss Market Capitalization - millions'
+				label : 'Loss Market Capitalization - millions $'
 			},
 			y2 : {
 				// ////////// inverted: false,
@@ -397,8 +406,9 @@ function drawLossMcGraphTopTen(jsd,status) {
 		tooltip: {
 	        format: {
 	           value: function (value, ratio, id) {
-	        	   var formatMeA = id === 'Index_VW_Return' ? value = value*100000+"M$":
-	        		   id === 'Cumulative_Loss_Market_capitalization'||id==='EndofMonth_Total_Loss_Market_capitalization'? value = value/1000000+"M$":value;
+	        	   var formatMeA = id === 'Index_VW_Return' ? value = (value*100000).toFixed(2)+"M$":
+	        		   id === 'Cumulative_Loss_Market_capitalization'||id==='EndofMonth_Total_Loss_Market_capitalization'? value = (value/1000000).toFixed(2)+"M$":
+	        			   id==='Index_Drawdown' ? value = value.toFixed(4):value;
 	        	   return value;
 	           }
 	        }
