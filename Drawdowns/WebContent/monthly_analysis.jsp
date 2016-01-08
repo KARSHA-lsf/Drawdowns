@@ -105,6 +105,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<div id="tabs">
 						<ul>
 
+							
+						
 							<%
 								for (int i = 0; i < 13; i++) {
 									String tab = "#tab" + i;
@@ -119,13 +121,15 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						</ul>
 						
 						<div class="row">
-							<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Loss Market Capitalization : 
-							<%=request.getParameter("Q")%></h4>
-							<div id="multihistogram"></div>
-							</div>
+								<div class="col-lg-12" style="margin: 30px 30px 30px">
+									<h4 class="page-header">
+										Loss Market Capitalization : 
+										<%=request.getParameter("Q")%></h4>
+								<div id="multihistogram"></div>
+								</div>
 						</div>
+						
+						
 						
 						<%
 							for (int j = 0; j < 13; j++) {
@@ -192,7 +196,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 			    $(document).ajaxComplete(function(){
 			        $("#loading").css("display", "none");
 			    });
-				draw_indexdata();
+				//draw_indexdata();
 				draw_cumulativeGraph();
 			});
 	function draw_scatter(year,month,bindTo){

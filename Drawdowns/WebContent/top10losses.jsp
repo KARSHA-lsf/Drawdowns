@@ -9,8 +9,7 @@
 <meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
@@ -23,8 +22,8 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+<link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 
 <script>
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
@@ -124,7 +123,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
    				 			      //console.log( "kkkkk "+$(this).prop('checked'));
    				 			      if($(this).prop('checked')){
    				 			    	draw_cumulativeGraph(tab,"G");
-   				 			    	//console.log(tab);
+   				 			    	console.log("G");
    				 			      }
    				 			      else{
    				 			    	draw_cumulativeGraph(tab,"L");
