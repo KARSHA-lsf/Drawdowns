@@ -72,7 +72,6 @@ public class IndexSrvlt extends HttpServlet {
 		String userPath = request.getServletPath();
 
 		PrintWriter pwr = response.getWriter();
-		
 
 		if (userPath.equals("/dataGet")) {
 			pwr.print(clm_grp.dataget_method());
