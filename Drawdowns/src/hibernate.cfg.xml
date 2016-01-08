@@ -10,45 +10,9 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   <property name="show_sql">true</property>
 
-  <mapping class="model.CaafDrawdownend"/>
-  <mapping class="model.CaafDrawdownendId"/>
-  <mapping class="model.CaafDrawdowns"/>
-  <mapping class="model.CaafDrawdownsId"/>
-  <mapping class="model.CaafMarketcapitalization"/>
-  <mapping class="model.CaafMarketcapitalizationId"/>
-  <mapping class="model.CaafPeakToTrough"/>
-  <mapping class="model.CaafPeakToTroughId"/>
-  <mapping class="model.CaafPeakToTroughEnd"/>
-  <mapping class="model.CaafPeakToTroughEndId"/>
-  <mapping class="model.CaafPeakToTroughStart"/>
-  <mapping class="model.CaafPeakToTroughStartId"/>
-  <mapping class="model.CaafReturns"/>
-  <mapping class="model.CaafReturnsId"/>
-  <mapping class="model.CaafRv"/>
-  <mapping class="model.CaafRvId"/>
-  <mapping class="model.CaafTurnover"/>
-  <mapping class="model.CaafTurnoverId"/>
-  <mapping class="model.CapmDrawdownsDate"/>
-  <mapping class="model.CapmDrawdownsDateId"/>
-  <mapping class="model.CapmDrawdownsResults"/>
-  <mapping class="model.CapmDrawdownsResultsId"/>
-  <mapping class="model.CapmPttEndDates"/>
-  <mapping class="model.CapmPttEndDatesId"/>
-  <mapping class="model.CapmPttResults"/>
-  <mapping class="model.CapmPttResultsId"/>
-  <mapping class="model.CapmPttStartDates"/>
-  <mapping class="model.CapmPttStartDatesId"/>
-  <mapping class="model.Sys_CLM_EndofMonthLMC"/>
   <mapping class="model.Sys_CLM_CumulativeLMC"/>
   <mapping class="model.Drawdown"/>
-
   <mapping class="model.CRSP_ValueWeightedReturns"/>
-
-
-  <mapping class="model.cummulative"/>
-
-
-  <mapping class="model.cummulative"/>
   <mapping class="model.Sys_CLM_EndofMonthLMC"/>
   <mapping class="model.Sys_CLM_EndofMonthLMC_top_ten"/>
 
