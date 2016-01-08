@@ -259,13 +259,28 @@ function drawLossMcGraph(jsd) {
 	});
 }
 
-function drawLossMcGraphTopTen(jsd) {
+function drawLossMcGraphTopTen(jsd,status) {
 	
-    var index_vw_max=Math.abs(Math.max.apply(Math,jsd.Index_VW_Return));
-    var index_vw_min=Math.abs(Math.min.apply(Math,jsd.Index_VW_Return));
-    var index_drawdown_max=Math.abs(Math.max.apply(Math,jsd.Index_Drawdown));
-    var index_drawdown_min=Math.abs(Math.min.apply(Math,jsd.Index_Drawdown));
-    var maxvalue=Math.max(index_drawdown_max,index_drawdown_min,index_vw_max,index_vw_min);
+	var value;
+	var valuey;
+	if(status=="L"){
+		value=0.3;
+		valuey=1200000000;
+	}
+	else{
+		var index_vw_max=Math.abs(Math.max.apply(Math,jsd.Index_VW_Return));
+	    var index_vw_min=Math.abs(Math.min.apply(Math,jsd.Index_VW_Return));
+	    var index_drawdown_max=Math.abs(Math.max.apply(Math,jsd.Index_Drawdown));
+	    var index_drawdown_min=Math.abs(Math.min.apply(Math,jsd.Index_Drawdown));
+	    value=Math.max(index_drawdown_max,index_drawdown_min,index_vw_max,index_vw_min);
+	    
+	    var EofLmc_max=Math.abs(Math.max.apply(Math,jsd.EndofMonth_Total_Loss_Market_capitalization));
+	    var EofLmc_min=Math.abs(Math.min.apply(Math,jsd.EndofMonth_Total_Loss_Market_capitalization));
+	    var CLmc_max=Math.abs(Math.max.apply(Math,jsd.Cumulative_Loss_Market_capitalization));
+	    var CLmc_drawdown_min=Math.abs(Math.min.apply(Math,jsd.Cumulative_Loss_Market_capitalization));
+	    valuey=Math.max(EofLmc_max,EofLmc_min,CLmc_max,CLmc_drawdown_min);
+	}
+    
    
 	var chart4 = c3.generate({
 		bindto : '#multihistogram',
@@ -322,8 +337,8 @@ function drawLossMcGraphTopTen(jsd) {
 				}
 			},
 			y : {
-				min : -1200000000,
-				max : 1200000000,
+				min : -1*valuey,
+				max : valuey,
 				padding : {
 					top : 10,
 					bottom : 10
@@ -337,8 +352,8 @@ function drawLossMcGraphTopTen(jsd) {
 			},
 			y2 : {
 				// ////////// inverted: false,
-				min : -0.3,
-				max : 0.3,
+				min : -1*value,
+				max : value,
 				padding : {
 					top : 10,
 					bottom : 10
