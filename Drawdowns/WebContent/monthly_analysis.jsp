@@ -118,14 +118,6 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							%>
 						</ul>
 						
-						<div class="row">
-							<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Loss Market Capitalization : 
-							<%=request.getParameter("Q")%></h4>
-							<div id="multihistogram"></div>
-							</div>
-						</div>
 						
 						<%
 							for (int j = 0; j < 13; j++) {
@@ -133,11 +125,15 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						%>
 						
 						<div id="<%=tab%>">
+						<div class="row">
+								<div class="col-lg-12" style="margin: 30px 30px 30px">
+									<div id="multihistogram"></div>
+  								</div>	
+							</div>
 							<div class="row">
 								<div class="col-lg-12" style="margin: 30px 30px 30px">
 									<div id="scatter_plot<%=j%>"></div>
-  								</div>
-  								
+  								</div>	
 							</div>
 							
 							<script type="text/javascript">
@@ -146,8 +142,8 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								m =<%=j%>;
 								b = '#scatter_plot'+<%=j%>;
 								console.log(y,m,b);
-								if (m<1) {
-									
+								if (m<1) {	
+									draw_cumulativeGraph();
 								}else{
 									draw_scatter(y,m,b);
 								}
@@ -161,14 +157,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<div id="dialog" title="Basic Dialog">
 									<div id="permhistory"></div>
 						</div>
-						<div class="row">
-							<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Index drowdown for year
-							<%=request.getParameter("Q")%></h4>
-							<div id="barIndex"></div>
-							</div>
-						</div>
+						
 						
 					</div>
 				</div>
@@ -192,7 +181,6 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 			    $(document).ajaxComplete(function(){
 			        $("#loading").css("display", "none");
 			    });
-				draw_indexdata();
 				draw_cumulativeGraph();
 			});
 	function draw_scatter(year,month,bindTo){
@@ -213,26 +201,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						async : false
 					});
 		}
-	function draw_indexdata(){
-		var urlindex = "indexData?Q="+"<%=request.getParameter("Q")%>";
-		$.ajax({
-            type: 'GET',
-            url: urlindex,
-            dataType: 'json',
-            success: function (data) {
-            	
-           	//console.log(data);
-           	
-           	drawIndex(data);
-            },
-            
-            error: function (data,
-                    error) {
-            	console.log(error);
-            },
-            async: false
-        });
-	}
+
 	function draw_cumulativeGraph(){
 		var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>&T=all";
 		$.ajax({
@@ -243,7 +212,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
             	
            	//console.log(data);
            	
-           	drawLossMcGraph(data);
+           	drawLossMcGraph(data,"G");
            	
             },
             
