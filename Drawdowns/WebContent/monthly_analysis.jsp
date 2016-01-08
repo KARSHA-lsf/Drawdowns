@@ -194,14 +194,12 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							var Ready_output = sccaterPlot_dataPreprocess(data);
 							drawScatterPlot( Ready_output,year,month,bindTo );
 						},
-
 						error : function(data, error) {
 							console.log(error);
 						},
 						async : false
 					});
 		}
-
 	function draw_cumulativeGraph(){
 		var x = "test_getSet?Q="+"<%=request.getParameter("Q")%>&T=all";
 		$.ajax({
@@ -261,4 +259,3 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	<script src="js/jquery-ui.js"></script>
 </body>
 </html>
-
