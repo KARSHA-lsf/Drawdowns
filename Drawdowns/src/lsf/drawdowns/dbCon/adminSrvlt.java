@@ -55,13 +55,44 @@ public class adminSrvlt extends HttpServlet {
 
 	//	eoflossmc();
 	//	cummulativeLoassMakt();
-			end_of_month_LMC();
+	//		end_of_month_LMC();
 
-				//test_blue_bar_calculation();
+			showDistinctPermno_forBlueBar();
 			
 			
 	}
 
+	private void showDistinctPermno_forBlueBar(){
+		db_connections db_con = new db_connections();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<String> indexDates = get_index_dates();
+		ArrayList<Integer> endOfMonthVales = new ArrayList<Integer>();
+		System.out.println("yrmo,distintPermnoCount");
+		for (int i = 0; i < indexDates.size()-1; i++) {
+			String d1temp = indexDates.get(i);
+			Calendar c = Calendar.getInstance();
+			try {
+				c.setTime(dateFormat.parse(d1temp));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			c.add(Calendar.DATE, 1);
+			String d1 =  dateFormat.format(c.getTime());
+			String d2 = indexDates.get(i+1);
+			String[] parts = d2.split("-");
+			int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
+			String sql = "SELECT COUNT(DISTINCT(PERMNO)) FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"'";
+			
+			try {
+				ResultSet rset =  db_con.selectData(sql);
+				if (rset.next()) {
+					System.out.println(yrmo+","+rset.getString("COUNT(DISTINCT(PERMNO))"));
+				} 
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	private void end_of_month_LMC() {
 		// TODO Auto-generated method stub
