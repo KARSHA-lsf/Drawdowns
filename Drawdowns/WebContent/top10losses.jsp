@@ -9,8 +9,7 @@
 <meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
@@ -23,8 +22,8 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+<link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 
 <script>
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
@@ -124,7 +123,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
    				 			      //console.log( "kkkkk "+$(this).prop('checked'));
    				 			      if($(this).prop('checked')){
    				 			    	draw_cumulativeGraph(tab,"G");
-   				 			    	//console.log(tab);
+   				 			    	console.log("G");
    				 			      }
    				 			      else{
    				 			    	draw_cumulativeGraph(tab,"L");
@@ -136,40 +135,42 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 												
 						<div id="multihistogram"></div>					
 					</div>
-					<div class="butt" style="margin: 30px 30px 30px">
-					<button type="button" class="btn btn-info" onclick="drw_filtered_SCAT(tab,Dr_value,LossMcap_value)">Draw Scatter Plot</button>
-					</div>	
+							
 		
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
-						
-						<div id="P1<%=i%>"></div>
 						<div class="row">
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="scatter_plot<%=i%>"></div>
-						<div class="butt">
-					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
-					</div>
-						<div id="P2<%=i%>"></div>
-						<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<div id="barIndex<%=i%>"></div>
-							</div>
+							
+<!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
 						</div>
 						</div>
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
-							tab =<%=i%>;
-							draw_cumulativeGraph(tab);
-							
-						});
-					</script>
+								tab =<%=i%>;
+								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								draw_indexdata(tab);
+								draw_cumulativeGraph(tab);
+							});
+						</script>
 					</div>
 					<% } %>  
+					
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
+					</div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Index drowdown
+							</h4>
+							<div id="barIndex"></div>
+					</div>
+					 
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
-						document.getElementById("P1"+tab).innerHTML = '<div><h4 class="page-header"> Scatter Plot</h4>';
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
 						var urlscatter = "TopLossesAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
 						//console.log(urlscatter);
@@ -239,12 +240,11 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					  });
 					 
 					
-					//drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 			});
 		function draw_indexdata(year){
-			document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>';
 			var urlindex = "indexData?Q="+year;
 			$.ajax({
 	            type: 'GET',
@@ -254,7 +254,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            	
 	           	//console.log(data);
 	           	
-	            	drawIndextab(data,year);
+	           	drawIndex(data);
 	            },
 	            
 	            error: function (data,
