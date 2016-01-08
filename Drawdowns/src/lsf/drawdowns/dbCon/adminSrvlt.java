@@ -92,6 +92,30 @@ public class adminSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		/*
+		for (int i = 0; i < indexDates.size()-1; i++) {
+			String d1temp = indexDates.get(i);
+			Calendar c = Calendar.getInstance();
+			try {
+				c.setTime(dateFormat.parse(d1temp));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			c.add(Calendar.DATE, 1);
+			String d1 =  dateFormat.format(c.getTime());
+			String d2 = indexDates.get(i+1);
+			String[] parts = d2.split("-");
+			int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
+			String sql = "SELECT LEFT(x.PERMNO,2),COUNT(LEFT(x.PERMNO,2))  from (SELECT DISTINCT(PERMNO) FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"') x GROUP BY LEFT(x.PERMNO,2)";
+			try {
+				ResultSet rset =  db_con.selectData(sql);
+				if (rset.next()) {
+					System.out.println(yrmo+","+rset.getString("LEFT(x.PERMNO,2)")+","+rset.getString("COUNT(LEFT(x.PERMNO,2))"));
+				} 
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}*/
 	}
 	
 	private void end_of_month_LMC() {
