@@ -8,6 +8,9 @@
 <head>
 <meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
+
+
+
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
@@ -18,6 +21,10 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+
+<link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-toggle.min.js"></script>
+
 <script>
 var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
@@ -99,45 +106,80 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
 					</ul>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							</h4>
+							<!-- loss market ca -->
+							<div class="col-lg-12" style="margin: 30px 30px 30px">
+								<h4 class="page-header">Loss Market Capitalization</h4>		
+						
+								<div class="col-lg-12" style="margin: 30px 30px 30px">
+									<input type="checkbox" id="button1" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="25">				
+									<script>
+  									$(function() {
+   				 						$('#button1').bootstrapToggle({
+      										on: 'Enabled',
+      										off: 'Disabled'
+    									});
+   				 					$('#button1').change(function() {
+   				 			      	//console.log( "kkkkk "+$(this).prop('checked'));
+   				 			      	if($(this).prop('checked')){
+   				 			      		draw_cumulativeGraph(tab,"G");
+   				 			    	//console.log(tab);
+   				 			      	}
+   				 			      	else{
+   				 			      		draw_cumulativeGraph(tab,"L");
+   				 			      	}
+   				 			    	})
+  								})
+							</script>
+						</div>
+							
+							
+							<div id="multihistogram"></div>
+					</div>
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="drw_filtered_SCAT(tab,Dr_value,LossMcap_value)">Draw Scatter Plot</button>
+					</div>
+												
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
+						<div id="P1<%=i%>"></div>
 						<div class="row">
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="scatter_plot<%=i%>"></div>
+						<div class="butt">
+					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
+					</div>
+						<div id="P2<%=i%>"></div>
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<div id="barIndex<%=i%>"></div>
+							</div>
 						</div>
 						</div>
 						<script type="text/javascript">
 							$("#ta<%=i%>").click(function(){
 								tab =<%=i%>;
-								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
-								draw_indexdata(tab);
 								draw_cumulativeGraph(tab);
+								
 							});
 						</script>
 					</div>
 					<% } %>
-					<div class="butt" style="margin: 30px 30px 30px">
-					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
-					</div>
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Index drowdown
-							</h4>
-							<div id="barIndex"></div>
-							</div>
-							<div class="butt" style="margin: 30px 30px 30px">
-					<button type="button" class="btn btn-info" onclick="draw_cumulativeGraph(tab)">Show Loss Market Capitalization</button>
-					</div>
-					<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<h4 class="page-header">
-							Loss Market Capitalization</h4>
-							<div id="multihistogram"></div>
-					</div>
+														
+				
 					<div id="dialog" title="Basic Dialog">
 									<div id="permhistory"></div>
 						</div>
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
+						document.getElementById("P1"+tab).innerHTML = '<div><h4 class="page-header"> Scatter Plot</h4>'
+						
+							
+						
+												
+					
+				
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
 						var urlscatter = "GetAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
 						//console.log(urlscatter);
@@ -164,6 +206,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					 		'#scatter_plot'+tab);
 					}
 					function draw_indexdata(year){
+						document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>"';
 						var urlindex = "indexData?Q="+year;
 						$.ajax({
 				            type: 'GET',
@@ -173,7 +216,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				            	
 				           	//console.log(data);
 				           	
-				           	drawIndex(data);
+				           	drawIndextab(data,year);
 				            },
 				            
 				            error: function (data,
@@ -183,7 +226,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				            async: false
 				        });
 					}
-					function draw_cumulativeGraph(year){
+					function draw_cumulativeGraph(year,status){
 						var x = "test_getSet?Q="+year+"&T=top10Percent";
 						$.ajax({
 				            type: 'GET',
@@ -193,7 +236,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				            	
 				           	//console.log(data);
 				           	
-				           	drawLossMcGraph(data);
+				           	drawLossMcGraph(data,status);
 				           	
 				            },
 				            
@@ -250,9 +293,9 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					 
 					
 					
-					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					//drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
-					//draw_cumulativeGraph(2004);
+					draw_cumulativeGraph(2004);
 			});
 		
 	</script> 
