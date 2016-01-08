@@ -83,7 +83,6 @@ public class IndexSrvlt extends HttpServlet {
 			pwr.print(clm_grp.summarydata_method());
 			
 		} else if (userPath.equals("/indexData")) {
-			System.out.println(clm_grp.indexdata_method());
 			pwr.print(clm_grp.indexdata_method());
 			
 		}
