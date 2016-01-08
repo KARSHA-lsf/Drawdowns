@@ -141,12 +141,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						document.getElementById("P1"+tab).innerHTML = '<div><h4 class="page-header"> Scatter Plot</h4>'
-						
-							
-						
-												
-					
-				
+								
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
 						var urlscatter = "GetAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
 						//console.log(urlscatter);
