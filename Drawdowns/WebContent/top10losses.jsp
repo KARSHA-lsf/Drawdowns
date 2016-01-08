@@ -8,6 +8,9 @@
 <head>
 <meta charset="utf-8">
 <title>KARSHA-Drawdowns</title>
+
+
+
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
@@ -15,9 +18,12 @@
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
-<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery-1.10.2.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
+
+<link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 
 <script>
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
@@ -102,6 +108,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<% } %>
 					</ul>
 					
+<<<<<<< HEAD
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Loss Market Capitalization</h4>
@@ -110,12 +117,44 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					<div class="butt" style="margin: 30px 30px 30px">
 					<button type="button" class="btn btn-info" onclick="drw_filtered_SCAT(tab,Dr_value,LossMcap_value)">Draw Scatter Plot</button>
 					</div>
+=======
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<h4 class="page-header">Loss Market Capitalization</h4>		
+						
+						<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<input type="checkbox" id="button1" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="25">				
+							<script>
+  								$(function() {
+   				 					$('#button1').bootstrapToggle({
+      									on: 'Enabled',
+      									off: 'Disabled'
+    								});
+   				 				$('#button1').change(function() {
+   				 			      //console.log( "kkkkk "+$(this).prop('checked'));
+   				 			      if($(this).prop('checked')){
+   				 			    	draw_cumulativeGraph(tab,"G");
+   				 			    	console.log("G");
+   				 			      }
+   				 			      else{
+   				 			    	draw_cumulativeGraph(tab,"L");
+   				 			      }
+   				 			    })
+  								})
+							</script>
+						</div>		
+												
+						<div id="multihistogram"></div>					
+					</div>
+							
+		
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
 						<div id="P1<%=i%>"></div>
 						<div class="row">
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="scatter_plot<%=i%>"></div>
+<<<<<<< HEAD
 						<div class="butt">
 					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
 					</div>
@@ -123,6 +162,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<div id="barIndex<%=i%>"></div>
 							</div>
+=======
+							
+<!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 						</div>
 						</div>
 						<script type="text/javascript">
@@ -135,7 +178,21 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						</script>
 					</div>
 					<% } %>  
+<<<<<<< HEAD
 															 
+=======
+					
+					<div class="butt" style="margin: 30px 30px 30px">
+					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
+					</div>
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<h4 class="page-header">
+							Index drowdown
+							</h4>
+							<div id="barIndex"></div>
+					</div>
+					 
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
 					<script type="text/javascript">
@@ -213,7 +270,11 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					
 					//drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
+<<<<<<< HEAD
 					draw_cumulativeGraph(2004);
+=======
+					draw_cumulativeGraph(2004,"L");
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 			});
 		function draw_indexdata(year){
 			document.getElementById("P2"+tab).innerHTML = '<h4 class="page-header">Index Drawdown</h4>';
@@ -236,7 +297,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            async: false
 	        });
 		}
-		function draw_cumulativeGraph(year){
+		function draw_cumulativeGraph(year,status){
 			var x = "test_getSet?Q="+year+"&T=top10Precent";
 			console.log(x);
 			$.ajax({
@@ -247,7 +308,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            	
 	           	//console.log(data);
 	           	
-	           	drawLossMcGraphTopTen(data);
+	           	drawLossMcGraphTopTen(data,status);
 	           	
 	            },
 	            
@@ -260,9 +321,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 		}
 	</script> 
 	
+	<script src="js/graphs.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
-	<script src="js/graphs.js"></script>
+	
 	
 
 </body>
