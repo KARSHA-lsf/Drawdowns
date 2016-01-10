@@ -29,6 +29,17 @@
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
+		$( "#Dr_slider" ).slider({
+    		min:1,
+    		max:100,
+    		value:Dr_value,
+    		slide: function( event, ui ) {
+                $( "#Dr_value" ).text( ui.value + " %" );
+                Dr_value=ui.value;
+                draw_me(data_init);
+             }}			
+   	);
+   
 	});
 </script>
 
@@ -144,7 +155,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
-								draw_cumulativeGraph(tab);
+								draw_cumulativeGraph(tab,"L");
 							});
 						</script>
 					</div>
@@ -204,19 +215,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				        $("#loading").css("display", "none");
 				    }); */
 					$("#Dr_value").text(Dr_value+ " %");
-					$("#LossMcap_value").text(LossMcap_value+ " %");
 					  $(function() {
-					    $( "#Dr_slider" ).slider({
-					    		min:1,
-					    		max:100,
-					    		value:Dr_value,
-					    		slide: function( event, ui ) {
-					                $( "#Dr_value" ).text( ui.value + " %" );
-					                Dr_value=ui.value;
-					                draw_me(data_init);
-					             }}			
-					   	);
-					   
+					    
 					  });					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
