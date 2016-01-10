@@ -29,12 +29,12 @@
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
-		$( "#Dr_slider" ).slider({
+		$( "#Dr_slider2004" ).slider({
     		min:1,
     		max:100,
     		value:Dr_value,
     		slide: function( event, ui ) {
-                $( "#Dr_value" ).text( ui.value + " %" );
+                $( "#Dr_value2004" ).text( ui.value + " %" );
                 Dr_value=ui.value;
                 draw_me(data_init);
              }}			
@@ -141,8 +141,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
  -->								</div>
 								<div class="span3">
 									<div class="col-sm-3">
-											Drawdown Value Top : <span id="Dr_value"  style="font-weight:bold;"></span>
-											<div id="Dr_slider"></div>							
+											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
+											<div id="Dr_slider<%=i%>"></div>							
 										</div>
 								</div>
 							<div id="scatter_plot<%=i%>"></div>
@@ -151,7 +151,22 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							</div>
 						</div>
 						<script type="text/javascript">
+						$(function() {
+							$( "#Dr_slider<%=i%>" ).slider({
+					    		min:1,
+					    		max:100,
+					    		value:Dr_value,
+					    		slide: function( event, ui ) {
+					                $( "#Dr_value<%=i%>" ).text( ui.value + " %" );
+					                Dr_value=ui.value;
+					                draw_me(data_init);
+					             }}			
+					   	);
+					   
+						});
 							$("#ta<%=i%>").click(function(){
+								Dr_value = 100;
+								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
@@ -214,10 +229,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				    $(document).ajaxComplete(function(){
 				        $("#loading").css("display", "none");
 				    }); */
-					$("#Dr_value").text(Dr_value+ " %");
-					  $(function() {
-					    
-					  });					
+					$("#Dr_value2004").text(Dr_value+ " %");
+					  					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
