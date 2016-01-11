@@ -96,33 +96,45 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				<div class "row-fluid">
 				
 				<div id="tabs">
+				
+					
+					<script>
+						var scale="K";
+					</script>
 					<ul>
 						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
 						<% } %>
 					</ul>
 					
+					
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 						<h4 class="page-header">Loss Market Capitalization</h4>		
 						
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
+						
+							
 							<script>
   								$(function() {
    				 					$('#btnScal').bootstrapToggle({
       									on: 'Enabled',
       									off: 'Disabled'
     								});
-   				 				$('#btnScal').change(function() {
-   				 			      if($(this).prop('checked')){
-   				 			    	draw_cumulativeGraph(tab,"G");
-   				 			    	
-   				 			      }
-   				 			      else{
-   				 			    	draw_cumulativeGraph(tab,"L");
-   				 			      }
-   				 			    })
-  								})
+   				 					$('#btnScal').change(function() {
+   				 			      		if($(this).prop('checked')){
+   				 			    			draw_cumulativeGraph(tab,"G");
+   				 			    			scale="G";
+   				 			    			console.log("scale is : "+scale);
+   				 			      		}
+   				 			      		else{
+   				 			    			draw_cumulativeGraph(tab,"L");
+   				 			    			scale="L";
+   				 			    			console.log("scale is : "+scale);
+   				 			      		}
+   				 			    	});
+   				 
+  								});
 							</script>
 						</div>		
 												
@@ -150,6 +162,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
 							</div>
 						</div>
+						
+																
 						<script type="text/javascript">
 						$(function() {
 							$( "#Dr_slider<%=i%>" ).slider({
@@ -168,12 +182,15 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								Dr_value = 100;
 								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
-								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
-								draw_indexdata(tab);
-								draw_cumulativeGraph(tab,"L");
+									drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+									draw_indexdata(tab);
+									console.log("scale ekaaa : "+scale);
+									draw_cumulativeGraph(tab,scale);
+																				
 							});
 						</script>
 					</div>
+					
 					<% } %>  
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
