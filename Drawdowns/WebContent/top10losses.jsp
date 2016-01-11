@@ -29,6 +29,17 @@
 var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
+		$( "#Dr_slider2004" ).slider({
+    		min:1,
+    		max:100,
+    		value:Dr_value,
+    		slide: function( event, ui ) {
+                $( "#Dr_value2004" ).text( ui.value + " %" );
+                Dr_value=ui.value;
+                draw_me(data_init);
+             }}			
+   	);
+   
 	});
 </script>
 
@@ -75,26 +86,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					Top 10% Losses [ 2004 - 2014 ]</h3>		
 					</div>
 				</div>
+				
 				<div class="span3">
-					<br>
-						<div class="col-sm-3">
-							Drawdown Value Top : <span id="Dr_value"  style="font-weight:bold;"></span>
-						</div>
-						<div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
-						<div class="col-sm-3">
-							<div id="Dr_slider"></div>							
-						</div>
-						
-				</div>
-				<div class="span3">
-					<br>
-						<!-- <div class="col-sm-3">
-							LossMcap Value Top : <span id="LossMcap_value" style="font-weight:bold;"></span>
-						</div>
-						<div class="col-sm-3">
-							<div id="LossMcap_slider"></div>
-						</div> -->
-						
+					<br>	
 				</div>
 				</div>
 			</div>
@@ -112,18 +106,17 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<h4 class="page-header">Loss Market Capitalization</h4>		
 						
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<input type="checkbox" id="button1" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="25">				
+							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
 							<script>
   								$(function() {
-   				 					$('#button1').bootstrapToggle({
+   				 					$('#btnScal').bootstrapToggle({
       									on: 'Enabled',
       									off: 'Disabled'
     								});
-   				 				$('#button1').change(function() {
-   				 			      //console.log( "kkkkk "+$(this).prop('checked'));
+   				 				$('#btnScal').change(function() {
    				 			      if($(this).prop('checked')){
    				 			    	draw_cumulativeGraph(tab,"G");
-   				 			    	console.log("G");
+   				 			    	
    				 			      }
    				 			      else{
    				 			    	draw_cumulativeGraph(tab,"L");
@@ -140,26 +133,48 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
 						<div class="row">
-						<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<div class="col-lg-12" style="margin: 30px 30px 30px">
+								<div class="span9">
+									<h2 class="page-header">Market Behavior Individual Level</h2>	
+										
+									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
+ -->								</div>
+								<div class="span3">
+									<div class="col-sm-3">
+											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
+											<div id="Dr_slider<%=i%>"></div>							
+										</div>
+								</div>
 							<div id="scatter_plot<%=i%>"></div>
-							
+							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
-						</div>
+							</div>
 						</div>
 						<script type="text/javascript">
+						$(function() {
+							$( "#Dr_slider<%=i%>" ).slider({
+					    		min:1,
+					    		max:100,
+					    		value:Dr_value,
+					    		slide: function( event, ui ) {
+					                $( "#Dr_value<%=i%>" ).text( ui.value + " %" );
+					                Dr_value=ui.value;
+					                draw_me(data_init);
+					             }}			
+					   	);
+					   
+						});
 							$("#ta<%=i%>").click(function(){
+								Dr_value = 100;
+								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
-								draw_cumulativeGraph(tab);
+								draw_cumulativeGraph(tab,"L");
 							});
 						</script>
 					</div>
 					<% } %>  
-					
-					<div class="butt" style="margin: 30px 30px 30px">
-					<button type="button" class="btn btn-info" onclick="draw_indexdata(tab)" >Show Index drowdown</button>
-					</div>
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Index drowdown
@@ -208,41 +223,18 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 		$(document)
 			.ready(
 				function() {
-					$(document).ajaxStart(function(){
+					/* $(document).ajaxStart(function(){
 				        $("#loading").css("display", "block");
 				    });
 				    $(document).ajaxComplete(function(){
 				        $("#loading").css("display", "none");
-				    });
-					$("#Dr_value").text(Dr_value+ " %");
-					$("#LossMcap_value").text(LossMcap_value+ " %");
-					  $(function() {
-					    $( "#Dr_slider" ).slider({
-					    		min:1,
-					    		max:100,
-					    		value:Dr_value,
-					    		slide: function( event, ui ) {
-					                $( "#Dr_value" ).text( ui.value + " %" );
-					                Dr_value=ui.value;
-					                draw_me(data_init);
-					             }}			
-					   	);
-					    $( "#LossMcap_slider" ).slider({
-					    	max:50,
-					    	min:1,
-					    	value:LossMcap_value,
-							slide: function( event, ui ) {
-					            $( "#LossMcap_value" ).text( ui.value + " %" );
-					            LossMcap_value=ui.value;
-					         }		
-					    });
-					    
-					  });
-					 
-					
+				    }); */
+					$("#Dr_value2004").text(Dr_value+ " %");
+					  					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
+					draw_indexdata(2004);
 			});
 		function draw_indexdata(year){
 			var urlindex = "indexData?Q="+year;

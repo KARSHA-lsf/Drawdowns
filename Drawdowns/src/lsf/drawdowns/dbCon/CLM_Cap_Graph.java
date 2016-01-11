@@ -4,12 +4,10 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.CRSP_ValueWeightedReturns;
@@ -79,6 +77,7 @@ public JsonObject Index_vw_return() {
 			e.printStackTrace();
 		}
 		System.out.println("=D=D   "+J_obj);
+		session.flush();
 		return J_obj;
 
 	}
@@ -130,7 +129,8 @@ public JsonObject Index_vw_return() {
 					}
 					jsonarray.put(jsonobj);
 				}					
-			}			
+			}		
+			session.flush();
 			return jsonarray;
 			//pwr.print(jsonarray);
 		} finally {
@@ -220,7 +220,7 @@ public JsonObject Index_vw_return() {
 			e.printStackTrace();
 		}
 		
-		
+		session.flush();
 		return obj;
 		
 	}
@@ -260,6 +260,7 @@ public JsonObject Index_vw_return() {
 			
 			e.printStackTrace();
 		}
+		session.flush();
 		return obj;
 	}
 	public JSONObject eofMonthLMC(){
@@ -296,7 +297,7 @@ public JsonObject Index_vw_return() {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+		session.flush();
 		return jsonObject;
 	}
 	
@@ -338,7 +339,7 @@ public JsonObject Index_vw_return() {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+		session.flush();
 		return jsonObject;
 		
 	}
@@ -411,6 +412,7 @@ public JsonObject Index_vw_return() {
 			
 			e.printStackTrace();
 		}
+		session.flush();
 		return J_obj;
 	}
 	public JsonObject perm_return_method(){
@@ -442,7 +444,7 @@ public JsonObject Index_vw_return() {
 		
 		J_obj.add("Return_value",retvalue);
 		J_obj.add("End_date", enddate); 
-		
+		session.flush();
 		return J_obj;
 		
 	}
