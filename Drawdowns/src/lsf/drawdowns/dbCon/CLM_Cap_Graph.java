@@ -232,8 +232,6 @@ public JsonObject Index_vw_return() {
 			sql = "SELECT YEAR(CAPM_resid_date) AS date,COUNT(YEAR(CAPM_resid_date)) AS count FROM capm_drawdowns_date WHERE CAPM_resid_date GROUP BY YEAR(CAPM_resid_date)";
 		}
 	
-		
-
 		SQLQuery q = session.createSQLQuery(sql);			
 		
 		@SuppressWarnings("unchecked")
