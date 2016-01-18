@@ -57,10 +57,14 @@ public class adminSrvlt extends HttpServlet {
 	//	cummulativeLoassMakt();
 	//		end_of_month_LMC();
 
-			showDistinctPermno_forBlueBar();
-			
-			
+			//showDistinctPermno_forBlueBar();
+		pattern();
+						
 	}
+	private void pattern(){
+		
+	}
+	
 
 	private void showDistinctPermno_forBlueBar(){
 		db_connections db_con = new db_connections();
