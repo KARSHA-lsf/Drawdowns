@@ -2,6 +2,7 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.*;
@@ -128,7 +129,13 @@ public class IndexSrvlt extends HttpServlet {
 			dialog.add("End_date", ret.getAsJsonArray("End_date"));
 			pwr.print(dialog); 
 		}
-		
+		else if(userPath.equals("/pattern")){
+			try {
+				pwr.print(clm_grp.pattern());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 		
 
 	}

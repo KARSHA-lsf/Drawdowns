@@ -459,6 +459,38 @@ public JsonObject Index_vw_return() {
 	    DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	    return DATE_FORMAT.format(date);
 	}
-
+	public JSONObject pattern() throws JSONException{
+		String sql = "select * from sys_pattern";
+		SQLQuery q = session.createSQLQuery(sql);
+		ArrayList<Integer> arrYrmo = new ArrayList<Integer>();
+		ArrayList<BigDecimal> arrayBlue = new ArrayList<BigDecimal>();
+		ArrayList<BigDecimal> arrayRed = new ArrayList<BigDecimal>();
+		ArrayList<BigDecimal> arrayGreen = new ArrayList<BigDecimal>();
+	
+		JSONArray jsonarray = new JSONArray();
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> result = q.list();
+		for (Object[] returns : result) {
+			JSONObject jsonobj = new JSONObject();
+			
+			int date=(int) returns[0];	
+			BigDecimal blue = (BigDecimal) returns[1];
+			BigDecimal red = (BigDecimal) returns[2];
+			BigDecimal green = (BigDecimal) returns[3];
+			
+			jsonobj.put("date", date);
+			jsonobj.put("blue", blue);
+			jsonobj.put("red", red);
+			jsonobj.put("green", green);
+			
+			jsonarray.put(jsonobj);
+			
+		}
+		JSONObject jo = new JSONObject();
+		jo.put("person", jsonarray);
+		System.out.println(jsonarray);
+		return jo;
+	}
 
 }

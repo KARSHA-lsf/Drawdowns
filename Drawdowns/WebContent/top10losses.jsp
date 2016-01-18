@@ -235,6 +235,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 					draw_indexdata(2004);
+					
 			});
 		function draw_indexdata(year){
 			var urlindex = "indexData?Q="+year;

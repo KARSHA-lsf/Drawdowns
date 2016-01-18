@@ -55,9 +55,9 @@ public class adminSrvlt extends HttpServlet {
 
 	//	eoflossmc();
 	//	cummulativeLoassMakt();
-	//		end_of_month_LMC();
+			end_of_month_LMC();
 
-			showDistinctPermno_forBlueBar();
+	//		showDistinctPermno_forBlueBar();
 			
 			
 	}
@@ -153,7 +153,8 @@ public class adminSrvlt extends HttpServlet {
 				int yrmo =  Integer.valueOf(parts[0]+""+parts[1]);
 
 				String sql ="SELECT SUM(x.rmc) FROM (SELECT a.permno,a.yrmo,(a.value1*b.value1) as rmc FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization WHERE yrmo='"+yrmo+"') a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo = '"+yrmo+"') b ON a.permno = b.permno) x INNER JOIN  (SELECT DISTINCT(PERMNO_date) FROM capm_drawdowns_date WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid_date ) y ON x.permno = y.PERMNO_date";
-				String sql_top_ten="SELECT SUM(a.marketCapitalization*b.value1) FROM (SELECT PERMNO,YRMO,marketCapitalization,CAPM_resid_date FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid) AS a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo='"+yrmo+"') AS b ON a.PERMNO=b.permno";
+				String sql_top_ten="SELECT SUM(c.mcap*d.value1) from (SELECT a.permno,a.yrmo,a.value1 as mcap FROM (SELECT permno,yrmo,value1 FROM caaf_marketcapitalization )as a JOIN (SELECT DISTINCT(PERMNO) from	sys_top10_losess WHERE CAPM_resid_date BETWEEN '"+d1+"' AND '"+d2+"') as b ON a.permno = b.permno and a.yrmo = '"+yrmo+"') as c JOIN caaf_returns as d ON c.permno=d.permno and c.yrmo =d.yrmo";
+				//String sql_top_ten="SELECT SUM(a.marketCapitalization*b.value1) FROM (SELECT PERMNO,YRMO,marketCapitalization,CAPM_resid_date FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid) AS a INNER JOIN (SELECT permno,yrmo,value1 FROM caaf_returns WHERE yrmo='"+yrmo+"') AS b ON a.PERMNO=b.permno";
 				//String sql_LMC ="SELECT SUM(LOSSMcap) FROM sys_top10_losess WHERE DATE(CAPM_resid_date) BETWEEN '"+d1+"' AND '"+d2+"' ORDER BY CAPM_resid";
 				
 				try {
@@ -167,13 +168,15 @@ public class adminSrvlt extends HttpServlet {
 			        
 					ResultSet rset = db_con.selectData(sql);
 					if(rset.next()){
+						System.out.println(rset.getDouble("SUM(x.rmc)")+" non "+dateFormat.format(lastDayOfMonth));
 						endOfMonthVales.add(rset.getDouble("SUM(x.rmc)"));
 						endOFMonthDates.add(dateFormat.format(lastDayOfMonth));
 					}
 					
 					ResultSet rset_top_ten = db_con.selectData(sql_top_ten);
 					if(rset_top_ten.next()){
-						endOfMonthVales_top_ten.add(rset_top_ten.getDouble("SUM(a.marketCapitalization*b.value1)"));
+						System.out.println(rset_top_ten.getDouble("SUM(c.mcap*d.value1)")+" top10 "+dateFormat.format(lastDayOfMonth));
+						endOfMonthVales_top_ten.add(rset_top_ten.getDouble("SUM(c.mcap*d.value1)"));
 						endOFMonthDates_top_ten.add(dateFormat.format(lastDayOfMonth));
 					}
 					
