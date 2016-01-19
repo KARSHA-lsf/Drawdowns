@@ -4,10 +4,16 @@ var  colorCode =[],pattern =[],blue =[],red =[],green =[];
 
 var calData, grid, row, col,text;
 
+var blue_max;
+var blue_min;
+var red_max;
+var red_min;
+var green_max;
+var green_min;
 	
 function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 	
-	for(index = 0; index < blue.length; index++){
+	for(index = 0; index < blue.length; index++){	
 		if(blue[index]<BLN && green[index]<GLN){
 			colorCode[index] = '#ff0000'; // pushdown red
 			pattern[index]="Pushdown";
@@ -15,7 +21,7 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 			colorCode[index] = '#D2691E'; //loss no impact
 			pattern[index]="Loss-No-Impact";
 		}else if(blue[index]>BSN && blue[index]<BM && green[index]>GSN && green[index]<GSP && red[index]>RSN && red[index]<BSP){
-			colorCode[index] = '#ooffoo'; //no impact green
+			colorCode[index] = '#228B22'; //no impact green
 			pattern[index]="No-Impact";
 		}else if(blue[index]>BSN && blue[index]<BM){
 			colorCode[index] = '#0000ff'; //LLHG blue
@@ -36,13 +42,36 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 function setData(data){
 	var i = 0;
 	urldata=data;
-//	console.log(urldata);
 	$.each(urldata.person,function(){
 		blue[i] = this['blue'];
 		red[i] = this['red'];
 		green[i] = this['green'];
 		i++;
     });
+	 blue_max=Math.abs(Math.max.apply(Math,blue));
+	 blue_min=Math.abs(Math.min.apply(Math,blue));
+	 red_max=Math.abs(Math.max.apply(Math,red));
+	 red_min=Math.abs(Math.min.apply(Math,red));
+	 green_max=Math.abs(Math.max.apply(Math,green));
+	 green_min=Math.abs(Math.min.apply(Math,green));
+	 
+	 for(index = 0; index < blue.length; index++){
+		 if(blue[index]<0){
+				blue[index]=blue[index]*100/blue_min;
+			}else{
+				blue[index]=blue[index]*100/blue_max;
+			}
+			if(red[index]<0){
+				red[index]=red[index]*100/red_min;
+			}else{
+				red[index]=red[index]*100/red_max;
+			}
+			if(green[index]<0){
+				green[index]=green[index]*100/green_min;
+			}else{
+				green[index]=green[index]*100/green_max;
+			}
+	 } 
 }
 
 function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)

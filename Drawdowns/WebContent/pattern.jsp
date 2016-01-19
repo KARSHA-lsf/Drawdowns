@@ -155,38 +155,39 @@
 									update();
 								});
 							 */
-							var BLN, BSN, BM, BSP, BLP;
-							var RLN, RSN, RM, RSP, RLP;
-							var GLN, GSN, GM, GSP, GLP;
+							var  BLN, BSN, BM, BSP, BLP;
+							var  RLN, RSN, RM, RSP, RLP;
+							var  GLN, GSN, GM, GSP, GLP;
 
 							function update() {
-								BLN = document.getElementById("BLN").value;
-								BSN = document.getElementById("BSN").value;
-								BM = document.getElementById("BM").value;
-								BSP = document.getElementById("BSP").value;
-								BLP = document.getElementById("BLP").value;
+								BLN = parseInt(document.getElementById("BLN").value);
+								BSN = parseInt(document.getElementById("BSN").value);
+								BM = parseInt(document.getElementById("BM").value);
+								BSP = parseInt(document.getElementById("BSP").value);
+								BLP = parseInt(document.getElementById("BLP").value);
 
-								RLN = document.getElementById("RLN").value;
-								RSN = document.getElementById("RSN").value;
-								RM = document.getElementById("RM").value;
-								RSP = document.getElementById("RSP").value;
-								RLP = document.getElementById("RLP").value;
+								RLN = parseInt(document.getElementById("RLN").value);
+								RSN = parseInt(document.getElementById("RSN").value);
+								RM = parseInt(document.getElementById("RM").value);
+								RSP = parseInt(document.getElementById("RSP").value);
+								RLP = parseInt(document.getElementById("RLP").value);
 
-								GLN = document.getElementById("GLN").value;
-								GSN = document.getElementById("GSN").value;
-								GM = document.getElementById("GM").value;
-								GSP = document.getElementById("GSP").value;
-								GLP = document.getElementById("GLP").value;
+								GLN = parseInt(document.getElementById("GLN").value);
+								GSN = parseInt(document.getElementById("GSN").value);
+								GM = parseInt(document.getElementById("GM").value);
+								GSP = parseInt(document.getElementById("GSP").value);
+								GLP = parseInt(document.getElementById("GLP").value);
 
 								if (validations(BLN, BSN, BM, BSP, BLP)
 										&& validations(RLN, RSN, RM, RSP, RLP)
 										&& validations(GLN, GSN, GM, GSP, GLP)) {
+									
 									setColorCode(BLN, BSN, BM, BSP, BLP, RLN,
 											RSN, RM, RSP, RLP, GLN, GSN, GM,
 											GSP, GLP);
+									
 								} else {
-									window
-											.alert("Invalid Inputs. \nPlease Check.");
+									window.alert("Invalid Inputs. \nPlease Check.");
 								}
 							}
 							function validations(LN, SN, M, SP, LP) {
@@ -194,7 +195,7 @@
 								if (isNaN(LN) || isNaN(SN) || isNaN(M)
 										|| isNaN(SP) || isNaN(LP)) {
 								} else {
-									if (LN >= -100 && LN >= SN && SN <= M
+									if (LN >= -100 && LN <= SN && SN <= M
 											&& M <= SP && SP < LP && LP <= 100) {
 										bool = true;
 									}
