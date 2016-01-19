@@ -95,6 +95,11 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				<div class "row-fluid">
 				
 				<div id="tabs">
+				
+					<script>
+						var scale="K";
+					</script>
+					
 					<ul>
 						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
@@ -115,10 +120,11 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
    				 				$('#btnScal').change(function() {
    				 			      if($(this).prop('checked')){
    				 			    	draw_cumulativeGraph(tab,"G");
-   				 			    	
+   				 			    	scale="G";
    				 			      }
    				 			      else{
    				 			    	draw_cumulativeGraph(tab,"L");
+   				 			    	Scale="L";
    				 			      }
    				 			    })
   								})
@@ -169,7 +175,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
-								draw_cumulativeGraph(tab,"L");
+								draw_cumulativeGraph(tab,scale);
 							});
 						</script>
 					</div>
