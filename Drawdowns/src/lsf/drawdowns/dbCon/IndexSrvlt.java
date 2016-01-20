@@ -131,22 +131,12 @@ public class IndexSrvlt extends HttpServlet {
 		}
 		else if(userPath.equals("/pattern")){
 			try {
-<<<<<<< HEAD
+
 				pwr.print(clm_grp.pattern());
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-=======
-				clm_grp.pattern();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
-		
 
 	}
 

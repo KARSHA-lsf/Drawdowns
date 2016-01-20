@@ -7,21 +7,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import model.CRSP_ValueWeightedReturns;
-
 import org.hibernate.SQLQuery;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -237,6 +232,8 @@ public JsonObject Index_vw_return() {
 			sql = "SELECT YEAR(CAPM_resid_date) AS date,COUNT(YEAR(CAPM_resid_date)) AS count FROM capm_drawdowns_date WHERE CAPM_resid_date GROUP BY YEAR(CAPM_resid_date)";
 		}
 	
+		
+
 		SQLQuery q = session.createSQLQuery(sql);			
 		
 		@SuppressWarnings("unchecked")
@@ -455,60 +452,16 @@ public JsonObject Index_vw_return() {
 	}
 	public String getDate(int month, int year) {
 	    Calendar calendar = Calendar.getInstance();
-	    
+	    // passing month-1 because 0-->jan, 1-->feb... 11-->dec
 	    calendar.set(year, month - 1, 1);
 	    calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
 	    Date date = calendar.getTime();
 	    DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	    return DATE_FORMAT.format(date);
 	}
-<<<<<<< HEAD
 	public JSONObject pattern() throws JSONException{
 		String sql = "select yrmo,blue,red,green from sys_pattern";
 		SQLQuery q = session.createSQLQuery(sql);
-=======
-	public void pattern() throws JSONException{
-		String sql = "select * from sys_pattern";
-		SQLQuery q = session.createSQLQuery(sql);
-		ArrayList<Integer> arrYrmo = new ArrayList<Integer>();
-		ArrayList<BigDecimal> arrayBlue = new ArrayList<BigDecimal>();
-		ArrayList<BigDecimal> arrayRed = new ArrayList<BigDecimal>();
-		ArrayList<BigDecimal> arrayGreen = new ArrayList<BigDecimal>();
-	
-
-		@SuppressWarnings("unchecked")
-		List<Object[]> result = q.list();
-		for (Object[] returns : result) {
-	
-			
-			int date=(int) returns[0];	
-			BigDecimal blue = (BigDecimal) returns[1];
-			BigDecimal red = (BigDecimal) returns[2];
-			BigDecimal green = (BigDecimal) returns[3];
-			
-			arrYrmo.add(date);
-			arrayBlue.add(blue);
-			arrayRed.add(red);
-			arrayGreen.add(green);
-			
-			//System.out.println(returns[0]+":"+returns[1]+":"+returns[2]+":"+returns[3]);
-			
-		}
-
-		JSONObject jsonObject=new JSONObject();
-		try {
-			//jsonObject.put("Date",arrYrmo);
-			jsonObject.put("Blue",arrayBlue);	
-			//jsonObject.put("Red",arrayRed);
-			//jsonObject.put("Green",arrayGreen);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println(jsonObject);
-		
-	}
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 
 		JSONArray jsonarray = new JSONArray();
 		
