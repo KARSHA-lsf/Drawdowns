@@ -10,20 +10,20 @@
 	media="screen">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
 	media="screen">
-
+<link href="assets/styles.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/jquery-ui.js"></script>
 
 <link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
+<style type="text/css">
+	#Dr_slider .ui-slider-range { background: #ef2929; }
+</style>
 
-<script>
-	$(function() {
-		$("#accordion").accordion({
-			heightStyle : "content"
-		});
-	});
-</script>
+</head>
 </head>
 
 <body>
@@ -57,7 +57,9 @@
 	</div>
 
 	<div class="container-fluid">
-
+					<script>
+						var scale="G";
+					</script>
 		<div>
 			<div style="border: 1px solid LightSeaGreen; background-color: white">
 
@@ -75,21 +77,19 @@
     								});
    				 				$('#btnScal').change(function() {
    				 			      if($(this).prop('checked')){
-   				 			    	  console.log("hi");
-   				 			    	//draw_cumulativeGraph(tab,"G");
-   				 			    	
+   				 			    	scale = "L";
+									update();
    				 			      }
    				 			      else{
-   				 			    	//draw_cumulativeGraph(tab,"L");
+   				 			    	scale = "G";
+   				 			    	update();
    				 			      }
    				 			    })
   								})
 							</script>
 						</div>	
 				<div id="chart"></div>
-				<script src="js/jquery-1.10.2.js"></script>
-				<script src="js/jquery-ui.js"></script>
-				<script type="text/javascript" src="js/grid.js"></script>
+				
 				<div class="row-fluid">
 					<div class="span10">
 						<div style="position: relative; top: 30px;">
@@ -157,7 +157,6 @@
 									dataType : 'json',
 									success : function(data) {
 										setData(data);
-										setPercentages("G");
 										update();
 									},
 
@@ -201,7 +200,7 @@
 								if (validations(BLN, BSN, BM, BSP, BLP)
 										&& validations(RLN, RSN, RM, RSP, RLP)
 										&& validations(GLN, GSN, GM, GSP, GLP)) {
-
+									setPercentages(scale);
 									setColorCode(BLN, BSN, BM, BSP, BLP, RLN,
 											RSN, RM, RSP, RLP, GLN, GSN, GM,
 											GSP, GLP);
@@ -234,13 +233,9 @@
 	</div>
 	<!-- /container -->
 
-
-	<script type="text/javascript">
-		$.post("IndexSrvlt", "").error(function() {
-			//alert("there is error while sending data to server");
-		});
-	</script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/grid.js"></script>
+<script src="bootstrap/js/c3.js"></script>
+<script src="bootstrap/js/d3.min.js"></script>
 </body>
 </html>
 
