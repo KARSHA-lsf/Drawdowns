@@ -70,7 +70,12 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.0.0.Final</version>
 		</dependency>
-
+		<dependency>
+	<groupId>org.webjars</groupId>
+	<artifactId>d3js</artifactId>
+	<version>3.5.12</version>
+</dependency>
+		
 
 		
 	</dependencies>

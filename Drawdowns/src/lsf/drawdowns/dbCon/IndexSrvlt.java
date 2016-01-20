@@ -131,14 +131,12 @@ public class IndexSrvlt extends HttpServlet {
 		}
 		else if(userPath.equals("/pattern")){
 			try {
-				clm_grp.pattern();
+
+				pwr.print(clm_grp.pattern());
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
 
 	}
 

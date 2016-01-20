@@ -35,6 +35,7 @@
     <url-pattern>/test_getSet</url-pattern>
     <url-pattern>/perm_history</url-pattern>
     <url-pattern>/pattern</url-pattern>>
+
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>annualy_analysis</servlet-name>
