@@ -464,6 +464,11 @@ public JsonObject Index_vw_return() {
 	    DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	    return DATE_FORMAT.format(date);
 	}
+<<<<<<< HEAD
+	public JSONObject pattern() throws JSONException{
+		String sql = "select yrmo,blue,red,green from sys_pattern";
+		SQLQuery q = session.createSQLQuery(sql);
+=======
 	public void pattern() throws JSONException{
 		String sql = "select * from sys_pattern";
 		SQLQuery q = session.createSQLQuery(sql);
@@ -505,6 +510,32 @@ public JsonObject Index_vw_return() {
 		//System.out.println(jsonObject);
 		
 	}
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
 
+		JSONArray jsonarray = new JSONArray();
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> result = q.list();
+		for (Object[] returns : result) {
+			JSONObject jsonobj = new JSONObject();
+			
+			int date=(int) returns[0];	
+			BigDecimal blue = (BigDecimal) returns[1];
+			BigDecimal red = (BigDecimal) returns[2];
+			BigDecimal green = (BigDecimal) returns[3];
+			
+			jsonobj.put("yrmo", date);
+			jsonobj.put("blue", blue);
+			jsonobj.put("red", red);
+			jsonobj.put("green", green);
+			
+			jsonarray.put(jsonobj);
+			
+		}
+		JSONObject jo = new JSONObject();
+		jo.put("person", jsonarray);
+		System.out.println(jsonarray);
+		return jo;
+	}
 
 }
