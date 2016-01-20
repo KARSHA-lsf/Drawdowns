@@ -81,7 +81,7 @@ public JsonObject Index_vw_return() {
 			
 			e.printStackTrace();
 		}
-		System.out.println("=D=D   "+J_obj);
+		
 		session.flush();
 		return J_obj;
 
@@ -177,7 +177,7 @@ public JsonObject Index_vw_return() {
 					}
 				}
 				//System.out.println();
-				System.out.println(jsonarray);
+				
 				
 				
 			} catch (SQLException e) {
@@ -389,6 +389,7 @@ public JsonObject Index_vw_return() {
 		
 	}
 	public JsonObject Perm_History_Method(){
+		
 		String sql = "SELECT CAPM_resid_D,CAPM_resid FROM sys_scatter_plot  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
 		SQLQuery q = session.createSQLQuery(sql);
 		
@@ -421,6 +422,7 @@ public JsonObject Index_vw_return() {
 		return J_obj;
 	}
 	public JsonObject perm_return_method(){
+		System.out.println("request.para:"+request.getParameter("P")+" : "+request.getParameter("Q"));
 		String sql = "SELECT yrmo,value1 FROM caaf_returns  where PERMNO =" + request.getParameter("P") +" AND YRMO LIKE '" + request.getParameter("Q") + "%'";
 		SQLQuery q = session.createSQLQuery(sql);
 		
@@ -500,7 +502,7 @@ public JsonObject Index_vw_return() {
 			e.printStackTrace();
 		}
 
-		System.out.println(jsonObject);
+		//System.out.println(jsonObject);
 		
 	}
 

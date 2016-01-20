@@ -113,8 +113,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
-						
-							
+									
 							<script>
   								$(function() {
    				 					$('#btnScal').bootstrapToggle({
@@ -125,7 +124,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
    				 			      		if($(this).prop('checked')){
    				 			    			draw_cumulativeGraph(tab,"G");
    				 			    			scale="G";
-   				 			    			console.log("scale is : "+scale);
+   				 			    			console.log($(this).prop('checked')	);
    				 			      		}
    				 			      		else{
    				 			    			draw_cumulativeGraph(tab,"L");
@@ -184,7 +183,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								tab =<%=i%>;
 									drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 									draw_indexdata(tab);
-									console.log("scale ekaaa : "+scale);
+								
 									draw_cumulativeGraph(tab,scale);
 																				
 							});
