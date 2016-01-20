@@ -10,16 +10,13 @@
 	media="screen">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
 	media="screen">
-<link href="assets/styles.css" rel="stylesheet" media="screen">
-<meta charset="utf-8">
+
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="http://mbostock.github.com/d3/d3.v2.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-toggle.min.js"></script>
+
 <script>
 	$(function() {
 		$("#accordion").accordion({
@@ -68,66 +65,88 @@
 					<h1 align="center">Patterns</h1>
 				</div>
 				 -->
+				<div class="col-lg-12" style="margin: 30px 30px 30px">
+							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
+							<script>
+  								$(function() {
+   				 					$('#btnScal').bootstrapToggle({
+      									on: 'Enabled',
+      									off: 'Disabled'
+    								});
+   				 				$('#btnScal').change(function() {
+   				 			      if($(this).prop('checked')){
+   				 			    	  console.log("hi");
+   				 			    	//draw_cumulativeGraph(tab,"G");
+   				 			    	
+   				 			      }
+   				 			      else{
+   				 			    	//draw_cumulativeGraph(tab,"L");
+   				 			      }
+   				 			    })
+  								})
+							</script>
+						</div>	
 				<div id="chart"></div>
 				<script src="js/jquery-1.10.2.js"></script>
 				<script src="js/jquery-ui.js"></script>
 				<script type="text/javascript" src="js/grid.js"></script>
 				<div class="row-fluid">
 					<div class="span10">
-					<div style="position: relative; top: 30px;">
-						<table>
-							<tr>
-								<th></th>
-								<th>Large Negative</th>
-								<th>Small Negative</th>
-								<th>Mid</th>
-								<th>Small Positive</th>
-								<th>Large Positive</th>
-							</tr>
-							<tr>
-								<th>Blue</th>
-								<td><input type="text" id="BLN" maxlength="4" size="20"
-									value="-20"></td>
-								<td><input type="text" id="BSN" maxlength="4" size="20"
-									value="-15"></td>
-								<td><input type="text" id="BM" maxlength="4" size="5"
-									value="0"></td>
-								<td><input type="text" id="BSP" maxlength="4" size="5"
-									value="25"></td>
-								<td><input type="text" id="BLP" maxlength="4" size="5"
-									value="50"></td>
-							</tr>
-							<tr>
-								<th>Red</th>
-								<td><input type="text" id="RLN" maxlength="4" size="5"
-									value="-30"></td>
-								<td><input type="text" id="RSN" maxlength="4" size="5"
-									value="-25"></td>
-								<td><input type="text" id="RM" maxlength="4" size="5"
-									value="0"></td>
-								<td><input type="text" id="RSP" maxlength="4" size="5"
-									value="25"></td>
-								<td><input type="text" id="RLP" maxlength="4" size="5"
-									value="50"></td>
-							</tr>
-							<tr>
-								<th>Green</th>
-								<td><input type="text" id="GLN" maxlength="4" size="5"
-									value="-30"></td>
-								<td><input type="text" id="GSN" maxlength="4" size="5"
-									value="-25"></td>
-								<td><input type="text" id="GM" maxlength="4" size="5"
-									value="0"></td>
-								<td><input type="text" id="GSP" maxlength="4" size="5"
-									value="25"></td>
-								<td><input type="text" id="GLP" maxlength="4" size="5"
-									value="50"></td>
-							</tr>
-						</table>
-						<br>
-						<button type="button" onclick="update()">click</button>
+						<div style="position: relative; top: 30px;">
+							<table>
+								<tr>
+									<th></th>
+									<th>Large Negative</th>
+									<th>Small Negative</th>
+									<th>Mid</th>
+									<th>Small Positive</th>
+									<th>Large Positive</th>
+								</tr>
+								<tr>
+									<th>Blue</th>
+									<td><input type="text" id="BLN" maxlength="4" size="20"
+										value="-20"></td>
+									<td><input type="text" id="BSN" maxlength="4" size="20"
+										value="-15"></td>
+									<td><input type="text" id="BM" maxlength="4" size="5"
+										value="0"></td>
+									<td><input type="text" id="BSP" maxlength="4" size="5"
+										value="25"></td>
+									<td><input type="text" id="BLP" maxlength="4" size="5"
+										value="50"></td>
+								</tr>
+								<tr>
+									<th>Red</th>
+									<td><input type="text" id="RLN" maxlength="4" size="5"
+										value="-30"></td>
+									<td><input type="text" id="RSN" maxlength="4" size="5"
+										value="-25"></td>
+									<td><input type="text" id="RM" maxlength="4" size="5"
+										value="0"></td>
+									<td><input type="text" id="RSP" maxlength="4" size="5"
+										value="25"></td>
+									<td><input type="text" id="RLP" maxlength="4" size="5"
+										value="50"></td>
+								</tr>
+								<tr>
+									<th>Green</th>
+									<td><input type="text" id="GLN" maxlength="4" size="5"
+										value="-30"></td>
+									<td><input type="text" id="GSN" maxlength="4" size="5"
+										value="-25"></td>
+									<td><input type="text" id="GM" maxlength="4" size="5"
+										value="0"></td>
+									<td><input type="text" id="GSP" maxlength="4" size="5"
+										value="25"></td>
+									<td><input type="text" id="GLP" maxlength="4" size="5"
+										value="50"></td>
+								</tr>
+							</table>
+							<br>
+							<button type="button" onclick="update()">click</button>
+						</div>
 					</div>
-					</div>
+
 					<div>
 						<script>
 							$(document).ready(function() {
@@ -138,6 +157,7 @@
 									dataType : 'json',
 									success : function(data) {
 										setData(data);
+										setPercentages("G");
 										update();
 									},
 
@@ -155,9 +175,9 @@
 									update();
 								});
 							 */
-							var  BLN, BSN, BM, BSP, BLP;
-							var  RLN, RSN, RM, RSP, RLP;
-							var  GLN, GSN, GM, GSP, GLP;
+							var BLN, BSN, BM, BSP, BLP;
+							var RLN, RSN, RM, RSP, RLP;
+							var GLN, GSN, GM, GSP, GLP;
 
 							function update() {
 								BLN = parseInt(document.getElementById("BLN").value);
@@ -181,13 +201,14 @@
 								if (validations(BLN, BSN, BM, BSP, BLP)
 										&& validations(RLN, RSN, RM, RSP, RLP)
 										&& validations(GLN, GSN, GM, GSP, GLP)) {
-									
+
 									setColorCode(BLN, BSN, BM, BSP, BLP, RLN,
 											RSN, RM, RSP, RLP, GLN, GSN, GM,
 											GSP, GLP);
-									
+
 								} else {
-									window.alert("Invalid Inputs. \nPlease Check.");
+									window
+											.alert("Invalid Inputs. \nPlease Check.");
 								}
 							}
 							function validations(LN, SN, M, SP, LP) {
@@ -219,7 +240,7 @@
 			//alert("there is error while sending data to server");
 		});
 	</script>
-
+<script src="http://d3js.org/d3.v3.min.js"></script>
 </body>
 </html>
 

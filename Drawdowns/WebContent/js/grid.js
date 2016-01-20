@@ -48,30 +48,76 @@ function setData(data){
 		green[i] = this['green'];
 		i++;
     });
-	 blue_max=Math.abs(Math.max.apply(Math,blue));
-	 blue_min=Math.abs(Math.min.apply(Math,blue));
-	 red_max=Math.abs(Math.max.apply(Math,red));
-	 red_min=Math.abs(Math.min.apply(Math,red));
-	 green_max=Math.abs(Math.max.apply(Math,green));
-	 green_min=Math.abs(Math.min.apply(Math,green));
-	 
-	 for(index = 0; index < blue.length; index++){
-		 if(blue[index]<0){
-				blue[index]=blue[index]*100/blue_min;
+	
+}
+
+function setPercentages(scale){
+	
+	if(scale=="G"){
+		 blue_max=Math.abs(Math.max.apply(Math,blue));
+		 blue_min=Math.abs(Math.min.apply(Math,blue));
+		 red_max=Math.abs(Math.max.apply(Math,red));
+		 red_min=Math.abs(Math.min.apply(Math,red));
+		 green_max=Math.abs(Math.max.apply(Math,green));
+		 green_min=Math.abs(Math.min.apply(Math,green));
+		 
+		 for(index = 0; index < blue.length; index++){
+			 if(blue[index]<0){
+					blue[index]=blue[index]*100/blue_min;
+				}else{
+					blue[index]=blue[index]*100/blue_max;
+				}
+				if(red[index]<0){
+					red[index]=red[index]*100/red_min;
+				}else{
+					red[index]=red[index]*100/red_max;
+				}
+				if(green[index]<0){
+					green[index]=green[index]*100/green_min;
+				}else{
+					green[index]=green[index]*100/green_max;
+				}
+		 } 
+	}else{	
+		var blue_tmp=blue.slice();
+		var red_tmp=red.slice();
+		var green_tmp=green.slice();
+		var b_min,b_max,r_min,r_max,g_min,g_max;
+		for(index = 0; index < 132; index++){	
+			if(index%12==0){
+				 var b_tmp_ary=blue_tmp.splice(0,12);
+				 var r_tmp_ary=red_tmp.splice(0,12);
+				 var g_tmp_ary=green_tmp.splice(0,12);
+				 
+				b_min=Math.abs(Math.min.apply(Math,b_tmp_ary));
+				b_max=Math.abs(Math.max.apply(Math,b_tmp_ary));
+				r_min=Math.abs(Math.min.apply(Math,r_tmp_ary));
+				r_max=Math.abs(Math.max.apply(Math,r_tmp_ary));
+				g_min=Math.abs(Math.min.apply(Math,g_tmp_ary));
+				g_max=Math.abs(Math.max.apply(Math,g_tmp_ary));
+			}
+			console.log(green[index]+" min : "+g_min+" max :"+g_max);
+			if(blue[index]<0){
+				blue[index]=blue[index]*100/b_min;
 			}else{
-				blue[index]=blue[index]*100/blue_max;
+				blue[index]=blue[index]*100/b_max;
 			}
 			if(red[index]<0){
-				red[index]=red[index]*100/red_min;
+				red[index]=red[index]*100/r_min;
 			}else{
-				red[index]=red[index]*100/red_max;
+				red[index]=red[index]*100/r_max;
 			}
 			if(green[index]<0){
-				green[index]=green[index]*100/green_min;
+				green[index]=green[index]*100/g_min;
 			}else{
-				green[index]=green[index]*100/green_max;
+				green[index]=green[index]*100/g_max;
 			}
-	 } 
+			console.log(green[index]);
+			console.log("");
+		 } 
+	}
+	
+	
 }
 
 function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
@@ -116,7 +162,7 @@ function randomData(gridWidth, gridHeight, square)
 {
     var data = new Array();
     var gridItemWidth = gridWidth / 13;
-    var gridItemHeight = (square) ? gridItemWidth : gridHeight / 12;
+    var gridItemHeight = (square) ? gridItemWidth : gridHeight / 14;
     var startX = gridItemWidth ;
     var startY = gridItemHeight ;
     var stepX = gridItemWidth;
