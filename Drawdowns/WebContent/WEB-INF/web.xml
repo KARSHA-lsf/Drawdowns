@@ -34,11 +34,10 @@
     <url-pattern>/index</url-pattern>
     <url-pattern>/test_getSet</url-pattern>
     <url-pattern>/perm_history</url-pattern>
-<<<<<<< HEAD
+
     <url-pattern>/pattern</url-pattern>
-=======
-    <url-pattern>/pattern</url-pattern>>
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
+
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>annualy_analysis</servlet-name>
