@@ -23,11 +23,9 @@
 #Dr_slider .ui-slider-range {
 	background: #ef2929;
 }
-
 input,td,textarea {
 	max-width: 50px;
 }
-
 .borderless td,.borderless th {
 	border: none;
 }
@@ -206,15 +204,12 @@ input,td,textarea {
 								setData(data);
 								update();
 							},
-
 							error : function(data, error) {
 								console.log(error);
 							},
 							async : false
 						});
-
 					});
-
 					/*
 						$.getJSON('data/test.json', function(data) {
 							setData(data);
@@ -224,33 +219,29 @@ input,td,textarea {
 					var BLN, BSN, BM, BSP, BLP;
 					var RLN, RSN, RM, RSP, RLP;
 					var GLN, GSN, GM, GSP, GLP;
-
 					function update() {
 						BLN = parseInt(document.getElementById("BLN").value);
 						BSN = parseInt(document.getElementById("BSN").value);
 						BM = parseInt(document.getElementById("BM").value);
 						BSP = parseInt(document.getElementById("BSP").value);
 						BLP = parseInt(document.getElementById("BLP").value);
-
 						RLN = parseInt(document.getElementById("RLN").value);
 						RSN = parseInt(document.getElementById("RSN").value);
 						RM = parseInt(document.getElementById("RM").value);
 						RSP = parseInt(document.getElementById("RSP").value);
 						RLP = parseInt(document.getElementById("RLP").value);
-
 						GLN = parseInt(document.getElementById("GLN").value);
 						GSN = parseInt(document.getElementById("GSN").value);
 						GM = parseInt(document.getElementById("GM").value);
 						GSP = parseInt(document.getElementById("GSP").value);
 						GLP = parseInt(document.getElementById("GLP").value);
-
 						if (validations(BLN, BSN, BM, BSP, BLP)
 								&& validations(RLN, RSN, RM, RSP, RLP)
 								&& validations(GLN, GSN, GM, GSP, GLP)) {
 							setPercentages(scale);
 							setColorCode(BLN, BSN, BM, BSP, BLP, RLN, RSN, RM,
 									RSP, RLP, GLN, GSN, GM, GSP, GLP);
-
+							pieChart();
 						} else {
 							window.alert("Invalid Inputs. \nPlease Check.");
 						}
@@ -281,8 +272,5 @@ input,td,textarea {
 	<script src="js/grid.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
-</body>
-</html>
-
 </body>
 </html>
