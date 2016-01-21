@@ -241,6 +241,7 @@ input,td,textarea {
 							setPercentages(scale);
 							setColorCode(BLN, BSN, BM, BSP, BLP, RLN, RSN, RM,
 									RSP, RLP, GLN, GSN, GM, GSP, GLP);
+							pieChart();
 						} else {
 							window.alert("Invalid Inputs. \nPlease Check.");
 						}

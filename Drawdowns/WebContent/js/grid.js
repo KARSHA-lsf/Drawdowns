@@ -40,7 +40,7 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 			pattern[index]="Non-Align";
 			nonAlign=nonAlign+1;
 		}else{
-			colorCode[index] = '#fff';  //
+			colorCode[index] = '#FF69B4';  //
 			pattern[index]="None";
 			none=none+1;
 		}
@@ -256,6 +256,14 @@ function pieChart(){
 	            ['None', none],
 	        ],
 	        type : 'pie',
+	        colors : {
+	        	PushDown : '#ff0000',
+	        	Loss_No_Impact : '#D2691E',
+	        	No_Impact : '#228B22',
+	        	LLHG : '#0000ff',
+	        	Non_Align : '#87CEFA',
+	        	None : '#FF69B4',
+			},
 	    },
 	    pie: {
 	        label: {
