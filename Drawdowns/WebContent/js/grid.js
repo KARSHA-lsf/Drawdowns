@@ -5,6 +5,8 @@ var ogl_blue=[],ogl_red =[],ogl_green =[];
 
 var calData, grid, row, col,text;
 
+var pushdown=0,lossNoImpact=0,noImpact=0,LLHG=0,nonAlign=0,none=0;
+
 var blue_max;
 var blue_min;
 var red_max;
@@ -14,30 +16,39 @@ var green_min;
 	
 function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 	
+	pushdown=0,lossNoImpact=0,noImpact=0,LLHG=0,nonAlign=0,none=0;
+	
 	for(index = 0; index < blue.length; index++){	
 		if(blue[index]<BLN && green[index]<GLN){
 			colorCode[index] = '#ff0000'; // pushdown red
 			pattern[index]="Pushdown";
+			pushdown=pushdown+1;
 		}else if(blue[index]<BLN && green[index]>GSN && green[index]<GSP && red[index]>RSN && red[index]<BSP){
 			colorCode[index] = '#D2691E'; //loss no impact
 			pattern[index]="Loss-No-Impact";
+			lossNoImpact=lossNoImpact+1;
 		}else if(blue[index]>BSN && blue[index]<BM && green[index]>GSN && green[index]<GSP && red[index]>RSN && red[index]<BSP){
 			colorCode[index] = '#228B22'; //no impact green
 			pattern[index]="No-Impact";
+			noImpact=noImpact+1;
 		}else if(blue[index]>BSN && blue[index]<BM){
 			colorCode[index] = '#0000ff'; //LLHG blue
 			pattern[index]="LLHG";
+			LLHG=LLHG+1;
 		}else if(blue[index]<BLN && green[index]>GM){
 			colorCode[index] = '#87CEFA'; //non align light blue
 			pattern[index]="Non-Align";
+			nonAlign=nonAlign+1;
 		}else{
-			colorCode[index] = '#fff';  //
+			colorCode[index] = '#FF69B4';  //
 			pattern[index]="None";
+			none=none+1;
 		}
+		
 	}
-
+	console.log(pushdown,lossNoImpact,noImpact,LLHG,nonAlign,none);
 	d3.select("svg").remove();
-	calendarWeekHour('#chart', window.innerWidth*0.8, window.innerHeight*0.5, false);
+	calendarWeekHour('#chart', window.innerWidth, window.innerHeight*0.5, false);
 }
 
 function setData(data){
@@ -64,7 +75,7 @@ function setPercentages(scale){
 		 green_max=Math.abs(Math.max.apply(Math,ogl_green));
 		 green_min=Math.abs(Math.min.apply(Math,ogl_green));
 		 
-		 for(index = 0; index < blue.length; index++){
+		 for(index = 0; index < 132; index++){
 			 if(ogl_blue[index]<0){
 					blue[index]=ogl_blue[index]*100/blue_min;
 				}else{
@@ -115,8 +126,7 @@ function setPercentages(scale){
 			}else{
 				green[index]=ogl_green[index]*100/g_max;
 			}
-			console.log(green[index]);
-			console.log("");
+
 		 } 
 	}	
 }
@@ -231,4 +241,36 @@ function randomData(gridWidth, gridHeight, square)
         ypos += stepY;
     }	
     return data;
+}
+
+function pieChart(){
+	var chart = c3.generate({
+		bindto : '#pieChart',
+	    data: {
+	        columns: [
+	            ['PushDown', pushdown],
+	            ['Loss_No_Impact', lossNoImpact],
+	            ['No_Impact', noImpact],
+	            ['LLHG', LLHG],
+	            ['Non_Align', nonAlign],
+	            ['None', none],
+	        ],
+	        type : 'pie',
+	        colors : {
+	        	PushDown : '#ff0000',
+	        	Loss_No_Impact : '#D2691E',
+	        	No_Impact : '#228B22',
+	        	LLHG : '#0000ff',
+	        	Non_Align : '#87CEFA',
+	        	None : '#FF69B4',
+			},
+	    },
+	    pie: {
+	        label: {
+	            format: function (value, ratio, id) {
+	                return d3.format('')(value);
+	            }
+	        }
+	    }
+	});
 }
