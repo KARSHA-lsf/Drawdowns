@@ -99,7 +99,6 @@
 				<div id="chart"></div>
 				
 				<div class="row">
-					<div class="span0"></div>
 					<div class="span8" style="margin: 10px 10px 10px">
 						<div style="position: relative; top: 5px;">
 							<table  class = "table borderless" >
@@ -235,6 +234,7 @@
 									setColorCode(BLN, BSN, BM, BSP, BLP, RLN,
 											RSN, RM, RSP, RLP, GLN, GSN, GM,
 											GSP, GLP);
+									pieChart()
 
 								} else {
 									window
@@ -257,7 +257,13 @@
 					</div>
 				</div>
 
+				<div class="row">
+					<div class="col-lg-12" style="margin: 30px 30px 30px">
+						<div id="pieChart"></div>
 
+					</div>
+				</div>
+				
 				<hr>
 			</div>
 		</div>
