@@ -64,11 +64,11 @@ function setPercentages(scale){
 		 green_max=Math.abs(Math.max.apply(Math,ogl_green));
 		 green_min=Math.abs(Math.min.apply(Math,ogl_green));
 		 
-		 for(index = 0; index < blue.length; index++){
+		 for(index = 0; index < 132; index++){
 			 if(ogl_blue[index]<0){
 					blue[index]=ogl_blue[index]*100/blue_min;
 				}else{
-					blue[index]=blue[index]*100/blue_max;
+					blue[index]=ogl_blue[index]*100/blue_max;
 				}
 				if(ogl_red[index]<0){
 					red[index]=ogl_red[index]*100/red_min;
@@ -115,8 +115,7 @@ function setPercentages(scale){
 			}else{
 				green[index]=ogl_green[index]*100/g_max;
 			}
-			console.log(green[index]);
-			console.log("");
+
 		 } 
 	}	
 }
