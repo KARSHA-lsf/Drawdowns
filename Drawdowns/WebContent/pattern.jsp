@@ -21,6 +21,13 @@
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 <style type="text/css">
 	#Dr_slider .ui-slider-range { background: #ef2929; }
+	input,td, textarea {
+    max-width: 80px;}
+    .borderless td, .borderless th {
+    border: none;
+	}
+	
+
 </style>
 
 </head>
@@ -67,8 +74,9 @@
 					<h1 align="center">Patterns</h1>
 				</div>
 				 -->
-				<div class="col-lg-12" style="margin: 30px 30px 30px">
-							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
+				<div class="col-lg-12" style="margin: 10px 10px 10px">
+										
+							<center><h2>2004-2014 - FIVE pattern templates - Local and Global normalization </h2></center>
 							<script>
   								$(function() {
    				 					$('#btnScal').bootstrapToggle({
@@ -90,17 +98,19 @@
 						</div>	
 				<div id="chart"></div>
 				
-				<div class="row-fluid">
-					<div class="span10">
-						<div style="position: relative; top: 30px;">
-							<table>
+				<div class="row">
+					<div class="span0"></div>
+					<div class="span8" style="margin: 10px 10px 10px">
+						<div style="position: relative; top: 5px;">
+							<table  class = "table borderless" >
 								<tr>
 									<th></th>
-									<th>Large Negative</th>
-									<th>Small Negative</th>
-									<th>Mid</th>
-									<th>Small Positive</th>
-									<th>Large Positive</th>
+									<th>Large Negative %</th>
+									<th>Small Negative %</th>
+									<th>Mid %</th>
+									<th>Small Positive %</th>
+									<th>Large Positive %</th>
+									<th></th>
 								</tr>
 								<tr>
 									<th>Blue</th>
@@ -113,7 +123,7 @@
 									<td><input type="text" id="BSP" maxlength="4" size="5"
 										value="25"></td>
 									<td><input type="text" id="BLP" maxlength="4" size="5"
-										value="50"></td>
+										value="50"></td> 
 								</tr>
 								<tr>
 									<th>Red</th>
@@ -140,14 +150,35 @@
 										value="25"></td>
 									<td><input type="text" id="GLP" maxlength="4" size="5"
 										value="50"></td>
+									
+								</tr>
+							</table>			
+						</div>
+						</div>
+						<div class="span4" >
+							<table  class = "table borderless" >
+								<tr><td></td></tr>
+								<tr><td></td></tr>
+								<tr><td> </td></tr>
+								<tr>
+								 <td>
+								   Scale :<br><input type="checkbox" id="btnScal" class="btn btn-primary" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20" />
+								 </td>
+								</tr>
+								<tr><td></td></tr>
+								<tr>
+								  <td>
+								   <button class="btn btn-default" type="button" onclick="update()">Update</button>
+								  </td>
 								</tr>
 							</table>
-							<br>
-							<button type="button" onclick="update()">click</button>
+								
+								
+								
 						</div>
 					</div>
 
-					<div>
+					
 						<script>
 							$(document).ready(function() {
 								var x = "pattern";
