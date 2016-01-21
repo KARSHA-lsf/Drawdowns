@@ -103,7 +103,7 @@ input,td,textarea {
 
 				<div class="row">
 					<div class="span1"></div>
-					<div class="span5" style="margin: 10px 10px 10px">
+					<div class="span6" style="margin: 10px 10px 10px">
 						<div style="position: relative; top: 5px;">
 							<table class="table table-bordered">
 								<tr>
@@ -157,40 +157,25 @@ input,td,textarea {
 								</tr>
 							</table>
 						</div>
+						<div class="row">
+							<div class="span0"></div>
+								<div class="span3">
+									Scale :	<input type="checkbox" id="btnScal" class="btn btn-primary"
+												data-toggle="toggle" data-on="Local" data-off="Global"
+												data-onstyle="success" data-offstyle="info" data-height="20" />	
+								</div>
+								<div class="span1">
+									<button class="btn btn-default" type="button" onclick="update()">Update</button>
+								</div>
+				</div>
 					</div>
-					<div class="span2">
-						<table class="table borderless">
-							<tr>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Scale :<br>
-								<input type="checkbox" id="btnScal" class="btn btn-primary"
-									data-toggle="toggle" data-on="Local" data-off="Global"
-									data-onstyle="success" data-offstyle="info" data-height="20" />
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-							</tr>
-							<tr>
-								<td>
-									<button class="btn btn-default" type="button"
-										onclick="update()">Update</button>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div class="span4">
+				<br>
+					<div class="span5" style="border:solid">
+					<center><h4>Count pattern occurrences</h4></center>
 						<div id="pieChart"></div>
 					</div>
 				</div>
+				
 
 
 				<script>
