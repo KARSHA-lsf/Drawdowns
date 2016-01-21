@@ -37,7 +37,7 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 	}
 
 	d3.select("svg").remove();
-	calendarWeekHour('#chart', window.innerWidth*0.8, window.innerHeight*0.6, false);
+	calendarWeekHour('#chart', window.innerWidth*0.8, window.innerHeight*0.5, false);
 }
 
 function setData(data){
@@ -68,7 +68,7 @@ function setPercentages(scale){
 			 if(ogl_blue[index]<0){
 					blue[index]=ogl_blue[index]*100/blue_min;
 				}else{
-					blue[index]=blue[index]*100/blue_max;
+					blue[index]=ogl_blue[index]*100/blue_max;
 				}
 				if(ogl_red[index]<0){
 					red[index]=ogl_red[index]*100/red_min;
@@ -153,7 +153,7 @@ function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
        			 .attr("x", function(d) { return d.x + d.width/2 })
         		 .attr("y", function(d) { return d.y + d.height/2 })
        			 .attr("text-anchor","middle")
-				 .style("font-size","12px")
+				 .style("font-size",function(d) { return d.width/8 })
         		 .attr("dy",".35em")
         		 .text(function(d) { return d.value });
 }
@@ -162,8 +162,8 @@ function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
 function randomData(gridWidth, gridHeight, square)
 {
     var data = new Array();
-    var gridItemWidth = gridWidth / 13;
-    var gridItemHeight = (square) ? gridItemWidth : gridHeight / 14;
+    var gridItemWidth = gridWidth / 16;
+    var gridItemHeight = (square) ? gridItemWidth : gridHeight / 13;
     var startX = gridItemWidth ;
     var startY = gridItemHeight ;
     var stepX = gridItemWidth;
