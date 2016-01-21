@@ -11,10 +11,8 @@
 
 
 
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
-	media="screen">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"media="screen">
 <link href="assets/styles.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">

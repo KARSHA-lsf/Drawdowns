@@ -6,14 +6,15 @@
 
 <head>
 <title>KARSHA-Drawdowns</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
-	media="screen">
 
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"media="screen">
+<link href="assets/styles.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/c3.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/jquery-ui.css">
 <script src="js/jquery-1.10.2.js"></script>
-
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/jquery-ui.js"></script>
 <link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 
@@ -60,11 +61,7 @@
 
 		<div>
 			<div style="border: 1px solid LightSeaGreen; background-color: white">
-
-				<!-- <div class="row-fluid" style="margin: 30px 30px 30px">
-					<h1 align="center">Patterns</h1>
-				</div>
-				 -->
+			
 				<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
 							<script>
@@ -73,19 +70,18 @@
       									on: 'Enabled',
       									off: 'Disabled'
     								});
-   				 				$('#btnScal').change(function() {
-   				 			      if($(this).prop('checked')){
-   				 			    	  console.log("hi");
-   				 			    	//draw_cumulativeGraph(tab,"G");
-   				 			    	
-   				 			      }
-   				 			      else{
-   				 			    	//draw_cumulativeGraph(tab,"L");
-   				 			      }
-   				 			    })
-  								})
+   				 					$('#btnScal').change(function() {
+   				 			      		if($(this).prop('checked')){		    		
+   				 			    			console.log($(this).prop('checked'));
+   				 			      		}
+   				 			      		else{
+   				 			    			console.log("hello");
+   				 			      		}
+   				 			    	});
+   				 
+  								});
 							</script>
-						</div>	
+				</div>	
 				<div id="chart"></div>
 				<script src="js/jquery-1.10.2.js"></script>
 				<script src="js/jquery-ui.js"></script>
