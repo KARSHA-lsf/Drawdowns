@@ -137,7 +137,6 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 
 	}
 

@@ -57,15 +57,11 @@ public class adminSrvlt extends HttpServlet {
 	//	cummulativeLoassMakt();
 			end_of_month_LMC();
 
-<<<<<<< HEAD
-	//		showDistinctPermno_forBlueBar();
-			
-			
-=======
+
 			//showDistinctPermno_forBlueBar();
-		pattern();
+		//pattern();
 						
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
 	}
 	private void pattern(){
 		
