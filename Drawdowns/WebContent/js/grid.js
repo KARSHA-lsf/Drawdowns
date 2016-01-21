@@ -37,7 +37,7 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 	}
 
 	d3.select("svg").remove();
-	calendarWeekHour('#chart', window.innerWidth*0.8, window.innerHeight*0.5, false);
+	calendarWeekHour('#chart', window.innerWidth, window.innerHeight*0.5, false);
 }
 
 function setData(data){

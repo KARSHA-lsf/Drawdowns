@@ -20,14 +20,17 @@
 <link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 <style type="text/css">
-	#Dr_slider .ui-slider-range { background: #ef2929; }
-	input,td, textarea {
-    max-width: 80px;}
-    .borderless td, .borderless th {
-    border: none;
-	}
-	
+#Dr_slider .ui-slider-range {
+	background: #ef2929;
+}
 
+input,td,textarea {
+	max-width: 50px;
+}
+
+.borderless td,.borderless th {
+	border: none;
+}
 </style>
 
 </head>
@@ -64,9 +67,9 @@
 	</div>
 
 	<div class="container-fluid">
-					<script>
-						var scale="G";
-					</script>
+		<script>
+			var scale = "G";
+		</script>
 		<div>
 			<div style="border: 1px solid LightSeaGreen; background-color: white">
 
@@ -75,42 +78,44 @@
 				</div>
 				 -->
 				<div class="col-lg-12" style="margin: 10px 10px 10px">
-										
-							<center><h2>2004-2014 - FIVE pattern templates - Local and Global normalization </h2></center>
-							<script>
-  								$(function() {
-   				 					$('#btnScal').bootstrapToggle({
-      									on: 'Enabled',
-      									off: 'Disabled'
-    								});
-   				 				$('#btnScal').change(function() {
-   				 			      if($(this).prop('checked')){
-   				 			    	scale = "L";
+
+					<center>
+						<h2>2004-2014 - FIVE pattern templates - Local and Global
+							normalization</h2>
+					</center>
+					<script>
+						$(function() {
+							$('#btnScal').bootstrapToggle({
+								on : 'Enabled',
+								off : 'Disabled'
+							});
+							$('#btnScal').change(function() {
+								if ($(this).prop('checked')) {
+									scale = "L";
 									update();
-   				 			      }
-   				 			      else{
-   				 			    	scale = "G";
-   				 			    	update();
-   				 			      }
-   				 			    })
-  								})
-							</script>
-						</div>	
+								} else {
+									scale = "G";
+									update();
+								}
+							})
+						})
+					</script>
+				</div>
 				<div id="chart"></div>
-				
+
 				<div class="row">
-					<div class="span0"></div>
-					<div class="span8" style="margin: 10px 10px 10px">
+					<div class="span1"></div>
+					<div class="span5" style="margin: 10px 10px 10px">
 						<div style="position: relative; top: 5px;">
-							<table  class = "table borderless" >
+							<table class="table table-bordered">
 								<tr>
 									<th></th>
-									<th>Large Negative %</th>
-									<th>Small Negative %</th>
+									<th>L.Neg %</th>
+									<th>S.Neg %</th>
 									<th>Mid %</th>
-									<th>Small Positive %</th>
-									<th>Large Positive %</th>
-									<th></th>
+									<th>S.Pos %</th>
+									<th>L.Pos %</th>
+
 								</tr>
 								<tr>
 									<th>Blue</th>
@@ -123,7 +128,7 @@
 									<td><input type="text" id="BSP" maxlength="4" size="5"
 										value="25"></td>
 									<td><input type="text" id="BLP" maxlength="4" size="5"
-										value="50"></td> 
+										value="50"></td>
 								</tr>
 								<tr>
 									<th>Red</th>
@@ -150,123 +155,132 @@
 										value="25"></td>
 									<td><input type="text" id="GLP" maxlength="4" size="5"
 										value="50"></td>
-									
-								</tr>
-							</table>			
-						</div>
-						</div>
-						<div class="span4" >
-							<table  class = "table borderless" >
-								<tr><td></td></tr>
-								<tr><td></td></tr>
-								<tr><td> </td></tr>
-								<tr>
-								 <td>
-								   Scale :<br><input type="checkbox" id="btnScal" class="btn btn-primary" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20" />
-								 </td>
-								</tr>
-								<tr><td></td></tr>
-								<tr>
-								  <td>
-								   <button class="btn btn-default" type="button" onclick="update()">Update</button>
-								  </td>
+
 								</tr>
 							</table>
-								
-								
-								
 						</div>
 					</div>
-
-					
-						<script>
-							$(document).ready(function() {
-								var x = "pattern";
-								$.ajax({
-									type : 'GET',
-									url : x,
-									dataType : 'json',
-									success : function(data) {
-										setData(data);
-										update();
-									},
-
-									error : function(data, error) {
-										console.log(error);
-									},
-									async : false
-								});
-
-							});
-
-							/*
-								$.getJSON('data/test.json', function(data) {
-									setData(data);
-									update();
-								});
-							 */
-							var BLN, BSN, BM, BSP, BLP;
-							var RLN, RSN, RM, RSP, RLP;
-							var GLN, GSN, GM, GSP, GLP;
-
-							function update() {
-								BLN = parseInt(document.getElementById("BLN").value);
-								BSN = parseInt(document.getElementById("BSN").value);
-								BM = parseInt(document.getElementById("BM").value);
-								BSP = parseInt(document.getElementById("BSP").value);
-								BLP = parseInt(document.getElementById("BLP").value);
-
-								RLN = parseInt(document.getElementById("RLN").value);
-								RSN = parseInt(document.getElementById("RSN").value);
-								RM = parseInt(document.getElementById("RM").value);
-								RSP = parseInt(document.getElementById("RSP").value);
-								RLP = parseInt(document.getElementById("RLP").value);
-
-								GLN = parseInt(document.getElementById("GLN").value);
-								GSN = parseInt(document.getElementById("GSN").value);
-								GM = parseInt(document.getElementById("GM").value);
-								GSP = parseInt(document.getElementById("GSP").value);
-								GLP = parseInt(document.getElementById("GLP").value);
-
-								if (validations(BLN, BSN, BM, BSP, BLP)
-										&& validations(RLN, RSN, RM, RSP, RLP)
-										&& validations(GLN, GSN, GM, GSP, GLP)) {
-									setPercentages(scale);
-									setColorCode(BLN, BSN, BM, BSP, BLP, RLN,
-											RSN, RM, RSP, RLP, GLN, GSN, GM,
-											GSP, GLP);
-
-								} else {
-									window
-											.alert("Invalid Inputs. \nPlease Check.");
-								}
-							}
-							function validations(LN, SN, M, SP, LP) {
-								var bool = false;
-								if (isNaN(LN) || isNaN(SN) || isNaN(M)
-										|| isNaN(SP) || isNaN(LP)) {
-								} else {
-									if (LN >= -100 && LN <= SN && SN <= M
-											&& M <= SP && SP < LP && LP <= 100) {
-										bool = true;
-									}
-								}
-								return bool;
-							}
-						</script>
+					<div class="span2">
+						<table class="table borderless">
+							<tr>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Scale :<br>
+								<input type="checkbox" id="btnScal" class="btn btn-primary"
+									data-toggle="toggle" data-on="Local" data-off="Global"
+									data-onstyle="success" data-offstyle="info" data-height="20" />
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<button class="btn btn-default" type="button"
+										onclick="update()">Update</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="span4">
+						<div id="pieChart"></div>
 					</div>
 				</div>
 
 
-				<hr>
+				<script>
+					$(document).ready(function() {
+						var x = "pattern";
+						$.ajax({
+							type : 'GET',
+							url : x,
+							dataType : 'json',
+							success : function(data) {
+								setData(data);
+								update();
+							},
+
+							error : function(data, error) {
+								console.log(error);
+							},
+							async : false
+						});
+
+					});
+
+					/*
+						$.getJSON('data/test.json', function(data) {
+							setData(data);
+							update();
+						});
+					 */
+					var BLN, BSN, BM, BSP, BLP;
+					var RLN, RSN, RM, RSP, RLP;
+					var GLN, GSN, GM, GSP, GLP;
+
+					function update() {
+						BLN = parseInt(document.getElementById("BLN").value);
+						BSN = parseInt(document.getElementById("BSN").value);
+						BM = parseInt(document.getElementById("BM").value);
+						BSP = parseInt(document.getElementById("BSP").value);
+						BLP = parseInt(document.getElementById("BLP").value);
+
+						RLN = parseInt(document.getElementById("RLN").value);
+						RSN = parseInt(document.getElementById("RSN").value);
+						RM = parseInt(document.getElementById("RM").value);
+						RSP = parseInt(document.getElementById("RSP").value);
+						RLP = parseInt(document.getElementById("RLP").value);
+
+						GLN = parseInt(document.getElementById("GLN").value);
+						GSN = parseInt(document.getElementById("GSN").value);
+						GM = parseInt(document.getElementById("GM").value);
+						GSP = parseInt(document.getElementById("GSP").value);
+						GLP = parseInt(document.getElementById("GLP").value);
+
+						if (validations(BLN, BSN, BM, BSP, BLP)
+								&& validations(RLN, RSN, RM, RSP, RLP)
+								&& validations(GLN, GSN, GM, GSP, GLP)) {
+							setPercentages(scale);
+							setColorCode(BLN, BSN, BM, BSP, BLP, RLN, RSN, RM,
+									RSP, RLP, GLN, GSN, GM, GSP, GLP);
+
+						} else {
+							window.alert("Invalid Inputs. \nPlease Check.");
+						}
+					}
+					function validations(LN, SN, M, SP, LP) {
+						var bool = false;
+						if (isNaN(LN) || isNaN(SN) || isNaN(M) || isNaN(SP)
+								|| isNaN(LP)) {
+						} else {
+							if (LN >= -100 && LN <= SN && SN <= M && M <= SP
+									&& SP < LP && LP <= 100) {
+								bool = true;
+							}
+						}
+						return bool;
+					}
+				</script>
 			</div>
 		</div>
+
+
+		<hr>
+	</div>
+	</div>
 	</div>
 	<!-- /container -->
 
-<script src="js/grid.js"></script>
-<script src="bootstrap/js/c3.js"></script>
-<script src="bootstrap/js/d3.min.js"></script>
+	<script src="js/grid.js"></script>
+	<script src="bootstrap/js/c3.js"></script>
+	<script src="bootstrap/js/d3.min.js"></script>
 </body>
 </html>
 
