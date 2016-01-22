@@ -23,13 +23,22 @@
 #Dr_slider .ui-slider-range {
 	background: #ef2929;
 }
-input,td,textarea {
-	max-width: 50px;
+input,td,th,textarea {
+	max-width: 30px;
 }
 .borderless td,.borderless th {
 	border: none;
 }
+.c3-region.regionY {
+  fill: red;
+}
+.c3-region.regionY2 {
+  fill: green;
+}
 </style>
+<script type="text/javascript">
+
+</script>
 
 </head>
 </head>
@@ -106,7 +115,7 @@ input,td,textarea {
 					<div class="span1"></div>
 					<div class="span6" style="margin: 10px 10px 10px">
 						<div style="position: relative; top: 5px;">
-							<table class="table table-bordered">
+							<table class="table table-bordered ">
 								<tr>
 									<th></th>
 									<th>L.Neg %</th>
@@ -114,6 +123,7 @@ input,td,textarea {
 									<th>Mid %</th>
 									<th>S.Pos %</th>
 									<th>L.Pos %</th>
+									<th></th>
 
 								</tr>
 								<tr>
@@ -128,6 +138,9 @@ input,td,textarea {
 										value="25"></td>
 									<td><input type="text" id="BLP" maxlength="4" size="5"
 										value="50"></td>
+									<td><button class="btn btn-default" type="button" onclick="distribution_draw('Blue')">Distri.</button></td>
+											<div id="distribution"></div>
+										
 								</tr>
 								<tr>
 									<th>Red</th>
@@ -141,6 +154,7 @@ input,td,textarea {
 										value="25"></td>
 									<td><input type="text" id="RLP" maxlength="4" size="5"
 										value="50"></td>
+									<td><button class="btn btn-default" type="button" onclick="distribution_draw()">Distri.</button></td>
 								</tr>
 								<tr>
 									<th>Green</th>
@@ -154,6 +168,7 @@ input,td,textarea {
 										value="25"></td>
 									<td><input type="text" id="GLP" maxlength="4" size="5"
 										value="50"></td>
+									<td><button class="btn btn-default" type="button" onclick="distribution_draw()">Distri.</button></td>
 
 								</tr>
 							</table>

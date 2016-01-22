@@ -274,3 +274,50 @@ function pieChart(){
 	    }
 	});
 }
+
+function distribution_draw(name){
+	console.log("oooo"+ogl_blue.toString());
+	$(function() {
+	    $( "#distribution" ).dialog({
+	    	resizable: true,
+			width: 600,
+			height: 350,
+			title:name
+	    });
+	    
+	  });
+	
+	
+	
+	var chart6 = c3.generate({
+		bindto : '#distribution',
+		size: {
+			  width: 550
+			},
+		 data: {
+		        columns: [
+		            [name].concat(ogl_blue.sort(function(a,b){return a - b}))
+		        ],
+		        type: 'bar'
+		    },
+		    tooltip: {
+		    	  show: false
+		    },
+		    axis : {
+				y : {
+					tick : {
+						format : function(d) {
+							return (d/1000000) + "M";
+						}
+					}
+					
+				},
+			},
+			 regions: [
+			           {axis: 'x', end: 50, class: 'regionY'},
+			           {axis: 'x', start: 51, end: 100, class: 'regionX2'},
+			           ]
+		    
+		
+		});
+}
