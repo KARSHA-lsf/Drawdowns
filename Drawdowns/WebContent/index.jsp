@@ -60,11 +60,13 @@
 				<div class="row-fluid" style="margin: 30px 30px 30px">
 					<h1 align="center">KARSHA-Drawdowns</h1>
 				</div>
+<!-- 				<img src="images.jpeg" style="width:100%;height:40%;"> -->
 						<div class="span4">
 						<div style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
 							<h2 class="icon soul">
-								<a href="top10losses.jsp">Top 10% Losses</a>
+								<a href="top10losses.jsp" style="width:50%;height:50%;">Top 10% Losses
 							</h2>
+							<img src="pic_mountain.jpg" style="width:50%;height:55%;display: block;margin-left: auto;margin-right: auto" align="middle"></a>
 <!-- 							<p>Every great brand needs a good logo. This is my bread and -->
 <!-- 								butter.</p> -->
 						</div>
@@ -72,8 +74,9 @@
 						<div class="span4">
 							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
 							<h2 class="icon web">
-								<a href="annually_analyis.jsp">Yearly Analysis</a>
+								<a href="annually_analyis.jsp">Yearly Analysis
 							</h2>
+							<img src="$.jpg" style="width:50%;height:55%;display: block;margin-left: auto;margin-right: auto" align="middle"></a>
 <!-- 							<p>Websites are the new store fronts. A nice one can bring -->
 <!-- 								more business.</p> -->
 						</div>
@@ -81,8 +84,9 @@
 						<div class="span3">
 							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:100%;height:150px">
 							<h2 class="icon shirt">
-								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a> 
+								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis
 							</h2>
+							<img src="@@.jpg" style="width:50%;height:55%;display: block;margin-left: auto;margin-right: auto" align="middle" ></a> 
 <!-- 							<p>Need a poster, a book cover, a label for a booze or beer -->
 <!-- 								bottle? I can do that too!</p> -->
 						</div>

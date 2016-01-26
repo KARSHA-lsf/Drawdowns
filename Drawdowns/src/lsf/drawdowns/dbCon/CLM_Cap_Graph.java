@@ -11,8 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import model.CRSP_ValueWeightedReturns;
+
 import org.hibernate.SQLQuery;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -459,6 +462,84 @@ public JSONObject eofMonthLMC(){
 	    DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	    return DATE_FORMAT.format(date);
 	}
+	public JsonObject AllSqlGraphs(){
+		String sqli = request.getParameter("S");
+		String sql = sqli.replace("-", " ");
+		String [] arr = sql.split(" ");
+		String arr2 = arr[1];
+		//System.out.println(arr2);
+		String [] arr3 = arr2.split(",");
+		String x = arr3[0];
+		String y = arr3[1];
+		ArrayList xvalues = new ArrayList<>();
+		ArrayList yvalues = new ArrayList<>();
+		
+		SQLQuery q = session.createSQLQuery(sql);
+		List<Object[]> result = q.list();
+		
+		for (Object[] returns : result) {
+			
+			//System.out.println(x + " " + returns[0]);
+			//System.out.println(y + " " + returns[1]);
+			xvalues.add(returns[0]);
+			yvalues.add(returns[1]);
+						
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement retvalue = gson.toJsonTree(xvalues); 
+		JsonElement enddate = gson.toJsonTree(yvalues);
+		
+		J_obj.add(x,retvalue);
+		J_obj.add(y, enddate);
+		
+		//System.out.println(J_obj);
+		return J_obj;
+	}
+	public void redbardialog(){
+		String sql = "select A.permno,A.yrmo,A.value1 from (SELECT permno,yrmo,value1 FROM `caaf_marketcapitalization` WHERE yrmo between 201201 and 201202)As A join (SELECT PERMNO_date,YRMO_date FROM `capm_drawdowns_date` WHERE HORIZON=1 and YRMO_date between 201201 and 201202)As B on A.permno = B.PERMNO_date and A.yrmo = B.YRMO_date";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<Integer> Arr_permno = new ArrayList<>();
+		List<Integer> Arr_yrmo = new ArrayList<>();
+		List<String> Arr_Mcap = new ArrayList<>();
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> result = q.list();
+		for (Object[] returns : result) {
+			//System.out.println(returns[2]);
+			int permno = (int) returns[0];
+			int yrmo = (int) returns[1];
+			String Mcap = (String) returns[2];
+			Arr_permno.add(permno);
+			Arr_yrmo.add(yrmo);
+			Arr_Mcap.add(Mcap);
+		}
+		/*	int yrmo = (int) returns[0];
+			String Mcap = (String) returns[1];
+			int permno = (int) returns[2];
+			System.out.println(yrmo);
+			System.out.println(Mcap);
+			System.out.println(permno);*/
+		
+			
+			
+			Gson gson = new Gson();
+			JsonObject J_obj = new JsonObject();
+			JsonElement Jpermno = gson.toJsonTree(Arr_permno);
+			JsonElement Jyrmo = gson.toJsonTree(Arr_yrmo);
+			JsonElement JMcap = gson.toJsonTree(Arr_Mcap);
+			
+			J_obj.add("permno", Jpermno);
+			J_obj.add("yrmo", Jyrmo);
+			J_obj.add("Mcap", JMcap);
+			
+			System.out.println(J_obj); 
+			
+		}
+		
+		
+	}
 
 
-}
+

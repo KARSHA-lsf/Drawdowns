@@ -127,6 +127,9 @@ public class IndexSrvlt extends HttpServlet {
 			dialog.add("Return_value", ret.getAsJsonArray("Return_value"));
 			dialog.add("End_date", ret.getAsJsonArray("End_date"));
 			pwr.print(dialog); 
+		}else if(userPath.equals("/AllSqlGraph")){
+			pwr.print(clm_grp.AllSqlGraphs());
+			
 		}
 		
 		
