@@ -60,48 +60,18 @@
 			<div class="span12"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class="row-fluid" style="margin: 30px 30px 30px">
-					<h1 align="center">KARSHA-Drawdowns</h1>
+					<h1 align="center">Index interval and Monthly interval</h1>					
 				</div>
-						<div class="span4">
-						<div style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
-							<h2 class="icon soul">
-								<a href="top10losses.jsp">Top 10% Losses</a>
-							</h2>
-<!-- 							<p>Every great brand needs a good logo. This is my bread and -->
-<!-- 								butter.</p> -->
-						</div>
-						</div>
-						<div class="span4">
-							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
-							<h2 class="icon web">
-								<a href="annually_analyis.jsp">Yearly Analysis</a>
-							</h2>
-<!-- 							<p>Websites are the new store fronts. A nice one can bring -->
-<!-- 								more business.</p> -->
-						</div>
-					</div>
-						<div class="span3">
-							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:100%;height:150px">
-							<h2 class="icon shirt">
-								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a> 
-							</h2>
-<!-- 							<p>Need a poster, a book cover, a label for a booze or beer -->
-<!-- 								bottle? I can do that too!</p> -->
-						</div>
-						</div>
-					</div> 
-					<hr>
-				</div>
-			</div>
+				<center><img src="bootstrap/img/definitions.jpg"></center>			
+			</div> 
+					
+		</div>
+	</div>
 		
 				<!-- /container -->
 			
 	
-	<script type="text/javascript">
-		$.post("IndexSrvlt", "").error(function() {
-			//alert("there is error while sending data to server");
-		});
-	</script>
+	
 	<div id="footer">
   <div class="container">
     <p style="text-align:center">Lanka Software Foundation &copy; 2015</p>
