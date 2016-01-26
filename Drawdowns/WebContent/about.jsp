@@ -97,22 +97,20 @@
 						<div class="col-lg-12">
 							<h1 class="page-header" style="text-align:center">About Us</h1>
 						</div>
-						<p>The Karsha GC Drawdowns website and tool was developed to visualize an evolving set of 'Granger Causality'
-						networks where each network is derived from a pair of financial data streams.</p>
-						<p>The Karsha project aims to develop next generation financial cyberinfrastructure 
-						tools to support data science for finance.</p>	
-						<p>Karsha is supported by the Smith School of Business at the University of Maryland, the Lanka Software Foundation
+						<p>&nbsp;&nbsp;&nbsp;&nbsp; The Karsha Drawdown tools and website provides visual analytics of the impact of price Drawdowns (lowest value in the price of individual equities in some interval) on the aggregate behavior of the S&P 500
+portfolio of equities. The Karsha project aims to develop next generation financial cyberinfrastructure 
+						tools to support data science for finance. Karsha is supported by the Smith School of Business at the University of Maryland,the University of Colombo School of Computing Sri Lanka, the Lanka Software Foundation
 						and the US National Science Foundation.</p>
 					</div>
 					
 					<div class "row-fluid" style="margin:30px 30px 30px">
 						<div class="span3">
-							<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:160px;height:100px">
+							<div class="block" style="border:2px solid #000000;padding:20px;width:160px;height:100px">
 								<img src="bootstrap/img/lsf.jpg">
 									<a href="http://opensource.lk/" target="_blank">
 										<div class="panel-footer">
 											<div class="container4">
-												<hr style="border-color:#8AC007">
+												<hr style="border-color:#000000">
 													<span class="pull-left">
 														<p>Lanka Software Foundation</p>
 													</span><br></br> <span></span>
@@ -123,14 +121,13 @@
 									</a>
 							</div>
 						</div>
-						
 						<div class="span3">
-							<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:160px;height:100px">
+							<div class="block" style="border:2px solid #000000;padding:20px;width:160px;height:100px">
 								<img src="bootstrap/img/ucsc.png">
 									<a href="http://www.ucsc.cmb.ac.lk/" target="_blank">
 										<div class="panel-footer">
 											<div class="container4">
-												<hr style="border-color:#8AC007">
+												<hr style="border-color:#000000">
 													<span class="pull-left">
 														<p>UCSC</p>
 													</span><br></br> <span></span>
@@ -141,14 +138,13 @@
 									</a>
 							</div>
 						</div>
-						
 						<div class="span3">
-							<div class="block" style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:160px;height:100px">
+							<div class="block" style="border:2px solid #000000;padding:20px;width:160px;height:100px">
 								<img src="bootstrap/img/maryland.jpg">
 									<a href="http://www.rhsmith.umd.edu/" target="_blank">
 										<div class="panel-footer">
 											<div class="container4">
-												<hr style="border-color:#8AC007">
+												<hr style="border-color:#000000">
 													<span class="pull-left">
 														<p>University of Maryland</p>
 													</span><br></br> <span></span>
@@ -159,12 +155,12 @@
 							</div>
 						</div>
 						<div class="span3">
-							<div class="block"  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:160px;height:100px">
+							<div class="block"  style="border:2px solid #000000;padding:20px;width:160px;height:100px">
 								<img src="bootstrap/img/Nsf.jpg">
 									<a href="http://www.nsf.gov/" target="_blank">
 										<div class="panel-footer">
 											<div class="container5">
-												<hr style="border-color:#8AC007">
+												<hr style="border-color:#000000">
 													<span class="pull-left">
 														<p>US National Science Foundation</p>
 													</span><br></br> <span></span>
@@ -175,10 +171,11 @@
 							</div>
 						</div>
 					</div>
-		
+					<div class="span12"  >
 					<div class "row-fluid" style="margin:30px 30px 30px">
 						<p>This is a free and opensource tool released under GNU General Public License. 
-							You can access the source code from <a href="https://github.com/yasithadehigama/Drawdowns" target="_blank">here</a></p>
+							You can access the source code from <a href="https://github.com/Karsha-Project-LSF/Drawdowns" target="_blank">here</a></p>
+					</div>
 					</div>
 					
 					<div class "row-fluid" style="margin:30px 30px 30px">
