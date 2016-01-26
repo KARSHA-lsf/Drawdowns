@@ -63,6 +63,7 @@ input,td,th,textarea {
 								Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="pattern.jsp">Pattern</a></li>
+						<li><a href="definitions.jsp">Definitions</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
 

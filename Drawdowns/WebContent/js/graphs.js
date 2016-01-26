@@ -750,6 +750,7 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 		"Low" : L_PermNo,
 		"Low_x" : L_Perm_date
 	};
+	
 	return Ready_output;
 }
 function Permno_history_graph(json_ary) {
@@ -918,7 +919,9 @@ function Permno_history_graph(json_ary) {
 	
 }
 function popup(d, element) {
+	
 	var urlindex = "perm_history?Q="+tab+ "&P=" + d.value;
+	console.log(d.value);
 	$("#dialog").dialog({
 			resizable: true,
 			width: 450,
@@ -932,8 +935,7 @@ function popup(d, element) {
 		   dataType: 'json',
 		   success: function (data) {
 		        	
-		    console.log(data);
-		    console.log(d.value);
+		    
 		    Permno_history_graph(data);
 		       	
 	        },

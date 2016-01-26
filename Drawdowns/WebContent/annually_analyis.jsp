@@ -65,6 +65,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="pattern.jsp">Pattern</a></li>
+						<li><a href="definitions.jsp">Definitions</a></li>
 						<li><a href="about.jsp">About</a></li>
 						<!-- <li><a href="advance_filter.jsp?Q=2004&M=03" style="text-align: center">Advance Filter</a></li> -->
 					</ul>
