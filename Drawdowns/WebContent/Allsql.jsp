@@ -9,39 +9,5 @@
 <title>Insert title here</title>
 </head>
 <body>
- Sql : <input type="text" name="sql">
- <input id="sqlsubmit" type="submit" value="Submit">
-<div id="allsql"></div>
-
-<script>
-$(document).ready(function() {
-	var alltext = $('#sql').val();
-	console.log(alltext);
-	
-	var url = "AllSqlGraph?S=SELECT-yrmo,value1-FROM-caaf_drawdowns";
-	$.ajax({
-		type : 'GET',
-		url : url,
-		dataType : 'json',
-		success : function(data) {
-			console.log(data);
-		},
-		error : function(data, error) {
-			console.log(error);
-		},
-		async : false
-	});
-	$("#sqlsubmit").click(function(){
-        alert(alltext);
-    }); 
-	
-	
-});
-
-
-
-
-
-</script>
 </body>
 </html>
