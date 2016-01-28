@@ -14,13 +14,13 @@ import org.json.JSONObject;
 public class db_connections {
 
 	String driver = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/Karsha_drawdowns";
+	/*String url = "jdbc:mysql://localhost:3306/Karsha_drawdowns";
 	String username = "root";
-	String password = "";
+	String password = "";*/
 	
-	/*String url = "jdbc:mysql://clipdb-sm3.umiacs.umd.edu:3306/Karsha_drawdowns";
+	String url = "jdbc:mysql://clipdb-sm3.umiacs.umd.edu:3306/Karsha_drawdowns";
 	String username = "karsha";
-	String password = "em$.N0w";*/
+	String password = "em$.N0w";
 
 	public static Connection con = null;
 	PreparedStatement pst = null;

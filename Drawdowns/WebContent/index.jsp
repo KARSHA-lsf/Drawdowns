@@ -24,6 +24,9 @@
 		});
 	});
 </script>
+<style type="text/css">
+
+</style>
 </head>
 
 <body>
@@ -63,37 +66,41 @@
 				<div class="row-fluid" style="margin: 30px 30px 30px">
 					<h1 align="center">KARSHA-Drawdowns</h1>
 				</div>
+				
 						<div class="span4">
-						<div style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
+						<div style="border:2px solid #8AC007;padding:20px;width:75%;height:150px">
 							<h2 class="icon soul">
-								<a href="top10losses.jsp">Top 10% Losses</a>
+								<a href="top10losses.jsp"><center>Top 10% Losses</center></a>
 							</h2>
 <!-- 							<p>Every great brand needs a good logo. This is my bread and -->
 <!-- 								butter.</p> -->
 						</div>
 						</div>
 						<div class="span4">
-							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:75%;height:150px">
+							<div  style="border:2px solid #8AC007;padding:20px;width:75%;height:150px">
 							<h2 class="icon web">
-								<a href="annually_analyis.jsp">Yearly Analysis</a>
+								<a href="annually_analyis.jsp"><center>Yearly Analysis</center></a>
 							</h2>
 <!-- 							<p>Websites are the new store fronts. A nice one can bring -->
 <!-- 								more business.</p> -->
 						</div>
 					</div>
 						<div class="span3">
-							<div  style="border-radius:25px;border:2px solid #8AC007;padding:20px;width:100%;height:150px">
+							<div  style="border:2px solid #8AC007;padding:20px;width:100%;height:150px">
 							<h2 class="icon shirt">
-								<a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a> 
+								<a href="monthly_analysis.jsp?Q=2004&M=01"><center>Monthly Analysis</center></a> 
 							</h2>
 <!-- 							<p>Need a poster, a book cover, a label for a booze or beer -->
 <!-- 								bottle? I can do that too!</p> -->
 						</div>
 						</div>
+						<div class="span12"></div>
 					</div> 
-					<hr>
+					
+					
 				</div>
 			</div>
+			
 		
 				<!-- /container -->
 			

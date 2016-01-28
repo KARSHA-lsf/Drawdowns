@@ -125,7 +125,7 @@ input,td,th,textarea {
 									<th>Mid %</th>
 									<th>S.Pos %</th>
 									<th>L.Pos %</th>
-									<th></th>
+									<!-- <th></th> -->
 
 								</tr>
 								<tr>
@@ -140,7 +140,7 @@ input,td,th,textarea {
 										value="25"></td>
 									<td><input type="text" id="BLP" maxlength="4" size="5"
 										value="50"></td>
-									<td><button class="btn btn-default" type="button" onclick="distribution_draw('Blue')">Distri.</button></td>
+									<!-- <td><button class="btn btn-default" type="button" onclick="distribution_draw('Blue')">Distri.</button></td> -->
 											<div id="distribution"></div>
 										
 								</tr>
@@ -156,7 +156,7 @@ input,td,th,textarea {
 										value="25"></td>
 									<td><input type="text" id="RLP" maxlength="4" size="5"
 										value="50"></td>
-									<td><button class="btn btn-default" type="button" onclick="distribution_draw()">Distri.</button></td>
+									<!-- <td><button class="btn btn-default" type="button" onclick="distribution_draw()">Distri.</button></td> -->
 								</tr>
 								<tr>
 									<th>Green</th>
@@ -170,7 +170,7 @@ input,td,th,textarea {
 										value="25"></td>
 									<td><input type="text" id="GLP" maxlength="4" size="5"
 										value="50"></td>
-									<td><button class="btn btn-default" type="button" onclick="distribution_draw()">Distri.</button></td>
+									<!-- <td><button class="btn btn-default" type="button" onclick="distribution_draw()">Distri.</button></td> -->
 
 								</tr>
 							</table>
