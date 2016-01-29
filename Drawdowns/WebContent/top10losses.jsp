@@ -102,7 +102,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				
 					
 					<script>
-						var scale="K";
+						var scale="L";
 					</script>
 					<ul>
 						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
