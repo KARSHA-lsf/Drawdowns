@@ -100,7 +100,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				<div id="tabs">
 				
 					<script>
-						var scale="K";
+						var scale="L";
 					</script>
 					
 					<ul>
@@ -124,10 +124,12 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
    				 			      if($(this).prop('checked')){
    				 			    	draw_cumulativeGraph(tab,"G");
    				 			    	scale="G";
+   				 			    	console.log("scale is : "+scale);
    				 			      }
    				 			      else{
    				 			    	draw_cumulativeGraph(tab,"L");
-   				 			    	Scale="L";
+   				 			    	scale="L";
+   				 			    	console.log("scale is : "+scale);
    				 			      }
    				 			    })
   								})
@@ -173,12 +175,15 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					   
 						});
 							$("#ta<%=i%>").click(function(){
+								
 								Dr_value = 20;
 								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
 								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
+								console.log("scale iss: "+scale);
 								draw_cumulativeGraph(tab,scale);
+						
 							});
 						</script>
 					</div>
