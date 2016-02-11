@@ -319,6 +319,7 @@ function drawLossMcGraphTopTen(jsd,status) {
 			json : jsd,
 			mimeType : 'json',
 			type : 'bar',
+			onclick : function(d, element) {reddialog(d, element);},
 			xs : {
 				'EndofMonth_Total_Loss_Market_capitalization' : 'eof_Date',
 				'Index_Drawdown' : 'Index_Date',
@@ -1007,3 +1008,44 @@ function drawIndextab(json_ary,tab) {
 	});
 
 }
+function reddialog(d, element){
+	if(d.name == "EndofMonth_Total_Loss_Market_capitalization"){
+		//window.alert("Hi");
+		$('#reddialog').dialog();
+		
+		var date = d.x;
+		var month = date.getMonth()+1;
+		if (month <  10){
+			month = "0"+(date.getMonth()+1);
+			yrmostart = date.getFullYear()+ month;
+		}
+		else 
+			yrmostart = ""+date.getFullYear()+month;
+			yrmoend = yrmostart -1;
+		
+		$('#red').html(yrmoend);
+//		var urlindex = "RedDialog?S="+yrmostart+ "&E=" + yrmoend;
+		var urlindex = "RedDialog";
+			$.ajax({
+		       type: 'GET',
+			   url: urlindex,
+			   dataType: 'json',
+			   success: function (data) {	
+			    console.log(data);
+			   			       	
+		        },
+			        
+			    error: function (data,
+			                error) {
+			      		console.log(error);
+			     },
+			        	async: false
+			    });
+			}
+		
+	}
+	
+	
+	
+	
+	

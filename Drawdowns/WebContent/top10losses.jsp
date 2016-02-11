@@ -204,6 +204,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					 
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
+					<div id = "reddialog">
+						<div id = "red"></div>
+					
+					</div>
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
