@@ -159,7 +159,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 						<div id="multihistogram"></div>					
 					</div>
 							
-		
+					
+					
+					
 					<%for (int i = 2004; i < 2015; i++) {
 						String tab = "tab" + i;
 						String button = tab;%>
@@ -181,9 +183,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 								
 								 <form>
 								  	<p>
- 									<input type="radio" onclick="draw_me(data_init)" name="gender" value="permno" checked> Permno<br>
-  									<input type="radio" onclick="draw_menaics(data_init)" name="gender" value="naics"> Naics<br>
-  									<input type="radio" name="gender" value="mcap"> MarketCapitalization  </p>
+ 									<input type="radio" id="id1" onclick="draw_me(data_init)" name="gender" value="permno" checked> Permno<br>
+  									<input type="radio" id="id2" onclick="draw_menaics(data_init)" name="gender" value="naics"> Naics<br>
+  									<input type="radio" id="id3" name="gender" value="mcap"> MarketCapitalization  </p>
 								</form>
 								
 								
@@ -295,6 +297,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 							drawScatterPlot_yearly(
 								Ready_output,tab , 01,
 						 		'#scatter_plot'+tab);
+								//console.log(document.getElementById('id1'));
 
 						}
 						
@@ -305,6 +308,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 							drawScatterPlot_yearly_naics(
 								Ready_output,tab , 01,
 						 		'#scatter_plot'+tab);
+								//console.log(document.getElementById("id2"));
 
 						}
 					</script>
