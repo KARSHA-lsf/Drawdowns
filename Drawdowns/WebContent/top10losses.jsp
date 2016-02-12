@@ -172,51 +172,57 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
  -->								</div>
 								<div class="span3">
-									<div class="col-sm-3">
+									<div class="col-sm-2">
 											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
 											<div id="Dr_slider<%=i%>"></div>							
 									</div>
 								</div>
 								
 								
-								<div class="col-lg-12" style="margin: 30px 30px 30px">
-									<b>Scale :</b> <input type="checkbox" id="button2" data-toggle="toggle" data-on="Permno" data-off="NAICS" data-onstyle="success" data-offstyle="info" data-height="20">				
-						
-							
+								 <form>
+								  	<p>
+ 									<input type="radio" onclick="draw_me(data_init)" name="gender" value="permno" checked> Permno<br>
+  									<input type="radio" onclick="draw_menaics(data_init)" name="gender" value="naics"> Naics<br>
+  									<input type="radio" name="gender" value="mcap"> MarketCapitalization  </p>
+								</form>
+								
+								
+								<!--  <div class="col-lg-12" style="margin: 30px 30px 30px">
+									<b>Scale :</b> <input type="checkbox" id="button" data-toggle="toggle" data-on="Permno" data-off="NAICS" data-onstyle="success" data-offstyle="info" data-height="20">				
+					
 									<script>
   										$(function() {
-   				 							$('#button2').bootstrapToggle({
+   				 							$('#button').bootstrapToggle({
       											on: 'Enabled',
       											off: 'Disabled'
     										});
-   				 						$('#button2').change(function() {
+   				 						$('#button').change(function() {
    				 			      			if($(this).prop('checked')){
-   				 			    				//draw_cumulativeGraph(tab,"G");
+   				 			    
    				 			    				scaleNa="Pe";
    				 			    				draw_me(data_init);
-   				 			    				//console.log("scale is : "+scaleNa);
-   				 			    				//console.log("dfdfd");
-   				 			    				console.log(scaleNa);
+   				 			    				console.log($(this).prop('checked'));
    				 			      			}
-   				 			      			else{
-   				 			    				//draw_cumulativeGraph(tab,"L");				 			    				
+   				 			      			else{				 			    				
    				 			    				scaleNa="Na";
    				 			    				draw_me(data_init);
-   				 			    				console.log(scaleNa);
-   				 			    				//console.log("scale is : "+scaleNa);
-   				 			    			
+   				 			    				console.log($(this).prop('checked'));	
    				 			      			}
    				 			    		});
    				 
   									});
 								</script>
-							</div>	
+							</div>	-->
 								
 								
 							<div id="scatter_plot<%=i%>"></div>
+							
+						
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
 							</div>
+							
+							
 						</div>
 						
 																
@@ -237,15 +243,12 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 							$("#ta<%=i%>").click(function(){
 					
 								Dr_value = 100;
-								$("#Dr_value<%=i%>").text(
-												Dr_value + " %");
-										tab =<%=i%>
-							;
+								$("#Dr_value<%=i%>").text(Dr_value + " %");tab =<%=i%>;
 										drw_filtered_SCAT(<%=i%>, Dr_value,LossMcap_value);
 										draw_indexdata(tab);
 										
 										draw_cumulativeGraph(tab, scale);
-										//draw_me(data_init);
+										
 									});
 						</script>
 					</div>
@@ -286,17 +289,22 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 						}
 
 						function draw_me(data) {
-							var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(
-									data, Dr_value, LossMcap_value);
+							var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
 							//call method in graph.js to draw scatter-plot
-							//drawScatterPlot_yearly(Ready_output,tab , 01,'#scatter_plot'+tab);
-							if (scaleNa == "Na") {
-								console.log("ddddddddddddd");
-								drawScatterPlot_yearly_naics(Ready_output, tab,01, '#scatter_plot' + tab);
-							} else if (scaleNa == "Pe") {
-								console.log("sddsaaaaaaaaaaaaaaaaaaaaaaaaa");
-								drawScatterPlot_yearly(Ready_output, tab, 01,'#scatter_plot' + tab);
-							}
+							console.log();
+							drawScatterPlot_yearly(
+								Ready_output,tab , 01,
+						 		'#scatter_plot'+tab);
+
+						}
+						
+						function draw_menaics(data) {
+							var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+							//call method in graph.js to draw scatter-plot
+							console.log();
+							drawScatterPlot_yearly_naics(
+								Ready_output,tab , 01,
+						 		'#scatter_plot'+tab);
 
 						}
 					</script>

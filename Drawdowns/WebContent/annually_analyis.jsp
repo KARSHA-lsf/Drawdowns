@@ -155,6 +155,13 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 											<div id="Dr_slider<%=i%>"></div>							
 										</div>
 								</div>
+								
+								<form>
+								  	<p>
+ 									<input type="radio" onclick="draw_me(data_init)" name="gender" value="permno" checked> Permno<br>
+  									<input type="radio" onclick="draw_menaics(data_init)" name="gender" value="naics"> Naics<br>
+  									<input type="radio" name="gender" value="mcap"> MarketCapitalization  </p>
+								</form>
 							<div id="scatter_plot<%=i%>"></div>
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
@@ -222,6 +229,16 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
 					 		'#scatter_plot'+tab);
+					}
+					
+					function draw_menaics(data) {
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						console.log();
+						drawScatterPlot_yearly_naics(
+							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab);
+
 					}
 					</script>
 				</div>
