@@ -319,7 +319,6 @@ function drawLossMcGraphTopTen(jsd,status) {
 			json : jsd,
 			mimeType : 'json',
 			type : 'bar',
-			onclick : function(d, element) {reddialog(d, element);},
 			xs : {
 				'EndofMonth_Total_Loss_Market_capitalization' : 'eof_Date',
 				'Index_Drawdown' : 'Index_Date',
@@ -474,7 +473,7 @@ function sccaterPlot_dataPreprocess(data) {
 	return Ready_output;
 }
 
-function drawScatterPlot_yearly(json_object, year, month, tag,label) {
+function drawScatterPlot_yearly(json_object, year, month, tag) {
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
 	console.log(dayMin);
@@ -523,7 +522,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label) {
 				}
 			},
 			y : {
-				label : label,
+				label : 'Permno',
 			}
 		},
 		grid : {
@@ -751,7 +750,7 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 		"Low" : L_PermNo,
 		"Low_x" : L_Perm_date
 	};
-	console.log(Ready_output);
+	
 	return Ready_output;
 }
 function Permno_history_graph(json_ary) {
@@ -1008,111 +1007,3 @@ function drawIndextab(json_ary,tab) {
 	});
 
 }
-function reddialog(d, element){
-	if(d.name == "EndofMonth_Total_Loss_Market_capitalization"){
-		//window.alert("Hi");
-		$('#reddialog').dialog();
-		
-		var date = d.x;
-		var month = date.getMonth()+1;
-		if (month <  10){
-			month = "0"+(date.getMonth()+1);
-			yrmostart = date.getFullYear()+ month;
-		}
-		else 
-			yrmostart = ""+date.getFullYear()+month;
-			yrmoend = yrmostart -1;
-		
-		$('#red').html(yrmoend);
-//		var urlindex = "RedDialog?S="+yrmostart+ "&E=" + yrmoend;
-		var urlindex = "RedDialog";
-			$.ajax({
-		       type: 'GET',
-			   url: urlindex,
-			   dataType: 'json',
-			   success: function (data) {	
-			    console.log(data);
-			   			       	
-		        },
-			        
-			    error: function (data,
-			                error) {
-			      		console.log(error);
-			     },
-			        	async: false
-			    });
-			}
-		
-	}
-function drawScatterPlot_yearly_naics(json_object, year, month, tag) {
-	// this function draws the scatter plot.
-	var dayMin = year + "-" + month + "-01";
-	console.log(dayMin);
-	//month = month + 12;
-	year++;
-	var dayMax = year + "-" + month + "-01";
-	console.log(dayMax);
-	var chart1 = c3.generate({
-		bindto : tag,
-		size : {
-			height : 500,
-			width : window.innerWidth * 0.9,
-			
-		},
-		data : {
-			xs : {
-				High : 'High_x',
-				HighMedium : 'HighMedium_x',
-				Medium : 'Medium_x',
-				MediumLow : 'MediumLow_x',
-				Low : 'Low_x',
-			},
-			json : json_object,
-			mimeType : 'json',
-			type : 'scatter',
-			onclick : function(d, element) {popup(d, element);},
-			colors : {
-				High : '#CC0000',
-				HighMedium : '#FF0000',
-				Medium : '#FF9999',
-				MediumLow : '#3399FF',
-				Low : '#0A1F33',
-			},
-			
-		},
-		axis : {
-			x : {
-				type : 'timeseries',
-				label : 'Time',
-				min : dayMin,
-				max : dayMax,
-				tick : {
-					format : '%Y-%m-%d',
-					rotate : 90,
-					fit : false
-				}
-			},
-			y : {
-				label : 'NAICS Code',
-				tick : {
-					format : function(d) {
-						return parseInt(d /1000);
-					},
-				},
-			}
-		},
-		grid : {
-			x : {
-			// lines:index_dates,
-			},
-		},
-		subchart : {
-			show : true
-		},
-	});
-}
-	
-	
-	
-	
-	
