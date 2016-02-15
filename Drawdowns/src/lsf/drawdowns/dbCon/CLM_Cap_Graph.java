@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import model.CRSP_ValueWeightedReturns;
+
 import org.hibernate.SQLQuery;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -488,6 +491,40 @@ public JsonObject Index_vw_return() {
 		System.out.println(jsonarray);
 		return jo;
 	}
+	
+	public JsonObject scatterMcap(){
+		String sql = "SELECT CAPM_resid_date,marketCapitalization from sys_top10_losess WHERE YRMO like '" + request.getParameter("yrmo") + "%'" + "ORDER BY marketCapitalization";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<BigDecimal> Arr_mcap = new ArrayList<>();
+		List<String> Arr_date = new ArrayList<>();
+		
+		List<Object[]> result = q.list();
+		for (Object[] returns : result) {
+			//System.out.println(returns[1]);
+			String date = (String) returns[0];
+			BigDecimal mcap = (BigDecimal) returns[1];
+			
+			Arr_mcap.add(mcap);
+			Arr_date.add(date);
+									
+		}
+		
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement date = gson.toJsonTree(Arr_date);
+		JsonElement mcap = gson.toJsonTree(Arr_mcap);
+		
+		
+		J_obj.add("mcap", mcap);
+		J_obj.add("date", date);
+		
+		session.flush();
+		return J_obj;
+			
+		
+	}
+	
 
 }
 	

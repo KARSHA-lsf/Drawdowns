@@ -474,7 +474,7 @@ function sccaterPlot_dataPreprocess(data) {
 	return Ready_output;
 }
 
-function drawScatterPlot_yearly(json_object, year, month, tag) {
+function drawScatterPlot_yearly(json_object, year, month, tag,label) {
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
 	console.log(dayMin);
@@ -523,7 +523,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag) {
 				}
 			},
 			y : {
-				label : 'Permno',
+				label : label,
 			}
 		},
 		grid : {
@@ -751,7 +751,7 @@ function sccaterPlot_dataPreprocess_withTopFilter(data_org, Dr_value,
 		"Low" : L_PermNo,
 		"Low_x" : L_Perm_date
 	};
-	
+	console.log(Ready_output);
 	return Ready_output;
 }
 function Permno_history_graph(json_ary) {
@@ -1044,6 +1044,73 @@ function reddialog(d, element){
 			}
 		
 	}
+function drawScatterPlot_yearly_naics(json_object, year, month, tag) {
+	// this function draws the scatter plot.
+	var dayMin = year + "-" + month + "-01";
+	console.log(dayMin);
+	//month = month + 12;
+	year++;
+	var dayMax = year + "-" + month + "-01";
+	console.log(dayMax);
+	var chart1 = c3.generate({
+		bindto : tag,
+		size : {
+			height : 500,
+			width : window.innerWidth * 0.9,
+			
+		},
+		data : {
+			xs : {
+				High : 'High_x',
+				HighMedium : 'HighMedium_x',
+				Medium : 'Medium_x',
+				MediumLow : 'MediumLow_x',
+				Low : 'Low_x',
+			},
+			json : json_object,
+			mimeType : 'json',
+			type : 'scatter',
+			onclick : function(d, element) {popup(d, element);},
+			colors : {
+				High : '#CC0000',
+				HighMedium : '#FF0000',
+				Medium : '#FF9999',
+				MediumLow : '#3399FF',
+				Low : '#0A1F33',
+			},
+			
+		},
+		axis : {
+			x : {
+				type : 'timeseries',
+				label : 'Time',
+				min : dayMin,
+				max : dayMax,
+				tick : {
+					format : '%Y-%m-%d',
+					rotate : 90,
+					fit : false
+				}
+			},
+			y : {
+				label : 'NAICS Code',
+				tick : {
+					format : function(d) {
+						return parseInt(d /1000);
+					},
+				},
+			}
+		},
+		grid : {
+			x : {
+			// lines:index_dates,
+			},
+		},
+		subchart : {
+			show : true
+		},
+	});
+}
 	
 	
 	
