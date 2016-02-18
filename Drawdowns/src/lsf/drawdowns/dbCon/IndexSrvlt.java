@@ -2,6 +2,8 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,9 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -85,7 +89,7 @@ public class IndexSrvlt extends HttpServlet {
 			
 		} else if (userPath.equals("/indexData")) {
 			pwr.print(clm_grp.indexdata_method());
-			
+						
 		}
 		else if (userPath.equals("/test_getSet")) {
 			clm_grp.request_initalize(request);
@@ -128,8 +132,7 @@ public class IndexSrvlt extends HttpServlet {
 			dialog.add("Return_value", ret.getAsJsonArray("Return_value"));
 			dialog.add("End_date", ret.getAsJsonArray("End_date"));
 			pwr.print(dialog); 
-		}
-		else if(userPath.equals("/pattern")){
+		}else if(userPath.equals("/pattern")){
 			try {
 
 				pwr.print(clm_grp.pattern());
@@ -137,6 +140,7 @@ public class IndexSrvlt extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 
 	}
 

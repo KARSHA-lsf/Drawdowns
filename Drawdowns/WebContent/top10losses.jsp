@@ -26,7 +26,7 @@
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 
 <script>
-var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
+var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	$(function() {
 		$("#tabs").tabs();
 		$( "#Dr_slider2004" ).slider({
@@ -44,9 +44,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 </script>
 
 <style type="text/css">
-#Dr_slider .ui-slider-range {
-	background: #ef2929;
-}
+	#Dr_slider .ui-slider-range { background: #ef2929; }
 </style>
 </head>
 
@@ -62,12 +60,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 
 					<ul class="nav">
 						<li><a href="index.jsp">Home</a></li>
-						<li class="active"><a href="top10losses.jsp"
-							style="text-align: center">Top 10% Losses</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
-								Analysis</a></li>
-						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly
-								Analysis</a></li>
+						<li class="active"><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
+						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="pattern.jsp">Pattern</a></li>
 						<li><a href="definitions.jsp">Definitions</a></li>
@@ -90,18 +85,18 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class="span5">
 					<div class="block" style="border: 1px none LightSeaGreen;">
-						<h3 style="padding-left: 10px;">Top 10% Losses [ 2004 - 2014
-							]</h3>
+						<h3 style="padding-left: 10px;">
+					Top 10% Losses [ 2004 - 2014 ]</h3>		
 					</div>
 				</div>
-
+				
 				<div class="span3">
-					<br>
+					<br>	
+				</div>
 				</div>
 			</div>
-		</div>
-
-		<divclass "row-fluid">
+		
+				<div class "row-fluid">
 				
 				<div id="tabs">
 				
@@ -109,20 +104,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 					<script>
 						var scale="L";
 					</script>
-					
-					<script>
-						var scaleNa="Na";
-					</script>
 					<ul>
-						<%
-							for (int i = 2004; i < 2015; i++) {
-								String tab = "#tab" + i;
-								String tabid = "tab" + i;
-						%>
+						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
-						<%
-							}
-						%>
+						<% } %>
 					</ul>
 					
 					
@@ -159,12 +144,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 						<div id="multihistogram"></div>					
 					</div>
 							
-					
-					
-					
-					<%for (int i = 2004; i < 2015; i++) {
-						String tab = "tab" + i;
-						String button = tab;%>
+		
+					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
 					<div id="<%=tab%>">
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
@@ -174,57 +155,21 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
  -->								</div>
 								<div class="span3">
-									<div class="col-sm-2">
+									<div class="col-sm-3">
 											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
 											<div id="Dr_slider<%=i%>"></div>							
-									</div>
+										</div>
 								</div>
-								
-								
-								 <form>
+								<form>
 								  	<p>
- 									<input type="radio" id="id1" onclick="draw_me(data_init)" name="gender" value="permno" checked> Permno<br>
-  									<input type="radio" id="id2" onclick="draw_menaics(data_init)" name="gender" value="naics"> Naics<br>
-  									<input type="radio" id="id3" name="gender" value="mcap"> MarketCapitalization  </p>
+ 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno<br>
+  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics<br>
+  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  </p>
 								</form>
-								
-								
-								<!--  <div class="col-lg-12" style="margin: 30px 30px 30px">
-									<b>Scale :</b> <input type="checkbox" id="button" data-toggle="toggle" data-on="Permno" data-off="NAICS" data-onstyle="success" data-offstyle="info" data-height="20">				
-					
-									<script>
-  										$(function() {
-   				 							$('#button').bootstrapToggle({
-      											on: 'Enabled',
-      											off: 'Disabled'
-    										});
-   				 						$('#button').change(function() {
-   				 			      			if($(this).prop('checked')){
-   				 			    
-   				 			    				scaleNa="Pe";
-   				 			    				draw_me(data_init);
-   				 			    				console.log($(this).prop('checked'));
-   				 			      			}
-   				 			      			else{				 			    				
-   				 			    				scaleNa="Na";
-   				 			    				draw_me(data_init);
-   				 			    				console.log($(this).prop('checked'));	
-   				 			      			}
-   				 			    		});
-   				 
-  									});
-								</script>
-							</div>	-->
-								
-								
 							<div id="scatter_plot<%=i%>"></div>
-							
-						
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
 							</div>
-							
-							
 						</div>
 						
 																
@@ -243,21 +188,19 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 					   
 						});
 							$("#ta<%=i%>").click(function(){
-					
 								Dr_value = 100;
-								$("#Dr_value<%=i%>").text(Dr_value + " %");tab =<%=i%>;
-										drw_filtered_SCAT(<%=i%>, Dr_value,LossMcap_value);
-										draw_indexdata(tab);
-										
-										draw_cumulativeGraph(tab, scale);
-										
-									});
+								$("#Dr_value<%=i%>").text(Dr_value+ " %");
+								tab =<%=i%>;
+									drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+									draw_indexdata(tab);
+									console.log("scale ekaaa : "+scale);
+									draw_cumulativeGraph(tab,scale);
+																				
+							});
 						</script>
 					</div>
 					
-					<%
-											}
-										%>  
+					<% } %>  
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Index drowdown
@@ -267,122 +210,163 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init,dala_global;
 					 
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
+					<div id = "reddialog">
+						<div id = "red"></div>
+					
+					</div>
 					<script type="text/javascript">
-						function drw_filtered_SCAT(tab, Dr_value,
-								LossMcap_value) {
-							//console.log("lll :"+Dr_value+" : "+LossMcap_value);
-							var urlscatter = "TopLossesAnnualData?yrmo=" + tab
-									+ "&Dr_top=" + Dr_value + "&LossMcap_top="
-									+ LossMcap_value;
-							//console.log(urlscatter);
-							$.ajax({
-								type : 'GET',
-								url : urlscatter,
-								dataType : 'json',
-								success : function(data) {
-									data_init = data;
-									draw_me(data);
+					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "TopLossesAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						//console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								data_init = data;
+								draw_me(data);
 								},
 								error : function(data, error) {
 									console.log(error);
 								},
 								async : false
-							});
-						}
-
-						function draw_me(data) {
-							var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
-							//call method in graph.js to draw scatter-plot
-							console.log();
-							drawScatterPlot_yearly(
-								Ready_output,tab , 01,
-						 		'#scatter_plot'+tab);
-								//console.log(document.getElementById('id1'));
-
-						}
-						
-						function draw_menaics(data) {
-							var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
-							//call method in graph.js to draw scatter-plot
-							console.log();
-							drawScatterPlot_yearly_naics(
-								Ready_output,tab , 01,
-						 		'#scatter_plot'+tab);
-								//console.log(document.getElementById("id2"));
-
-						}
+						});
+					}
+					function draw_me(data){
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						drawScatterPlot_yearly(
+							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab,'permno');
+					}
+					function draw_menaics(data) {
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						console.log();
+						drawScatterPlot_yearly_naics(
+							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab);
+					}
+					function draw_me_mcap(data){
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						drawScatterPlot_yearly(
+							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab,'Market Capitalization');
+					}
+					function drw_mcap_SCAT(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "scattermcaptop10?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						//console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								data_init = data;
+								draw_me_mcap(data);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
+					function drw_Naics_SCAT(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "TopLossesAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						//console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								data_init = data;
+								draw_menaics(data);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
 					</script>
 				</div>
 				</div>
 				</div>
 			</div>
-	</div>
+		</div>
 	</div>
 	<div id="more_details"></div>
 	<script>
 		//divide data from url to catogories
-		$(document).ready(function() {
-			/* $(document).ajaxStart(function(){
-			    $("#loading").css("display", "block");
+		$(document)
+			.ready(
+				function() {
+					/* $(document).ajaxStart(function(){
+				        $("#loading").css("display", "block");
+				    });
+				    $(document).ajaxComplete(function(){
+				        $("#loading").css("display", "none");
+				    }); */
+					$("#Dr_value2004").text(Dr_value+ " %");
+					  					
+					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+					//draw_indexdata(2004);
+					draw_cumulativeGraph(2004,"L");
+					draw_indexdata(2004);
+					
 			});
-			$(document).ajaxComplete(function(){
-			    $("#loading").css("display", "none");
-			}); */
-			$("#Dr_value2004").text(Dr_value + " %");
-
-			drw_filtered_SCAT(2004, Dr_value, LossMcap_value);
-			//draw_indexdata(2004);
-			draw_cumulativeGraph(2004, "L");
-			draw_indexdata(2004);
-
-		});
-		function draw_indexdata(year) {
-			var urlindex = "indexData?Q=" + year;
+		function draw_indexdata(year){
+			var urlindex = "indexData?Q="+year;
 			$.ajax({
-				type : 'GET',
-				url : urlindex,
-				dataType : 'json',
-				success : function(data) {
-
-					//console.log(data);
-
-					drawIndex(data);
-				},
-
-				error : function(data, error) {
-					console.log(error);
-				},
-				async : false
-			});
+	            type: 'GET',
+	            url: urlindex,
+	            dataType: 'json',
+	            success: function (data) {
+	            	
+	           	//console.log(data);
+	           	
+	           	drawIndex(data);
+	            },
+	            
+	            error: function (data,
+	                    error) {
+	            	console.log(error);
+	            },
+	            async: false
+	        });
 		}
-		function draw_cumulativeGraph(year, status) {
-			var x = "test_getSet?Q=" + year + "&T=top10Precent";
+		function draw_cumulativeGraph(year,status){
+			var x = "test_getSet?Q="+year+"&T=top10Precent";
 			console.log(x);
 			$.ajax({
-				type : 'GET',
-				url : x,
-				dataType : 'json',
-				success : function(data) {
-
-					//console.log(data);
-
-					drawLossMcGraphTopTen(data, status);
-
-				},
-
-				error : function(data, error) {
-					console.log(error);
-				},
-				async : false
-			});
+	            type: 'GET',
+	            url: x,
+	            dataType: 'json',
+	            success: function (data) {
+	            	
+	           	//console.log(data);
+	           	
+	           	drawLossMcGraphTopTen(data,status);
+	           	
+	            },
+	            
+	            error: function (data,
+	                    error) {
+	            	console.log(error);
+	            },
+	            async: false
+	        });
 		}
-	</script>
-
+	</script> 
+	
 	<script src="js/graphs.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
-
-
+	
+	
 
 </body>
 </html>
