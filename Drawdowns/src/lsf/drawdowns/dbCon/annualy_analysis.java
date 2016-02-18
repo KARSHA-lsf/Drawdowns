@@ -204,8 +204,8 @@ public class annualy_analysis extends HttpServlet {
 				System.out.println(jsonarray); 
 				pwr.print(jsonarray);
 			} catch (Exception e) {
-				System.out
-						.println("some error occured during scatterPlot data pre processing");
+				//System.out.println("some error occured during scatterPlot data pre processing top 10");
+				System.out.println(e);
 			}
 		}
 		else if (userPath.equals("/scattermcap")){
