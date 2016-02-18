@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -160,6 +159,12 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 											<div id="Dr_slider<%=i%>"></div>							
 										</div>
 								</div>
+								<form>
+								  	<p>
+ 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno<br>
+  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics<br>
+  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  </p>
+								</form>
 							<div id="scatter_plot<%=i%>"></div>
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
@@ -204,6 +209,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					 
 					<div id="dialog" title="Basic Dialog">
 						<div id="permhistory"></div>
+					<div id = "reddialog">
+						<div id = "red"></div>
+					
+					</div>
 					<script type="text/javascript">
 					function drw_filtered_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
@@ -228,7 +237,58 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						//call method in graph.js to draw scatter-plot
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab,'permno');
+					}
+					function draw_menaics(data) {
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						console.log();
+						drawScatterPlot_yearly_naics(
+							Ready_output,tab , 01,
 					 		'#scatter_plot'+tab);
+					}
+					function draw_me_mcap(data){
+						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
+						//call method in graph.js to draw scatter-plot
+						drawScatterPlot_yearly(
+							Ready_output,tab , 01,
+					 		'#scatter_plot'+tab,'Market Capitalization');
+					}
+					function drw_mcap_SCAT(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "scattermcaptop10?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						//console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								data_init = data;
+								draw_me_mcap(data);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
+					function drw_Naics_SCAT(tab,Dr_value,LossMcap_value){
+						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						var urlscatter = "TopLossesAnnualData?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
+						//console.log(urlscatter);
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								data_init = data;
+								draw_menaics(data);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
 					}
 					</script>
 				</div>
