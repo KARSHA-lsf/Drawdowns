@@ -2,6 +2,7 @@ package lsf.drawdowns.dbCon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -171,6 +172,81 @@ public class annualy_analysis extends HttpServlet {
 			}
 			
 		}
+
+		else if (userPath.equals("/scattermcaptop10")){
+			//pwr.print(clm_grp.scatterMcap());
+						
+			String query = "SELECT marketCapitalization,CAPM_resid_date from sys_top10_losess WHERE YRMO like '"+yrmo+"%' ORDER BY marketCapitalization DESC";
+			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
+
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = q.list();
+
+			try {
+
+				JSONArray jsonarray = new JSONArray();
+
+				for (Object[] aRow : results) {
+					JSONObject jsonobj = new JSONObject();
+					BigDecimal permno = (BigDecimal) aRow[0];
+					String year_date = (String) aRow[1];
+					if (year_date == null) {
+
+					} else {
+						try {
+							jsonobj.put("permno", permno);
+							jsonobj.put("capm_date", year_date);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						jsonarray.put(jsonobj);
+					}
+				}
+				System.out.println(jsonarray); 
+				pwr.print(jsonarray);
+			} catch (Exception e) {
+				//System.out.println("some error occured during scatterPlot data pre processing top 10");
+				System.out.println(e);
+			}
+		}
+		else if (userPath.equals("/scattermcap")){
+			//pwr.print(clm_grp.scatterMcap());
+						
+			String query = "SELECT marketcapitalization,CAPM_resid_D from sys_scatter_plot WHERE YRMO like '"+yrmo+"%' ORDER BY marketcapitalization DESC";
+			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
+
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = q.list();
+
+			try {
+
+				JSONArray jsonarray = new JSONArray();
+
+				for (Object[] aRow : results) {
+					JSONObject jsonobj = new JSONObject();
+					BigDecimal permno = (BigDecimal) aRow[0];
+					String year_date = (String) aRow[1];
+					if (year_date == null) {
+
+					} else {
+						try {
+							jsonobj.put("permno", permno);
+							jsonobj.put("capm_date", year_date);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						jsonarray.put(jsonobj);
+					}
+				}
+				System.out.println(jsonarray); 
+				pwr.print(jsonarray);
+			} catch (Exception e) {
+				System.out
+						.println("some error occured during scatterPlot data pre processing");
+			}
+		}
+		
+
 
 	}
 

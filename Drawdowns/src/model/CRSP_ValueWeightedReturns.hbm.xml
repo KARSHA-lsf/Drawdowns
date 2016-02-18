@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<<<<<<< HEAD
+
 <!-- Generated Dec 1, 2015 11:42:42 AM by Hibernate Tools 3.4.0.CR1 -->
-=======
+
 <!-- Generated 03-Dec-2015 09:37:08 by Hibernate Tools 3.4.0.CR1 -->
->>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
+
 <hibernate-mapping>
     <class name="model.CRSP_ValueWeightedReturns" table="CRSP_VALUEWEIGHTEDRETURNS">
         <id name="Crsp_date" type="java.lang.String">
