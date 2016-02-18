@@ -99,7 +99,7 @@ public class annualy_analysis extends HttpServlet {
 						jsonarray.put(jsonobj);
 					}
 				}
-				System.out.println(jsonarray); 
+
 				pwr.print(jsonarray);
 			} catch (Exception e) {
 				System.out
@@ -133,7 +133,7 @@ public class annualy_analysis extends HttpServlet {
 						jsonarray.put(jsonobj);
 					}
 				}
-				
+
 				pwr.print(jsonarray);
 			} catch (Exception e) {
 				System.out
@@ -172,6 +172,7 @@ public class annualy_analysis extends HttpServlet {
 			}
 			
 		}
+
 		else if (userPath.equals("/scattermcaptop10")){
 			//pwr.print(clm_grp.scatterMcap());
 						
@@ -245,6 +246,7 @@ public class annualy_analysis extends HttpServlet {
 			}
 		}
 		
+
 
 	}
 

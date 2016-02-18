@@ -41,8 +41,7 @@
     <url-pattern>/GetAnnualData</url-pattern>
     <url-pattern>/TopLossesAnnualData</url-pattern>
     <url-pattern>/blueBar_calcu</url-pattern>
-    <url-pattern>/scattermcap</url-pattern>
-    <url-pattern>/scattermcaptop10</url-pattern>
   </servlet-mapping>
 
 </web-app>
+
