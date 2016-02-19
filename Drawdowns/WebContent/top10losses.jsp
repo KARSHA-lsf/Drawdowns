@@ -252,7 +252,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						//call method in graph.js to draw scatter-plot
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'Market Capitalization');
+					 		'#scatter_plot'+tab,'Market Capitalization - millions $');
 					}
 					function drw_mcap_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
