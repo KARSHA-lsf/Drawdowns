@@ -500,7 +500,9 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label) {
 			json : json_object,
 			mimeType : 'json',
 			type : 'scatter',
-			onclick : function(d, element) {popup(d, element);},
+			onclick : function(d, element) {
+				if(label=='permno'){
+				popup(d, element);}},
 			colors : {
 				High : '#CC0000',
 				HighMedium : '#FF0000',
