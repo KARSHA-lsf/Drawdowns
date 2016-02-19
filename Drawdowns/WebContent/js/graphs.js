@@ -523,6 +523,14 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label) {
 				}
 			},
 			y : {
+				tick : {
+					format : function(d) {
+						if(label=='Market Capitalization - millions $')
+						return d / 1000000;
+						else
+						return d;
+					},
+				},
 				label : label,
 			}
 		},
@@ -533,6 +541,19 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label) {
 		},
 		subchart : {
 			show : true
+		},
+		tooltip: {
+	        format: {
+	           value: function (value, ratio, id) {
+	        	   if(label=='Market Capitalization - millions $')
+	        	{
+	        	   value = (value/1000000).toFixed(4)+"M$";
+	        	   return value;
+	        	}else{
+	        		return value;
+	        	}
+	           }
+	        }
 		},
 	});
 }
