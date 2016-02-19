@@ -154,13 +154,14 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 											<div id="Dr_slider<%=i%>"></div>							
 										</div>
 								</div>
-								
+								<span>
 								<form>
 								  	<p>
  									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno<br>
   									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics<br>
   									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  </p>
 								</form>
+								</span>
 							<div id="scatter_plot<%=i%>"></div>
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
@@ -261,7 +262,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						//call method in graph.js to draw scatter-plot
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'Market Capitalization');
+					 		'#scatter_plot'+tab,'Market Capitalization - millions $');
 					}
 					function drw_Naics_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
