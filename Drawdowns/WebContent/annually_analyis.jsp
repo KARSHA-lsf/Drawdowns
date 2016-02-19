@@ -143,25 +143,23 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					<div id="<%=tab%>">
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
-								<div class="span9">
+								
 									<h2 class="page-header">Market Behavior Individual Level</h2>	
 										
 									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
- -->								</div>
-								<div class="span3">
-									<div class="col-sm-3">
+ -->								
+								
 											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
 											<div id="Dr_slider<%=i%>"></div>							
-										</div>
-								</div>
-								<span>
+									
+								
 								<form>
-								  	<p>
- 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno<br>
-  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics<br>
-  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  </p>
+								  	
+ 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno |
+  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics |
+  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  
 								</form>
-								</span>
+								
 							<div id="scatter_plot<%=i%>"></div>
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->

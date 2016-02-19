@@ -43,7 +43,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 </script>
 
 <style type="text/css">
-	#Dr_slider .ui-slider-range { background: #ef2929; }
+#Dr_slider .ui-slider-range {
+	background: #ef2929;
+}
 </style>
 </head>
 
@@ -59,9 +61,12 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 
 					<ul class="nav">
 						<li><a href="index.jsp">Home</a></li>
-						<li class="active"><a href="top10losses.jsp" style="text-align: center">Top 10% Losses</a></li>
-						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly Analysis</a></li>
-						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly Analysis</a></li>
+						<li class="active"><a href="top10losses.jsp"
+							style="text-align: center">Top 10% Losses</a></li>
+						<li><a href="annually_analyis.jsp" style="text-align: center">Yearly
+								Analysis</a></li>
+						<li><a href="monthly_analysis.jsp?Q=2004&M=01">Monthly
+								Analysis</a></li>
 						<li><a href="summary.jsp" style="text-align: center">Summary</a></li>
 						<li><a href="pattern.jsp">Pattern</a></li>
 						<li><a href="definitions.jsp">Definitions</a></li>
@@ -84,18 +89,18 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class="span5">
 					<div class="block" style="border: 1px none LightSeaGreen;">
-						<h3 style="padding-left: 10px;">
-					Top 10% Losses [ 2004 - 2014 ]</h3>		
+						<h3 style="padding-left: 10px;">Top 10% Losses [ 2004 - 2014
+							]</h3>
 					</div>
 				</div>
-				
+
 				<div class="span3">
-					<br>	
-				</div>
+					<br>
 				</div>
 			</div>
-		
-				<div class "row-fluid">
+		</div>
+
+		<divclass "row-fluid">
 				
 				<div id="tabs">
 				
@@ -104,9 +109,15 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						var scale="L";
 					</script>
 					<ul>
-						<% for(int i=2004;i<2015;i++){String tab = "#tab"+i;String tabid = "tab"+i; %>
+						<%
+							for (int i = 2004; i < 2015; i++) {
+								String tab = "#tab" + i;
+								String tabid = "tab" + i;
+						%>
 						<li><a id="ta<%=i%>" href="<%=tab%>"><%=i%></a></li>
-						<% } %>
+						<%
+							}
+						%>
 					</ul>
 					
 					
@@ -144,27 +155,30 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					</div>
 							
 		
-					<% for(int i=2004;i<2015;i++){String tab = "tab"+i;%>
+					<%
+															for (int i = 2004; i < 2015; i++) {
+																String tab = "tab" + i;
+														%>
 					<div id="<%=tab%>">
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
-								<div class="span9">
-									<h2 class="page-header">Market Behavior Individual Level</h2>	
+								
+									<h3 class="page-header">Market Behavior Individual Level</h3>	
 										
 									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
- -->								</div>
-								<div class="span3">
-									<div class="col-sm-3">
+ -->								
+								
 											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
-											<div id="Dr_slider<%=i%>"></div>							
-										</div>
-								</div>
+											<div id="Dr_slider<%=i%>"></div>
+															
+									
 								<form>
-								  	<p>
- 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno<br>
-  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics<br>
-  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  </p>
-								</form>
+								  	
+ 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno |
+  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics |
+  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  
+								</form>	
+								
 							<div id="scatter_plot<%=i%>"></div>
 							<br>
 <!-- 							<div id="wait" style="display:table-cell; vertical-align:middle; text-align:center"><img src='demo_wait.gif'/><br>Loading..</div> -->
@@ -199,7 +213,10 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						</script>
 					</div>
 					
-					<% } %>  
+					<%
+											}
+										%> 
+										<br> 
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
 							Index drowdown
@@ -295,7 +312,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				</div>
 				</div>
 			</div>
-		</div>
+	</div>
 	</div>
 	<div id="more_details"></div>
 	<script>
@@ -359,13 +376,13 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	            async: false
 	        });
 		}
-	</script> 
-	
+	</script>
+
 	<script src="js/graphs.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
-	
-	
+
+
 
 </body>
 </html>
