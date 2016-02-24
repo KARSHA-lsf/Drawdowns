@@ -1133,6 +1133,8 @@ function drawScatterPlot_yearly_naics(json_object, year, month, tag) {
 			show : true
 		},
 	});
+	
+	
 }
 	
 	

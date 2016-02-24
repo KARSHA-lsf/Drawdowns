@@ -21,6 +21,7 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
 
+
 <link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
 
@@ -48,7 +49,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 }
 </style>
 </head>
-
 <body>
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
@@ -79,18 +79,13 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span12"
 				style="border: 1px solid LightSeaGreen; background-color: white">
 				<div class="span5">
 					<div class="block" style="border: 1px none LightSeaGreen;">
-						<h3 style="padding-left: 10px;">Top 10% Losses [ 2004 - 2014
-							]</h3>
+						<h3 style="padding-left: 10px;">Top 10% Losses [ 2004 - 2014 ]</h3>
 					</div>
 				</div>
 
@@ -123,7 +118,6 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 						<h4 class="page-header">Loss Market Capitalization</h4>		
-						
 						<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<b>Scale :</b> <input type="checkbox" id="btnScal" data-toggle="toggle" data-on="Local" data-off="Global" data-onstyle="success" data-offstyle="info" data-height="20">				
 						
@@ -151,14 +145,38 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							</script>
 						</div>		
 												
-						<div id="multihistogram"></div>					
+						<div id="multihistogram"></div>	
+						<br>
+						<div class="row">
+						  <div class="span3" style="border:2px solid #000000"><center><h6>January</h6></center>
+						  <div id="M1"></div>
+						  </div>
+						  <div id="M2" class="span3" style="border:2px solid #000000"><center><h6>February</h6></center></div>
+						  <div id="M3" class="span3" style="border:2px solid #000000"><center><h6>March</h6></center></div>
+						  <div id="M4" class="span3" style="border:2px solid #000000"><center><h6>April</h6></center></div>
+						</div>
+						<br>
+						<div class="row">
+						  <div id="M5" class="span3" style="border:2px solid #000000"><center><h6>May</h6></center></div>
+						  <div id="M6" class="span3" style="border:2px solid #000000"><center><h6>June</h6></center></div>
+						  <div id="M7" class="span3" style="border:2px solid #000000"><center><h6>July</h6></center></div>
+						  <div id="M8" class="span3" style="border:2px solid #000000"><center><h6>August</h6></center></div>
+						</div>
+						<br>
+						<div class="row">
+						  <div id="M9" class="span3" style="border:2px solid #000000"><center><h6>September</h6></center></div>
+						  <div id="M10" class="span3" style="border:2px solid #000000"><center><h6>October</h6></center></div>
+						  <div id="M11" class="span3" style="border:2px solid #000000"><center><h6>November</h6></center></div>
+						  <div id="M12" class="span3" style="border:2px solid #000000"><center><h6>December</h6></center></div>
+						</div>
+						
+									
 					</div>
 							
 		
-					<%
-															for (int i = 2004; i < 2015; i++) {
-																String tab = "tab" + i;
-														%>
+					<% for (int i = 2004; i < 2015; i++) {
+						String tab = "tab" + i;
+					%>
 					<div id="<%=tab%>">
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
@@ -198,9 +216,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					                draw_me(data_init);
 					             }}			
 					   	);
-					   
 						});
 							$("#ta<%=i%>").click(function(){
+								
 								Dr_value = 100;
 								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
@@ -210,6 +228,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 									draw_cumulativeGraph(tab,scale);
 																				
 							});
+							
+							
 						</script>
 					</div>
 					
@@ -327,7 +347,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				        $("#loading").css("display", "none");
 				    }); */
 					$("#Dr_value2004").text(Dr_value+ " %");
-					  					
+				    draw_month_patterns(2004);  					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
@@ -381,7 +401,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	<script src="js/graphs.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
-
+	<script src="js/month_pattern.js"></script>
 
 
 </body>
