@@ -346,19 +346,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							url : urlscatter,
 							dataType : 'json',
 							success : function(data) {
-								/* var max = data.mcap[0];
-								
-								for(i=1;i<data.naics.length;i++){
-									//console.log(data.mcap[i+1]);
-																	
-									
-								 	 if(data.mcap[i]>max){
-										max = data.mcap[i];
-									} 
-																		
-								}
-								console.log(max); */
-								
+															
 								draw_month_patterns(data);
 								//console.log(data.naics.length);
 								},

@@ -526,7 +526,7 @@ public JsonObject Index_vw_return() {
 	}
 	
 	public JsonObject monthlymcap(){
-		String sql = "SELECT YRMO,marketCapitalization FROM sys_top10_losess where yrmo like '" + request.getParameter("yrmo") + "%'" + "and permno = 10104";
+		String sql = "SELECT NAICS,sum(red) FROM red_individual_level where month =" + request.getParameter("yrmo") + "02 group by NAICS";
 		SQLQuery q = session.createSQLQuery(sql);
 		
 		List<BigDecimal> Arr_mcap = new ArrayList<>();
