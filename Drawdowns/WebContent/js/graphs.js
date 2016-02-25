@@ -474,7 +474,7 @@ function sccaterPlot_dataPreprocess(data) {
 	return Ready_output;
 }
 
-function drawScatterPlot_yearly(json_object, year, month, tag,label) {
+function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
 	console.log(dayMin);
@@ -537,8 +537,16 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label) {
 			}
 		},
 		grid : {
-			x : {
-			// lines:index_dates,
+			y : {
+				lines: [
+		                {value: maxmcap, text: 'High'},
+		                {value: maxmcap/5*4, text: 'HighMedium'},
+		                {value: maxmcap/5*3, text: 'Medium'},
+		                {value: maxmcap/5*2, text: 'MediumLow'},
+		                {value: maxmcap/5, text: 'Low'},
+		                
+		               
+		            ]
 			},
 		},
 		subchart : {

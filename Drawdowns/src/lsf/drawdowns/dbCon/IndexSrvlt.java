@@ -89,7 +89,7 @@ public class IndexSrvlt extends HttpServlet {
 			
 		} else if (userPath.equals("/indexData")) {
 			pwr.print(clm_grp.indexdata_method());
-						
+									
 		}
 		else if (userPath.equals("/test_getSet")) {
 			clm_grp.request_initalize(request);
@@ -139,6 +139,8 @@ public class IndexSrvlt extends HttpServlet {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+		}else if(userPath.equals("/monthly_mcap")){
+			pwr.print(clm_grp.monthlymcap());
 		}
 		
 
