@@ -226,6 +226,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 									draw_indexdata(tab);
 									console.log("scale ekaaa : "+scale);
 									draw_cumulativeGraph(tab,scale);
+									drw_Naics_monthly(tab); 
 																				
 							});
 							
@@ -284,12 +285,12 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							Ready_output,tab , 01,
 					 		'#scatter_plot'+tab);
 					}
-					function draw_me_mcap(data){
+					function draw_me_mcap(data,max){
 						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
 						//call method in graph.js to draw scatter-plot
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'Market Capitalization - millions $');
+					 		'#scatter_plot'+tab,'Market Capitalization - millions $',max);
 					}
 					function drw_mcap_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
@@ -300,8 +301,17 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							url : urlscatter,
 							dataType : 'json',
 							success : function(data) {
+								var max = data[0].permno;
+								
+								for(i=1;i<data.length;i++){
+									
+								 	 if(data[i].permno>max){
+										max = data[i].permno;
+									} 
+																		
+								}
 								data_init = data;
-								draw_me_mcap(data);
+								draw_me_mcap(data,max);
 								},
 								error : function(data, error) {
 									console.log(error);
@@ -320,6 +330,37 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							success : function(data) {
 								data_init = data;
 								draw_menaics(data);
+								},
+								error : function(data, error) {
+									console.log(error);
+								},
+								async : false
+						});
+					}
+					function drw_Naics_monthly(tab){
+						
+						var urlscatter = "monthly_mcap?yrmo="+tab;
+						
+						$.ajax({
+							type : 'GET',
+							url : urlscatter,
+							dataType : 'json',
+							success : function(data) {
+								/* var max = data.mcap[0];
+								
+								for(i=1;i<data.naics.length;i++){
+									//console.log(data.mcap[i+1]);
+																	
+									
+								 	 if(data.mcap[i]>max){
+										max = data.mcap[i];
+									} 
+																		
+								}
+								console.log(max); */
+								
+								draw_month_patterns(data);
+								//console.log(data.naics.length);
 								},
 								error : function(data, error) {
 									console.log(error);
@@ -352,6 +393,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 					draw_indexdata(2004);
+					drw_Naics_monthly(2004);
 					
 			});
 		function draw_indexdata(year){

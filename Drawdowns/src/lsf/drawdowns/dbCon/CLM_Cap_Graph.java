@@ -525,5 +525,36 @@ public JsonObject Index_vw_return() {
 		
 	}
 	
+	public JsonObject monthlymcap(){
+		String sql = "SELECT YRMO,marketCapitalization FROM sys_top10_losess where yrmo like '" + request.getParameter("yrmo") + "%'" + "and permno = 10104";
+		SQLQuery q = session.createSQLQuery(sql);
+		
+		List<BigDecimal> Arr_mcap = new ArrayList<>();
+		List<Integer> Arr_naics = new ArrayList<>(); 
+		
+		List<Object[]> result = q.list();
+		
+		for (Object[] returns : result) {
+			int naics =  (int) returns[0];
+			BigDecimal mcap = (BigDecimal) returns[1];
+			//System.out.println(mcap);
+			Arr_mcap.add(mcap);
+			Arr_naics.add(naics);
+			
+		}
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement naics = gson.toJsonTree(Arr_naics);
+		JsonElement mcap = gson.toJsonTree(Arr_mcap);
+		
+		J_obj.add("naics", naics);
+		J_obj.add("mcap", mcap);
+		
+		session.flush();
+		return J_obj;
+		
+		
+	}
+	
 
 }

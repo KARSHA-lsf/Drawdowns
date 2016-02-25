@@ -73,7 +73,7 @@ public class annualy_analysis extends HttpServlet {
 		
 		if (userPath.equals("/GetAnnualData")) {
 			
-			String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid";
+			String query = "SELECT PERMNO,CAPM_resid_D FROM sys_scatter_plot WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid*marketcapitalization";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
 			@SuppressWarnings("unchecked")
@@ -107,7 +107,7 @@ public class annualy_analysis extends HttpServlet {
 			}
 			
 		}else if (userPath.equals("/TopLossesAnnualData")) {
-			String query = "SELECT PERMNO,CAPM_resid_date as CAPM_resid_D FROM sys_top10_losess WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid";
+			String query = "SELECT PERMNO,CAPM_resid_date as CAPM_resid_D FROM sys_top10_losess WHERE YRMO LIKE '"+yrmo+"%' ORDER BY CAPM_resid*marketCapitalization";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
 			@SuppressWarnings("unchecked")
@@ -175,7 +175,7 @@ public class annualy_analysis extends HttpServlet {
 		else if (userPath.equals("/scattermcaptop10")){
 			//pwr.print(clm_grp.scatterMcap());
 						
-			String query = "SELECT marketCapitalization,CAPM_resid_date from sys_top10_losess WHERE YRMO like '"+yrmo+"%' ORDER BY marketCapitalization DESC";
+			String query = "SELECT marketCapitalization,CAPM_resid_date from sys_top10_losess WHERE YRMO like '"+yrmo+"%' ORDER BY marketCapitalization*CAPM_resid";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
 			@SuppressWarnings("unchecked")
@@ -211,7 +211,7 @@ public class annualy_analysis extends HttpServlet {
 		else if (userPath.equals("/scattermcap")){
 			//pwr.print(clm_grp.scatterMcap());
 						
-			String query = "SELECT marketcapitalization,CAPM_resid_D from sys_scatter_plot WHERE YRMO like '"+yrmo+"%' ORDER BY marketcapitalization DESC";
+			String query = "SELECT marketcapitalization,CAPM_resid_D from sys_scatter_plot WHERE YRMO like '"+yrmo+"%' ORDER BY marketcapitalization*CAPM_resid";
 			SQLQuery q = (SQLQuery) session.createSQLQuery(query);
 
 			@SuppressWarnings("unchecked")
