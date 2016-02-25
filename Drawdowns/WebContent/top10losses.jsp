@@ -148,31 +148,62 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<div id="multihistogram"></div>	
 						<br>
 						<div class="row">
-						  <div class="span3" style="border:2px solid #000000"><center><h6>January</h6></center>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>January</h6></center>
 						  <div id="M1"></div>
 						  </div>
-						  <div id="M2" class="span3" style="border:2px solid #000000"><center><h6>February</h6></center></div>
-						  <div id="M3" class="span3" style="border:2px solid #000000"><center><h6>March</h6></center></div>
-						  <div id="M4" class="span3" style="border:2px solid #000000"><center><h6>April</h6></center></div>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>February</h6></center>
+						  <div id="M2"></div>
+						  </div>
+						  <br>
+						  <div class="row">
+						  <div class="span5" style="border:2px solid #000000"><center><h6>March</h6></center>
+						  <div id="M3"></div>
+						  </div>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>April</h6></center>
+						  <div id="M4"></div>
+						  </div>
 						</div>
 						<br>
-						<div class="row">
-						  <div id="M5" class="span3" style="border:2px solid #000000"><center><h6>May</h6></center></div>
-						  <div id="M6" class="span3" style="border:2px solid #000000"><center><h6>June</h6></center></div>
-						  <div id="M7" class="span3" style="border:2px solid #000000"><center><h6>July</h6></center></div>
-						  <div id="M8" class="span3" style="border:2px solid #000000"><center><h6>August</h6></center></div>
+						 <div class="row">
+						  <div class="span5" style="border:2px solid #000000"><center><h6>May</h6></center>
+						  <div id="M5"></div>
+						  </div>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>June</h6></center>
+						  <div id="M6"></div>
+						  </div>
 						</div>
 						<br>
-						<div class="row">
-						  <div id="M9" class="span3" style="border:2px solid #000000"><center><h6>September</h6></center></div>
-						  <div id="M10" class="span3" style="border:2px solid #000000"><center><h6>October</h6></center></div>
-						  <div id="M11" class="span3" style="border:2px solid #000000"><center><h6>November</h6></center></div>
-						  <div id="M12" class="span3" style="border:2px solid #000000"><center><h6>December</h6></center></div>
+						 <div class="row">
+						  <div class="span5" style="border:2px solid #000000"><center><h6>July</h6></center>
+						  <div id="M7"></div>
+						  </div>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>August</h6></center>
+						  <div id="M8"></div>
+						  </div>
 						</div>
-						
-									
-					</div>
-							
+						<br>
+						 <div class="row">
+						  <div class="span5" style="border:2px solid #000000"><center><h6>September</h6></center>
+						  <div id="M9"></div>
+						  </div>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>October</h6></center>
+						  <div id="M10"></div>
+						  </div>
+						</div>
+						<br>
+						 <div class="row">
+						  <div class="span5" style="border:2px solid #000000"><center><h6>November</h6></center>
+						  <div id="M11"></div>
+						  </div>
+						  <div class="span5" style="border:2px solid #000000"><center><h6>December</h6></center>
+						  <div id="M12"></div>
+						  </div>
+						</div>
+									 
+						  
+						</div>
+						<br>
+											
 		
 					<% for (int i = 2004; i < 2015; i++) {
 						String tab = "tab" + i;
@@ -226,7 +257,13 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 									draw_indexdata(tab);
 									console.log("scale ekaaa : "+scale);
 									draw_cumulativeGraph(tab,scale);
-									drw_Naics_monthly(tab); 
+									<% for ( int M = 1 ; M < 13 ; M++ )
+									{
+									%>
+									
+									drw_Naics_monthly(tab,<%=M%>);
+									
+									<% } %>
 																				
 							});
 							
@@ -337,9 +374,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								async : false
 						});
 					}
-					function drw_Naics_monthly(tab){
+					function drw_Naics_monthly(year,month){
 						
-						var urlscatter = "monthly_mcap?yrmo="+tab;
+						var urlscatter = "monthly_mcap?year="+year+"&month="+month;
 						
 						$.ajax({
 							type : 'GET',
@@ -347,7 +384,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							dataType : 'json',
 							success : function(data) {
 															
-								draw_month_patterns(data);
+								draw_month_patterns(data,month);
 								//console.log(data.naics.length);
 								},
 								error : function(data, error) {
@@ -381,7 +418,13 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 					draw_indexdata(2004);
-					drw_Naics_monthly(2004);
+					<% for ( int M = 2 ; M < 13 ; M++ )
+					{
+					%>
+					
+					drw_Naics_monthly(2004,<%=M%>);
+					
+					<%}%>
 					
 			});
 		function draw_indexdata(year){
