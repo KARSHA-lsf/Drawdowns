@@ -526,7 +526,16 @@ public JsonObject Index_vw_return() {
 	}
 	
 	public JsonObject monthlymcap(){
-		String sql = "SELECT NAICS,sum(red) FROM red_individual_level where month =" + request.getParameter("yrmo") + "02 group by NAICS";
+		String month = request.getParameter("month");
+		int month2 = Integer.parseInt(month);
+		String sql = null;
+		if(month2 < 10){
+			
+		 sql = "SELECT NAICS,sum(red) FROM red_individual_level where month =" + request.getParameter("year") + "0"+ request.getParameter("month") +" group by NAICS";
+		
+		}else{
+			 sql = "SELECT NAICS,sum(red) FROM red_individual_level where month =" + request.getParameter("year") +  request.getParameter("month") +" group by NAICS";
+		}
 		SQLQuery q = session.createSQLQuery(sql);
 		
 		List<BigDecimal> Arr_mcap = new ArrayList<>();
