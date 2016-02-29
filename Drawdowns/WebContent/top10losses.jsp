@@ -143,9 +143,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
    				 
   								});
 							</script>
-						</div>
-										
-															
+						</div>		
+												
 						<div id="multihistogram"></div>	
 						<br>
 						<div class="row">
@@ -195,14 +194,17 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						</div>
 						<br>
 						 <div class="row">
-						  <div class="span5" style="border:2px solid #000000"><center><h4>November :  <span id="A10" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span5" style="border:2px solid #000000"><center><h4>November :  <span id="A10" style ="color:#8a8a5c"></span></h4></center>
 						  <div id="M11"></div>
 						  </div>
 						  <div class="span5" style="border:2px solid #000000"><center><h4>December :  <span id="A11" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M12"></div>
-						  </div>
+					  </div>
 						</div>
-							<script>
+						
+									
+					</div>
+					<script>
 						var p2004 = ["No-Impact","Non-Align","Loss-No-Impact","Loss-No-Impact","No-Impact","None","Loss-No-Impact","None","Loss-No-Impact","Loss-No-Impact","LLHG","Non-Align"];
 						var p2005 = ["Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","No-Impact","Non-Align","Loss-No-Impact","LLHG","Loss-No-Impact","None","Loss-No-Impact","Non-Align","Loss-No-Impact"];
 						var p2006 = ["LLHG","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","None","None","Non-Align","Non-Align","Non-Align","Non-Align","Non-Align"];
@@ -225,24 +227,20 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						}
 													
 							
-					</script> 		 
-					
-						</div>
-						<br>
-											
+					</script> 		
+							
 		
-					<%  for (int i = 2004; i < 2015; i++) {
+					<% for (int i = 2004; i < 2015; i++) {
 						String tab = "tab" + i;
 					%>
-					
 					<div id="<%=tab%>">
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
 								
 									<h3 class="page-header">Market Behavior Individual Level</h3>	
 										
-									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div> -->
- 								
+									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
+ -->								
 								
 											Drawdown Value Top : <span id="Dr_value<%=i%>"  style="font-weight:bold;"></span>
 											<div id="Dr_slider<%=i%>"></div>
@@ -294,15 +292,14 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 									patterndisplay(<%=i%>);
 																				
 							});
-														
+							
+							
 						</script>
-						
 					</div>
 					
-					<%}%> 
-					
-					 		
-										
+					<%
+											}
+										%> 
 										<br> 
 					<div class="col-lg-12" style="margin: 30px 30px 30px">
 							<h4 class="page-header">
