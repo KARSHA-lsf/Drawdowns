@@ -149,85 +149,57 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<br>
 						<div class="row">
 							
-						  <div class="span5" style="border:2px solid #000000"><center><h4>January :  <span id="A0" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>January :  <span id="A0" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M1"></div>
 						  </div>
-						  <div class="span5" style="border:2px solid #000000"><center><h4>February :  <span id="A1" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>February :  <span id="A1" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M2"></div>
+						  </div>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>March :  <span id="A2" style="color:#8a8a5c"></span></h4></center>
+						  <div id="M3"></div>
 						  </div>
 						  </div>
 						  <br>
 						  <div class="row">
-						  <div class="span5" style="border:2px solid #000000"><center><h4>March :  <span id="A2" style="color:#8a8a5c"></span></h4></center>
-						  <div id="M3"></div>
-						  </div>
-						  <div class="span5" style="border:2px solid #000000"><center><h4>April :  <span id="A3" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>April :  <span id="A3" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M4"></div>
 						  </div>
-						</div>
-						<br>
-						 <div class="row">
-						  <div class="span5" style="border:2px solid #000000"><center><h4>May :  <span id="A4" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>May :  <span id="A4" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M5"></div>
 						  </div>
-						  <div class="span5" style="border:2px solid #000000"><center><h4>June : <span id="A5" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>June : <span id="A5" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M6"></div>
 						  </div>
 						</div>
 						<br>
 						 <div class="row">
-						  <div class="span5" style="border:2px solid #000000"><center><h4>July :  <span id="A6" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>July :  <span id="A6" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M7"></div>
 						  </div>
-						  <div class="span5" style="border:2px solid #000000"><center><h4>August :  <span id="A7" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>August :  <span id="A7" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M8"></div>
 						  </div>
-						</div>
-						<br>
-						 <div class="row">
-						  <div class="span5" style="border:2px solid #000000"><center><h4>September :  <span id="A8" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>September :  <span id="A8" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M9"></div>
 						  </div>
-						  <div class="span5" style="border:2px solid #000000"><center><h4>October :  <span id="A9" style="color:#8a8a5c"></span></h4></center>
-						  <div id="M10"></div>
-						  </div>
 						</div>
 						<br>
 						 <div class="row">
-						  <div class="span5" style="border:2px solid #000000"><center><h4>November :  <span id="A10" style ="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>October :  <span id="A9" style="color:#8a8a5c"></span></h4></center>
+						  <div id="M10"></div>
+						  </div>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>November :  <span id="A10" style ="color:#8a8a5c"></span></h4></center>
 						  <div id="M11"></div>
 						  </div>
-						  <div class="span5" style="border:2px solid #000000"><center><h4>December :  <span id="A11" style="color:#8a8a5c"></span></h4></center>
+						  <div class="span4" style="border:2px solid #000000"><center><h4>December :  <span id="A11" style="color:#8a8a5c"></span></h4></center>
 						  <div id="M12"></div>
-					  </div>
+					 	  </div>
 						</div>
 						
-									
-					</div>
-					<script>
-						var p2004 = ["No-Impact","Non-Align","Loss-No-Impact","Loss-No-Impact","No-Impact","None","Loss-No-Impact","None","Loss-No-Impact","Loss-No-Impact","LLHG","Non-Align"];
-						var p2005 = ["Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","No-Impact","Non-Align","Loss-No-Impact","LLHG","Loss-No-Impact","None","Loss-No-Impact","Non-Align","Loss-No-Impact"];
-						var p2006 = ["LLHG","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","None","None","Non-Align","Non-Align","Non-Align","Non-Align","Non-Align"];
-						var p2007 = ["Loss-No-Impact","None","No-Impact","Non-Align","Non-Align","Loss-No-Impact","None","No-Impact","Non-Align","Non-Align","Pushdown","Loss-No-Impact"];
-						var p2008 = ["Pushdown","Loss-No-Impact","Loss-No-Impact","Non-Align","Loss-No-Impact","Pushdown","Loss-No-Impact","Loss-No-Impact","Pushdown","Pushdown","Pushdown","Loss-No-Impact"];
-						var p2009 = ["Pushdown","Pushdown","LLHG","Non-Align","Non-Align","Loss-No-Impact","LLHG","Non-Align","LLHG","Loss-No-Impact","Non-Align","Loss-No-Impact"];
-						var p2010 = ["None","LLHG","Non-Align","Loss-No-Impact","Pushdown","Pushdown","LLHG","None","LLHG","Non-Align","Loss-No-Impact","Non-Align"];
-						var p2011 = ["None","Non-Align","Loss-No-Impact","Non-Align","Loss-No-Impact","None","Loss-No-Impact","LLHG","Pushdown","None","Loss-No-Impact","Loss-No-Impact"];
-						var p2012 = ["Non-Align","Non-Align","Non-Align","Loss-No-Impact","Pushdown","Non-Align","Non-Align","Non-Align","Non-Align","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact"];
-						var p2013 = ["LLHG","Loss-No-Impact","LLHG","Non-Align","Non-Align","Loss-No-Impact","None","None","LLHG","Non-Align","Non-Align","Non-Align"];
-						var p2014 = ["Pushdown","Non-Align","Non-Align","Loss-No-Impact","Non-Align","Non-Align","None","LLHG","Pushdown","Non-Align","Non-Align","Loss-No-Impact"];
 						
-						function  patterndisplay(year)
-						{
-							for (int = 0; int < 13; int++) {
-								
-								  document.getElementById("A"+int).innerHTML =  window['p' + year][int]; 
-								
-								}
-						}
-													
 							
-					</script> 		
+					</div>
+						
 							
 		
 					<% for (int i = 2004; i < 2015; i++) {
@@ -438,8 +410,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				    $(document).ajaxComplete(function(){
 				        $("#loading").css("display", "none");
 				    }); */
+				    
 					$("#Dr_value2004").text(Dr_value+ " %");
-				    draw_month_patterns(2004);  					
+				    //draw_month_patterns(2004);  					
 					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
@@ -503,7 +476,30 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
 	<script src="js/month_pattern.js"></script>
+	<script>
+							
+							var p2004 = ["No-Impact","Non-Align","Loss-No-Impact","Loss-No-Impact","No-Impact","None","Loss-No-Impact","None","Loss-No-Impact","Loss-No-Impact","LLHG","Non-Align"];
+						    var p2005 = ["Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","No-Impact","Non-Align","Loss-No-Impact","LLHG","Loss-No-Impact","None","Loss-No-Impact","Non-Align","Loss-No-Impact"];
+						    var p2006 = ["LLHG","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact","None","None","Non-Align","Non-Align","Non-Align","Non-Align","Non-Align"];
+						    var p2007 = ["Loss-No-Impact","None","No-Impact","Non-Align","Non-Align","Loss-No-Impact","None","No-Impact","Non-Align","Non-Align","Pushdown","Loss-No-Impact"];
+						    var p2008 = ["Pushdown","Loss-No-Impact","Loss-No-Impact","Non-Align","Loss-No-Impact","Pushdown","Loss-No-Impact","Loss-No-Impact","Pushdown","Pushdown","Pushdown","Loss-No-Impact"];
+						    var p2009 = ["Pushdown","Pushdown","LLHG","Non-Align","Non-Align","Loss-No-Impact","LLHG","Non-Align","LLHG","Loss-No-Impact","Non-Align","Loss-No-Impact"];
+						    var p2010 = ["None","LLHG","Non-Align","Loss-No-Impact","Pushdown","Pushdown","LLHG","None","LLHG","Non-Align","Loss-No-Impact","Non-Align"];
+						    var p2011 = ["None","Non-Align","Loss-No-Impact","Non-Align","Loss-No-Impact","None","Loss-No-Impact","LLHG","Pushdown","None","Loss-No-Impact","Loss-No-Impact"];
+						    var p2012 = ["Non-Align","Non-Align","Non-Align","Loss-No-Impact","Pushdown","Non-Align","Non-Align","Non-Align","Non-Align","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact"];
+						    var p2013 = ["LLHG","Loss-No-Impact","LLHG","Non-Align","Non-Align","Loss-No-Impact","None","None","LLHG","Non-Align","Non-Align","Non-Align"];
+						    var p2014 = ["Pushdown","Non-Align","Non-Align","Loss-No-Impact","Non-Align","Non-Align","None","LLHG","Pushdown","Non-Align","Non-Align","Loss-No-Impact"];
 
+						    function  patterndisplay(year)
+						    {
+						    	for (int = 0; int < 13; int++) {
+						    		if (document.getElementById("A"+int)) {  
+						    		  document.getElementById("A"+int).innerHTML =  window['p' + year][int]; 
+						    		}
+						    		}
+						    }
+							
+							</script>		
 
 </body>
 </html>

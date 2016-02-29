@@ -59,3 +59,9 @@ function draw_month_patterns(json_object,month) {
 		}
 	});
 }
+
+
+
+				
+	
+	
