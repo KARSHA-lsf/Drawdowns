@@ -36,6 +36,8 @@
     <url-pattern>/perm_history</url-pattern>
     <url-pattern>/pattern</url-pattern>
     <url-pattern>/monthly_mcap</url-pattern>
+    <url-pattern>/individual_equity</url-pattern>
+    
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>annualy_analysis</servlet-name>

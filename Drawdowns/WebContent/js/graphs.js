@@ -477,7 +477,12 @@ function sccaterPlot_dataPreprocess(data) {
 function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	// this function draws the scatter plot.
 	var dayMin = year + "-" + month + "-01";
-	console.log(dayMin);
+	var yrmo;
+	
+	if(month<10){yrmo=year+"0"+month;}
+	else { yrmo=year+""+month ;}
+	console.log("kkk : "+yrmo);
+	
 	//month = month + 12;
 	year++;
 	var dayMax = year + "-" + month + "-01";
@@ -553,19 +558,91 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 			show : true
 		},
 		tooltip: {
-	        format: {
-	           value: function (value, ratio, id) {
-	        	   if(label=='Market Capitalization - millions $')
-	        	{
-	        	   value = (value/1000000).toFixed(4)+"M$";
-	        	   return value;
-	        	}else{
-	        		return value;
-	        	}
-	           }
-	        }
+	        
+	        contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
+	        	 var $$ = this, config = $$.config, CLASS = $$.CLASS,
+	             titleFormat = config.tooltip_format_title || defaultTitleFormat,
+	             nameFormat = config.tooltip_format_name || function (name) { return name; },
+	             valueFormat = config.tooltip_format_value || defaultValueFormat,
+	             text, i, title, value, name, bgcolor;
+	                         //console.log(JSON.stringify(d))
+	                         // You can access all of data like this:
+	                         
+	                         var title_date = formatDate(d[0].x);
+	                         var Mcap = d[0].value;
+	                         var PERMNO_got,LossMcap_got,Naics_got;
+	                         //console.log("PP : "+title_date+" : "+Mcap);
+	                         
+	                         $.ajax({
+	             	            type: 'GET',
+	             	            url: "individual_equity?Mcap="+Mcap+"&date="+title_date,
+	             	            dataType: 'json',
+	             	            success: function (data) {
+	             	            	PERMNO_got = data["Permno"];
+	             	            	LossMcap_got = (data["LossMcap"]/1000000).toFixed(4);
+	             	            	Naics_got = data["Naics"];
+	             	            	//console.log("OOOOOOOO :"+data["Permno"]);
+	             	           	
+	             	           	
+	             	            },
+	             	            
+	             	            error: function (data,
+	             	                    error) {
+	             	            	console.log(error);
+	             	            },
+	             	            async: false
+	             	        });
+	                         
+	             
+	                         for (i = 0; i < d.length; i++) {
+	                             if (!(d[i] && (d[i].value || d[i].value === 0))) { continue; }
+
+	                             // ADD
+	                             if (d[i].name === 'data2') { continue; }
+	                             
+	                             
+
+	                             if (!text) {
+	                                 title = title_date + " &nbsp;&nbsp;&nbsp; NAICS : "+Naics_got 
+	                                 text = "<table class='" + CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
+	                             }
+
+	                             name = nameFormat(d[i].name);
+	                             value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+	                             bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
+
+	                             //console.log("lll: "+value);
+	                             value = "Mcap "+(value).toFixed(4)+"M$";
+	                             text += "<tr class='" + CLASS.tooltipName + "-" + d[i].id + "'>";
+	                             text += "<td class='name'><span style='background-color:" + bgcolor + "; border-radius: 5px;'></span>" + name + "</td>";
+	                             text += "<td class='value'>" + value + "</td>";
+	                             text += "</tr>";
+	                         }
+
+	                         //console.log("Prima" + text);
+	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
+	                         text += "<td class='name'>" + "Permo: "+ PERMNO_got+ "</td>";
+	                         text += "<td class='value'>" + "LMC : " +LossMcap_got+ " M$</td>";
+	                         text += "</tr></table>";
+	                         //console.log(text);
+
+	                         return text; // formatted html as you want
+	          }
 		},
+		
 	});
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
 }
 
 function drawIndex_yearly(json_object, year, month, tag) {

@@ -565,5 +565,30 @@ public JsonObject Index_vw_return() {
 		
 	}
 	
+	public JsonObject individual_Equity(String Mcap,String date) {
+		String sql = "SELECT permno,LOSSMcap FROM sys_top10_losess  WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+";";
+		SQLQuery q = session.createSQLQuery(sql);
+		List<Object[]> result = q.list();
+		int permno = 0;
+		int Naics = 0;
+		Double LossMcap = null;
+		
+		for (Object[] returns : result) {
+			 permno =  (int) returns[0];
+			 Naics = permno/1000;
+			 LossMcap = (Double) returns[1];
+		}
+		
+		Gson gson = new Gson();
+		JsonObject J_obj = new JsonObject();
+		JsonElement JE_permno = gson.toJsonTree(permno);
+		JsonElement JE_naics = gson.toJsonTree(Naics);
+		JsonElement JE_LossMcap = gson.toJsonTree(LossMcap);
+		J_obj.add("Permno",JE_permno);
+		J_obj.add("Naics",JE_naics);
+		J_obj.add("LossMcap",JE_LossMcap);
+		
+		return J_obj;
+	}
 
 }

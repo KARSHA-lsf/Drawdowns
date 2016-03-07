@@ -218,12 +218,12 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 											<div id="Dr_slider<%=i%>"></div>
 															
 									
-								<form>
+								<%-- <form>
 								  	
  									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno |
   									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics |
   									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  
-								</form>	
+								</form>	 --%>
 								
 							<div id="scatter_plot<%=i%>"></div>
 							<br>
@@ -250,7 +250,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 								Dr_value = 100;
 								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
-									drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 									draw_indexdata(tab);
 									console.log("scale ekaaa : "+scale);
 									draw_cumulativeGraph(tab,scale);
@@ -329,8 +329,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					}
 					function drw_mcap_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
+						
 						var urlscatter = "scattermcaptop10?yrmo="+tab+"&Dr_top="+Dr_value+"&LossMcap_top="+LossMcap_value;
-						//console.log(urlscatter);
+						console.log(urlscatter);
 						$.ajax({
 							type : 'GET',
 							url : urlscatter,
@@ -412,8 +413,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 				    }); */
 				    
 					$("#Dr_value2004").text(Dr_value+ " %");
-				    //draw_month_patterns(2004);  					
-					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+				    //draw_month_patterns(2004);  	
+				    
+				    drw_mcap_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 					draw_indexdata(2004);

@@ -141,6 +141,10 @@ public class IndexSrvlt extends HttpServlet {
 			}
 		}else if(userPath.equals("/monthly_mcap")){
 			pwr.print(clm_grp.monthlymcap());
+		}else if(userPath.equals("/individual_equity")){
+			String Mcap = request.getParameter("Mcap");
+			String date = request.getParameter("date");
+			pwr.print(clm_grp.individual_Equity(Mcap, date));
 		}
 		
 
