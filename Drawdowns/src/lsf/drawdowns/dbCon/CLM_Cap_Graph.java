@@ -566,17 +566,29 @@ public JsonObject Index_vw_return() {
 	}
 	
 	public JsonObject individual_Equity(String Mcap,String date) {
-		String sql = "SELECT permno,LOSSMcap FROM sys_top10_losess  WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+";";
+		
+		String sql = "SELECT b.*,a.NAICS,a.Naics_code,a.Naics_name,a.COMNAM,a.TSYMBOL FROM (SELECT permno,LOSSMcap FROM sys_top10_losess WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+")as b JOIN perm_details as a ON a.PERMNO = b.permno;";
+		//String sql = "SELECT permno,LOSSMcap FROM sys_top10_losess  WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+";";
 		SQLQuery q = session.createSQLQuery(sql);
 		List<Object[]> result = q.list();
 		int permno = 0;
-		int Naics = 0;
 		Double LossMcap = null;
+		int Naics = 0;
+		int Naics_code = 0;
+		String Naics_name =null;
+		String Comnam = null;
+		String Tsymbol = null;
 		
 		for (Object[] returns : result) {
 			 permno =  (int) returns[0];
-			 Naics = permno/1000;
 			 LossMcap = (Double) returns[1];
+			 Naics = (int)returns[2];
+			 Naics_code = (int)returns[3];
+			 Naics_name = (String)returns[4];
+			 Comnam = (String)returns[5];
+			 Tsymbol = (String)returns[6];
+			 
+			 
 		}
 		
 		Gson gson = new Gson();
@@ -584,9 +596,17 @@ public JsonObject Index_vw_return() {
 		JsonElement JE_permno = gson.toJsonTree(permno);
 		JsonElement JE_naics = gson.toJsonTree(Naics);
 		JsonElement JE_LossMcap = gson.toJsonTree(LossMcap);
+		JsonElement JE_Naics_code = gson.toJsonTree(Naics_code);
+		JsonElement JE_Naics_name = gson.toJsonTree(Naics_name);
+		JsonElement JE_Comnam = gson.toJsonTree(Comnam);
+		JsonElement JE_Tsymbol = gson.toJsonTree(Tsymbol);
 		J_obj.add("Permno",JE_permno);
 		J_obj.add("Naics",JE_naics);
 		J_obj.add("LossMcap",JE_LossMcap);
+		J_obj.add("Naics_code",JE_Naics_code);
+		J_obj.add("Naics_name",JE_Naics_name);
+		J_obj.add("Comnam",JE_Comnam);
+		J_obj.add("Tsymbol",JE_Tsymbol);
 		
 		return J_obj;
 	}

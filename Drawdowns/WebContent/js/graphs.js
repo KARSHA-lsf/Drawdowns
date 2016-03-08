@@ -570,7 +570,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                         
 	                         var title_date = formatDate(d[0].x);
 	                         var Mcap = d[0].value;
-	                         var PERMNO_got,LossMcap_got,Naics_got;
+	                         var PERMNO_got,LossMcap_got,Naics_got,Naics_code_got,Naics_name_got,Comnam_got,Tsymbol_got;
 	                         //console.log("PP : "+title_date+" : "+Mcap);
 	                         
 	                         $.ajax({
@@ -581,6 +581,10 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	             	            	PERMNO_got = data["Permno"];
 	             	            	LossMcap_got = (data["LossMcap"]/1000000).toFixed(4);
 	             	            	Naics_got = data["Naics"];
+	             	            	Naics_code_got = data["Naics_code"];
+	             	            	Naics_name_got = data["Naics_name"];
+	             	            	Comnam_got = data["Comnam"];
+	             	            	Tsymbol_got = data["Tsymbol"];
 	             	            	//console.log("OOOOOOOO :"+data["Permno"]);
 	             	           	
 	             	           	
@@ -603,7 +607,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                             
 
 	                             if (!text) {
-	                                 title = title_date + " &nbsp;&nbsp;&nbsp; NAICS : "+Naics_got 
+	                                 title = title_date + " &nbsp;&nbsp;&nbsp; Trade Symbol : "+Tsymbol_got 
 	                                 text = "<table class='" + CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
 	                             }
 
@@ -623,6 +627,15 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
 	                         text += "<td class='name'>" + "Permo: "+ PERMNO_got+ "</td>";
 	                         text += "<td class='value'>" + "LMC : " +LossMcap_got+ " M$</td>";
+	                         text += "</tr>";
+	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
+	                         text += "<td class='name'>" + "Naics : "+ Naics_code_got+ "</td>";
+	                         text += "<td class='value'>" +Naics_name_got+ "</td>";
+	                         text += "</tr>";
+	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
+	                         text += "<td class='name'>Company: </td>";
+	                         text += "<td class='value'>" + Comnam_got+ "</td>";
+	                         text += "</tr>";
 	                         text += "</tr></table>";
 	                         //console.log(text);
 
