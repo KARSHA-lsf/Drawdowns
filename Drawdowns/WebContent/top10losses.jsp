@@ -477,7 +477,9 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 	<script src="js/graphs.js"></script>
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
+	<script src="js/month_individual.js"></script>
 	<script src="js/month_pattern.js"></script>
+	
 	<script>
 							
 							var p2004 = ["No-Impact","Non-Align","Loss-No-Impact","Loss-No-Impact","No-Impact","None","Loss-No-Impact","None","Loss-No-Impact","Loss-No-Impact","LLHG","Non-Align"];
@@ -491,12 +493,16 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						    var p2012 = ["Non-Align","Non-Align","Non-Align","Loss-No-Impact","Pushdown","Non-Align","Non-Align","Non-Align","Non-Align","Loss-No-Impact","Loss-No-Impact","Loss-No-Impact"];
 						    var p2013 = ["LLHG","Loss-No-Impact","LLHG","Non-Align","Non-Align","Loss-No-Impact","None","None","LLHG","Non-Align","Non-Align","Non-Align"];
 						    var p2014 = ["Pushdown","Non-Align","Non-Align","Loss-No-Impact","Non-Align","Non-Align","None","LLHG","Pushdown","Non-Align","Non-Align","Loss-No-Impact"];
-
+	                       
+						    //console.log("IIIIIIII :"+pattern_info_arr.patterns_info[0].pattern);
+						    
 						    function  patterndisplay(year)
 						    {
-						    	for (int = 0; int < 13; int++) {
-						    		if (document.getElementById("A"+int)) {  
-						    		  document.getElementById("A"+int).innerHTML =  window['p' + year][int]; 
+						    	for (inte = 0; inte < 12; inte++) {
+						    		var yr_vari = (year-2004)*12+inte;
+						    		//console.log("ggggg: "+yr_vari);
+						    		if (document.getElementById("A"+inte)) {  
+						    		  document.getElementById("A"+inte).innerHTML = "[ "+ptn_arr.ptn_info[yr_vari].X+", "+ptn_arr.ptn_info[yr_vari].pattern+", "+ptn_arr.ptn_info[yr_vari].Y+", "+ptn_arr.ptn_info[yr_vari].Z+" ]"; 
 						    		}
 						    		}
 						    }

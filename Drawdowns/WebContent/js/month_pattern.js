@@ -1,3 +1,5 @@
+
+
 function draw_month_patterns(json_object,month) {
 	var chart = c3.generate({
 		bindto : '#M'+month,
