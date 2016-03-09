@@ -209,7 +209,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						<div class="row">
 							<div class="col-lg-12" style="margin: 30px 30px 30px">
 								
-									<h3 class="page-header">Market Behavior Individual Level</h3>	
+									<h3 class="page-header">Market Behavior Individual Level - color based on LMC</h3>	
 										
 									<!-- <div id="loading" style="display:table-cell; vertical-align:middle; text-align:center"><img id="loading-image" src='demo_wait.gif'/><br>Loading..</div>
  -->								
@@ -308,9 +308,18 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					function draw_me(data){
 						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
 						//call method in graph.js to draw scatter-plot
+						var maxx = data[0].permno;
+						
+						 for(i=1;i<data.length;i++){
+							
+						 	 if(data[i].permno>maxx){
+								maxx = data[i].permno;
+							} 
+																
+						} 
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'permno');
+					 		'#scatter_plot'+tab,'Market Capitalization - millions $',maxx);
 					}
 					function draw_menaics(data) {
 						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);

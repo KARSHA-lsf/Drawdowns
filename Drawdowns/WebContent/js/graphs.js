@@ -607,7 +607,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                             
 
 	                             if (!text) {
-	                                 title = title_date + " &nbsp;&nbsp;&nbsp; Trade Symbol : "+Tsymbol_got 
+	                                 title = title_date + " &nbsp;&nbsp;&nbsp; NYSE symbol : "+Tsymbol_got 
 	                                 text = "<table class='" + CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
 	                             }
 
@@ -625,11 +625,11 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 
 	                         //console.log("Prima" + text);
 	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
-	                         text += "<td class='name'>" + "Permo: "+ PERMNO_got+ "</td>";
+	                         text += "<td class='name'>" + "PERMNO: "+ PERMNO_got+ "</td>";
 	                         text += "<td class='value'>" + "LMC : " +LossMcap_got+ " M$</td>";
 	                         text += "</tr>";
 	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
-	                         text += "<td class='name'>" + "Naics : "+ Naics_code_got+ "</td>";
+	                         text += "<td class='name'>" + "NAICS : "+ Naics_code_got+ "</td>";
 	                         text += "<td class='value'>" +Naics_name_got+ "</td>";
 	                         text += "</tr>";
 	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
