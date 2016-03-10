@@ -19,6 +19,7 @@
 
 <link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
+
 <style type="text/css">
 #Dr_slider .ui-slider-range {
 	background: #ef2929;
@@ -35,6 +36,8 @@ input,td,th,textarea {
 .c3-region.regionY2 {
   fill: green;
 }
+
+
 </style>
 <script type="text/javascript">
 
@@ -272,8 +275,12 @@ input,td,th,textarea {
 	</div>
 	<!-- /container -->
 
-	<script src="js/grid.js"></script>
+	
+	
 	<script src="bootstrap/js/c3.js"></script>
 	<script src="bootstrap/js/d3.min.js"></script>
+	
+	<script src="js/grid.js"></script>
+	
 </body>
 </html>

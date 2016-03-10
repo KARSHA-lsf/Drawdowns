@@ -2,6 +2,7 @@ var urldata,width,height,id,square;
 
 var  colorCode =[],pattern =[],blue =[],red =[],green =[];
 var ogl_blue=[],ogl_red =[],ogl_green =[];
+var X_val=[],Y_val=[],Z_val=[];
 
 var calData, grid, row, col,text;
 
@@ -21,15 +22,15 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 	for(index = 0; index < blue.length; index++){	
 		if(blue[index]<BLN && green[index]<GLN){
 			colorCode[index] = '#ff0000'; // pushdown red
-			pattern[index]="Pushdown";
+			pattern[index]="Pshdown";
 			pushdown=pushdown+1;
 		}else if(blue[index]<BLN && green[index]>GSN && green[index]<GSP && red[index]>RSN && red[index]<BSP){
 			colorCode[index] = '#D2691E'; //loss no impact
-			pattern[index]="Loss-No-Impact";
+			pattern[index]="LNImpct";
 			lossNoImpact=lossNoImpact+1;
 		}else if(blue[index]>BSN && blue[index]<BM && green[index]>GSN && green[index]<GSP && red[index]>RSN && red[index]<BSP){
 			colorCode[index] = '#228B22'; //no impact green
-			pattern[index]="No-Impact";
+			pattern[index]="NoImpct";
 			noImpact=noImpact+1;
 		}else if(blue[index]>BSN && blue[index]<BM){
 			colorCode[index] = '#0000ff'; //LLHG blue
@@ -37,7 +38,7 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 			LLHG=LLHG+1;
 		}else if(blue[index]<BLN && green[index]>GM){
 			colorCode[index] = '#87CEFA'; //non align light blue
-			pattern[index]="Non-Align";
+			pattern[index]="NonAlign";
 			nonAlign=nonAlign+1;
 		}else{
 			colorCode[index] = '#FF69B4';  //
@@ -48,7 +49,7 @@ function setColorCode(BLN,BSN,BM,BSP,BLP,RLN,RSN,RM,RSP,RLP,GLN,GSN,GM,GSP,GLP){
 	}
 	console.log(pushdown,lossNoImpact,noImpact,LLHG,nonAlign,none);
 	d3.select("svg").remove();
-	calendarWeekHour('#chart', window.innerWidth, window.innerHeight*0.5, false);
+	calendarWeekHour('#chart', window.innerWidth, window.innerHeight*0.6, false);
 }
 
 function setData(data){
@@ -58,6 +59,9 @@ function setData(data){
 		ogl_blue[i] = this['blue'];
 		ogl_red[i] = this['red'];
 		ogl_green[i] = this['green'];
+		X_val[i]=this['X'];
+		Y_val[i]=this['Y'];
+		Z_val[i]=this['Z'];
 		i++;
     });
 	blue=ogl_blue.slice();
@@ -133,6 +137,9 @@ function setPercentages(scale){
 
 function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
 {	
+
+	
+		  
 	width=Gwidth;
 	height=Gheight;
 	id=Gid;
@@ -142,6 +149,9 @@ function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
 
     row = grid.selectAll(".row").data(calData).enter().append("svg:g").attr("class", "row");
 
+    
+    
+    
     col = row.selectAll(".cell")
                  .data(function (d) { return d; })
                  .enter().append("svg:rect")
@@ -152,10 +162,12 @@ function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
                  .attr("width", function(d) { return d.width; })
                  .attr("height", function(d) { return d.height; })
                  .on('click', function() {
-                    console.log(d3.select(this).attr("value"));
+                    //console.log("fff");
                  })
                  .style('fill', ("color", function(d) { return d.color; }))
                  .style("stroke", '#000');
+    
+    
 
 	text = row.selectAll(".label")
         		 .data(function(d) {return d;})
@@ -163,9 +175,11 @@ function calendarWeekHour(Gid, Gwidth, Gheight, Gsquare)
        			 .attr("x", function(d) { return d.x + d.width/2 })
         		 .attr("y", function(d) { return d.y + d.height/2 })
        			 .attr("text-anchor","middle")
-				 .style("font-size",function(d) { return d.width/8 })
+				 .style("font-size",function(d) { return d.width/10 })
         		 .attr("dy",".35em")
         		 .text(function(d) { return d.value });
+	      		 
+	
 }
 
 
@@ -221,7 +235,7 @@ function randomData(gridWidth, gridHeight, square)
 			}else{
 				data[index_a].push({ 
                                 time: index_b, 
-                                value: pattern[ccc],
+                                value: '['+X_val[ccc]+","+pattern[ccc]+","+Y_val[ccc]+","+Z_val[ccc]+"]",
                                 width: gridItemWidth,
                                 height: gridItemHeight,
                                 x: xpos,

@@ -463,7 +463,7 @@ public JsonObject Index_vw_return() {
 	    return DATE_FORMAT.format(date);
 	}
 	public JSONObject pattern() throws JSONException{
-		String sql = "select yrmo,blue,red,green from sys_pattern";
+		String sql = "select yrmo,blue,red,green,X,Y,Z from pattern";
 		SQLQuery q = session.createSQLQuery(sql);
 
 		JSONArray jsonarray = new JSONArray();
@@ -477,11 +477,17 @@ public JsonObject Index_vw_return() {
 			BigDecimal blue = (BigDecimal) returns[1];
 			BigDecimal red = (BigDecimal) returns[2];
 			BigDecimal green = (BigDecimal) returns[3];
+			String	X = (String)returns[4];
+			String	Y = (String)returns[5];
+			String	Z = (String)returns[6];
 			
 			jsonobj.put("yrmo", date);
 			jsonobj.put("blue", blue);
 			jsonobj.put("red", red);
 			jsonobj.put("green", green);
+			jsonobj.put("X", X);
+			jsonobj.put("Y", Y);
+			jsonobj.put("Z", Z);
 			
 			jsonarray.put(jsonobj);
 			

@@ -146,7 +146,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						</div>		
 												
 						<div id="multihistogram"></div>	
-						<br>
+						<!-- <br>
 						<div class="row">
 							
 						  <div class="span4" style="border:2px solid #000000"><center><h4>January :  <span id="A0" style="color:#8a8a5c"></span></h4></center>
@@ -195,7 +195,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						  <div id="M12"></div>
 					 	  </div>
 						</div>
-						
+						 -->
 						
 							
 					</div>
@@ -254,14 +254,14 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 									draw_indexdata(tab);
 									console.log("scale ekaaa : "+scale);
 									draw_cumulativeGraph(tab,scale);
-									<% for ( int M = 1 ; M < 13 ; M++ )
+									<%-- <% for ( int M = 1 ; M < 13 ; M++ )
 									{
 									%>
 									
 									drw_Naics_monthly(tab,<%=M%>);
 									
-									<% } %>
-									patterndisplay(<%=i%>);
+									<% } %> 
+									patterndisplay(<%=i%>)--%>;
 																				
 							});
 							
@@ -392,7 +392,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 							dataType : 'json',
 							success : function(data) {
 															
-								draw_month_patterns(data,month);
+								//draw_month_patterns(data,month);
 								//console.log(data.naics.length);
 								},
 								error : function(data, error) {
@@ -428,15 +428,8 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 					draw_indexdata(2004);
-					<% for ( int M = 1 ; M < 13 ; M++ )
-					{
-					%>
 					
-					drw_Naics_monthly(2004,<%=M%>);
-					
-					<%
-							}      %>
-					patterndisplay(2004);
+					//patterndisplay(2004);
 					
 			});
 		function draw_indexdata(year){
