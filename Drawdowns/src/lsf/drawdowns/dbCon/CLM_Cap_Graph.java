@@ -573,7 +573,7 @@ public JsonObject Index_vw_return() {
 	
 	public JsonObject individual_Equity(String Mcap,String date) {
 		
-		String sql = "SELECT b.*,a.NAICS,a.Naics_code,a.Naics_name,a.COMNAM,a.TSYMBOL FROM (SELECT permno,LOSSMcap FROM sys_top10_losess WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+")as b JOIN perm_details as a ON a.PERMNO = b.permno;";
+		String sql = "SELECT b.*,a.NAICS,a.Naics_code,a.Naics_name,a.COMNAM,a.TSYMBOL FROM (SELECT permno,LOSSMcap FROM sys_capm_alldata WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+")as b JOIN perm_details as a ON a.PERMNO = b.permno;";
 		//String sql = "SELECT permno,LOSSMcap FROM sys_top10_losess  WHERE CAPM_resid_date = '"+date+"' and marketCapitalization = "+Mcap+";";
 		SQLQuery q = session.createSQLQuery(sql);
 		List<Object[]> result = q.list();
