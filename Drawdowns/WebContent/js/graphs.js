@@ -243,7 +243,7 @@ function drawLossMcGraph(jsd,status) {
 						return d / 1000000;
 					},
 				},
-				label : 'Loss Market Capitalization - millions $'
+				label : 'Loss Market Capitalization - Billions $'
 			},
 			y2 : {
 				// ////////// inverted: false,
@@ -372,7 +372,7 @@ function drawLossMcGraphTopTen(jsd,status) {
 						return d / 1000000;
 					},
 				},
-				label : 'Loss Market Capitalization - millions $'
+				label : 'Loss Market Capitalization - Billions $'
 			},
 			y2 : {
 				// ////////// inverted: false,
@@ -407,8 +407,8 @@ function drawLossMcGraphTopTen(jsd,status) {
 		tooltip: {
 	        format: {
 	           value: function (value, ratio, id) {
-	        	   var formatMeA = id === 'Index_VW_Return' ? value = (value*100000).toFixed(2)+"M$":
-	        		   id === 'Cumulative_Loss_Market_capitalization'||id==='EndofMonth_Total_Loss_Market_capitalization'? value = (value/1000000).toFixed(2)+"M$":
+	        	   var formatMeA = id === 'Index_VW_Return' ? value = (value*100000).toFixed(2)+"B$":
+	        		   id === 'Cumulative_Loss_Market_capitalization'||id==='EndofMonth_Total_Loss_Market_capitalization'? value = (value/1000000).toFixed(2)+"B$":
 	        			   id==='Index_Drawdown' ? value = value.toFixed(4):value;
 	        	   return value;
 	           }
@@ -532,7 +532,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 			y : {
 				tick : {
 					format : function(d) {
-						if(label=='Market Capitalization - millions $')
+						if(label=='Market Capitalization - Billions $')
 						return d / 1000000;
 						else
 						return d;
@@ -784,7 +784,7 @@ function drawLossMcGraph_yearly(json_object, year, month, tag) {
 						return d / 1000000;
 					},
 				},
-				label : 'Loss Market Capitalization - millions'
+				label : 'Loss Market Capitalization - Billions'
 			},
 			y2 : {
 				// ////////// inverted: false,
