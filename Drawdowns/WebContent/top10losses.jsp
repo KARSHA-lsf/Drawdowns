@@ -319,7 +319,7 @@ var Dr_value=100,LossMcap_value=20,tab=2004,data_init;
 						} 
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'Market Capitalization - millions $',maxx);
+					 		'#scatter_plot'+tab,'Market Capitalization - Billions $',maxx);
 					}
 					function draw_menaics(data) {
 						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);

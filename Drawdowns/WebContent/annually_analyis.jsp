@@ -155,9 +155,9 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								
 								<form>
 								  	
- 									<input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno |
-  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics |
-  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization  
+ 									<%-- <input type="radio" onclick="drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="permno" checked> Permno |
+  									<input type="radio" onclick="drw_Naics_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="naics"> Naics | 
+  									<input type="radio" onclick="drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value)" name="gender" value="mcap"> MarketCapitalization --%> 
 								</form>
 								
 							<div id="scatter_plot<%=i%>"></div>
@@ -184,7 +184,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 								Dr_value = 20;
 								$("#Dr_value<%=i%>").text(Dr_value+ " %");
 								tab =<%=i%>;
-								drw_filtered_SCAT(<%=i%>,Dr_value,LossMcap_value);	
+								drw_mcap_SCAT(<%=i%>,Dr_value,LossMcap_value);	
 								draw_indexdata(tab);
 								console.log("scale iss: "+scale);
 								draw_cumulativeGraph(tab,scale);
@@ -224,9 +224,20 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 					function draw_me(data){
 						var Ready_output = sccaterPlot_dataPreprocess_withTopFilter(data,Dr_value,LossMcap_value);
 						//call method in graph.js to draw scatter-plot
+						
+						var maxx = data[0].permno;
+						
+						 for(i=1;i<data.length;i++){
+							
+						 	 if(data[i].permno>maxx){
+								maxx = data[i].permno;
+							} 
+																
+						} 
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'permno');
+					 		'#scatter_plot'+tab,'Market Capitalization - Billions $',maxx);
+						
 					}
 					
 					function draw_menaics(data) {
@@ -246,8 +257,17 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 							url : urlscatter,
 							dataType : 'json',
 							success : function(data) {
+								var max = data[0].permno;
+								
+								for(i=1;i<data.length;i++){
+									
+								 	 if(data[i].permno>max){
+										max = data[i].permno;
+									} 
+																		
+								}
 								data_init = data;
-								draw_me_mcap(data);
+								draw_me(data);
 								},
 								error : function(data, error) {
 									console.log(error);
@@ -260,7 +280,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 						//call method in graph.js to draw scatter-plot
 						drawScatterPlot_yearly(
 							Ready_output,tab , 01,
-					 		'#scatter_plot'+tab,'Market Capitalization - millions $');
+					 		'#scatter_plot'+tab,'Market Capitalization - Billions $');
 					}
 					function drw_Naics_SCAT(tab,Dr_value,LossMcap_value){
 						//console.log("lll :"+Dr_value+" : "+LossMcap_value);
@@ -302,7 +322,7 @@ var Dr_value=20,LossMcap_value=20,tab=2004,data_init;
 				    
 				    $("#Dr_value2004").text(Dr_value+ " %");
 										
-					drw_filtered_SCAT(2004,Dr_value,LossMcap_value);
+				    drw_mcap_SCAT(2004,Dr_value,LossMcap_value);
 					//draw_indexdata(2004);
 					draw_cumulativeGraph(2004,"L");
 					draw_indexdata(2004);

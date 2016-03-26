@@ -616,6 +616,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                             bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
 
 	                             //console.log("lll: "+value);
+	                             
 	                             value = "Mcap "+(value).toFixed(4)+"B$";
 	                             text += "<tr class='" + CLASS.tooltipName + "-" + d[i].id + "'>";
 	                             text += "<td class='name'><span style='background-color:" + bgcolor + "; border-radius: 5px;'></span>" + name + "</td>";
