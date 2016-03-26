@@ -616,7 +616,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                             bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
 
 	                             //console.log("lll: "+value);
-	                             value = "Mcap "+(value).toFixed(4)+"M$";
+	                             value = "Mcap "+(value).toFixed(4)+"B$";
 	                             text += "<tr class='" + CLASS.tooltipName + "-" + d[i].id + "'>";
 	                             text += "<td class='name'><span style='background-color:" + bgcolor + "; border-radius: 5px;'></span>" + name + "</td>";
 	                             text += "<td class='value'>" + value + "</td>";
@@ -626,7 +626,7 @@ function drawScatterPlot_yearly(json_object, year, month, tag,label,maxmcap) {
 	                         //console.log("Prima" + text);
 	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
 	                         text += "<td class='name'>" + "PERMNO: "+ PERMNO_got+ "</td>";
-	                         text += "<td class='value'>" + "LMC : " +LossMcap_got+ " M$</td>";
+	                         text += "<td class='value'>" + "LMC : " +LossMcap_got+ " B$</td>";
 	                         text += "</tr>";
 	                         text += "<tr class='" + CLASS.tooltipName + "-Surcharge" + "'>";
 	                         text += "<td class='name'>" + "NAICS : "+ Naics_code_got+ "</td>";
