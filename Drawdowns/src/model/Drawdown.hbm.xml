@@ -1,0 +1,57 @@
+<<<<<<< HEAD
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 1, 2015 11:42:42 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.Drawdown" table="DRAWDOWN">
+        <id name="permno" type="int">
+            <column name="PERMNO" />
+            <generator class="assigned" />
+        </id>
+        <property name="yrmo" type="int">
+            <column name="YRMO" />
+        </property>
+        <property name="drawdownDate" type="java.lang.String">
+            <column name="DRAWDOWNDATE" />
+        </property>
+        <property name="drawdownValue" type="java.math.BigDecimal">
+            <column name="DRAWDOWNVALUE" />
+        </property>
+        <property name="marketCapitalization" type="double">
+            <column name="MARKETCAPITALIZATION" />
+        </property>
+        <property name="returnValue" type="java.math.BigDecimal">
+            <column name="RETURNVALUE" />
+        </property>
+    </class>
+</hibernate-mapping>
+=======
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 10, 2015 1:48:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.Drawdown" table="DRAWDOWN">
+        <id name="permno" type="int">
+            <column name="PERMNO" />
+            <generator class="assigned" />
+        </id>
+        <property name="yrmo" type="int">
+            <column name="YRMO" />
+        </property>
+        <property name="drawdownDate" type="java.lang.String">
+            <column name="DRAWDOWNDATE" />
+        </property>
+        <property name="drawdownValue" type="java.math.BigDecimal">
+            <column name="DRAWDOWNVALUE" />
+        </property>
+        <property name="marketCapitalization" type="double">
+            <column name="MARKETCAPITALIZATION" />
+        </property>
+        <property name="returnValue" type="java.math.BigDecimal">
+            <column name="RETURNVALUE" />
+        </property>
+    </class>
+</hibernate-mapping>
+>>>>>>> branch 'master' of https://github.com/Karsha-Project-LSF/Drawdowns.git
